@@ -48,10 +48,10 @@ Description-cs: Generovat nový konfiguraèní soubor
  Je vøele doporuèeno nechat mì vyrobit konfiguraèní soubor.
 Description-da: Opret ny opsætningsfil
  Denne version af OpenSSH har en betydeligt ændret opsætningsfil fra den
- version der kom med Debian 'Potato', som du ser ud til at opgraderer fra.
- Jeg kan nu oprette en ny opsætningsfil (/etc/ssh/sshd.config), som vil
- virke med den nye server version, men det vil ikke beholde eventuelle
- ændringer du lavede med den gamle version.
+ version der kom med Debian 'Potato', som du ser ud til at opgradere fra.
+ Jeg kan oprette en ny opsætningsfil (/etc/ssh/sshd.config), som vil virke
+ med den nye server version, men det vil ikke beholde eventuelle ændringer
+ du lavede med den gamle version.
  .
  Bemærk at den nye opsætningsfil vil sætte værdien af 'PermitRootLogin' til
  ja (som betyder at alle der kender roots adgangskode, kan tilgå maskinen
@@ -110,25 +110,40 @@ Description-es: Generar un nuevo fichero de configuración
  .
  Es muy recomendable que permita que se genere un nuevo fichero de
  configuración ahora.
-Description-fr: Créer un nouveau fichier de configuration
+Description-fi: Luo uusi asetustiedosto
+ Tämän OpenSSH-version käyttämän asetustiedoston muoto poikkeaa 
+ huomattavasti Debian "Potato":n mukana toimitetusta versiosta, jota olet 
+ päivittämässä. Uusi asetustiedosto (/etc/ssh/sshd.config) voidaan 
+ luoda nyt. Uudet asetukset toimivat uuden palvelinversion kanssa, mutta 
+ vanhaan versioon itse tehdyt mukautukset menetetään.
+ .
+ Huomaa, että uudessa asetustiedostossa muuttujalla "PermitRootLogin" 
+ on arvo "yes" (tarkoittaen, että kuka tahansa pääkäyttäjän salasanan
+ tietävä 
+ voi kirjautua suoraan ssh:n avulla pääkäyttäjänä). Paketin ylläpitäjän
+ mielestä 
+ tämä on sopiva oletusarvo (lisätietoa tiedostossa README.Debian), mutta
+ tämän 
+ voi halutessaan muuttaa arvoon "no" muokkaamalla tiedostoa sshd_config.
+ .
+ Uuden asetustiedoston luominen on erittäin suositeltavaa.
+Description-fr: Faut-il créer un nouveau fichier de configuration ?
  Cette version d'OpenSSH utilise un fichier de configuration qui a
- énormément changé depuis la version contenue dans la distribution Debian
- « Potato », depuis laquelle vous semblez faire une mise à jour. Je peux
- générer maintenant pour vous un nouveau fichier de configuration
- (/etc/ssh/sshd.config) qui marchera avec la nouvelle version du serveur,
- mais ne contiendra aucun des réglages que vous avez faits sur l'ancienne
- version.
+ fortement changé depuis la version contenue dans la distribution Debian
+ « Potato », depuis laquelle vous semblez faire une mise à jour. Un nouveau
+ fichier de configuration (/etc/ssh/sshd.config) qui fonctionnera avec la
+ nouvelle version du serveur peut être créé, mais ne contiendra aucun des
+ réglages que vous aviez faits avec la version précédente.
  .
  Veuillez noter que ce nouveau fichier de configuration positionnera la
  valeur de « PermitRootLogin » à « yes » (ce qui signifie que quiconque
- connaissant le mot de passe du super-utilisateur peut se connecter en tant
+ connaissant le mot de passe du superutilisateur peut se connecter en tant
  que tel sur la machine). Le responsable du paquet pense que c'est là un
  comportement par défaut normal (lisez README.Debian pour plus
- d'informations), mais vous pouvez toujours éditer le fichier sshd_config
+ d'informations), mais vous pouvez toujours modifier le fichier sshd_config
  et changer cela.
  .
- Il est fortement recommandé que vous me laissiez générer le nouveau
- fichier de configuration.
+ Il est fortement recommandé de créer un nouveau fichier de configuration.
 Description-it: Generare un nuovo file di configurazione
  Questa versione di OpenSSH contiene un file di configurazione
  significativamente modificato rispetto a quello distribuito in Debian
@@ -301,7 +316,7 @@ Description-cs: Povolit pouze SSH protokol verze 2
  návod, jak upravit soubor sshd_config.
 Description-da: Tillad kun SSH protokol 2
  Denne udgave af OpenSSH understøtter version 2 af ssh-protokollen, som er
- betydeligt mere sikker. Det anbefales af deaktivere version 1. Dog kan det
+ betydeligt mere sikker. Det anbefales at deaktivere version 1. Dog kan det
  sløve langsomme maskiner ned, og forhindre ældre klienter i at opnå
  forbindelse (ssh klienten der kommer med "potato" er en af dem).
  .
@@ -351,16 +366,32 @@ Description-es: Permitir sólo la versión 2 del protocolo SSH
  .
  Si más tarde cambia de opinión, el fichero README.Debian contiene
  instrucciones sobre cómo modificar en el fichero sshd_config.
-Description-fr: Autoriser la version 2 du protocole SSH uniquement
- Cette version d'OpenSSH connaît la version 2 du protocole ssh, qui est
- bien plus sûre. Désactiver ssh 1 est une bonne chose, cependant cela peut
+Description-fi: Salli ainoastaan SSH-protokollan versio 2
+ Tämä OpenSSH:n versio tukee ssh-protokollan versiota 2, joka on
+ huomattavasti 
+ turvallisempi. Protokollan ykkösversion käytöstä poistamista suositellaan,
+ mutta 
+ se voi aiheuttaa toiminnan hitautta pienitehoisissa koneissa ja estää
+ yhteyden 
+ ottamisen vanhemmilla asiakasohjelmilla. (Tämä koskee mm. Debian
+ "potaton":n 
+ mukana toimitettua ssh-asiakasohjelmaa.)
+ .
+ Huomaa myös, että version 1 kanssa käytetyt avaimet ovat erilaisia, joten 
+ et voi käyttää niitä, jos sallit yhteydet vain versiolla 2.
+ .
+ Jos muutat myöhemmin mielesi tämän asetuksen suhteen, tiedostossa 
+ README.Debian on ohjeet tiedoston sshd_config muokkaamiseen.
+Description-fr: Faut-il autoriser uniquement la version 2 du protocole SSH ?
+ Cette version d'OpenSSH gère la version 2 du protocole SSH, qui est bien
+ plus sûre. Désactiver la version 1 est recommandé, cependant cela peut
  ralentir les machines peu puissantes et pourrait empêcher ceux qui
  utilisent de vieilles versions de la partie cliente de se connecter (le
  client ssh de la distribution Debian « Potato » en fait partie).
  .
- De plus, les clés utilisées par la version 1 du protocole sont différentes
+ De plus, les clés utilisées par la version 1 du protocole sont différentes
  et vous ne pourrez pas les utiliser si vous n'autorisez que les connexions
- utilisant la version 2 du protocole.
+ utilisant la version 2 du protocole.
  .
  Si vous changez d'avis ultérieurement et décidez de modifier ce réglage,
  les instructions fournies dans le fichier README.Debian vous indiquent
@@ -520,10 +551,19 @@ Description-es: ¿Desea continuar, aún a riesgo de matar las sesiones ssh activas
  .
  Puede arreglarlo añadiendo «--pidfile /var/run/sshd.pid» a la línea
  'start-stop-daemon', en la sección 'stop' del fichero.
-Description-fr: Voulez-vous continuer (et risquer de rompre les sessions ssh actives) ?
+Description-fi: Haluatko jatkaa (ja mahdollisesti lopettaa aktiiviset ssh-istunnot)?
+ Asennettu versio tiedostosta /etc/init.d/ssh lopettaa todennäköisesti
+ kaikki 
+ käynnissä olevat sshd-prosessit. Jos teet tätä päivitystä ssh-yhteyden
+ yli, 
+ tämä on Huono Juttu(tm).
+ .
+ Voit korjata tämän lisäämällä "--pidfile /var/run/sshd.pid" tiedoston 
+ stop-osion start-stop-daemon -riville.
+Description-fr: Voulez-vous continuer (et risquer de rompre les sessions SSH actives) ?
  La version de /etc/init.d/ssh que vous venez d'installer va
- vraisemblablement tuer toutes les instances de sshd en cours. Si vous
- étiez en train de faire cette mise à niveau à l'aide de ssh, ce serait
+ vraisemblablement interrompre toutes les instances de sshd en cours. Si
+ vous êtes en train de faire cette mise à niveau à l'aide de SSH, ce serait
  regrettable.
  .
  Vous pouvez corriger cela en ajoutant dans /etc/init.d/ssh « --pidfile
@@ -645,7 +685,16 @@ Description-es: NOTA: Reenvío de X11 y Autorización desactivadas por defecto.
  ficheros de configuración o con la opción -X en línea de comandos.
  .
  Puede encontrar más detalles en /usr/share/doc/ssh/README.Debian.
-Description-fr: NOTE : suivi de session X11 et d'agent d'autorisation désactivés par défaut.
+Description-fi: HUOMAA: X11:n ja valtuuksien (Authorization) edelleenlähettäminen on 
+oletusarvoisesti pois käytöstä.
+ Turvallisuussyistä Debianin ssh:ssa muuttujilla ForwardX11 ja 
+ ForwardAgent on oletuksena arvo "off".
+ .
+ Voit sallia sen luotetuille palvelimille joko asetustiedostossa tai
+ komentorivillä käyttämällä -X -valitsinta.
+ .
+ Lisätietoja tiedostossa /usr/share/doc/ssh/README.Debian
+Description-fr: Suivi de session X11 et d'agent d'autorisation désactivés par défaut.
  Pour des raisons de sécurité, la version Debian de ssh positionne les
  options ForwardX11 et ForwardAgent à « Off » par défaut.
  .
@@ -749,9 +798,13 @@ Description-es: Aviso: tiene rsh-server instalado (seguramente, esto no es una b
  Tener rsh-server instalado representa un menoscabo de la seguridad que
  probablemente desea obtener instalando ssh. Es muy aconsejable que borre
  ese paquete.
-Description-fr: Attention : rsh-server est installé -- ce n'est probablement pas une bonne idée
+Description-fi: Varoitus: rsh-palvelin on asennettu --- tämä ei liene hyvä idea
+ Rsh-palvelimen pitäminen vie pohjan turvallisuudelta, jota
+ todennäköisesti 
+ halusit asentamalla ssh:n. Paketin poistaminen on suositeltavaa.
+Description-fr: Rsh-server installé : paquet déconseillé
  Avoir un serveur rsh installé affaiblit la sécurité que vous vouliez
- probablement obtenir en installant ssh. Je vous conseille de supprimer ce
+ probablement obtenir en installant SSH. Il est conseillé de supprimer ce
  paquet.
 Description-it: Attenzione: rsh-server è installato --- probabilmente non è una buona idea
  avere rsh-server installato mina la sicurezza che probabilmente si voleva
@@ -821,11 +874,17 @@ Description-es: Aviso: tiene telnetd instalado (posiblemente no es una buena ide
  ofrecer acceso mediante telnet o instalar telnetd-ssl para que las
  contraseñas, nombres de usuario y demás información de las sesiones telnet
  no viajen sin cifrar por la red.
-Description-fr: Attention : telnetd est installé -- ce n'est probablement pas une bonne idée
- Je vous conseille soit d'enlever le paquet telnetd (si ce service n'est
- pas nécessaire), soit de le remplacer par le paquet telnetd-ssl pour qu'il
- y ait au moins une chance que les sessions telnet soient chiffrées et que
- les mots de passe et noms d'utilisateurs ne passent pas en clair sur le
+Description-fi: Varoitus: telnetd on asennettu --- tämä ei liene hyvä idea
+ On suositeltavaa joko poistaa telnetd-paketti (jos telnet-yhteyksien
+ tarjoaminen 
+ ei ole tarpeellista) tai asentaa paketti telnetd-ssl, jotta salaamattomia 
+ käyttäjätunnuksia/salasanoja ja istunnon tietoja ei lähetettäisi verkon
+ yli.
+Description-fr: Telnetd installé : paquet déconseillé
+ Vous devriez soit enlever le paquet telnetd (si ce service n'est pas
+ nécessaire), soit le remplacer par le paquet telnetd-ssl pour qu'il y ait
+ au moins une chance que les sessions telnet soient chiffrées et que les
+ mots de passe et noms d'utilisateurs ne passent pas en clair sur le
  réseau.
 Description-it: Attenzione: telnetd è installato --- probabilmente non è una buona idea
  È consigliabile rimuovere il pacchetto telnetd (se non è proprio
@@ -889,7 +948,7 @@ Description-cs: Varování: musíte vytvoøit nový serverový klíè
  Musíte vygenerovat nový serverový klíè
 Description-da: Advarsel: du skal oprette en ny værtsnøgle
  Der ligger en gammel, IDEA-krypteret /etc/ssh/ssh_host_key. OpenSSH kan
- ikke håndtere sådan en værtsnøglefil, og jeg kan ikke finde værktøjet
+ ikke håndtere en sådan værtsnøglefil, og jeg kan ikke finde værktøjet
  ssh-keygen fra den gamle (ikke-frie, 'non-free') SSH-installation.
  .
  Du skal oprette en ny værtsnøgle.
@@ -913,12 +972,20 @@ Description-es: Aviso: debe crear una nueva clave para su servidor
  utilidad ssh-keygen incluida en el paquete ssh no libre.
  .
  Necesitará generar una nueva clave para su servidor.
-Description-fr: Attention : vous devez créer une nouvelle clé d'hôte
- Il existe un vieux /etc/ssh/ssh_host_key qui est chiffré avec IDEA.
- OpenSSH ne peut utiliser ce fichier de clé, et je ne peux trouver
- l'utilitaire ssh-keygen de l'installation précédente (non libre) de SSH.
+Description-fi: Varoitus: sinun tulee luoda uusi konekohtainen avain (host key)
+ Olemassa oleva tiedosto /etc/ssh/ssh_host_key on salattu 
+ IDEA-algoritmilla. OpenSSH ei voi käsitellä tätä konekohtaista
+ avaintiedostoa, 
+ eikä vanhan (ei-vapaan) SSH-asennuksen ssh-keygen-ohjelmaa löydy.
  .
- Vous aurez besoin de générer une nouvelle clé d'hôte.
+ Uuden konekohtaisen avaimen (host key) luominen on tarpeen.
+Description-fr: Nouvelle clé d'hôte nécessaire
+ Un ancien fichier /etc/ssh/ssh_host_key, chiffré avec IDEA, est
+ actuellement utilisé. OpenSSH ne peut utiliser ce fichier de clé, et
+ l'utilitaire ssh-keygen de l'installation précédente (non libre) de SSH
+ n'a pas été trouvé.
+ .
+ Vous devez générer une nouvelle clé d'hôte.
 Description-it: Attenzione: è necessario creare una nuova chiave host
  C'è una vecchio file /etc/ssh/ssh_host_key, che è criptato in modalità
  IDEA. OpenSSH non è in grado di gestire questo file di chiave host e non è
@@ -984,3 +1051,54 @@ Description: Disable challenge-response authentication?
  able to log in using passwords. If you leave it enabled (the default
  answer), then the 'PasswordAuthentication no' option will have no useful
  effect unless you also adjust your PAM configuration in /etc/pam.d/ssh.
+Description-da: Slå udfordrings-svar godkendelse fra?
+ Adgangskodegodkendelse ser ud til at være deaktiveret i din nuværende
+ OpenSSH server opsætning. For at forhindre brugere i at logge ind med
+ adgangskoder (f.eks. kun offentlig nøgle godkendelse) med nyere versioner
+ af OpenSSH, skal du deaktivere udfordrings-svar godkendelse, eller sikre
+ at din PAM opsætning ikke itllader Unix adgangskodefil godkendelse.
+ .
+ Hvis du deaktiverer udfordrings-svar godkendelse, vil brugere ikke være i
+ stand til at logge ind med adgangskoder. Hvis du lader det slået til
+ (standard svaret), så vil 'PasswordAuthentication no' indstillingen ikke
+ have nogen effekt, medmindre du også redigerer din PAM opsætning i
+ /etc/pam.d/ssh.
+Description-fr: Faut-il désactiver l'authentification par défi-réponse ?
+ L'authentification par mots de passe semble être désactivée dans la
+ configuration actuelle de votre serveur OpenSSH. Afin de vraiment empêcher
+ les utilisateurs de se connecter avec un mot de passe (par exemple en
+ n'autorisant que l'authentification par clé publique), vous devez aussi
+ désactiver l'authentification par défi-réponse dans les versions récentes
+ d'OpenSSH, ou alors vous assurer que votre configuration de PAM n'autorise
+ pas l'authentification avec le fichier de mots de passe.
+ .
+ Si vous désactivez l'authentification par défi-réponse, alors les
+ utilisateurs ne pourront pas se connecter en entrant un mot de passe. Si
+ vous la laissez active (ce qui est le défaut), alors l'option
+ « PasswordAuthentication no » n'aura d'effet que si vous ajustez aussi la
+ configuration de PAM dans /etc/pam.d/ssh.
+Description-ja: ¥Á¥ã¥ì¥ó¥¸-¥ì¥¹¥Ý¥ó¥¹Ç§¾Ú¤òÌµ¸ú¤Ë¤·¤Þ¤¹¤«?
+ ¸½ºß¤Î OpenSSH
+ ¥µ¡¼¥Ð¤ÎÀßÄê¤Ç¤Ï¥Ñ¥¹¥ï¡¼¥ÉÇ§¾Ú¤¬Ìµ¸ú¤Ë¤Ê¤Ã¤Æ¤¤¤ë¤è¤¦¤Ç¤¹¡£OpenSSH
+ ¤ÎºÇ¶á¤Î¥Ð¡¼¥¸¥ç¥ó¤Ç¥Ñ¥¹¥ï¡¼¥É¤ò»È¤Ã¤Æ¥æ¡¼¥¶¤¬¥í¥°¥¤¥ó¤¹¤ë¤Î¤òËÉ¤°
+ (Â¿Ê¬¸ø³«¸°Ç§¾Ú¤À¤±¤òÂå¤ï¤ê¤Ë»È¤¦)
+ ¤¿¤á¤Ë¤Ï¡¢¥Á¥ã¥ì¥ó¥¸-¥ì¥¹¥Ý¥ó¥¹Ç§¾Ú¤òÌµ¸ú¤Ë¤¹¤ë¤«¡¢PAM ÀßÄê¤Ç Unix
+ ¥Ñ¥¹¥ï¡¼¥É¥Õ¥¡¥¤¥ëÇ§¾Ú¤òÀäÂÐ¤Ëµö²Ä¤·¤Ê¤¤¤è¤¦¤Ë¤¹¤ëÉ¬Í×¤¬¤¢¤ê¤Þ¤¹¡£
+ .
+ ¥Á¥ã¥ì¥ó¥¸-¥ì¥¹¥Ý¥ó¥¹Ç§¾Ú¤òÌµ¸ú¤Ë¤¹¤ë¾ì¹ç¡¢¥æ¡¼¥¶¤Ï¥Ñ¥¹¥ï¡¼¥É¤ò»È¤Ã¤Æ¥í¥°¥¤¥ó¤Ç¤­¤Ê¤¯¤Ê¤ê¤Þ¤¹¡£Í­¸ú
+ (¥Ç¥Õ¥©¥ë¥È) ¤Î¤Þ¤Þ¤Ë¤·¤Æ¤ª¤¯¤È¡¢/etc/pam.d/ssh ¤Ë¤¢¤ë PAM
+ ÀßÄê¤òÄ´Àá¤·¤Ê¤¤¸Â¤ê¡¢'PasswordAuthentication no'
+ ¥ª¥×¥·¥ç¥ó¤Ï¸ú²Ì¤ò»ý¤¿¤Ê¤¯¤Ê¤ê¤Þ¤¹¡£
+Description-nl: Challenge-response-authenticatie deactiveren?
+ Zo te zien is wachtwoord-authenticatie momenteel gedeactiveert in uw
+ OpenSSH-serverconfiguratie. Om te voorkomen dat gebruikers met recente
+ versies van OpenSSH inloggen met behulp van wachtwoorden (mogelijk door in
+ plaats daarvan enkel publieke-sleutel authenticatie te gebruiken) dient
+ challenge-response-authenticatie gedeactiveerd te woren. Zoniet dient u
+ ervoor te zorgen dat uw PAM-configuratie geen Unix
+ 'password'-bestand-authenticatie toe laat.
+ .
+ Wanneer u challenge-response-authenticatie deactiveerd kunnen gebruikers
+ niet meer inloggen met behulp van wachtwoorden. Als u het geactiveerd laat
+ (de standaarwaarde) zal de 'PasswordAuthentication no' optie geen (nuttig)
+ effect hebben tenzij u ook de PAM-configuratie aanpast in /etc/pam.d/ssh.

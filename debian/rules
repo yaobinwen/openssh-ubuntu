@@ -50,7 +50,7 @@ FORCE_LIBS = LIBS=-lresolv
 endif
 
 # Change the version string to include the Debian version
-SSH_VERSION := $(shell sed -e '/define/!d; s/.*\"\(.*\)\".*/\1/; q' <version.h) Debian $(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/Version: //p')
+SSH_VERSION := $(shell sed -e '/define/!d; s/.*\"\(.*\)\".*/\1/; q' <version.h) Debian-$(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/Version: //p' | sed -e 's/[^-]*-//')
 
 build: build-deb build-udeb
 
@@ -59,9 +59,13 @@ build-deb-stamp:
 	dh_testdir
 	mkdir -p build-deb
 	cd build-deb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin --with-pam --with-4in6 --with-privsep-path=/var/run/sshd  --without-rand-helper
+
 	# Some 2.2 kernels have trouble with setres[ug]id() (bug #239999).
 	perl -pi -e 's/.*#undef (BROKEN_SETRES[UG]ID).*/#define $$1 1/' build-deb/config.h
-	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -DSSH_VERSION="\"$(SSH_VERSION)\""' SSH_KEYSIGN='/usr/lib/ssh-keysign'
+	# Supply pthread linkage for just those binaries linked to PAM.
+	perl -pi -e 's/^(LIBPAM=.*)/$$1 -pthread/' build-deb/Makefile
+
+	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -DUSE_POSIX_THREADS -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -DSSH_VERSION="\"$(SSH_VERSION)\""' SSH_KEYSIGN='/usr/lib/ssh-keysign'
 	# Support building on Debian 3.0 (with GNOME 1.4) and later.
 	if [ -f /usr/include/libgnomeui-2.0/gnome.h ]; then \
 		$(MAKE) -C contrib gnome-ssh-askpass2 CC='gcc $(OPTFLAGS) -g -Wall'; \
@@ -127,7 +131,7 @@ install: build
 	mv debian/openssh-client/usr/share/man/man5/sshd_config.5 debian/openssh-server/usr/share/man/man5/
 	mv debian/openssh-client/usr/share/man/man8/sshd.8 debian/openssh-server/usr/share/man/man8/
 	mv debian/openssh-client/usr/share/man/man8/sftp-server.8 debian/openssh-server/usr/share/man/man8/
-	rmdir debian/openssh-client/var/run/sshd
+	rmdir debian/openssh-client/usr/sbin debian/openssh-client/var/run/sshd
 
 	install -m 755 contrib/ssh-copy-id debian/openssh-client/usr/bin/ssh-copy-id
 	install -m 644 -c contrib/ssh-copy-id.1 debian/openssh-client/usr/share/man/man1/ssh-copy-id.1
@@ -154,11 +158,10 @@ install: build
 	install -m 755 build-udeb/ssh-keygen debian/openssh-server-udeb/usr/bin/ssh-keygen
 
 # Build architecture-independent files here.
-binary-indep: build install
-	# nothing to do
+binary-indep: binary-ssh
 
 # Build architecture-dependent files here.
-binary-arch: binary-openssh-client binary-openssh-server binary-ssh
+binary-arch: binary-openssh-client binary-openssh-server
 binary-arch: binary-ssh-askpass-gnome
 binary-arch: binary-openssh-client-udeb binary-openssh-server-udeb
 

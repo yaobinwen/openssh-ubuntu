@@ -52,6 +52,8 @@ set_config_option() {
 		print "\n$option $value\n" unless $done;' \
 		"$option" "$value" \
 		< /etc/ssh/sshd_config > /etc/ssh/sshd_config.dpkg-new
+	chown --reference /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-new
+	chmod --reference /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-new
 	mv /etc/ssh/sshd_config.dpkg-new /etc/ssh/sshd_config
 }
 
@@ -143,6 +145,10 @@ create_sshdconfig() {
 			/etc/ssh/sshd_config > /etc/ssh/sshd_config.dpkg-new
 		    echo >> /etc/ssh/sshd_config.dpkg-new
 		    echo 'UsePAM yes' >> /etc/ssh/sshd_config.dpkg-new
+		    chown --reference /etc/ssh/sshd_config \
+		                      /etc/ssh/sshd_config.dpkg-new
+		    chmod --reference /etc/ssh/sshd_config \
+		                      /etc/ssh/sshd_config.dpkg-new
 		    mv /etc/ssh/sshd_config.dpkg-new /etc/ssh/sshd_config
 		    echo
 		fi
@@ -249,6 +255,9 @@ KeepAlive yes
 
 #MaxStartups 10:30:60
 #Banner /etc/issue.net
+
+# Allow client to pass locale environment variables
+AcceptEnv LANG LC_*
 
 Subsystem	sftp	/usr/lib/sftp-server
 

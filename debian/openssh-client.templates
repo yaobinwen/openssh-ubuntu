@@ -66,17 +66,24 @@ Description-es: ¿Quiere instalar /usr/lib/ssh-keysign SUID root?
  .
  Si duda, se recomienda que lo instale SUID. Si le causa problemas puede
  cambiar de opinión posteriormente ejecutando «dpkg-reconfigure ssh».
-Description-fr: Voulez-vous que /usr/lib/ssh-keysign soit installé avec le bit SETUID activé ?
- Vous avez la possibilité d'installer ssh-keysign avec le bit SETUID
- activé.
+Description-fi: Haluatko, että /usr/lib/ssh-keygen asennetaan SUID root -oikeuksin?
+ Voit valinnaisesti asentaa ssh-keysign-apuohjelman SUID-bitillä.
  .
- Si vous mettez ssh-keysign avec le bit SETUID, vous permettrez
- l'authentification basée sur les hôtes, disponible dans la version 2 du
- protocole SSH.
+ Jos SUID on päällä, voit käyttää SSH-protokollan version 2 konekohtaista 
+ todennusta.
  .
- Dans le doute, je vous suggère de l'installer avec le bit SETUID activé.
- Si cela vous pose des problèmes, vous pourrez revenir sur votre décision
- avec « dpkg-reconfigure ssh ».
+ Jos olet epävarma, SUID-bitin käyttämistä suositellaan. Jos se aiheuttaa 
+ ongelmia, voit myöhemmin muuttaa mielesi komennolla "dpkg-reconfigure
+ ssh".
+Description-fr: Faut-il installer /usr/lib/ssh-keysign avec le bit SETUID activé ?
+ Vous pouvez installer ssh-keysign avec le bit SETUID activé.
+ .
+ Si vous choisissez cette option, vous permettrez l'authentification basée
+ sur les hôtes, disponible dans la version 2 du protocole SSH.
+ .
+ Dans le doute, vous devriez l'installer avec le bit SETUID activé. Si cela
+ vous pose des problèmes, vous pourrez revenir sur votre décision avec
+ « dpkg-reconfigure ssh ».
 Description-it: Si desidera installare /usr/lib/ssh-keysign come SUID-root?
  Si ha la possibilità di installare l'helper ssh-keysign con il bit SUID
  impostato.
