@@ -1,0 +1,986 @@
+Template: ssh/new_config
+Type: boolean
+Default: true
+Description: Generate new configuration file
+ This version of OpenSSH has a considerably changed configuration file from
+ the version shipped in Debian 'Potato', which you appear to be upgrading
+ from. I can now generate you a new configuration file
+ (/etc/ssh/sshd.config), which will work with the new server version, but
+ will not contain any customisations you made with the old version.
+ .
+ Please note that this new configuration file will set the value of
+ 'PermitRootLogin' to yes (meaning that anyone knowing the root password
+ can ssh directly in as root). It is the opinion of the maintainer that
+ this is the correct default (see README.Debian for more details), but you
+ can always edit sshd_config and set it to no if you wish.
+ .
+ It is strongly recommended that you let me generate a new configuration
+ file for you.
+Description-ca: Genera un fitxer de configuració nou
+ Els fitxers de configuració de l'Openssh s'han modificat considerablement
+ respecte als de Debian 'Potato', de la qual sembla que esteu actualitzant.
+ Podeu generar un fitxer de configuració nou (/etc/sshd/sshd.config), que
+ funcionarà amb la nova versió del servidor però no tindrà els paràmetres
+ de configuració personalitzats de la versió antiga.
+ .
+ Recordeu que el valor de 'PermitRootLogin' del nou fitxer configuració
+ serà yes (qualsevol persona que conegui la contrasenya del
+ superadministrador podrà utilitzar l'ssh com a superadministrador). El
+ valor predeterminat d'aquesta opció és una opinió personal del mantenidor
+ (per a més informació vegeu el fitxer README.Debian), tot i això el podeu
+ modificar editant el fitxer sshd_config i modificar definint com a no.
+ .
+ Es molt recomanable que deixeu que se us creï el nou fitxer de
+ configuració.
+Description-cs: Generovat novı konfiguraèní soubor
+ Tato verze OpenSSH má oproti verzi dodávané s Debianem 2.2, kterou nyní
+ pravdìpodobnì aktualizujete, znaènì odli¹nı konfiguraèní soubor. Nyní mohu
+ vytvoøit novı konfiguraèní soubor (/etc/ssh/sshd.config), kterı bude
+ pracovat s novou verzí, ale nebude obsahovat ¾ádné úpravy, které jste
+ provedli ve staré verzi.
+ .
+ V novém konfiguraèním souboru bude parametr PermitRootLogin nastaven na
+ hodnotu 'yes'. To znamená, ¾e se kdokoliv se znalostí rootova hesla mù¾e
+ pøihlásit rovnou jako root. Pokud se chcete vrátit ke starému chování,
+ staèí v sshd_config nastavit tento parametr na hodnotu 'no'. Více v
+ README.Debian.
+ .
+ Je vøele doporuèeno nechat mì vyrobit konfiguraèní soubor.
+Description-da: Opret ny opsætningsfil
+ Denne version af OpenSSH har en betydeligt ændret opsætningsfil fra den
+ version der kom med Debian 'Potato', som du ser ud til at opgraderer fra.
+ Jeg kan nu oprette en ny opsætningsfil (/etc/ssh/sshd.config), som vil
+ virke med den nye server version, men det vil ikke beholde eventuelle
+ ændringer du lavede med den gamle version.
+ .
+ Bemærk at den nye opsætningsfil vil sætte værdien af 'PermitRootLogin' til
+ ja (som betyder at alle der kender roots adgangskode, kan tilgå maskinen
+ via ssh direkte). Det er vedligeholderens mening, at det er den korrekte
+ standard-værdi (se README.Debian for flere detaljer), men du kan altid
+ redigere sshd_config og slå det fra, hvis du ønsker.
+ .
+ Du rådes stærkt til at lade mig oprette en ny opsætningsfil for dig.
+Description-de: Erzeuge eine neue Konfigurationsdatei
+ Diese Version von OpenSSH hat eine deutlich geänderte Konfigurationsdatei
+ von der in 'Potato' ausgelieferten Version, von der Sie anscheinend
+ aktualisieren. Ich kann nun eine neue Konfigurationsdatei
+ (/etc/ssh/sshd.config) erzeugen, die mit der neuen Server-Version
+ zusammenarbeitet, aber keine Anpassung aus der alten Version enthält.
+ .
+ Bitte beachten Sie, daß die neue Konfigurationsdatei 'PermitRootLogin'
+ aufyes setzt (was bedeutet, daß jeder, der das Root-Paßwort kennt, sich
+ direkt per ssh als root anmelden kann). Es ist die Meinung des Betreuers,
+ daß dies die richtige Standardeinstellung ist (bitte lesen Sie
+ README.Debian für weitergehende Informationen), aber Sie können jederzeit
+ sshd_config editieren und dies auf no setzen, falls Sie dies wünschen.
+ .
+ Es wird stark empfohlen, daß Sie mich eine neue Konfigurationsdatei
+ erzeugen lassen.
+Description-el: Äçìéïõñãßá íİïõ áñ÷åßïõ ñõèìßóåùí
+ ÁõôŞ ç İêäïóç ôïõ OpenSSH İ÷åé óçìáíôéêÜ äéáöïñïğïéçìİíï áñ÷åßï ñõèìßóåùí
+ áğü ôçí İêäïóç ğïõ ğåñéëáìâÜíåôáé óôç äéáíïìŞ 'Potato' ôïõ Debian, áğü ôçí
+ ïğïßá öáßíåôáé üôé ğñáãìáôïğïéåßôå ôçí áíáâÜèìéóç. Óôï óçìåßï áõôü, óáò
+ äßíåôáé ç äõíáôüôçôá íá äçìéïõñãŞóåôå İíá íİï áñ÷åßï ñõèìßóåùí
+ (/etc/ssh/sshd_config), ôï ïğïßï ÷ñçóéìïğïéåßôáé áğü ôç íİá İêäïóç ôïõ
+ äáßìïíá, áëëÜ äåí èá ğåñéİ÷åé ïğïéáäŞğïôå ğáñáìåôñïğïßçóç İ÷åôå Şäç êÜíåé
+ óôçí ğáëéÜ İêäïóç.
+ .
+ Óçìåéşóôå üôé ôï íİï áñ÷åßï ñõèìßóåùí èá êáèïñßóåé ôçí ôéìŞ ôçò åğéëïãŞò
+ 'PermitRootLogin' óå yes (åííïşíôáò üôé ïğïéïóäŞğïôå ãíùñßæåé ôïí êùäéêü
+ ğñüóâáóçò ôïõ root ìğïñåß íá óõíäåèåß ùò ÷ñŞóôçò root). ÊáôÜ ôïí óõíôçñçôŞ
+ áõôŞ åßíáé êáé ç óùóôŞ ğñïêáèïñéóìİíç ñıèìéóç (äåßôå ôï README.Debian ãéá
+ ğåñéóóüôåñåò ëåğôïìİñåéåò), áëëÜ ìğïñåßôå ïğïéáäŞğïôå óôéãìŞ íá áëëÜîåôå
+ ôçí ôéìŞ óå no óôï áñ÷åßï sshd_config.
+ .
+ ÓõíéóôÜôáé íá åğéëİîåôå ôçí äçìéïõñãßá ôïõ íİïõ áñ÷åßïõ ñõèìßóåùí.
+Description-es: Generar un nuevo fichero de configuración
+ Esta versión de OpenSSH tiene un fichero de configuración
+ considerablemente diferente del incluido en Debian 'Potato', que es la
+ versión desde la que parece estar actualizando. Puede crear
+ automáticamente un nuevo fichero de configuración (/etc/ssh/sshd_config),
+ que funcionará con la nueva versión del servidor, pero no incuirá las
+ modificaciones que hiciera en la versión antigua.
+ .
+ Además, recuerde que este nuevo fichero de configuración dirá sí en la
+ opción «PermitRootLogin», por lo que cualquiera que conozca la contraseña
+ de root podrá entrar mediante ssh directamente como root. En opinión del
+ mantenedor ésta es la opción predeterminada más adecuada (puede leer
+ README.Debian si quiere conocer más detalles), pero siempre puede editar
+ sshd_config y poner no si lo desea.
+ .
+ Es muy recomendable que permita que se genere un nuevo fichero de
+ configuración ahora.
+Description-fr: Créer un nouveau fichier de configuration
+ Cette version d'OpenSSH utilise un fichier de configuration qui a
+ énormément changé depuis la version contenue dans la distribution Debian
+ « Potato », depuis laquelle vous semblez faire une mise à jour. Je peux
+ générer maintenant pour vous un nouveau fichier de configuration
+ (/etc/ssh/sshd.config) qui marchera avec la nouvelle version du serveur,
+ mais ne contiendra aucun des réglages que vous avez faits sur l'ancienne
+ version.
+ .
+ Veuillez noter que ce nouveau fichier de configuration positionnera la
+ valeur de « PermitRootLogin » à « yes » (ce qui signifie que quiconque
+ connaissant le mot de passe du super-utilisateur peut se connecter en tant
+ que tel sur la machine). Le responsable du paquet pense que c'est là un
+ comportement par défaut normal (lisez README.Debian pour plus
+ d'informations), mais vous pouvez toujours éditer le fichier sshd_config
+ et changer cela.
+ .
+ Il est fortement recommandé que vous me laissiez générer le nouveau
+ fichier de configuration.
+Description-it: Generare un nuovo file di configurazione
+ Questa versione di OpenSSH contiene un file di configurazione
+ significativamente modificato rispetto a quello distribuito in Debian
+ "Potato", che sembra essere quello che si sta aggiornando. È ora possibile
+ generare automaticamente un nuovo file di configurazione
+ (/etc/ssh/sshd.config) che funzionerà con la nuova versione del server, ma
+ non conterrà nessuna delle personalizzazioni apportate nella precedente
+ versione.
+ .
+ N.B.: questo nuovo file di configurazione imposterà il valore di
+ "PermitRootLogin" a "yes" (che significa che chiunque conosca la password
+ dell'account root potrà collegarsi tramite ssh direttamente come root). È
+ opinione del manutentore del pacchetto che questo sia il corretto valore
+ predefinito (vedere README.Debian per ulteriori dettagli) ma, se si
+ desidera, è sempre possibile modificare il file sshd_config e impostare il
+ valore a "no".
+ .
+ È fortemente raccomandata la generazione automatica di un nuovo file di
+ configurazione.
+Description-ja: ¿·¤·¤¤ÀßÄê¥Õ¥¡¥¤¥ë¤òºî¤ê¤Ş¤¹
+ OpenSSH ¤Î¤³¤Î¥Ğ¡¼¥¸¥ç¥ó¤Ï¡¢Debian 'Potato' ¤Ë´Ş¤Ş¤ì¤Æ¤¤¤ë¥Ğ¡¼¥¸¥ç¥ó
+ (¤¤¤Ş¡¢¤½¤Î¥Ğ¡¼¥¸¥ç¥ó¤«¤é¤Î¥Ğ¡¼¥¸¥ç¥ó¥¢¥Ã¥×¤ò»î¤ß¤Æ¤¤¤ë¤È¤³¤í)
+ ¤«¤é¡¢ÀßÄê¥Õ¥¡¥¤¥ë¤¬ÂçÉı¤ËÊÑ²½¤·¤Æ¤¤¤Ş¤¹¡£¤¤¤Ş¡¢¿·¤·¤¤¥Ğ¡¼¥¸¥ç¥ó¤Î¥µ¡¼¥Ğ¤Ç»È¤¦¤³¤È¤¬¤Ç¤­¤ë¿·¤·¤¤ÀßÄê¥Õ¥¡¥¤¥ë
+ (/etc/ssh/sshd/config)
+ ¤ò¼«Æ°À¸À®¤¹¤ë¤³¤È¤¬¤Ç¤­¤Ş¤¹¤¬¡¢¤½¤Î¥Õ¥¡¥¤¥ë¤Ï¡¢¸Å¤¤¥Ğ¡¼¥¸¥ç¥ó¤ÎÀßÄê¥Õ¥¡¥¤¥ë¤Ë´Ş¤Ş¤ì¤ë¤¢¤Ê¤¿¤ÎÀßÄê¤¬¤Ş¤Ã¤¿¤¯´Ş¤Ş¤ì¤Ş¤»¤ó¡£
+ .
+ ¤³¤Î¿·¤·¤¤ÀßÄê¥Õ¥¡¥¤¥ë¤Ï¡¢¡ÖPermitRootLogin¡×¤ò¡Öyes¡×¤ËÀßÄê¤·¤Ş¤¹
+ (¤Ä¤Ş¤ê¡¢root
+ ¤Î¥Ñ¥¹¥ï¡¼¥É¤òÃÎ¤Ã¤Æ¤¤¤ë¿Í¤Ê¤éÃ¯¤Ç¤âÄ¾ÀÜ¥í¥°¥¤¥ó¤Ç¤­¤Ş¤¹)¡£¤³¤ì¤Ç¤è¤¤¡¢¤È¤¤¤¦¤Î¤¬¤³¤Î¥Ñ¥Ã¥±¡¼¥¸¤Î¥á¥ó¥Æ¥Ê¤Î°Õ¸«¤Ç¤¹¤¬
+ (¾Ü¤·¤¯¤Ï README.Debian ¤òÆÉ¤ó¤Ç¤¯¤À¤µ¤¤)¡¢sshd_config
+ ¤òÊÔ½¸¤·¤Æ¡Öno¡×¤ËÀßÄê¤¹¤ë¤³¤È¤â¤Ç¤­¤Ş¤¹¡£
+ .
+ ¿·¤·¤¤ÀßÄê¥Õ¥¡¥¤¥ë¤ò¼«Æ°À¸À®¤¹¤ë¤³¤È¤ò¶¯¤¯¤ª´«¤á¤·¤Ş¤¹¡£
+Description-nl: Genereer het nieuwe configuratiebestand
+ Deze versie van OpenSSH gebruikt een configuratiebestand dat sterk
+ veranderd is ten opzichte van dat in Debian 'Potato' (waarvan u lijkt op
+ te waardereren). Ik kan nu een nieuw, met de nieuwe serverversie werkend,
+ configuratiebestand (/etc/ssh/sshd.config) voor u genereren. Dit
+ gegenereerde bestand zal echter de aanpassingen die u wellicht gemaakt had
+ niet overnemen.
+ .
+ Merk op dat dit nieuwe configuratiebestand de waarde van 'PermitRootLogin'
+ op 'yes' zet (wat betekent dat iedereen die het root-wachtwoord kent via
+ ssh rechstreeks als root kan aanmelden). Het is de mening van de
+ pakketbeheerder dat dit de juiste defaultwaarde is (zie README.Debian.gz
+ voor meer details). Indien u dit niet wenst kunt u sshd_config handmatig
+ aanpassen en de waarde op 'no' zetten.
+ .
+ Het wordt ten zeerste aangeraden om mij het nieuwe configuratiebestand
+ voor u te laten genereren.
+Description-pl: Wygeneruj nowy plik konfiguracyjny
+ W tej wersji OpenSSH zmieni³ siê plik konfiguracyjny w stosunku do wersji
+ dostarczanej z Debianem 'Potato', któr± zdajesz siê aktualizowaæ. Mogê
+ teraz wygenerowaæ nowy plik konfiguracyjny (/etc/ssh/sshd.config), który
+ bêdzie dzia³a³ z now± wersj± serwera, ale nie bêdzie zawiera³ ¿adnych
+ dokonanych przez ciebie w starej wersji zmian.
+ .
+ Zauwa¿ proszê, ¿e nowy plik konfiguracyjny bêdzie ustawia³ warto¶æ opcji
+ 'PermitRootLogin' na 'tak' (co oznacza, ¿e ka¿dy kto zna has³o root'a mo¿e
+ zdalnie zalogowaæ siê przez ssh jako root). W opinii opiekuna pakietu to
+ jest poprawna warto¶æ domy¶lna (szczegó³y w README.Debian), ale mo¿esz
+ sobie wyedytowaæ sshd_config i ustawiæ tê opcjê na 'nie' je¶li siê z t±
+ opini± nie zgadzasz.
+ .
+ Jest bardzo wskazane aby¶ pozwoli³ mi wygenerowaæ nowy plik
+ konfiguracyjny.
+Description-pt_BR: Gerar novo arquivo de configuração
+ Esta versão do OpenSSH possui um arquivo de configuração consideravelmente
+ diferente da versão fornecida com o Debian 'Potato' (Debian versão 2.2), a
+ versão do Debian da qual você parece estar atualizando. Esse assistente de
+ confgiuração inicial pode agora gerar um novo arquivo de configuração
+ (/etc/ssh/sshd_config) que irá funcionar com o nova versão do servidor
+ sshd mas não irá conter nenhuma personalização que você possa ter feito na
+ versão anterior.
+ .
+ Por favor note que este novo arquivo de configuração irá definir o valor
+ da opção 'PermitRootLogin' para "yes" (o que significa que qualquer pessoa
+ que conheça a senha de root poderá conectar via ssh diretamente como root
+ no servidor onde este pacote esta sendo instalado). A opinião do
+ mantenedor do pacote é que esse é o comportamente padrão correto (consulte
+ o arquivo README.Debian deste pacote para maiores detalhes), mas você
+ poderá sempre editar o arquivo sshd_config e definir esta opção para "no"
+ caso você não concorde com o mantenedor do OpenSSH.
+ .
+ É fortemente recomendado que você permita que o novo arquivo de
+ configuração será gerado automaticamente para você.
+Description-ru: óÇÅÎÅÒÉÒÏ×ÁÔØ ÎÏ×ÙÊ ËÏÎÆÉÇÕÒÁÃÉÏÎÎÙÊ ÆÁÊÌ
+ ÷ ÜÔÏÊ ×ÅÒÓÉÉ OpenSSH ÚÎÁŞÉÔÅÌØÎÏ ĞÅÒÅÒÁÂÏÔÁÎ ÆÁÊÌ ÎÁÓÔÒÏÅË, × ÏÔÌÉŞÉÉ ÏÔ 
+ ×ÅÒÓÉÉ, ËÏÔÏÒÁÑ ĞÏÓÔÁ×ÌÑÌÁÓØ Ó Debian 'Potato', É ËÏÔÏÒÕÀ ÷Ù, ËÁÖÅÔÓÑ,
+ ÏÂÎÏ×ÌÑÅÔÅ. ñ ÍÏÇÕ ÓÇÅÎÅÒÉÒÏ×ÁÔØ ÄÌÑ ÷ÁÓ ÎÏ×ÙÊ ÆÁÊÌ ÎÁÓÔÒÏÅË
+ (/etc/ssh/sshd.config), ËÏÔÏÒÙÊ ÂÕÄÅÔ ÒÁÂÏÔÁÔØ Ó ÎÏ×ÏÊ ×ÅÒÓÉÅÊ ÓÅÒ×ÅÒÁ, ÎÏ
+ ÎÅ ÂÕÄÅÔ ÓÏÄÅÒÖÁÔØ ÎÁÓÔÒÏÅË, ËÏÔÏÒÙÅ ÷Ù ÓÄÅÌÁÌÉ × ÓÔÁÒÏÊ ×ÅÒÓÉÉ.
+ .
+ ïÂÒÁÔÉÔÅ ×ÎÉÍÁÎÉÅ ÎÁ ÔÏ, ŞÔÏ ÜÔÏÔ ÎÏ×ÙÊ ÆÁÊÌ ÎÁÓÔÒÏÅË ÕÓÔÁÎÏ×ÉÔ ÚÎÁŞÅÎÉÅ
+ ĞÁÒÁÍÅÔÒÁ 'PermitRootLogin' × yes (ÏÚÎÁŞÁÀİÅÇÏ, ŞÔÏ ÌÀÂÏÊ ŞÅÌÏ×ÅË, ÚÎÁÀİÉÊ
+ ĞÁÒÏÌØ ÓÕĞÅÒĞÏÌØÚÏ×ÁÔÅÌÑ ÍÏÖÅÔ ×ÏÊÔÉ × ÓÉÓÔÅÍÕ ŞÅÒÅÚ ssh). ğÏ ÍÎÅÎÉÀ
+ ÓÏĞÒÏ×ÏÖÄÁÀİÅÇÏ ÜÔÏÇÏ ĞÁËÅÔÁ - ÜÔÏ ÒÁÚÕÍÎÏ, ÎÏ ÷Ù ×ÓÅÇÄÁ ÍÏÖÅÔÅ ÕÓÔÁÎÏ×ÉÔØ
+ ÚÎÁŞÅÎÉÅ ÜÔÏÇÏ ĞÁÒÁÍÅÔÒÁ × ÆÁÊÌÅ sshd_config ÔÁË, ËÁË ÷ÁÍ ËÁÖÅÔÓÑ
+ ĞÒÁ×ÉÌØÎÙÍ.
+ .
+ îÁÓÔÏÑÔÅÌØÎÏ ÒÅËÏÍÅÎÄÕÅÔÓÑ, ÒÁÚÒÅÛÉÔØ ÓÇÅÎÅÒÉÒÏ×ÁÔØ ÄÌÑ ÷ÁÓ ÎÏ×ÙÊ ÆÁÊÌ
+ ÎÁÓÔÒÏÅË.
+Description-tr: Yeni yapılandırma dosyası oluştur
+ Debian 'Potato' dağıtımından yükseltme yaptığınız görünüyor. OpenSSH'ın bu
+ sürümü Debian 'Potato' ile birlikte gelen sürümden çok farklı bir
+ yapılandırma dosyası kullanmaktadır. Şimdi sizin için yeni bir
+ yapılandırma dosyası (/etc/ssh/sshd.config) üretebilirim.  Bu dosya yeni
+ sunucu sürümüyle çalışacak, fakat eski sürümde yaptığınız özelleştirmeleri
+ içermeyecektir.
+ .
+ Yeni yapılandırma dosyasının 'PermitRootLogin' seçeneğini 'yes' olarak
+ ayarlayacağını (yani root parolasını bilen herhangi birisinin ssh ile
+ doğrudan sisteme girebileceğini) unutmayın. Öntanımlı ayarın böyle olması
+ gerektiği paket geliştiricisinin kanaatidir (ayrıntılar için README.Debian
+ dosyasını okuyun). Aksi kanaate sahipseniz sshd_config dosyasını
+ düzenleyerek bu seçeneği 'no' olarak ayarlama imkânınız her zaman vardır.
+ .
+ Yeni bir yapılandırma dosyası üretmeme izin vermeniz kuvvetle tavsiye
+ edilir.
+Description-zh_CN: Éú³ÉĞÂµÄÅäÖÃÎÄ¼ş
+ ¿´À´ÄúÕıÔÚ´Ó Debian ¡°Potato¡±Éı¼¶£¬µ±Ç°°æ±¾ºÍ Debian ¡°Potato¡±Ëù´øµÄ
+ OpenSSH
+ °æ±¾µÄÅäÖÃÎÄ¼ş¶Ô±ÈÓĞÁËÏàµ±¶àµÄ¸Ä±ä¡£ÎÒÏÖÔÚ¿ÉÒÔÉú³ÉÊÊÓÃÓÚĞÂ·şÎñÆ÷°æ±¾µÄĞÂÅäÖÃÎÄ¼ş
+ (/etc/ssh/sshd_config)£¬µ«ÊÇËü²»»á±£ÁôÄúÎª¾É°æ±¾¶¨ÖÆµÄÈÎºÎÅäÖÃ¡£
+ .
+ Çë×¢ÒâĞÂµÄÅäÖÃÎÄ¼ş½«»á°Ñ¡°PermitRootLogin¡±µÄÖµÉèÖÃÎª
+ yes£¬(ÕâÒâÎ¶×ÅÈÎºÎÒ»¸öÖªµÀ root ÃÜÂëµÄÈË¶¼¿ÉÒÔÖ±½ÓÒÔ root
+ µÇÂ¼)¡£Î¬»¤ÕßÈÏÎªÕâÊÇÒ»¸öÕıÈ·µÄÄ¬ÈÏÖµ (ÏêÇéÇëÔÄ¶Á
+ README.Debian)£¬µ«Èç¹ûÄúÏ£Íû£¬Ò²¿ÉÒÔ±à¼­ sshd_config ÎÄ¼ş½«ÆäÉèÖÃÎª no¡£
+ .
+ Ç¿ÁÒ½¨ÒéÈÃÎÒÎªÄúÉú³ÉÒ»·İĞÂµÄÅäÖÃÎÄ¼ş¡£
+
+Template: ssh/protocol2_only
+Type: boolean
+Default: true
+Description: Allow SSH protocol 2 only
+ This version of OpenSSH supports version 2 of the ssh protocol, which is
+ much more secure.  Disabling ssh 1 is encouraged, however this will slow
+ things down on low end machines and might prevent older clients from
+ connecting (the ssh client shipped with "potato" is affected).
+ .
+ Also please note that keys used for protocol 1 are different so you will
+ not be able to use them if you only allow protocol 2 connections.
+ .
+ If you later change your mind about this setting, README.Debian has
+ instructions on what to do to your sshd_config file.
+Description-ca: Permet únicament la versió 2 del protocol d'SSH
+ Aquesta versió de l'OpenSSH suporta la versió 2 del protocol d'ssh,
+ aquesta versió és molt més segura. És recomanable inhabilitar la versió 1
+ del protocol, tot i això relantitzà el funcionament dels ordinadors més
+ antics i no permetrà les connexions als clients antics (afectarà al client
+ proporcionat per la "potato").
+ .
+ Recordeu que les claus que utilitza la versió 1 del protocol són diferents
+ i no les podreu utilitzar si habiliteu únicament les connexions de la
+ versió 2 del protocol.
+ .
+ Si posteriorment canvieu d'opinió respecte a la configuració, podeu trobar
+ les instruccions per modificar el fitxer sshd_config a README.Debian.
+Description-cs: Povolit pouze SSH protokol verze 2
+ Tato verze OpenSSH podporuje ssh protokol ve verzi 2, kterı je mnohem
+ bezpeènìj¹í. Je dobré ssh verze 1 zakázat, nicménì na slab¹ích poèítaèích
+ se projeví zpomalení a také tím znemo¾níte pøihlá¹ení star¹ích klientù
+ (napøíklad tìch z Debianu 2.2).
+ .
+ Také si v¹imnìte, ¾e klíèe protokolu verze 1 jsou odli¹né a pokud povolíte
+ pouze protokol verze 2, nebudete je moci pou¾ít. 
+ .
+ Pokud se pozdìji rozhodnete jinak, v README.Debian se nachází pøesnı
+ návod, jak upravit soubor sshd_config.
+Description-da: Tillad kun SSH protokol 2
+ Denne udgave af OpenSSH understøtter version 2 af ssh-protokollen, som er
+ betydeligt mere sikker. Det anbefales af deaktivere version 1. Dog kan det
+ sløve langsomme maskiner ned, og forhindre ældre klienter i at opnå
+ forbindelse (ssh klienten der kommer med "potato" er en af dem).
+ .
+ Du skal også bemærke at de nøgler som bliver anvendt til protokol 1 er
+ forskellige, så du vil ikke være i stand til at bruge dem, hvis du kun
+ tillader protokol 2 forbindelser.
+ .
+ Hvis du senere ændrer din mening om denne indstilling, har README.Debian
+ instruktioner på hvad du skal gøre ved din sshd_config fil.
+Description-de: Nur SSH-Protokoll Version 2 erlauben
+ Diese Version von OpenSSH unterstützt Version 2 des SSH-Protokolls, die
+ sicherer ist. Es wird empfohlen, Version 1 zu deaktivieren, allerdings
+ kann dies Vorgänge auf langsamen Maschinen verzögern und alte Clients an
+ der Verbindungsaufnahme hindern (der ssh-Client von "potato" ist davon
+ betroffen).
+ .
+ Bitte beachten Sie auch, daß sich die für Protokoll 1 verwendeten
+ Schlüssel unterscheiden und Sie diese daher nicht verwenden können, wenn
+ Sie nur Protokoll Version 2-Verbindungen erlauben.
+ .
+ Falls Sie später Ihre Meinung über diese Einstellung ändern, finden Sie in
+ README.Debian eine Anleitung was Sie mit der sshd_config-Datei machen
+ müssen.
+Description-el: Íá åğéôñİğåôáé ìüíï ç ÷ñŞóç ôïõ ğñùôïêüëëïõ SSH 2
+ ÁõôŞ ç İêäïóç ôïõ OpenSSH õğïóôçñßæåé ôçí İêäïóç 2 ôïõ ğñùôïêüëëïõ ssh,
+ ğïõ åßíáé ğïëı ğéï áóöáëŞò.  ÓõíéóôÜôáé ç áğåíåñãïğïßçóç ôçò İêäïóçò 1,
+ ùóôüóï áõôü èá ãßíåé åéò âÜñïò ôçò ôá÷ıôçôáò óå ÷áìçëüôåñùí åğéäüóåùí
+ óõóôŞìáôá êáé èá áğáãïñİøåé ôç óıíäåóç óå ğáëáéüôåñá ğñïãñÜììáôá-ğåëÜôåò
+ (ğ.÷. ï ğåëÜôçò ssh ğïõ äéáíİìåôáé ìå ôçí İêäïóç "potato").
+ .
+ Åğßóçò, óçìåéşóôå üôé ôá êëåéäéÜ ğïõ ÷ñçóéìïğïéïıíôáí óôï ğñùôüêïëëï 1
+ åßíáé äéáöïñåôéêÜ êáé äå èá åßíáé äõíáôŞ ç ÷ñŞóç ôïõò áí åğéôñİøåôå ìüíï
+ ôéò óõíäİóåéò ìå ôï ğñùôüêïëëï 2.
+ .
+ Áí áğïöáóßóåôå äéáöïñåôéêÜ áñãüôåñá ãéá áõôŞ ôç ñıèìéóç, ôï áñ÷åßï
+ README.Debian İ÷åé ïäçãßåò ãéá ôçí êáôÜëëçëç ôñïğïğïßçóç ôïõ áñ÷åßïõ
+ sshd_config.
+Description-es: Permitir sólo la versión 2 del protocolo SSH
+ Esta versión de OpenSSH soporta la versión 2 del protocolo ssh, que es
+ mucho más segura que la anterior. Se recomienda desactivar la versión 1,
+ aunque funcionará más lento en máquinas modestas y puede impedir que se
+ conecten clientes antiguos, como, por ejemplo, el incluido en «potato».
+ .
+ También tenga en cuenta que las claves utilizadas para el protocolo 1 son
+ diferentes, por lo que no podrá usarlas si únicamente permite conexiones
+ mediante la versión 2 del protocolo.
+ .
+ Si más tarde cambia de opinión, el fichero README.Debian contiene
+ instrucciones sobre cómo modificar en el fichero sshd_config.
+Description-fr: Autoriser la version 2 du protocole SSH uniquement
+ Cette version d'OpenSSH connaît la version 2 du protocole ssh, qui est
+ bien plus sûre. Désactiver ssh 1 est une bonne chose, cependant cela peut
+ ralentir les machines peu puissantes et pourrait empêcher ceux qui
+ utilisent de vieilles versions de la partie cliente de se connecter (le
+ client ssh de la distribution Debian « Potato » en fait partie).
+ .
+ De plus, les clés utilisées par la version 1 du protocole sont différentes
+ et vous ne pourrez pas les utiliser si vous n'autorisez que les connexions
+ utilisant la version 2 du protocole.
+ .
+ Si vous changez d'avis ultérieurement et décidez de modifier ce réglage,
+ les instructions fournies dans le fichier README.Debian vous indiquent
+ comment modifier le fichier sshd_config.
+Description-it: Consentire solo il protocollo 2 di SSH
+ Questa versione di OpenSSH supporta la versione 2 del protocollo ssh, che
+ è molto più sicura. Si consiglia la disabilitazione di ssh 1, tuttavia ciò
+ rallenterà le operazioni su macchine di basso livello e potrebbe impedire
+ ai client più vecchi di collegarsi (il client distribuito con "potato" ne
+ è un esempio).
+ .
+ Notare inoltre che le chiavi usate per il protocollo 1 sono diverse, per
+ cui non sarà possibile usarle se saranno abilitate solo le connessioni con
+ il protocollo 2.
+ .
+ Se successivamente si cambierà idea su questa impostazione, nel file
+ README.Debian sono presenti istruzioni sulle modifiche da fare nel file
+ sshd_config.
+Description-ja: SSH ¥×¥í¥È¥³¥ë 2 ¤Î¤ß¤òµö²Ä¤·¤Ş¤¹
+ OpenSSH ¤Î¤³¤Î¥Ğ¡¼¥¸¥ç¥ó¤Ï¡¢¤º¤Ã¤È°ÂÁ´¤Ê¡¢ssh ¥×¥í¥È¥³¥ë¤Î¥Ğ¡¼¥¸¥ç¥ó 2
+ ¤ò¥µ¥İ¡¼¥È¤·¤Æ¤¤¤Ş¤¹¡£ssh 1
+ ¤ò¶Ø»ß¤¹¤ë¤³¤È¤ò¤ª´«¤á¤·¤Ş¤¹¤¬¡¢ÃÙ¤¤¥Ş¥·¥ó¤Ç¤ÏÆ°ºî¤¬ÃÙ¤¯¤Ê¤Ã¤¿¤ê¡¢¸Å¤¤¥¯¥é¥¤¥¢¥ó¥È¤«¤éÀÜÂ³¤Ç¤­¤Ê¤¯¤Ê¤Ã¤¿¤ê¤·¤Ş¤¹
+ ("potato" ¤Î ssh ¥¯¥é¥¤¥¢¥ó¥È¤âÀÜÂ³¤Ç¤­¤Ê¤¯¤Ê¤ê¤Ş¤¹)¡£
+ .
+ ¤Ş¤¿¡¢¥×¥í¥È¥³¥ë 1 ¤Ç»È¤¦¥­¡¼¤Ï°Û¤Ê¤ë¤¿¤á¡¢¥×¥í¥È¥³¥ë 2
+ ¤òÍ­¸ú¤Ë¤·¤¿¤À¤±¤Ç¤Ï¤½¤Î¥­¡¼¤ò»È¤¦¤³¤È¤¬¤Ç¤­¤Ş¤»¤ó¡£
+ .
+ ¤â¤·º£¸å¤¢¤Ê¤¿¤¬¹Í¤¨¤òÊÑ¤¨¤¿¤é¡¢README.Debian ¤òÆÉ¤à¤È sshd_config
+ ¤ò¤É¤Î¤è¤¦¤ËÊÑ¹¹¤·¤¿¤é¤è¤¤¤«¤¬Ê¬¤«¤ê¤Ş¤¹¡£
+Description-nl: Laat enkel versie 2 van het SSH-protocol toe.
+ Deze versie van OpenSSH ondersteunt de veiligere versie 2 van het
+ ssh-protocol. Uitschakelen van ssh versie 1 wordt aangemoedigd, hoewel dit
+ dingen op zwakkere machines zal vertragen, en mogelijk verbindingen van
+ oudere clients (b.v. de ssh-client uit "potato") onmogelijk maakt.
+ .
+ Houd er ook rekening mee dat de sleutels gebruikt voor protocolversie 1
+ verschillend zijn, waardoor u deze niet kunt gebruiken indien u enkel
+ protocolversie 2 verbindingen toelaat.
+ .
+ Instructies over wat te veranderen in sshd_config om deze instelling later
+ nog te veranderen, vindt u in /usr/share/doc/ssh/README.Debian.gz.
+Description-pl: Zezwalaj wy³±cznie na wersjê 2 protoko³u SSH
+ Ta wersja OpenSSH wspiera drug± wersjê protoko³u ssh, która jest znacznie
+ bardziej bezpieczna. Wy³±czenie ssh 1 jest zalecane, choæ spowalnia to
+ dzia³anie na starych maszynach i mo¿e uniemo¿liwiæ po³±czenie starszym
+ wersjom klientów (dotyczy to np. klienta ssh do³±czanego do "potato").
+ .
+ Ponadto, zauwa¿ proszê, ¿e klucze u¿ywane przez protokó³ 1 s± inne, wiêc
+ nie bêdziesz móg³ ich u¿ywaæ je¶li zezwolisz na korzystanie wy³±cznie z
+ wersji 2 protoko³u.
+ .
+ Je¶li pó¼niej zmienisz zdanie co do tego ustawienia, to instrukcje co
+ zmieniæ w sshd_config znajduj± siê w README.Debian.
+Description-pt_BR: Permitir somente protocolo SSH versão 2
+ Esta versão do OpenSSH suporta a versão 2 do protocolo ssh, a qual é muito
+ mais segura que a versão anterior. É recomendado desabilitar o suporte ao
+ protocolo ssh versão 1, porém isto fará com que conexões fiquem mais
+ lentas em máquinas mais antigas e pode impedir que clientes antigos
+ consigam se conectar (o cliente ssh fornecido com a versão do Debian 2.2
+ "potato" é afetada.)
+ .
+ Por favor note também que as chaves usadas para o protocolo 1 são
+ diferentes portanto você não poderá usá-las caso você somente permita
+ conexões usando o protocolo 2.
+ .
+ Caso você posteriormente mude de idéia sobre esta configuração, o arquivo
+ README.Debian deste pacote possui instruções sobre o que mudar em seu
+ arquivo de configuração sshd_config.
+Description-ru: òÁÚÒÅÛÉÔØ ÉÓĞÏÌØÚÏ×ÁÎÉÅ ÔÏÌØËÏ SSH-ĞÒÏÔÏËÏÌÁ ×ÅÒÓÉÉ 2.
+ üÔÁ ×ÅÒÓÉÑ OpenSSH ĞÏÄÄÅÒÖÉ×ÁÅÔ ĞÒÏÔÏËÏÌ ssh ×ÅÒÓÉÉ 2, ËÏÔÏÒÙÊ
+ ÏÂÅÓĞÅŞÉ×ÁÅÔ ÂÏÌØÛÕÀ ÓÔÅĞÅÎØ ÚÁİÉÔÙ. ìÕŞÛÅ ÚÁĞÒÅÔÉÔØ ĞÒÏÔÏËÏÌ ×ÅÒÓÉÉ 1, ÎÏ
+ ÜÔÏ ÍÏÖÅÔ ĞÒÉ×ÅÓÔÉ Ë ÚÁÍÅÄÌÅÎÉÀ ÒÁÂÏÔÙ ÍÁÌÏĞÒÏÉÚ×ÏÄÉÔÅÌØÎÙÈ ÍÁÛÉÎ É ÍÏÖÅÔ
+ ÓÄÅÌÁÔØ ÎÅ×ÏÚÍÏÖÎÙÍ ĞÏÄËÌÀŞÅÎÉÅ Ó ĞÏÍÏİØÀ ÓÔÁÒÙÈ ËÌÉÅÎÔÓËÉÈ ĞÒÏÇÒÁÍÍ (×
+ ŞÁÓÔÎÏÓÔÉ, ÜÔÏ ÏÔÎÏÓÉÔÓÑ Ë ËÌÉÅÎÔÕ ssh, ĞÏÓÔÁ×ÌÑÅÍÏÇÏ Ó "potato".
+ .
+ ïÂÒÁÔÉÔÅ ×ÎÉÍÁÎÉÅ ÎÁ ÔÏ, ŞÔÏ ËÌÀŞÉ ÄÌÑ ĞÒÏÔÏËÏÌÁ ×ÅÒÓÉÉ 1 ÉÍÅÀÔ ÄÒÕÇÏÊ
+ ÆÏÒÍÁÔ, É ĞÏÜÔÏÍÕ ÷Ù ÎÅ ÓÍÏÖÅÔÅ ÉÓĞÏÌØÚÏ×ÁÔØ ÉÈ, ÅÓÌÉ ÒÁÚÒÅÛÉÔÅ ÔÏÌØËÏ
+ ÓÏÅÄÉÎÅÎÉÑ ĞÏ ĞÒÏÔÏËÏÌÕ ×ÅÒÓÉÉ 2.
+ .
+ åÓÌÉ ĞÏÚÖÅ ÷Ù ÉÚÍÅÎÉÔÅ Ó×ÏÅ ÍÎÅÎÉÅ, ÔÏ × ÆÁÊÌÅ README.Debian ÓÏÄÅÒÖÁÔÓÑ
+ ÉÎÓÔÒÕËÃÉÉ Ï ÔÏÍ, ŞÔÏ ÎÕÖÎÏ ÓÄÅÌÁÔØ × ÆÁÊÌÅ sshd_config.
+Description-tr: Sadece SSH protokol 2'ye izin ver
+ OpenSSH'ın bu sürümü ssh'ın çok daha güvenli olan sürüm 2 protokolünü
+ destekler. Sürüm 1 protokolünün etkisizleştirilmesini teşvik ediyoruz,
+ bununla beraber böyle yapılması halinde düşük düzeyli makinelerde işlemler
+ yavaşlayacak ve eski sürüm ssh istemcilerinden ("potato" ile birlikte
+ gelen ssh istemcisi gibi) bağlantı kurulamayacaktır.
+ .
+ Protokol 1 anahtarları çok farklı olduğundan, sadece protokol 2
+ bağlantılarına izin vermeniz halinde bu anahtarları kullanamayacağınızı da
+ lütfen not edin.
+ .
+ Bu ayar hakkındaki fikriniz ileride değişirse, sshd_config dosyasında
+ yapacağınız işlemlerle ilgili talimatları README.Debian dosyasında
+ bulabilirsiniz.
+Description-zh_CN: Ö»ÔÊĞí SSH Ğ­Òé 2 (ssh2)¡£
+ Õâ¸ö°æ±¾µÄ OpenSSH Ö§³Ö¸ü¼Ó°²È«µÄµÚ¶ş°æ±¾ ssh Ğ­Òé¡£ÎÒÃÇ¹ÄÀøÄú½ûÓÃ ssh
+ 1£¬È»¶øÕâ»á½µµÍµÍ¶Ë»úÆ÷ËÙ¶È£¬²¢ÇÒ»á×èÖ¹ÀÏ°æ¿Í»§¶ËµÄÁ¬½Ó(¡°potato¡±Ëù´øµÄ
+ ssh ¿Í»§¶Ë»áÊÜµ½Ó°Ïì)¡£
+ .
+ Ò²Çë×¢ÒâĞ­Òé 1 ËùÓÃµÄÃÜÔ¿ÊÇ²»Í¬µÄ£¬Òò´ËÈç¹ûÄúÖ»ÔÊĞíĞ­Òé 2
+ Á¬½Ó½«»áµ¼ÖÂ²»ÄÜÊ¹ÓÃËüÃÇ¡£
+ .
+ Èç¹ûÄúÉÔºóÏë¸Ä±äÕâ¸öÉèÖÃ£¬README.Debian ÉÏÓĞËµÃ÷¸æËßÄúÈçºÎĞŞ¸Ä sshd_Config
+ ÎÄ¼ş¡£
+
+Template: ssh/use_old_init_script
+Type: boolean
+Default: false
+Description: Do you want to continue (and risk killing active ssh sessions)?
+ The version of /etc/init.d/ssh that you have installed, is likely to kill
+ all running sshd instances.  If you are doing this upgrade via an ssh
+ session, that would be a Bad Thing(tm).
+ .
+ You can fix this by adding "--pidfile /var/run/sshd.pid" to the
+ start-stop-daemon line in the stop section of the file.
+Description-ca: Esteu segur de voler continuar (tot i la possibilitat d'aturar les sessions d'ssh actives)?
+ La versió de l'/etc/init.d/ssh que heu instal·lat probablement aturarà les
+ instàncies de l'sshd que s'estan executant. Si esteu realitzant
+ l'actualització de de d'una sessió d'ssh us podria penjar la connexió.
+ .
+ Ho podeu arreglar afegint la línia "--pidfile /var/run/sshd.pid" a la
+ línia start-stop-daemon de la secció stop del fitxer.
+Description-cs: Chcete pokraèovat (a riskovat ukonèení aktivních ssh spojení)?
+ Stávající verze /etc/init.d/ssh pravdìpadobnì pozabíjí v¹echny bì¾ící
+ instance sshd. Pokud tuto aktualizaci provádíte pøes ssh, byla by to
+ ©patná Vìc(tm).
+ .
+ Mù¾ete to spravit pøidáním "--pidfile /var/run/sshd.pid" do sekce stop na
+ øádek se start-stop-daemon.
+Description-da: Vil du fortsætte (og risikere at afbryde aktive ssh-forbindelser)?
+ Den udgave af /etc/init.d/ssh, du har installeret, vil sandsynligvis
+ afbryde alle sshd-dæmoner. Det vil være en rigtigt dårlig idé, hvis du er
+ ved at opgradere via en ssh-forbindelse.
+ .
+ Du kan afhjælpe dette ved at tilføje "--pidfile /var/run/sshd.pid" til
+ 'start-stop-daemon'-linjen i stop-afsnittet af filen.
+Description-de: Wollen Sie weitermachen (und das Beenden der aktiven Sitzung riskieren)?
+ Die Version von /etc/init.d/ssh, die Sie installiert haben, wird
+ vermutlich Ihre aktiven ssh-Instanzen beenden. Wenn Sie die Aktualisierung
+ über ssh erledigen, dann wäre das keine Gute Idee(tm).
+ .
+ Sie können das Problem beheben, indem sie "--pidfile /var/run/sshd.pid" an
+ die start-stop-daemon Zeile in dem Abschnitt stop der Datei
+ /etc/init.d/ssh hinzufügen.
+Description-el: Èİëåôå íá óõíå÷ßóåôå (ìå êßíäõíï ôåñìáôéóìïı ôùí åíåñãşí óõíåäñéşí ssh);
+ Ç ôñİ÷ïõóá İêäïóç ôïõ /etc/init.d/ssh ğïõ åßíáé åãêáôåóôçìİíç, ğéèáíüôáôá
+ èá ôåñìáôßóåé üëåò ôéò óõíåäñßåò ôïõ sshd.  Áí êÜíåôå áõôŞí ôçí áíáâÜèìéóç
+ ìİóù ìéáò óõíåäñßáò ssh, áõôü åßíáé ìÜëëïí êáêŞ éäİá...
+ .
+ Ìğïñåßôå íá ôï äéïñèşóåôå áõôü ğñïóèİôïíôáò "--pidfile /var/run/sshd.pid"
+ óôç ãñáììŞ start-stop-daemon óôï ôìŞìá "stop" ôïõ áñ÷åßïõ.
+Description-es: ¿Desea continuar, aún a riesgo de matar las sesiones ssh activas?
+ La versión de /etc/init.d/ssh que tiene instalada es muy probable que mate
+ el demonio ssh. Si está actualizando a través de una sesión ssh, puede que
+ no sea muy buena idea.
+ .
+ Puede arreglarlo añadiendo «--pidfile /var/run/sshd.pid» a la línea
+ 'start-stop-daemon', en la sección 'stop' del fichero.
+Description-fr: Voulez-vous continuer (et risquer de rompre les sessions ssh actives) ?
+ La version de /etc/init.d/ssh que vous venez d'installer va
+ vraisemblablement tuer toutes les instances de sshd en cours. Si vous
+ étiez en train de faire cette mise à niveau à l'aide de ssh, ce serait
+ regrettable.
+ .
+ Vous pouvez corriger cela en ajoutant dans /etc/init.d/ssh « --pidfile
+ /var/run/sshd.pid » à la ligne « start-stop-daemon » dans la section
+ « stop » du fichier.
+Description-it: Si desidera continuare (e rischiare di terminare le sessioni ssh attive)?
+ La versione di /etc/init.d/ssh attualmente installata probabilmente
+ terminerà tutte le istanze di sshd attive. Se si sta effettuando questo
+ aggiornamento tramite una sessione ssh, questo potrebbe causare un
+ comportamento imprevedibile.
+ .
+ È possibile correggere ciò aggiungendo «--pidfile /var/run/sshd.pid» alla
+ riga "start-stop-daemon" nella sezione "stop" del file.
+Description-ja: Â³¤±¤Æ¤è¤¤¤Ç¤¹¤« (ÀÜÂ³Ãæ¤Î ssh ¥»¥Ã¥·¥ç¥ó¤¬ÀÚ¤ì¤ë¤«¤â¤·¤ì¤Ş¤»¤ó)
+ ¤¤¤Ş¥¤¥ó¥¹¥È¡¼¥ë¤·¤¿ /etc/init.d/ssh ¤Ï¡¢¤ª¤½¤é¤¯¼Â¹ÔÃæ¤Î sshd
+ ¤ò¤¹¤Ù¤ÆÄä»ß¤µ¤»¤Ş¤¹¡£¤³¤Î¥Ğ¡¼¥¸¥ç¥ó¥¢¥Ã¥×¤ò ssh
+ ¥»¥Ã¥·¥ç¥ó¤òÍÑ¤¤¤Æ¹Ô¤¦¤Î¤Ï´Ö°ã¤Ã¤¿¤ä¤ê¤«¤¿¤Ç¤¹¡£
+ .
+ ¤³¤Î¾õ¶·¤ò½¤Àµ¤¹¤ë¤Ë¤Ï¡¢/etc/init.d/ssh ¤Î stop ¥»¥¯¥·¥ç¥ó¤Î
+ start-stop-daemon ¤Î¹Ô¤Ë¡Ö--pidfile /var/run/sshd.pid¡×¤ÈÄÉ²Ã¤·¤Ş¤¹¡£
+Description-nl: Wilt u verder gaan (waarbij u mogelijk actieve ssh sessies afschiet)?
+ De /etc/init.d/ssh versie die u geïnstalleerd hebt schiet waarschijnlijk
+ alle lopende sshd-instanties af. Dit is Niet Goed wanneer u deze
+ opwaardering via een ssh-sessie doet.
+ .
+ U kunt dit repareren door "--pidfile /var/run/sshd.pid" toe te voegen aan
+ de start-stop-daemon regel in de stop-sectie van het bestand.
+Description-pl: Czy chcesz kontynuowaæ (i ryzykowaæ przerwaniem aktywnych sesji ssh) ?
+ Zainstalowana w³a¶nie wersja /etc/init.d/ssh mo¿e zabiæ wszystkie
+ dzia³aj±ce obecnie kopie sshd. Je¶li wykonujesz t± aktualizacjê przez ssh,
+ to by³aby Z³a Rzecz(tm).
+ .
+ Mo¿esz to naprawiæ dodaj±c "--pidfile /var/run/sshd.pid" do linijki
+ start-stop-daemon w sekcji stop tego pliku.
+Description-pt_BR: Deseja continuar (e arriscar acabar com sessões ssh ativas) ?
+ A versão de /etc/init.d/ssh que você possui instalada está prestes a matar
+ todas as instâncias sshd sendo executadas. Se você está fazendo esta
+ atualização através de uma sessão ssh, isto seria uma Coisa Ruim(tm).
+ .
+ Você pode corrigir isto adicionando "--pidfile /var/run/sshd.pid" na linha
+ start-stop-daemon na seção stop deste arquivo.
+Description-ru: ÷Ù ÈÏÔÉÔÅ ĞÒÏÄÏÌÖÉÔØ (ÒÉÓËÕÑ ĞÏÔÅÒÑÔØ ÁËÔÉ×ÎÙÅ ssh-ÓÏÅÄÉÎÅÎÉÑ)?
+ ÷ÅÒÓÉÑ  /etc/init.d/ssh,  ËÏÔÏÒÕÀ  ×Ù  ÕÓÔÁÎÁ×ÌÉ×ÁÅÔÅ, ÍÏÖÅÔ ÕÂÉÔØ ×ÓÅ
+ ÚÁĞÕİÅÎÎÙÅ  ĞÒÏÃÅÓÓÙ  ssh.  åÓÌÉ ×Ù ÏÓÕİÅÓÔ×ÌÑÅÔÅ ÜÔÏ ÏÂÎÏ×ÌÅÎÉÅ ŞÅÒÅÚ ssh
+ ÓÅÓÓÉÀ, ÔÏ ÜÔÏ ğÌÏÈÁÑ ÷ÅİØ (tm).
+ .
+ üÔÏ ÍÏÖÎÏ ÉÓĞÒÁ×ÉÔØ ÄÏÂÁ×ÌÅÎÉÅÍ "--pidfile /var/run/sshd.pid" × ÓÔÒÏËÅ
+ start-stop-daemon × ÒÁÚÄÅÌÅ stop ÜÔÏÇÏ ÆÁÊÌÁ.
+Description-tr: Devam etmek istiyor musunuz? (Etkin ssh oturumlarının öldürülmesi riski var.)
+ Kurmuş olduğunuz /etc/init.d/ssh sürümü büyük olasılıkla, çalışıyor olan
+ tüm sshd süreçlerini öldürür. Bu yükseltmeyi bir ssh oturumu üzerinden
+ yapıyorsanız bu gerçekten Berbat bir Şey olacaktır.
+ .
+ Bu sorunu dosyanın stop bölümündeki start-stop-daemon satırına "--pidfile
+ /var/run/sshd.pid" ekleyerek düzeltebilirsiniz.
+Description-zh_CN: ÄúÒª¼ÌĞøÂğ(»áÓĞÉ±ËÀ»î¶¯µÄ ssh »á»°µÄÎ£ÏÕ)£¿
+ Äú°²×°µÄ /etc/init.d/ssh °æ±¾ºÜ¿ÉÄÜ»áÉ±ËÀËùÓĞÔËĞĞÖĞµÄ sshd
+ Àı³Ì¡£Èç¹ûÄúÊÇÔÚÍ¨¹ı ssh »á»°½øĞĞÕâÏîÉı¼¶£¬ÄÇ¿ÉÕæÊÇ¼şÔã¸âµÄÊÂÇé(tm)¡£
+ .
+ Äú¿ÉÒÔÍ¨¹ıÌí¼Ó¡°--pidfile /var/run/sshd.pid¡±µ½Õâ¸öÎÄ¼şµÄ stop ²¿·ÖµÄ
+ start-stop-daemon ĞĞÀ´ĞŞÕıÕâ¸öÎÊÌâ¡£
+
+Template: ssh/forward_warning
+Type: note
+Description: NOTE: Forwarding of X11 and Authorization disabled by default.
+ For security reasons, the Debian version of ssh has ForwardX11 and
+ ForwardAgent set to ``off'' by default.
+ .
+ You can enable it for servers you trust, either in one of the
+ configuration files, or with the -X command line option.
+ .
+ More details can be found in /usr/share/doc/ssh/README.Debian
+Description-ca: Nota: les opcions de reenviament de les X11 i autorització estan inhabilitades per defecte.
+ Per raons de seguretat  i de forma predeterminada la versió d'ssh de
+ Debian té les opcions ForwardX11 i ForwardAgent definides a "off".
+ .
+ Ho podeu habilitar pels servidors de confiança, ja sigui en un dels
+ fitxers de configuració o a través de l'opció de la línia d'ordre -X.
+ .
+ Podeu trobar més informació al fitxer /usr/share/doc/ssh/README.Debian
+Description-cs: POZNÁMKA: Autorizace a pøesmìrování X11 je standardnì vypnuto.
+ Z bezpeènostních dùvodù má verze ssh v Debianu standardnì nastavené
+ ForwardX11 a ForwardAgent na hodnotu "off".
+ .
+ Pro servery, kterım dùvìøujete, mù¾ete tyto parametry povolit v jednom z
+ konfiguraèních souborù, nebo z pøíkazové øádky parametrem -X.
+ .
+ Více naleznete v /usr/share/doc/ssh/README.Debian
+Description-da: BEMÆRK: Videregivelse af X11 og adgangkontrol er som standard deaktiveret.
+ Af sikkerhedsgrunde har Debianudgaven af ssh sat ForwardX11 og
+ ForwardAgent til 'off' som standard.
+ .
+ Du kan aktivere dem for servere du stoler på, enten i en af
+ opsætningsfilerne eller med kommandolinjetilvalget '-X'.
+ .
+ Flere detaljer kan findes i /usr/share/doc/ssh/README.Debian
+Description-de: HINWEIS: Weiterleiten von X11 und Berechtigungen ist abgeschaltet.
+ Aus Sicherheitsgründen ist bei der Debian-Version von ssh ForwardX11 und
+ ForwardAgent auf "off" gesetzt.
+ .
+ Sie können dies für Server, denen Sie trauen, entweder per Eintrag in die
+ Konfigurations-Dateien oder per Kommando-Zeilen Option -X ändern.
+ .
+ Weitere Details können Sie in /usr/share/doc/ssh/README.Debian finden.
+Description-el: ÓÇÌÅÉÙÓÇ: Ç ğñïşèçóç ôùí ğáêİôùí X11 êáé ğéóôïğïßçóçò åßíáé áğåíåñãïğïéçìİíçåî ïñéóìïı.
+ Ãéá ëüãïõò áóöáëåßáò, ç İêäïóç ôïõ ssh óôï Debian İ÷åé ôéò åğéëïãİò
+ ForwardX11 êáé ForwardAgent ïñéóìİíåò óå ``off'' åî ïñéóìïı.
+ .
+ Ìğïñåßôå íá ôá åíåñãïğïéŞóåôå ãéá äéáêïìéóôİò ğïõ åìğéóôåıåóôå, åßôå óå
+ İíá áğü ôá áñ÷åßá ñõèìßóåùí, åßôå ìİóù ôçò åğéëïãŞò -X óôç ãñáììŞ åíôïëşí.
+ .
+ Ğåñéóóüôåñåò ëåğôïìİñåéåò ìğïñåßôå íá âñåßôå óôï áñ÷åßï
+ /usr/share/doc/ssh/README.Debian
+Description-es: NOTA: Reenvío de X11 y Autorización desactivadas por defecto.
+ Por razones de seguridad, la versión de ssh de Debian tiene por defecto
+ ForwardX11 y ForwardAgent desactivadas.
+ .
+ Puede activar estas opciones para los servidores en los que confíe, en los
+ ficheros de configuración o con la opción -X en línea de comandos.
+ .
+ Puede encontrar más detalles en /usr/share/doc/ssh/README.Debian.
+Description-fr: NOTE : suivi de session X11 et d'agent d'autorisation désactivés par défaut.
+ Pour des raisons de sécurité, la version Debian de ssh positionne les
+ options ForwardX11 et ForwardAgent à « Off » par défaut.
+ .
+ Vous pouvez activer ces options pour les serveurs en qui vous avez
+ confiance, soit dans un des fichiers de configuration, soit avec l'option
+ -X de la ligne de commande.
+ .
+ Vous trouverez plus d'informations dans /usr/share/doc/ssh/README.Debian.
+Description-it: NOTA: Forwarding di X11 e Authorization sono disabilitati come impostazione predefinita.
+ Per questioni di sicurezza, la versione Debian di ssh contiene
+ "ForwardX11" e "ForwardAgent" impostati a "off" come impostazione
+ predefinita.
+ .
+ È possibile abilitarlo per i server di cui si è sicuri, sia in uno dei
+ file di configurazione, sia tramite l'opzione -X della rigaa di comando.
+ .
+ Maggiori dettagli si trovano in /usr/share/doc/ssh/README.Debian
+Description-ja: Ãí°Õ: X11 ¤ÈÇ§¾Ú¤Î¥Õ¥©¥ï¡¼¥Ç¥£¥ó¥°¤Ï¥Ç¥Õ¥©¥ë¥È¤Ç¤Ï¶Ø»ß¤µ¤ì¤Ş¤¹
+ ¥»¥­¥å¥ê¥Æ¥£¾å¤ÎÍıÍ³¤«¤é¡¢Debian ¤Î ssh ¤Ç¤Ï ForwardX11 ¤È ForwardAgent
+ ¤Ï¥Ç¥Õ¥©¥ë¥È¤Ç¤Ï¡Öoff¡×¤ËÀßÄê¤µ¤ì¤Ş¤¹¡£
+ .
+ ÀßÄê¥Õ¥¡¥¤¥ë¤ò»È¤Ã¤¿¤ê¡¢-X
+ ¥³¥Ş¥ó¥É¥é¥¤¥ó¥ª¥×¥·¥ç¥ó¤ò»È¤Ã¤¿¤ê¤¹¤ë¤³¤È¤Ç¡¢¿®ÍÑ¤Ç¤­¤ë¥µ¡¼¥Ğ¤ËÂĞ¤·¤Æµö²Ä¤¹¤ë¤³¤È¤¬¤Ç¤­¤Ş¤¹¡£
+ .
+ ¾ÜºÙ¤Ï /usr/share/doc/ssh/README.Debian ¤òÆÉ¤ó¤Ç¤¯¤À¤µ¤¤¡£
+Description-nl: OPMERKING: Doorsturen van X11 en Authorisatie is standaard uitgeschakeld.
+ Om beveiligingsredenen zijn, in de Debian versie van ssh, ForwardX11 en
+ ForwardAgent standaard uitgeschakeld.
+ .
+ U kunt dit, voor vertrouwde servers, inschakelen in de
+ configuratiebestanden, of met de -X commandoregeloptie.
+ .
+ Meer details vindt u in /usr/share/doc/ssh/README.Debian.gz
+Description-pl: UWAGA: Przekazywanie (forwarding) X11 i Autoryzacji jest domy¶lnie wy³±czone.
+ Ze wzglêdów bezpieczeñstwa Debianowa wersja ssh ma ForwardX11 i
+ ForwardAgent ustawione  domy¶lnie na 'off'.
+ .
+ Dla zaufanych serwerów mo¿esz w³±czyæ te opcje w pliku konfiguracyjnym lub
+ przy pomocy opcji -X z linii komend.
+ .
+ Wiêcej szczegó³ów znajdziesz w /usr/share/doc/ssh/README.Debian.
+Description-pt_BR: NOTA: Encaminhamento de X11 e Autorização desabilitados por padrão.
+ Por razôes de segurança, a versão Debian do ssh tem as opções ForwardX11 e
+ ForwardAgent definidas como ``off'' por padrão.
+ .
+ Você pode habilitar isso para servidores que você confia, ou em um dos
+ arquivos de configuração, ou com a opção de linha de comando -X.
+ .
+ Maiores detalhes podem ser encontrados em
+ /usr/share/doc/ssh/README.Debian.
+Description-ru: ğòéíåşáîéå: æÏÒ×ÁÒÄÉÎÇ X11 É Authorization ÚÁĞÒÅİÅÎ ĞÏ ÕÍÏÌŞÁÎÉÀ.
+ ğÏ ĞÒÉŞÉÎÁÍ ÂÅÚÏĞÁÓÎÏÓÔÉ, × ×ÅÒÓÉÉ ÄÌÑ Debian ssh ÉÍÅÅÔ ForwardX11 É
+ ForwardAgent ÕÓÔÁÎÏ×ÌÅÎÎÙÍÉ × ``off'' ĞÏ ÕÍÏÌŞÁÎÉÀ.
+ .
+ ÷Ù ÍÏÖÅÔÅ ÒÁÚÒÅÛÉÔØ ÉÈ ÄÌÑ ÓÅÒ×ÅÒÏ×, ËÏÔÏÒÙÍ ÄÏ×ÅÒÑÅÔÅ ÌÉÂÏ × ÏÄÎÏÍ ÉÚ
+ ÎÁÓÔÒÏÅŞÎÙÈ ÆÁÊÌÏ×, ÉÌÉ ĞÁÒÁÍÅÔÒÏÍ ËÏÍÁÎÄÎÏÊ ÓÔÒÏËÉ -X.
+ .
+ äÏĞÏÌÎÉÔÅÌØÕÀ ÉÎÆÏÒÍÁÃÉÀ ÍÏÖÎÏ ÎÁÊÔÉ × /usr/share/doc/ssh/README.Debian
+Description-tr: NOT: X11 yönlendirme ve yetkilendirmesi öntanımlı olarak etkisizleştirilmiştir.
+ Güvenlik gerekçeleriyle ssh'ın Debian sürümünde ForwardX11 ve ForwardAgent
+ seçenekleri öntanımlı ``off'' değerine ayarlıdır.
+ .
+ Güvendiğiniz sunucular için bu seçeneği yapılandırma dosyalarından birinde
+ veya -X komut satırı seçeneğiyle etkinleştirebilirsiniz.
+ .
+ Daha ayrıntılı bilgi /usr/share/doc/ssh/README.Debian dosyasında
+ bulunabilir.
+Description-zh_CN: ×¢Òâ£ºX11 ×ª·¢ºÍÈÏÖ¤Ä¬ÈÏ±»½ûÖ¹¡£
+ ÒòÎª°²È«ĞÔÔ­Òò£¬Ä¬ÈÏÇé¿öÏÂ Debian °æ±¾µÄ ssh ½« ForwardX11 ºÍ ForwardAgent
+ ÉèÖÃÎª off¡£
+ .
+ Äú¿ÉÒÔÎªĞÅÀµµÄ·şÎñÆ÷ÆôÓÃÕâ¸öÑ¡Ïî£¬¿ÉÒÔÍ¨¹ıÆäÖĞÖ®Ò»µÄÅäÖÃÎÄ¼ş»òÕßÊ¹ÓÃ -X
+ ÃüÁîĞĞÑ¡ÏîÀ´ÊµÏÖ¡£
+ .
+ ¸ü¶àÏ¸½Ú¿ÉÒÔÔÚ /usr/share/doc/ssh/README.Debian ÕÒµ½
+
+Template: ssh/insecure_rshd
+Type: note
+Description: Warning: rsh-server is installed --- probably not a good idea
+ having rsh-server installed undermines the security that you were probably
+ wanting to obtain by installing ssh.  I'd advise you to remove that
+ package.
+Description-ca: Avís: el servidor rsh-server està instal·lat --- probablement no sigui una bona idea
+ si teniu instal·lat l'rsh-server perdreu la seguretat que esperaveu
+ obtenir instal·lant l'ssh. És aconsellable suprimir el paquet.
+Description-cs: Varování: je nainstalován rsh-server --- to není dobrı nápad
+ nainstalováním rsh-server si bouráte bezpeènost, kterou jste pravdìpodobnì
+ chtìli dosáhnout instalací ssh. Doporuèujeme tento balík odstranit.
+Description-da: Advarsel: rsh-serveren er installeret --- sikkert ikke en god idé
+ Den sikkerhed, du nok ønskede at opnå ved at installere ssh undermineres
+ ved, at du har rsh-server installeret. Jeg vil råde dig til at fjerne
+ pakken rsh-server.
+Description-de: Warnung: rsh-server ist installiert --- wahrscheinlich keine gute Idee
+ ist es eine schlechte Idee, den rsh-server installiert zu haben, da er die
+ Sicherheit untergräbt. Wir empfehlen, das Paket zu entfernen.
+Description-el: Ğñïóï÷Ş: åßíáé Şäç åãêáôåóôçìİíïò ï rsh-server --- ü÷é êáé ôïóï êáëŞ éäİá
+ Ç ğáñïõóßá ôïõ rsh-server õğïíïìåıåé ôçí áóöÜëåéá ôïõ óõóôŞìáôïò, ôçí
+ ïğïßá èİëåôå íá åîáóöáëßóåôå ìå ôçí åãêáôÜóôáóç ôïõ ssh. ÓõíéóôÜôáé ç
+ áöáßñåóç áõôïı ôïõ ğáêİôïõ.
+Description-es: Aviso: tiene rsh-server instalado (seguramente, esto no es una buena idea)
+ Tener rsh-server instalado representa un menoscabo de la seguridad que
+ probablemente desea obtener instalando ssh. Es muy aconsejable que borre
+ ese paquete.
+Description-fr: Attention : rsh-server est installé -- ce n'est probablement pas une bonne idée
+ Avoir un serveur rsh installé affaiblit la sécurité que vous vouliez
+ probablement obtenir en installant ssh. Je vous conseille de supprimer ce
+ paquet.
+Description-it: Attenzione: rsh-server è installato --- probabilmente non è una buona idea
+ avere rsh-server installato mina la sicurezza che probabilmente si voleva
+ ottenere installando ssh. È consigliabile rimuovere il pacchetto.
+Description-ja: ·Ù¹ğ: rsh-server ¤¬¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤Æ¤¤¤Ş¤¹¡£¤¿¤Ö¤óÎÉ¤¤¹Í¤¨¤Ç¤Ï¤¢¤ê¤Ş¤»¤ó
+ rsh-server ¤¬¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤Æ¤¤¤ë¤È¡¢¤¢¤Ê¤¿¤¬ ssh
+ ¤Ë¤è¤Ã¤ÆÆÀ¤¿¤¤¤È»×¤Ã¤Æ¤¤¤ë¤Ç¤¢¤í¤¦¥»¥­¥å¥ê¥Æ¥£¤¬Â»¤Ê¤ï¤ì¤Ş¤¹¡£¤½¤Î¥Ñ¥Ã¥±¡¼¥¸¤ò¥¢¥ó¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¤³¤È¤ò¤ª´«¤á¤·¤Ş¤¹¡£
+Description-nl: Waarschuwing: rsh-server is geïnstalleerd -- dit is waarschijnlijk geen goed idee
+ rsh-server geïnstalleerd hebben ondermijnt de beveiliging die u,
+ waarschijnlijk, net probeerde te verkrijgen door ssh te installeren. We
+ raden u aan om dat pakket te verwijderen.
+Description-pl: Uwaga: serwer rsh jest zainstalowany --- prawdopodobnie nienajlepszy pomys³
+ Posiadanie zainstalowanego serwera rsh podminowuje zabezpieczenia, które
+ prawdopodobnie starasz siê uzyskaæ instaluj±c ssh. Radzi³bym usun±æ ten
+ pakiet.
+Description-pt_BR: Aviso: rsh-server está instalado --- provavelmente não é uma boa idéia
+ Possuir o rsh-server instalado minará a segurança que você estava
+ provavelmente querendo obter instalando o ssh. Eu recomendaria a você
+ remover este pacote.
+Description-ru: ğÒÅÄÕĞÒÅÖÄÅÎÉÅ: ÕÓÔÁÎÏ×ÌÅÎ rsh-server --- ĞÏÖÁÌÕÊ, ÜÔÏ ÎÅ ÏŞÅÎØ ÈÏÒÏÛÏ
+ õÓÔÁÎÏ×ÌÅÎÎÙÊ rsh-ÓÅÒ×ÅÒ ÓÎÉÖÁÅÔ ÂÅÚÏĞÁÓÎÏÓÔØ, ËÏÔÏÒÕÀ ÷Ù ×ÅÒÏÑÔÎÏ ÈÏÔÉÔÅ
+ ĞÏ×ÙÓÉÔØ ÕÓÔÁÎÁ×ÌÉ×ÁÑ ssh. òÅËÏÍÅÎÄÕÅÔÓÑ ÕÄÁÌÉÔØ ÜÔÏÔ ĞÁËÅÔ.
+Description-tr: Uyarı: rsh-server kurulmuş --- bu muhtemelen iyi bir fikir değil
+ rsh-server'ın kurulu durumda olması muhtemelen ssh'ı kurmakla elde
+ edilmesini istediğiniz güvenliği gölgeliyor. Bu paketi kaldırmanızı
+ öneririm.
+Description-zh_CN: ¾¯¸æ£ºÒÑ¾­°²×°ÁË rsh ·şÎñÆ÷ --- ¿ÉÄÜ²»ÊÇ¸öºÃÖ÷Òâ
+ °²×° rsh ·şÎñÆ÷ºÜ¿ÉÄÜ»á½µµÍÄúÏëÒªÍ¨¹ı°²×° ssh
+ µÃµ½µÄ°²È«ĞÔ¡£ÎÒ½¨ÒéÄúÉ¾³ıÕâ¸ö°ü¡£
+
+Template: ssh/insecure_telnetd
+Type: note
+Description: Warning: telnetd is installed --- probably not a good idea
+ I'd advise you to either remove the telnetd package (if you don't actually
+ need to offer telnet access) or install telnetd-ssl so that there is at
+ least some chance that telnet sessions will not be sending unencrypted
+ login/password and session information over the network.
+Description-ca: Avís: el telnetd està instal·lat --- probablement no sigui una bona idea
+ Es aconsellable suprimir el paquet telnetd (si no heu d'oferir accés a
+ telnet) o torneu a instal·lar el paquet telnetd-ssl si més no per
+ assegurar que les sessions de telnet no enviaran les informació del nom
+ d'usuari i contrasenya sense xifrar a través de la xarxa.
+Description-cs: Varování: je nainstalován telnetd --- to není dobrı nápad
+ Doporuèujeme buï odstranit balík telnetd (pokud telnet pøístup
+ nepotøebujete), nebo nainstalovat telnetd-ssl, kde je alespoò nìjaká
+ ¹ance, ¾e spojení nebudou po síti zasílat neza¹ifrovaná
+ jména/hesla/informace.
+Description-da: Advarsel: telnetd er installeret --- sikkert ikke en god idé
+ Jeg vil råde dig til enten at fjerne pakken telnetd (hvis du i
+ virkeligheden ikke har brug for at tilbyde telnet-adgang) eller installere
+ telnetd-ssl, så der i det mindste er en mulighed for, at telnet-sessioner
+ ikke sender adgangskoder og sessions-oplysninger ukrypteret over
+ netværket.
+Description-de: Warnung: telnetd ist installiert --- wahrscheinlich keine gute Idee
+ Wir empfehlen das telnetd Paket zu entfernen (falls Sie keinen telnet
+ Zugang anbieten) oder telnetd-ssl zu installieren, so daß Sie verhindern
+ können, daß Login und Password unverschlüsselt durch das Netz gesendet
+ werden.
+Description-el: Ğñïóï÷Ş: åßíáé Şäç åãêáôåóôçìİíïò ï telnetd --- ü÷é êáé ôïóï êáëŞ éäİá
+ ÓõíéóôÜôáé åßôå íá áöáéñİóåôå ôï ğáêİôï telnetd (áí äåí åßíáé ğñáãìáôéêÜ
+ áğáñáßôçôç ç ğñüóâáóç ìİóù telnet) Ş íá åãêáôáóôŞóåôå ôï ğáêİôï
+ telnetd-ssl, şóôå íá õğÜñ÷åé ôïõëÜ÷éóôïí ìéá ğéèáíüôçôá ïé óõíäİóåéò
+ telnet íá ìçí áğïóôİëëïõí ìç êñõğôïãñáöçìİíåò ğëçñïöïñßåò êùäéêşí
+ ğñüóâáóçò êáé óõíåäñéşí ìİóù äéêôıïõ.
+Description-es: Aviso: tiene telnetd instalado (posiblemente no es una buena idea)
+ Es muy aconsejable que borre el paquete telnetd si no necesita realmente
+ ofrecer acceso mediante telnet o instalar telnetd-ssl para que las
+ contraseñas, nombres de usuario y demás información de las sesiones telnet
+ no viajen sin cifrar por la red.
+Description-fr: Attention : telnetd est installé -- ce n'est probablement pas une bonne idée
+ Je vous conseille soit d'enlever le paquet telnetd (si ce service n'est
+ pas nécessaire), soit de le remplacer par le paquet telnetd-ssl pour qu'il
+ y ait au moins une chance que les sessions telnet soient chiffrées et que
+ les mots de passe et noms d'utilisateurs ne passent pas en clair sur le
+ réseau.
+Description-it: Attenzione: telnetd è installato --- probabilmente non è una buona idea
+ È consigliabile rimuovere il pacchetto telnetd (se non è proprio
+ necessario offrire l'accesso via telnet) o installare telnetd-ssl per
+ evitare che ci sia qualche possibilità che la sessione telnet invii sulla
+ rete login/password e informazioni di sessione non criptate.
+Description-ja: ·Ù¹ğ: telnetd ¤¬¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤Æ¤¤¤Ş¤¹¡£¤¿¤Ö¤óÎÉ¤¤¹Í¤¨¤Ç¤Ï¤¢¤ê¤Ş¤»¤ó
+ (¤â¤· telnet ¥¢¥¯¥»¥¹¤òÄó¶¡¤·¤¿¤¤¤È»×¤Ã¤Æ¤¤¤Ê¤¤¤Î¤Ç¤·¤¿¤é) telnetd
+ ¥Ñ¥Ã¥±¡¼¥¸¤ò¥¢¥ó¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¤«¡¢¤Ş¤¿¤Ï¡¢telnetd-ssh ¥Ñ¥Ã¥±¡¼¥¸¤ò
+ ¥¤¥ó¥¹¥È¡¼¥ë¤·¤Æ¾¯¤Ê¤¯¤È¤â¥Í¥Ã¥È¥ï¡¼¥¯¾å¤ò°Å¹æ²½¤µ¤ì¤Æ¤¤¤Ê¤¤¥æ¡¼¥¶Ì¾¤ä¥Ñ¥¹¥ï¡¼¥É¤ä¥»¥Ã¥·¥ç¥ó¾ğÊó¤¬Î®¤ì¤Ê¤¤¤è¤¦¤Ë¤¹¤ë¤³¤È¤ò¤ª´«¤á¤·¤Ş¤¹¡£
+Description-nl: Waarschuwing: telnetd is geïnstalleerd -- dit is waarschijnlijk geen goed idee
+ Ik raad u aan om of het telnetd-pakket te verwijderen (indien u geen
+ telnettoegang hoeft aan te bieden), of telnetd-ssl te installeren zodat er
+ enige kans is dat telnetsessies geen onversleutelde
+ gebruikersnaam/wachtwoord en sessie informatie over het netwerk versturen.
+Description-pl: Uwaga: telnetd jest zainstalowany --- prawdopodobnie nienajlepszy pomys³
+ Radzi³bym albo usun±æ pakiet telnetd (je¶li nie potrzebujesz koniecznie
+ udostêpniaæ telnet'a) albo zainstalowaæ telnetd-ssl aby by³a choæ szansza,
+ ¿e sesje telnet nie bêd± przesy³aæ niezaszyfrowanego loginu/has³a oraz
+ danych sesji przez sieæ.
+Description-pt_BR: Aviso: telnetd está instalado --- provavelmente não é uma boa idéia
+ Eu recomendaria a você ou remover o pacote telnetd (se você atualmente não
+ precisa oferecer acesso telnet) ou instalar telnetd-ssl. Assim existe pelo
+ menos uma chance das sessões telnet não enviarem login/senha não
+ encriptados e informações de sessão através da rede.
+Description-ru: ğÒÅÄÕĞÒÅÖÄÅÎÉÅ: ÕÓÔÁÎÏ×ÌÅÎ telnetd --- ĞÏÖÁÌÕÊ, ÜÔÏ ÎÅ ÏŞÅÎØ ÈÏÒÏÛÏ
+ ñ ÒÅËÏÍÅÎÄÏ×ÁÌ ÂÙ ÷ÁÍ ÕÄÁÌÉÔØ ĞÁËÅÔ telnetd (ÅÓÌÉ ÷ÁÍ ÄÅÊÓÔ×ÉÔÅÌØÎÏ ÎÅ
+ ÎÕÖÅÎ ÄÏÓÔÕĞ telnet) ÉÌÉ ÕÓÔÁÎÏ×ÉÔØ telnet-ssl, ŞÔÏÂÙ ÉÍÅÔØ ÈÏÔÑ ÂÙ
+ ×ÏÚÍÏÖÎÏÓÔØ ÎÅ ĞÅÒÅÄÁ×ÁÔØ ĞÏ ÓÅÔÉ ÎÅÚÁÛÉÆÒÏ×ÁÎÎÙÅ ÉÍÅÎÁ É ĞÁÒÏÌÉ
+ ĞÏÌØÚÏ×ÁÔÅÌÅÊ É ĞÒÏŞÕÀ ÉÎÆÏÒÍÁÃÉÀ × telnet-ÓÅÓÓÉÑÈ.
+Description-tr: Uyarı: telnetd kurulmuş --- bu muhtemelen iyi bir fikir değil
+ Telnetd paketini (eğer gerçekten telnet erişimi sunmak gibi bir
+ zorunluluğunuz yoksa) kaldırmanızı veya en azından, telnet oturumlarında
+ şifrelenmemiş giriş/parola ve oturum bilgilerinin ağ üzerinden
+ gönderilmemesi olanağını sunan telnetd-ssl paketini kurmanızı öneririm.
+Description-zh_CN: ¾¯¸æ£ºÒÑ¾­°²×°ÁË telnetd ·şÎñÆ÷ --- ¿ÉÄÜ²»ÊÇ¸öºÃÖ÷Òâ
+ ÎÒ½¨ÒéÄúÉ¾³ı telnetd °ü(Èç¹ûÄú²»ÊÇÕæµÄĞèÒªÌá¹© telnet ·ÃÎÊ)£¬»òÕß°²×°
+ telnetd-ssl£¬ÕâÑùÖÁÉÙÓĞÊ±ºò telnet »á»°²»»á½«Î´¼ÓÃÜµÄ µÇÂ¼Ãû/ÃÜÂë
+ ºÍ»á»°ĞÅÏ¢Í¨¹ıÍøÂç·¢ËÍ¡£
+
+Template: ssh/encrypted_host_key_but_no_keygen
+Type: note
+Description: Warning: you must create a new host key
+ There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH
+ can not handle this host key file, and I can't find the ssh-keygen utility
+ from the old (non-free) SSH installation.
+ .
+ You will need to generate a new host key.
+Description-ca: Avís: heu de crear una nova clau del servidor central
+ Hi ha un fitxer antic /etc/ssh/ssh_host_key antic xifrat amb IDEA.
+ L'OpenSSH no pot gestionar aquest fitxer de clau de l'ordinador central i
+ no es pot trobar l'eina ssh-keygen de la instal·lació d'SSH anterior
+ (non-free).
+ .
+ Haureu de generar una nova clau de l'ordinador central.
+Description-cs: Varování: musíte vytvoøit novı serverovı klíè
+ V /etc/ssh/ssh_host_key se nachází starı klíè ¹ifrovanı algoritmem IDEA.
+ OpenSSH neumí tento soubor zpracovat a nemohu najít utilitu ssh-keygen ze
+ staré (nesvobodné) instalace SSH.
+ .
+ Musíte vygenerovat novı serverovı klíè
+Description-da: Advarsel: du skal oprette en ny værtsnøgle
+ Der ligger en gammel, IDEA-krypteret /etc/ssh/ssh_host_key. OpenSSH kan
+ ikke håndtere sådan en værtsnøglefil, og jeg kan ikke finde værktøjet
+ ssh-keygen fra den gamle (ikke-frie, 'non-free') SSH-installation.
+ .
+ Du skal oprette en ny værtsnøgle.
+Description-de: Warnung: Sie müssen einen neuen Host-Schlüssel erzeugen
+ Es existiert eine alte Variante von /etc/ssh/ssh_host_key welche per IDEA
+ verschlüsselt ist. OpenSSH kann eine solche Host-Schlüssel-Datei nicht
+ verarbeiten und ssh-keygen von der alten (nicht-freien) ssh Installation
+ kann nicht gefunden werden.
+ .
+ Sie müssen einen neuen Host-Schlüssel erzeugen.
+Description-el: Ğñïóï÷Ş: ğñİğåé íá äçìéïõñãŞóåôå İíá íİï êëåéäß ãéá ôïí õğïëïãéóôŞ (host key)
+ ÕğÜñ÷åé İíá ğáëáéüôåñï êëåéäß /etc/ssh/ssh_host_key, ğïõ åßíáé
+ êñõğôïãñáöçìİíï ìå ôïí áëãüñéèìï IDEA. Ôï OpenSSH äå ìğïñåß íá ÷åéñéóôåß
+ áõôü ôï êëåéäß êáé äåí İ÷åé âñåèåß ôï åñãáëåßï ssh-keygen áğü ôçí ğáëéÜ
+ (ìç åëåıèåñç) åãêáôÜóôáóç ôïõ SSH.
+ .
+ Ğñİğåé íá äçìéïõñãŞóåôå İíá íİï êëåéäß ãéá ôïí õğïëïãéóôŞ (host key).
+Description-es: Aviso: debe crear una nueva clave para su servidor
+ Su sistema tiene un /etc/ssh/ssh_host_key antiguo, que usa cifrado IDEA.
+ OpenSSH no puede manejar este fichero de claves y tampoco se encuentra la
+ utilidad ssh-keygen incluida en el paquete ssh no libre.
+ .
+ Necesitará generar una nueva clave para su servidor.
+Description-fr: Attention : vous devez créer une nouvelle clé d'hôte
+ Il existe un vieux /etc/ssh/ssh_host_key qui est chiffré avec IDEA.
+ OpenSSH ne peut utiliser ce fichier de clé, et je ne peux trouver
+ l'utilitaire ssh-keygen de l'installation précédente (non libre) de SSH.
+ .
+ Vous aurez besoin de générer une nouvelle clé d'hôte.
+Description-it: Attenzione: è necessario creare una nuova chiave host
+ C'è una vecchio file /etc/ssh/ssh_host_key, che è criptato in modalità
+ IDEA. OpenSSH non è in grado di gestire questo file di chiave host e non è
+ presente il programma di utilità ssh-keygen dalla precedente installazione
+ di SSH (non-free).
+ .
+ Sarà necessario generare una nuova chiave host.
+Description-ja: ·Ù¹ğ: ¿·¤·¤¤¥Û¥¹¥È¥­¡¼¤òºî¤é¤Ê¤¤¤È¤¤¤±¤Ş¤»¤ó
+ IDEA ¤Ç°Å¹æ²½¤µ¤ì¤¿¸Å¤¤¥­¡¼¤¬ /etc/ssh/ssh_host_key ¤Ë¤¢¤ê¤Ş¤¹¡£ OpenSSH
+ ¤Ï¤³¤Î¥Û¥¹¥È¥­¡¼¥Õ¥¡¥¤¥ë¤ò°·¤¨¤Ş¤»¤ó¡£¤Ş¤¿¡¢º£¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤Æ¤¤¤ë¸Å¤¤
+ (¥Õ¥ê¡¼¤Ç¤Ï¤Ê¤¤) SSH ¤Ë¤Ï ssh-keygen ¥æ¡¼¥Æ¥£¥ê¥Æ¥£¤¬´Ş¤Ş¤ì¤Æ¤¤¤Ş¤»¤ó¡£
+ .
+ ¿·¤·¤¤¥Û¥¹¥È¥­¡¼¤òºî¤ëÉ¬Í×¤¬¤¢¤ê¤Ş¤¹¡£
+Description-nl: Waarschuwing: u dient een nieuwe computersleutel aan te maken
+ Er is een oude IDEA-versleutelde /etc/ssh/ssh_host_key aanwezig. OpenSSH
+ kan dit computersleutelbestand niet aan, en ik kan het ssh-keygen
+ programma van de oude (niet-vrije) SSH installatie niet vinden.
+ .
+ Het zal nodig zijn om een nieuwe computersleutel te genereren
+Description-pl: Uwaga: musisz utworzyæ nowy klucz hosta
+ Istnieje stary /etc/ssh/ssh_host_key, który jest zaszyfrowany przez IDEA.
+ OpenSSH nie umie korzystaæ z tak zaszyfrowanego klucza, a nie mo¿e znale¼æ
+ polecenia ssh-keygen ze starego SSH (non-free).
+ .
+ Bêdziesz musia³ wygenerowaæ nowy klucz hosta.
+Description-pt_BR: Aviso: você deve criar uma nova host key
+ Existe uma antiga /etc/ssh/ssh_host_key, a qual é encriptada usando IDEA.
+ O OpenSSH não pode gerenciar este arquivo host key e eu não consigo
+ encontrar o utilitário ssh-keygen da antiga (non-free) instalação SSH.
+ .
+ Você precisará gerar uma nova host key.
+Description-ru: ğÒÅÄÕĞÒÅÖÄÅÎÉÅ: ÷Ù ÄÏÌÖÎÙ ÓÏÚÄÁÔØ ÎÏ×ÙÊ ÈÏÓÔÏ×ÙÊ ËÌÀŞ.
+ îÁÊÄÅÎ ÓÔÁÒÙÊ /etc/ssh/ssh_host_key, ËÏÔÏÒÙÊ ÚÁÛÉÆÒÏ×ÁÎ IDEA. OpenSSH ÎÅ
+ ÍÏÖÅÔ ÒÁÂÏÔÁÔØ Ó ÜÔÉÍ ÈÏÓÔÏ×ÙÍ ËÌÀŞÏÍ, É Ñ ÎÅ ÍÏÇÕ ÎÁÊÔÉ ÕÔÉÌÉÔÕ
+ ssh-keygen ÏÔ ÓÔÁÒÏÊ (ÎÅÓ×ÏÂÏÄÎÏÊ) ÉÎÓÔÁÌÌÑÃÉÉ SSH.
+ .
+ ÷ÁÍ ÎÁÄÏ ÂÕÄÅÔ ÓÇÅÎÅÒÉÒÏ×ÁÔØ ÎÏ×ÙÊ ËÌÀŞ ÈÏÓÔÁ.
+Description-tr: Uyarı: yeni bir makine anahtarı oluşturmalısınız
+ IDEA ile şifrelenmiş eski bir /ect/ssh/ssh_host_key dosyanız var. OpenSSH
+ bu anahtar dosyasını yönetemez. Eski (özgür olmayan) SSH kurulumuna ait
+ ssh-keygen aracını da bulamıyorum.
+ .
+ Yeni bir makine anahtarı oluşturmanız gerekiyor.
+Description-zh_CN: ¾¯¸æ£ºÄú±ØĞë´´½¨Ò»¸öĞÂµÄÖ÷»úÃÜÔ¿
+ /etc/ssh/ssh_host_key ÊÇÓÉ IDEA ¼ÓÃÜµÄ¾ÉÃÜÔ¿ÎÄ¼ş¡£OpenSSH
+ ²»ÄÜ´¦ÀíÕâÖÖÃÜÔ¿ÎÄ¼ş£¬ÎÒÒ²ÎŞ·¨ÕÒµ½¾ÉµÄ(·Ç×ÔÓÉµÄ) SSH °²×°Ëù´øµÄ ssh-keygen
+ ÃÜÔ¿Éú³É¹¤¾ß¡£
+ .
+ ÄúĞèÒª´´½¨Ò»¸öĞÂµÄÖ÷»úÃÜÔ¿¡£
+
+Template: ssh/disable_cr_auth
+Type: boolean
+Default: false
+Description: Disable challenge-response authentication?
+ Password authentication appears to be disabled in your current OpenSSH
+ server configuration. In order to prevent users from logging in using
+ passwords (perhaps using only public key authentication instead) with
+ recent versions of OpenSSH, you must disable challenge-response
+ authentication, or else ensure that your PAM configuration does not allow
+ Unix password file authentication.
+ .
+ If you disable challenge-response authentication, then users will not be
+ able to log in using passwords. If you leave it enabled (the default
+ answer), then the 'PasswordAuthentication no' option will have no useful
+ effect unless you also adjust your PAM configuration in /etc/pam.d/ssh.
