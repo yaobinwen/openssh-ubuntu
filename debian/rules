@@ -4,7 +4,7 @@
 # export DH_VERBOSE=1
 
 # This is the debhelper compatibility version to use.
-export DH_COMPAT=2
+export DH_COMPAT=3
 
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
@@ -17,6 +17,15 @@ endif
 
 VERSION := $(shell dpkg-parsechangelog | grep ^Version: | cut -d' ' -f2 | sed 's/.*://')
 DEB_HOST_ARCH := $(shell dpkg-architecture -qDEB_HOST_ARCH)
+DEB_HOST_ARCH_OS := $(shell dpkg-architecture -qDEB_HOST_ARCH_OS 2>/dev/null)
+
+# Take account of old dpkg-architecture output.
+ifeq ($(DEB_HOST_ARCH_OS),)
+  DEB_HOST_ARCH_OS := $(subst -gnu,,$(shell dpkg-architecture -qDEB_HOST_GNU_SYSTEM))
+  ifeq ($(DEB_HOST_ARCH_OS),gnu)
+    DEB_HOST_ARCH_OS := hurd
+  endif
+endif
 
 CLIENT_UDEB := openssh-client-udeb_$(VERSION)_$(DEB_HOST_ARCH).udeb
 SERVER_UDEB := openssh-server-udeb_$(VERSION)_$(DEB_HOST_ARCH).udeb
@@ -43,14 +52,18 @@ PAMSUBST := yes
 PAMDEP := libpam-runtime
 endif
 
-# Temporary linkage hack for amd64 due to lack of res_query weak alias, see
-# #242462. Real fix sent upstream.
-ifeq ($(DEB_HOST_ARCH),amd64)
-FORCE_LIBS = LIBS=-lresolv
+# The Hurd needs libcrypt for res_query et al.
+ifeq ($(DEB_HOST_ARCH_OS),hurd)
+FORCE_LIBS := LIBS=-lcrypt
+endif
+
+# SELinux support?
+ifeq ($(DEB_HOST_ARCH_OS),linux)
+SELINUX := --with-selinux
 endif
 
 # Change the version string to include the Debian version
-SSH_VERSION := $(shell sed -e '/define/!d; s/.*\"\(.*\)\".*/\1/; q' <version.h) Debian-$(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/Version: //p' | sed -e 's/[^-]*-//')
+SSH_EXTRAVERSION := Debian-$(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/Version: //p' | sed -e 's/[^-]*-//')
 
 build: build-deb build-udeb
 
@@ -58,14 +71,16 @@ build-deb: build-deb-stamp
 build-deb-stamp:
 	dh_testdir
 	mkdir -p build-deb
-	cd build-deb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/X11/xauth --with-default-path=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin --with-pam --with-4in6 --with-privsep-path=/var/run/sshd  --without-rand-helper
+	cd build-deb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib/openssh --mandir=/usr/share/man --with-tcp-wrappers --with-xauth=/usr/bin/xauth --with-default-path=/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/usr/games --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/X11R6/bin --with-pam --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper --with-libedit $(SELINUX)
 
+ifeq ($(DEB_HOST_ARCH_OS),linux)
 	# Some 2.2 kernels have trouble with setres[ug]id() (bug #239999).
 	perl -pi -e 's/.*#undef (BROKEN_SETRES[UG]ID).*/#define $$1 1/' build-deb/config.h
-	# Supply pthread linkage for just those binaries linked to PAM.
-	perl -pi -e 's/^(LIBPAM=.*)/$$1 -pthread/' build-deb/Makefile
+endif
+	# Debian's /var/log/btmp has inappropriate permissions.
+	perl -pi -e 's,.*#define USE_BTMP .*,/* #undef USE_BTMP */,' build-deb/config.h
 
-	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -DUSE_POSIX_THREADS -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -DSSH_VERSION="\"$(SSH_VERSION)\""' SSH_KEYSIGN='/usr/lib/ssh-keysign'
+	$(MAKE) -C build-deb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='$(OPTFLAGS) -g -Wall -DLOGIN_PROGRAM=\"/bin/login\" -DLOGIN_NO_ENDOPT -DSSHD_PAM_SERVICE=\"ssh\" -DSSH_EXTRAVERSION="\" $(SSH_EXTRAVERSION)\""'
 	# Support building on Debian 3.0 (with GNOME 1.4) and later.
 	if [ -f /usr/include/libgnomeui-2.0/gnome.h ]; then \
 		$(MAKE) -C contrib gnome-ssh-askpass2 CC='gcc $(OPTFLAGS) -g -Wall'; \
@@ -79,11 +94,13 @@ build-udeb: build-udeb-stamp
 build-udeb-stamp:
 	dh_testdir
 	mkdir -p build-udeb
-	cd build-udeb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --without-xauth --with-default-path=/usr/local/bin:/bin:/usr/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper
+	cd build-udeb && $(FORCE_LIBS) ../configure --prefix=/usr --sysconfdir=/etc/ssh --libexecdir=/usr/lib/openssh --without-xauth --with-default-path=/usr/local/bin:/bin:/usr/bin --with-superuser-path=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin --with-4in6 --with-privsep-path=/var/run/sshd --without-rand-helper
+	# Debian's /var/log/btmp has inappropriate permissions.
+	perl -pi -e 's,.*#define USE_BTMP .*,/* #undef USE_BTMP */,' build-udeb/config.h
 	# Avoid libnsl linkage. Ugh.
 	perl -pi -e 's/ +-lnsl//' build-udeb/config.status
 	cd build-udeb && ./config.status
-	$(MAKE) -C build-udeb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='-Os -g -Wall -DSSH_VERSION="\"$(SSH_VERSION)\""' SSH_KEYSIGN='/usr/lib/ssh-keysign' ssh scp sftp sshd ssh-keygen
+	$(MAKE) -C build-udeb -j 2 ASKPASS_PROGRAM='/usr/bin/ssh-askpass' CFLAGS='-Os -g -Wall -DSSH_EXTRAVERSION="\" $(SSH_EXTRAVERSION)\""' ssh scp sftp sshd ssh-keygen
 	touch build-udeb-stamp
 
 clean:
@@ -99,8 +116,7 @@ ifeq ($(PO2DEBCONF),yes)
 	# on a system with po-debconf installed (conveniently debhelper (>=
 	# 4.1.16) depends on it), the binary-arch target will generate a
 	# better version for sarge.
-	echo 1 > debian/po/output
-	po2debconf debian/openssh-client.templates.master > debian/openssh-client.templates
+	echo '1 popular' > debian/po/output
 	po2debconf debian/openssh-server.templates.master > debian/openssh-server.templates
 	rm -f debian/po/output
 endif
@@ -127,7 +143,7 @@ install: build
 
 	# Split off the server.
 	mv debian/openssh-client/usr/sbin/sshd debian/openssh-server/usr/sbin/
-	mv debian/openssh-client/usr/lib/sftp-server debian/openssh-server/usr/lib/
+	mv debian/openssh-client/usr/lib/openssh/sftp-server debian/openssh-server/usr/lib/openssh/
 	mv debian/openssh-client/usr/share/man/man5/sshd_config.5 debian/openssh-server/usr/share/man/man5/
 	mv debian/openssh-client/usr/share/man/man8/sshd.8 debian/openssh-server/usr/share/man/man8/
 	mv debian/openssh-client/usr/share/man/man8/sftp-server.8 debian/openssh-server/usr/share/man/man8/
@@ -138,9 +154,9 @@ install: build
 	install -m 644 debian/moduli.5 debian/openssh-client/usr/share/man/man5/moduli.5
 
 	if [ -f contrib/gnome-ssh-askpass2 ]; then \
-		install -s -o root -g root -m 755 contrib/gnome-ssh-askpass2 debian/ssh-askpass-gnome/usr/lib/ssh/gnome-ssh-askpass; \
+		install -s -o root -g root -m 755 contrib/gnome-ssh-askpass2 debian/ssh-askpass-gnome/usr/lib/openssh/gnome-ssh-askpass; \
 	elif [ -f contrib/gnome-ssh-askpass1 ]; then \
-		install -s -o root -g root -m 755 contrib/gnome-ssh-askpass1 debian/ssh-askpass-gnome/usr/lib/ssh/gnome-ssh-askpass; \
+		install -s -o root -g root -m 755 contrib/gnome-ssh-askpass1 debian/ssh-askpass-gnome/usr/lib/openssh/gnome-ssh-askpass; \
 	fi
 	install -m 644 debian/gnome-ssh-askpass.1 debian/ssh-askpass-gnome/usr/share/man/man1/gnome-ssh-askpass.1
 	uudecode -o debian/ssh-askpass-gnome/usr/share/pixmaps/ssh-askpass-gnome.png debian/ssh-askpass-gnome.png.uue
@@ -169,21 +185,20 @@ binary-openssh-client: DH_OPTIONS=-popenssh-client
 binary-openssh-client: build install
 	dh_testdir
 	dh_testroot
-ifeq ($(PO2DEBCONF),yes)
-	po2debconf -e utf8 debian/openssh-client.templates.master > debian/openssh-client.templates
-endif
 	dh_installdebconf
-	dh_installdocs OVERVIEW README
+	dh_installdocs OVERVIEW README README.dns
 	cat debian/copyright.head LICENCE > debian/openssh-client/usr/share/doc/openssh-client/copyright
 	dh_installchangelogs ChangeLog
+	install -m644 debian/openssh-client.lintian debian/openssh-client/usr/share/lintian/overrides/openssh-client
 	dh_strip
 	dh_compress
 	dh_fixperms
+	chmod u+s debian/openssh-client/usr/lib/openssh/ssh-keysign
 	dh_installdeb
 	test ! -e debian/ssh/etc/ssh/ssh_prng_cmds \
 	  || echo "/etc/ssh/ssh_prng_cmds" >> debian/openssh-client/DEBIAN/conffiles
 	dh_shlibdeps
-	dh_gencontrol -- -V'debconf-depends=debconf (>= $(MINDEBCONFVER))'
+	dh_gencontrol -- -V'debconf-depends=debconf (>= $(MINDEBCONFVER)) | debconf-2.0'
 	dh_md5sums
 	dh_builddeb
 
@@ -195,8 +210,9 @@ ifeq ($(PO2DEBCONF),yes)
 	po2debconf -e utf8 debian/openssh-server.templates.master > debian/openssh-server.templates
 endif
 	dh_installdebconf
-	dh_installdocs OVERVIEW README
-	cat debian/copyright.head LICENCE > debian/openssh-server/usr/share/doc/openssh-server/copyright
+	dh_installdocs
+	mv debian/openssh-server/usr/share/doc/openssh-server debian/openssh-server/usr/share/doc/openssh-client
+	rm -f debian/openssh-server/usr/share/doc/openssh-client/copyright
 ifeq ($(PAMSUBST),yes)
 	# Clean up if we've done this already, to ensure idempotency.
 	if [ -f debian/openssh-server.ssh.pam.new-style ]; then \
@@ -210,13 +226,13 @@ ifeq ($(PAMSUBST),yes)
 	    debian/openssh-server.ssh.pam.new-style > debian/openssh-server.ssh.pam
 endif
 	dh_installpam --name ssh # TODO: breaks woody backports
-	dh_installchangelogs ChangeLog
+	dh_link
 	dh_strip
 	dh_compress
 	dh_fixperms
 	dh_installdeb
 	dh_shlibdeps
-	dh_gencontrol -- -V'debconf-depends=debconf (>= $(MINDEBCONFVER))' \
+	dh_gencontrol -- -V'debconf-depends=debconf (>= $(MINDEBCONFVER)) | debconf-2.0' \
 	                 -V'pam-depends=$(PAMDEP)'
 	dh_md5sums
 	dh_builddeb
@@ -226,8 +242,9 @@ binary-ssh: build install
 	dh_testdir
 	dh_testroot
 	dh_installdocs
-	cat debian/copyright.head LICENCE > debian/ssh/usr/share/doc/ssh/copyright
-	dh_installchangelogs
+	mv debian/ssh/usr/share/doc/ssh debian/ssh/usr/share/doc/openssh-client
+	rm -f debian/ssh/usr/share/doc/openssh-client/copyright
+	dh_link
 	dh_compress
 	dh_fixperms
 	dh_installdeb

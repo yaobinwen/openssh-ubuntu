@@ -1,4 +1,4 @@
-/* $Id: port-aix.h,v 1.21 2004/08/14 14:09:12 dtucker Exp $ */
+/* $Id: port-aix.h,v 1.25 2005/03/21 11:46:34 dtucker Exp $ */
 
 /*
  *
@@ -27,6 +27,13 @@
 
 #ifdef _AIX
 
+#ifdef HAVE_SYS_SOCKET_H
+# include <sys/socket.h>
+#endif
+#ifdef HAVE_UNISTD_H
+# include <unistd.h>	/* for seteuid() */
+#endif
+
 #ifdef WITH_AIXAUTHENTICATE
 # include <login.h>
 # include <userpw.h>
@@ -34,6 +41,30 @@
 #  include <sys/audit.h>
 # endif
 # include <usersec.h>
+#endif
+
+#include "buffer.h"
+
+/* These should be in the system headers but are not. */
+int usrinfo(int, char *, int);
+#if (HAVE_DECL_SETAUTHDB == 0)
+int setauthdb(const char *, char *);
+#endif
+/* these may or may not be in the headers depending on the version */
+#if (HAVE_DECL_AUTHENTICATE == 0)
+int authenticate(char *, char *, int *, char **);
+#endif
+#if (HAVE_DECL_LOGINFAILED == 0)
+int loginfailed(char *, char *, char *);
+#endif
+#if (HAVE_DECL_LOGINRESTRICTIONS == 0)
+int loginrestrictions(char *, int, char *, char **);
+#endif
+#if (HAVE_DECL_LOGINSUCCESS == 0)
+int loginsuccess(char *, char *, char *, char **);
+#endif
+#if (HAVE_DECL_PASSWDEXPIRED == 0)
+int passwdexpired(char *, char **);
 #endif
 
 /* Some versions define r_type in the above headers, which causes a conflict */
@@ -64,14 +95,23 @@ void aix_usrinfo(struct passwd *);
 #ifdef WITH_AIXAUTHENTICATE
 # define CUSTOM_SYS_AUTH_PASSWD 1
 # define CUSTOM_SYS_AUTH_ALLOWED_USER 1
-int sys_auth_allowed_user(struct passwd *);
+int sys_auth_allowed_user(struct passwd *, Buffer *);
 # define CUSTOM_SYS_AUTH_RECORD_LOGIN 1
-int sys_auth_record_login(const char *, const char *, const char *);
+int sys_auth_record_login(const char *, const char *, const char *, Buffer *);
 # define CUSTOM_FAILED_LOGIN 1
-void record_failed_login(const char *, const char *);
 #endif
 
 void aix_setauthdb(const char *);
 void aix_restoreauthdb(void);
 void aix_remove_embedded_newlines(char *);
+
+#if defined(AIX_GETNAMEINFO_HACK) && !defined(BROKEN_GETADDRINFO)
+# ifdef getnameinfo
+#  undef getnameinfo
+# endif
+int sshaix_getnameinfo(const struct sockaddr *, size_t, char *, size_t,
+    char *, size_t, int);
+# define getnameinfo(a,b,c,d,e,f,g) (sshaix_getnameinfo(a,b,c,d,e,f,g))
+#endif
+
 #endif /* _AIX */

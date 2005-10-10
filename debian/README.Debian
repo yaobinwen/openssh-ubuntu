@@ -97,6 +97,10 @@ you will need to generate one. To do so, run this command as root:
 
   ssh-keygen -f /etc/ssh/ssh_host_key -N '' -t rsa1
 
+As of openssh-server 1:4.1p1-2, the option to support protocol version 1
+is no longer available via debconf. You must edit the configuration file
+instead.
+
 X11 Forwarding
 --------------
 
@@ -234,6 +238,19 @@ server, and do not currently intend to change OpenSSH's scp to match.
 Workarounds for this problem are to install scp1 on the server (scp2 will
 fall back to it), to use sftp, or to use some other transfer mechanism such
 as rsync-over-ssh or tar-over-ssh.
+
+Running sshd from inittab
+-------------------------
+
+Some people find it useful to run the sshd server from inittab, to make sure
+that it always stays running. To do this, stop sshd ('/etc/init.d/ssh
+stop'), add the following line to /etc/inittab, and run 'telinit q':
+
+  ss:2345:respawn:/usr/sbin/sshd -D
+
+If you do this, note that you will need to stop sshd being started in the
+normal way ('rm -f /etc/rc[2345].d/S20ssh') and that you will need to
+restart this sshd manually on upgrades.
 
 --
 Matthew Vernon

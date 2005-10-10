@@ -14,14 +14,25 @@ if [ "$action" != configure ]
 fi
 
 
+fix_doc_symlink() {
+	if [ ! -L /usr/share/doc/openssh-server ] && \
+	   dpkg --compare-versions "$oldversion" lt-nl 1:4.1p1-5; then
+		rm -rf /usr/share/doc/openssh-server
+		ln -s openssh-client /usr/share/doc/openssh-server
+	fi
+}
+
 check_idea_key() {
-    #check for old host_key files using IDEA, which openssh does not support
+	# check for old host_key files using IDEA, which openssh does not
+	# support
 	if [ -f /etc/ssh/ssh_host_key ] ; then
-		if ssh-keygen -p -N '' -f /etc/ssh/ssh_host_key 2>&1 | \
-				grep -q 'unknown cipher' 2>/dev/null ; then
-      mv /etc/ssh/ssh_host_key /etc/ssh/ssh_host_key.old
-      mv /etc/ssh/ssh_host_key.pub /etc/ssh/ssh_host_key.pub.old
-  fi
+		cp -a /etc/ssh/ssh_host_key /etc/ssh/ssh_host_key.check_idea
+		if ssh-keygen -p -N '' -f /etc/ssh/ssh_host_key.check_idea 2>&1 | \
+				grep -q 'unknown cipher' 2>/dev/null; then
+			mv /etc/ssh/ssh_host_key /etc/ssh/ssh_host_key.old
+			mv /etc/ssh/ssh_host_key.pub /etc/ssh/ssh_host_key.pub.old
+		fi
+		rm -f /etc/ssh/ssh_host_key.check_idea
 	fi
 }
 
@@ -32,7 +43,7 @@ get_config_option() {
 	[ -f /etc/ssh/sshd_config ] || return
 
 	# TODO: actually only one '=' allowed after option
-	perl -ne 'print if s/^[[:space:]]*'"$option"'[[:space:]=]+//i' \
+	perl -lne 's/\s+/ /g; print if s/^\s*'"$option"'[[:space:]=]+//i' \
 	   /etc/ssh/sshd_config
 }
 
@@ -41,15 +52,18 @@ set_config_option() {
 	option="$1"
 	value="$2"
 
-	perl -e '
+	perl -le '
 		$option = $ARGV[0]; $value = $ARGV[1]; $done = 0;
 		while (<STDIN>) {
-			if (s/^\s*\Q$option\E\s+.*/$option $value/) {
+			chomp;
+			(my $match = $_) =~ s/\s+/ /g;
+			if ($match =~ s/^\s*\Q$option\E\s+.*/$option $value/) {
+				$_ = $match;
 				$done = 1;
 			}
 			print;
 		}
-		print "\n$option $value\n" unless $done;' \
+		print "$option $value" unless $done;' \
 		"$option" "$value" \
 		< /etc/ssh/sshd_config > /etc/ssh/sshd_config.dpkg-new
 	chown --reference /etc/ssh/sshd_config /etc/ssh/sshd_config.dpkg-new
@@ -91,6 +105,9 @@ create_key() {
 		echo -n $msg
 		ssh-keygen -q -f "$file" -N '' "$@"
 		echo
+		if type restorecon >/dev/null 2>&1; then
+			restorecon "$file.pub"
+		fi
 	fi
 }
 
@@ -117,6 +134,15 @@ check_password_auth() {
 		if [ "$RET" = true ]; then
 			set_config_option ChallengeResponseAuthentication no
 		fi
+	fi
+}
+
+
+move_subsystem_sftp() {
+	subsystem_sftp="$(get_config_option 'Subsystem sftp')"
+	if [ "$subsystem_sftp" = /usr/lib/sftp-server ] || \
+	   [ "$subsystem_sftp" = /usr/libexec/sftp-server ]; then
+		set_config_option 'Subsystem sftp' /usr/lib/openssh/sftp-server
 	fi
 }
 
@@ -159,6 +185,11 @@ create_sshdconfig() {
 		    check_password_auth
 		fi
 
+		# libexecdir changed, so fix up 'Subsystem sftp'.
+		if dpkg --compare-versions "$oldversion" lt 1:4.1p1-1; then
+		    move_subsystem_sftp
+		fi
+
 		return 0
 	    fi
 	fi
@@ -177,27 +208,10 @@ Port 22
 # Use these options to restrict which interfaces/protocols sshd will bind to
 #ListenAddress ::
 #ListenAddress 0.0.0.0
-EOF
-	db_get ssh/protocol2_only
-if [ "$RET" = "false" ]; then
-		cat <<EOF >> /etc/ssh/sshd_config
-Protocol 2,1
-# HostKeys for protocol version 1
-HostKey /etc/ssh/ssh_host_key
-# HostKeys for protocol version 2
-HostKey /etc/ssh/ssh_host_rsa_key
-HostKey /etc/ssh/ssh_host_dsa_key
-EOF
-else
-	cat <<EOF >> /etc/ssh/sshd_config
 Protocol 2
 # HostKeys for protocol version 2
 HostKey /etc/ssh/ssh_host_rsa_key
 HostKey /etc/ssh/ssh_host_dsa_key
-EOF
-fi
-
-	cat <<EOF >> /etc/ssh/sshd_config
 #Privilege Separation is turned on for security
 UsePrivilegeSeparation yes
 
@@ -210,7 +224,7 @@ SyslogFacility AUTH
 LogLevel INFO
 
 # Authentication:
-LoginGraceTime 600
+LoginGraceTime 120
 PermitRootLogin yes
 StrictModes yes
 
@@ -230,11 +244,12 @@ HostbasedAuthentication no
 # To enable empty passwords, change to yes (NOT RECOMMENDED)
 PermitEmptyPasswords no
 
-# Change to no to disable s/key passwords
-#ChallengeResponseAuthentication yes
+# Change to yes to enable challenge-response passwords (beware issues with
+# some PAM modules and threads)
+ChallengeResponseAuthentication no
 
-# Change to yes to enable tunnelled clear text passwords
-PasswordAuthentication no
+# Change to no to disable tunnelled clear text passwords
+#PasswordAuthentication yes
 
 
 # To change Kerberos options
@@ -259,7 +274,7 @@ KeepAlive yes
 # Allow client to pass locale environment variables
 AcceptEnv LANG LC_*
 
-Subsystem	sftp	/usr/lib/sftp-server
+Subsystem sftp /usr/lib/openssh/sftp-server
 
 UsePAM yes
 EOF
@@ -298,6 +313,7 @@ setup_init() {
 }
 
 
+fix_doc_symlink
 create_sshdconfig
 check_idea_key
 create_keys

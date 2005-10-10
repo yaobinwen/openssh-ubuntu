@@ -72,6 +72,7 @@ extern struct monitor *pmonitor;
 extern Buffer input, output;
 extern Buffer loginmsg;
 extern ServerOptions options;
+extern Buffer loginmsg;
 
 int
 mm_is_monitor(void)
@@ -256,10 +257,10 @@ mm_auth2_read_banner(void)
 	return (banner);
 }
 
-/* Inform the privileged process about service and style */
+/* Inform the privileged process about service, style, and role */
 
 void
-mm_inform_authserv(char *service, char *style)
+mm_inform_authserv(char *service, char *style, char *role)
 {
 	Buffer m;
 
@@ -268,6 +269,7 @@ mm_inform_authserv(char *service, char *style)
 	buffer_init(&m);
 	buffer_put_cstring(&m, service);
 	buffer_put_cstring(&m, style ? style : "");
+	buffer_put_cstring(&m, role ? role : "");
 
 	mm_request_send(pmonitor->m_recvfd, MONITOR_REQ_AUTHSERV, &m);
 
@@ -716,6 +718,7 @@ mm_do_pam_account(void)
 {
 	Buffer m;
 	u_int ret;
+	char *msg;
 
 	debug3("%s entering", __func__);
 	if (!options.use_pam)
@@ -727,6 +730,9 @@ mm_do_pam_account(void)
 	mm_request_receive_expect(pmonitor->m_recvfd,
 	    MONITOR_ANS_PAM_ACCOUNT, &m);
 	ret = buffer_get_int(&m);
+	msg = buffer_get_string(&m, NULL);
+	buffer_append(&loginmsg, msg, strlen(msg));
+	xfree(msg);
 
 	buffer_free(&m);
 
@@ -1097,6 +1103,36 @@ mm_auth_rsa_verify_response(Key *key, BIGNUM *p, u_char response[16])
 
 	return (success);
 }
+
+#ifdef SSH_AUDIT_EVENTS
+void
+mm_audit_event(ssh_audit_event_t event)
+{
+	Buffer m;
+
+	debug3("%s entering", __func__);
+
+	buffer_init(&m);
+	buffer_put_int(&m, event);
+
+	mm_request_send(pmonitor->m_recvfd, MONITOR_REQ_AUDIT_EVENT, &m);
+	buffer_free(&m);
+}
+
+void
+mm_audit_run_command(const char *command)
+{
+	Buffer m;
+
+	debug3("%s entering command %s", __func__, command);
+
+	buffer_init(&m);
+	buffer_put_cstring(&m, command);
+
+	mm_request_send(pmonitor->m_recvfd, MONITOR_REQ_AUDIT_COMMAND, &m);
+	buffer_free(&m);
+}
+#endif /* SSH_AUDIT_EVENTS */
 
 #ifdef GSSAPI
 OM_uint32

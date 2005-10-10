@@ -30,6 +30,7 @@
 
 #include "key.h"
 #include "hostfile.h"
+#include "buffer.h"
 #include <openssl/rsa.h>
 
 #ifdef HAVE_LOGIN_CAP
@@ -57,6 +58,7 @@ struct Authctxt {
 	char		*service;
 	struct passwd	*pw;		/* set if 'valid' */
 	char		*style;
+	char		*role;
 	void		*kbdintctxt;
 #ifdef BSD_AUTH
 	auth_session_t	*as;
@@ -68,6 +70,7 @@ struct Authctxt {
 	char		*krb5_ticket_file;
 	char		*krb5_ccname;
 #endif
+	Buffer		*loginmsg;
 	void		*methoddata;
 };
 /*
@@ -130,6 +133,9 @@ int auth_shadow_pwexpired(Authctxt *);
 #endif
 
 #include "auth-pam.h"
+#include "audit.h"
+void remove_kbdint_device(const char *);
+
 void disable_forwarding(void);
 
 void	do_authentication(Authctxt *);
@@ -137,6 +143,7 @@ void	do_authentication2(Authctxt *);
 
 void	auth_log(Authctxt *, int, char *, char *);
 void	userauth_finish(Authctxt *, int, char *);
+void	userauth_send_banner(const char *);
 int	auth_root_allowed(char *);
 
 char	*auth2_read_banner(void);
@@ -180,6 +187,8 @@ void	 auth_debug_send(void);
 void	 auth_debug_reset(void);
 
 struct passwd *fakepw(void);
+
+int	 sys_auth_passwd(Authctxt *, const char *);
 
 #define AUTH_FAIL_MSG "Too many authentication failures for %.100s"
 

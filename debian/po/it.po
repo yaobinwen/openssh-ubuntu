@@ -15,49 +15,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-06 14:06+0100\n"
+"POT-Creation-Date: 2005-05-31 03:26+0100\n"
 "PO-Revision-Date: 2003-12-21 12:23+0100\n"
 "Last-Translator: Renato Gini <rgini@openlabs.it>\n"
 "Language-Team: Italian <debian-l10n-italian@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
-msgstr "Si desidera installare /usr/lib/ssh-keysign come SUID-root?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"You have the option of installing the ssh-keysign helper with the SUID bit "
-"set."
-msgstr ""
-"Si ha la possibilità di installare l'helper ssh-keysign con il bit SUID "
-"impostato."
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
-"based authentication."
-msgstr ""
-"Se si imposta ssh-keysign come SUID, sarà possibile usare l'autenticazione "
-"basata su host del protocollo 2 di SSH."
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"If in doubt, I suggest you install it with SUID.  If it causes problems you "
-"can change your mind later by running:   dpkg-reconfigure ssh"
-msgstr ""
-"Nel dubbio, è consigliabile installarlo come SUID. Se ciò causa problemi "
-"sarà possibile cambiare idea successivamente eseguendo «dpkg-reconfigure ssh»"
 
 #. Type: boolean
 #. Description
@@ -113,55 +77,13 @@ msgstr ""
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:23
-msgid "Allow SSH protocol 2 only"
-msgstr "Consentire solo il protocollo 2 di SSH"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"This version of OpenSSH supports version 2 of the ssh protocol, which is "
-"much more secure.  Disabling ssh 1 is encouraged, however this will slow "
-"things down on low end machines and might prevent older clients from "
-"connecting (the ssh client shipped with \"potato\" is affected)."
-msgstr ""
-"Questa versione di OpenSSH supporta la versione 2 del protocollo ssh, che è "
-"molto più sicura. Si consiglia la disabilitazione di ssh 1, tuttavia ciò "
-"rallenterà le operazioni su macchine di basso livello e potrebbe impedire ai "
-"client più vecchi di collegarsi (il client distribuito con \"potato\" ne è "
-"un esempio)."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"Also please note that keys used for protocol 1 are different so you will not "
-"be able to use them if you only allow protocol 2 connections."
-msgstr ""
-"Notare inoltre che le chiavi usate per il protocollo 1 sono diverse, per cui "
-"non sarà possibile usarle se saranno abilitate solo le connessioni con il "
-"protocollo 2."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"If you later change your mind about this setting, README.Debian has "
-"instructions on what to do to your sshd_config file."
-msgstr ""
-"Se successivamente si cambierà idea su questa impostazione, nel file README."
-"Debian sono presenti istruzioni sulle modifiche da fare nel file sshd_config."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:38
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr ""
 "Si desidera continuare (e rischiare di terminare le sessioni ssh attive)?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:38
+#: ../openssh-server.templates.master:23
 msgid ""
 "The version of /etc/init.d/ssh that you have installed, is likely to kill "
 "all running sshd instances.  If you are doing this upgrade via an ssh "
@@ -174,7 +96,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:38
+#: ../openssh-server.templates.master:23
 msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
@@ -184,48 +106,14 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:48
-msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
-msgstr ""
-"NOTA: Forwarding di X11 e Authorization sono disabilitati come impostazione "
-"predefinita."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:48
-msgid ""
-"For security reasons, the Debian version of ssh has ForwardX11 and "
-"ForwardAgent set to ``off'' by default."
-msgstr ""
-"Per questioni di sicurezza, la versione Debian di ssh contiene \"ForwardX11"
-"\" e \"ForwardAgent\" impostati a \"off\" come impostazione predefinita."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:48
-msgid ""
-"You can enable it for servers you trust, either in one of the configuration "
-"files, or with the -X command line option."
-msgstr ""
-"È possibile abilitarlo per i server di cui si è sicuri, sia in uno dei file "
-"di configurazione, sia tramite l'opzione -X della rigaa di comando."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:48
-msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
-msgstr "Maggiori dettagli si trovano in /usr/share/doc/ssh/README.Debian"
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:59
+#: ../openssh-server.templates.master:33
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr ""
 "Attenzione: rsh-server è installato --- probabilmente non è una buona idea"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:59
+#: ../openssh-server.templates.master:33
 msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
@@ -235,14 +123,14 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:66
+#: ../openssh-server.templates.master:40
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr ""
 "Attenzione: telnetd è installato --- probabilmente non è una buona idea"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:66
+#: ../openssh-server.templates.master:40
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -256,13 +144,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:74
+#: ../openssh-server.templates.master:48
 msgid "Warning: you must create a new host key"
 msgstr "Attenzione: è necessario creare una nuova chiave host"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:74
+#: ../openssh-server.templates.master:48
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and I can't find the ssh-keygen utility from "
@@ -275,19 +163,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:74
+#: ../openssh-server.templates.master:48
 msgid "You will need to generate a new host key."
 msgstr "Sarà necessario generare una nuova chiave host."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:84
+#: ../openssh-server.templates.master:58
 msgid "Disable challenge-response authentication?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:84
+#: ../openssh-server.templates.master:58
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -299,13 +187,92 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:84
+#: ../openssh-server.templates.master:58
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
+
+#~ msgid "Do you want ssh-keysign to be installed SUID root?"
+#~ msgstr "Si desidera installare ssh-keysign come SUID-root?"
+
+#~ msgid ""
+#~ "You have the option of installing the ssh-keysign helper with the SUID "
+#~ "bit set."
+#~ msgstr ""
+#~ "Si ha la possibilità di installare l'helper ssh-keysign con il bit SUID "
+#~ "impostato."
+
+#~ msgid ""
+#~ "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 "
+#~ "host-based authentication."
+#~ msgstr ""
+#~ "Se si imposta ssh-keysign come SUID, sarà possibile usare "
+#~ "l'autenticazione basata su host del protocollo 2 di SSH."
+
+#~ msgid ""
+#~ "If in doubt, I suggest you install it with SUID.  If it causes problems "
+#~ "you can change your mind later by running:   dpkg-reconfigure ssh"
+#~ msgstr ""
+#~ "Nel dubbio, è consigliabile installarlo come SUID. Se ciò causa problemi "
+#~ "sarà possibile cambiare idea successivamente eseguendo «dpkg-reconfigure "
+#~ "ssh»"
+
+#~ msgid "Allow SSH protocol 2 only"
+#~ msgstr "Consentire solo il protocollo 2 di SSH"
+
+#~ msgid ""
+#~ "This version of OpenSSH supports version 2 of the ssh protocol, which is "
+#~ "much more secure.  Disabling ssh 1 is encouraged, however this will slow "
+#~ "things down on low end machines and might prevent older clients from "
+#~ "connecting (the ssh client shipped with \"potato\" is affected)."
+#~ msgstr ""
+#~ "Questa versione di OpenSSH supporta la versione 2 del protocollo ssh, che "
+#~ "è molto più sicura. Si consiglia la disabilitazione di ssh 1, tuttavia "
+#~ "ciò rallenterà le operazioni su macchine di basso livello e potrebbe "
+#~ "impedire ai client più vecchi di collegarsi (il client distribuito con "
+#~ "\"potato\" ne è un esempio)."
+
+#~ msgid ""
+#~ "Also please note that keys used for protocol 1 are different so you will "
+#~ "not be able to use them if you only allow protocol 2 connections."
+#~ msgstr ""
+#~ "Notare inoltre che le chiavi usate per il protocollo 1 sono diverse, per "
+#~ "cui non sarà possibile usarle se saranno abilitate solo le connessioni "
+#~ "con il protocollo 2."
+
+#~ msgid ""
+#~ "If you later change your mind about this setting, README.Debian has "
+#~ "instructions on what to do to your sshd_config file."
+#~ msgstr ""
+#~ "Se successivamente si cambierà idea su questa impostazione, nel file "
+#~ "README.Debian sono presenti istruzioni sulle modifiche da fare nel file "
+#~ "sshd_config."
+
+#~ msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
+#~ msgstr ""
+#~ "NOTA: Forwarding di X11 e Authorization sono disabilitati come "
+#~ "impostazione predefinita."
+
+#~ msgid ""
+#~ "For security reasons, the Debian version of ssh has ForwardX11 and "
+#~ "ForwardAgent set to ``off'' by default."
+#~ msgstr ""
+#~ "Per questioni di sicurezza, la versione Debian di ssh contiene "
+#~ "\"ForwardX11\" e \"ForwardAgent\" impostati a \"off\" come impostazione "
+#~ "predefinita."
+
+#~ msgid ""
+#~ "You can enable it for servers you trust, either in one of the "
+#~ "configuration files, or with the -X command line option."
+#~ msgstr ""
+#~ "È possibile abilitarlo per i server di cui si è sicuri, sia in uno dei "
+#~ "file di configurazione, sia tramite l'opzione -X della rigaa di comando."
+
+#~ msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
+#~ msgstr "Maggiori dettagli si trovano in /usr/share/doc/ssh/README.Debian"
 
 #~ msgid "ssh2 keys merged in configuration files"
 #~ msgstr "chiavi ssh2 aggiunte nei file di configurazione"
