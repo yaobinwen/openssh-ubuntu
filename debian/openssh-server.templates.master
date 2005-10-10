@@ -17,21 +17,6 @@ _Description: Generate new configuration file
  It is strongly recommended that you let me generate a new configuration
  file for you.
 
-Template: ssh/protocol2_only
-Type: boolean
-Default: true
-_Description: Allow SSH protocol 2 only
- This version of OpenSSH supports version 2 of the ssh protocol, which is
- much more secure.  Disabling ssh 1 is encouraged, however this will slow
- things down on low end machines and might prevent older clients from
- connecting (the ssh client shipped with "potato" is affected).
- .
- Also please note that keys used for protocol 1 are different so you will
- not be able to use them if you only allow protocol 2 connections.
- .
- If you later change your mind about this setting, README.Debian has
- instructions on what to do to your sshd_config file.
-
 Template: ssh/use_old_init_script
 Type: boolean
 Default: false
@@ -42,17 +27,6 @@ _Description: Do you want to continue (and risk killing active ssh sessions)?
  .
  You can fix this by adding "--pidfile /var/run/sshd.pid" to the
  start-stop-daemon line in the stop section of the file.
-
-Template: ssh/forward_warning
-Type: note
-_Description: NOTE: Forwarding of X11 and Authorization disabled by default.
- For security reasons, the Debian version of ssh has ForwardX11 and
- ForwardAgent set to ``off'' by default.
- .
- You can enable it for servers you trust, either in one of the
- configuration files, or with the -X command line option.
- .
- More details can be found in /usr/share/doc/ssh/README.Debian
 
 Template: ssh/insecure_rshd
 Type: note

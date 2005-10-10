@@ -544,7 +544,8 @@ process_gssapi_token(void *ctxt, gss_buffer_t recv_tok)
 	Authctxt *authctxt = ctxt;
 	Gssctxt *gssctxt = authctxt->methoddata;
 	gss_buffer_desc send_tok = GSS_C_EMPTY_BUFFER;
-	gss_buffer_desc gssbuf, mic;
+	gss_buffer_desc mic = GSS_C_EMPTY_BUFFER;
+	gss_buffer_desc gssbuf;
 	OM_uint32 status, ms, flags;
 	Buffer b;
 

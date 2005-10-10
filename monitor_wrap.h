@@ -43,7 +43,7 @@ struct Authctxt;
 int mm_is_monitor(void);
 DH *mm_choose_dh(int, int, int);
 int mm_key_sign(Key *, u_char **, u_int *, u_char *, u_int);
-void mm_inform_authserv(char *, char *);
+void mm_inform_authserv(char *, char *, char *);
 struct passwd *mm_getpwnamallow(const char *);
 char *mm_auth2_read_banner(void);
 int mm_auth_password(struct Authctxt *, char *);
@@ -72,6 +72,12 @@ void *mm_sshpam_init_ctx(struct Authctxt *);
 int mm_sshpam_query(void *, char **, char **, u_int *, char ***, u_int **);
 int mm_sshpam_respond(void *, u_int, char **);
 void mm_sshpam_free_ctx(void *);
+#endif
+
+#ifdef SSH_AUDIT_EVENTS
+#include "audit.h"
+void mm_audit_event(ssh_audit_event_t);
+void mm_audit_run_command(const char *);
 #endif
 
 struct Session;

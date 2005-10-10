@@ -15,49 +15,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openssh\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-06 14:06+0100\n"
-"PO-Revision-Date: 2004-01-28 15:10+0100\n"
+"POT-Creation-Date: 2005-05-31 03:26+0100\n"
+"PO-Revision-Date: 2005-03-09 18:29+0100\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <provoz@debian.cz>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid "Do you want /usr/lib/ssh-keysign to be installed SUID root?"
-msgstr "Chcete /usr/lib/ssh-keysign nainstalovat jako SUID root?"
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"You have the option of installing the ssh-keysign helper with the SUID bit "
-"set."
-msgstr ""
-"Mù¾ete si vybrat, zda chcete nainstalovat ssh-keysign s nastaveným SUID "
-"bitem."
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 host-"
-"based authentication."
-msgstr ""
-"Pokud nastavíte ssh-keysign SUID, mù¾ete pou¾ívat 'host-based' autentizaci "
-"protokolu verze 2."
-
-#. Type: boolean
-#. Description
-#: ../openssh-client.templates.master:4
-msgid ""
-"If in doubt, I suggest you install it with SUID.  If it causes problems you "
-"can change your mind later by running:   dpkg-reconfigure ssh"
-msgstr ""
-"Pokud jste na pochybách, doporuèujeme SUID bit povolit. Pokud zaznamenáte "
-"problémy, mù¾ete nastavení zmìnit spu¹tìním:   dpkg-reconfigure ssh"
 
 #. Type: boolean
 #. Description
@@ -107,52 +71,12 @@ msgstr "Je vøele doporuèeno nechat mì vyrobit konfiguraèní soubor."
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:23
-msgid "Allow SSH protocol 2 only"
-msgstr "Povolit pouze SSH protokol verze 2"
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"This version of OpenSSH supports version 2 of the ssh protocol, which is "
-"much more secure.  Disabling ssh 1 is encouraged, however this will slow "
-"things down on low end machines and might prevent older clients from "
-"connecting (the ssh client shipped with \"potato\" is affected)."
-msgstr ""
-"Tato verze OpenSSH podporuje ssh protokol ve verzi 2, který je mnohem "
-"bezpeènìj¹í. Je dobré ssh verze 1 zakázat, nicménì na slab¹ích poèítaèích se "
-"projeví zpomalení a také tím znemo¾níte pøihlá¹ení star¹ích klientù "
-"(napøíklad tìch z Debianu 2.2)."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"Also please note that keys used for protocol 1 are different so you will not "
-"be able to use them if you only allow protocol 2 connections."
-msgstr ""
-"Také si v¹imnìte, ¾e klíèe protokolu verze 1 jsou odli¹né a pokud povolíte "
-"pouze protokol verze 2, nebudete je moci pou¾ít. "
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:23
-msgid ""
-"If you later change your mind about this setting, README.Debian has "
-"instructions on what to do to your sshd_config file."
-msgstr ""
-"Pokud se pozdìji rozhodnete jinak, v README.Debian se nachází pøesný návod, "
-"jak upravit soubor sshd_config."
-
-#. Type: boolean
-#. Description
-#: ../openssh-server.templates.master:38
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
 msgstr "Chcete pokraèovat (a riskovat ukonèení aktivních ssh spojení)?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:38
+#: ../openssh-server.templates.master:23
 msgid ""
 "The version of /etc/init.d/ssh that you have installed, is likely to kill "
 "all running sshd instances.  If you are doing this upgrade via an ssh "
@@ -164,7 +88,7 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:38
+#: ../openssh-server.templates.master:23
 msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
@@ -174,45 +98,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:48
-msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
-msgstr "POZNÁMKA: Autorizace a pøesmìrování X11 je standardnì vypnuto."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:48
-msgid ""
-"For security reasons, the Debian version of ssh has ForwardX11 and "
-"ForwardAgent set to ``off'' by default."
-msgstr ""
-"Z bezpeènostních dùvodù má verze ssh v Debianu standardnì nastavené "
-"ForwardX11 a ForwardAgent na hodnotu \"off\"."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:48
-msgid ""
-"You can enable it for servers you trust, either in one of the configuration "
-"files, or with the -X command line option."
-msgstr ""
-"Pro servery, kterým dùvìøujete, mù¾ete tyto parametry povolit v jednom z "
-"konfiguraèních souborù, nebo z pøíkazové øádky parametrem -X."
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:48
-msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
-msgstr "Více naleznete v /usr/share/doc/ssh/README.Debian"
-
-#. Type: note
-#. Description
-#: ../openssh-server.templates.master:59
+#: ../openssh-server.templates.master:33
 msgid "Warning: rsh-server is installed --- probably not a good idea"
 msgstr "Varování: je nainstalován rsh-server --- to není dobrý nápad"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:59
+#: ../openssh-server.templates.master:33
 msgid ""
 "having rsh-server installed undermines the security that you were probably "
 "wanting to obtain by installing ssh.  I'd advise you to remove that package."
@@ -222,13 +114,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:66
+#: ../openssh-server.templates.master:40
 msgid "Warning: telnetd is installed --- probably not a good idea"
 msgstr "Varování: je nainstalován telnetd --- to není dobrý nápad"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:66
+#: ../openssh-server.templates.master:40
 msgid ""
 "I'd advise you to either remove the telnetd package (if you don't actually "
 "need to offer telnet access) or install telnetd-ssl so that there is at "
@@ -241,13 +133,13 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:74
+#: ../openssh-server.templates.master:48
 msgid "Warning: you must create a new host key"
 msgstr "Varování: musíte vytvoøit nový serverový klíè"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:74
+#: ../openssh-server.templates.master:48
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and I can't find the ssh-keygen utility from "
@@ -259,19 +151,19 @@ msgstr ""
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:74
+#: ../openssh-server.templates.master:48
 msgid "You will need to generate a new host key."
 msgstr "Musíte vygenerovat nový serverový klíè"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:84
+#: ../openssh-server.templates.master:58
 msgid "Disable challenge-response authentication?"
-msgstr ""
+msgstr "Zakázat autentizaci challenge-response?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:84
+#: ../openssh-server.templates.master:58
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -280,16 +172,77 @@ msgid ""
 "else ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
+"Zdá se, ¾e autentizace pomocí hesel je ve va¹í stávající konfiguraci OpenSSH "
+"serveru zakázána. Abyste zabránili u¾ivatelùm v pøihlá¹ení pouze pomocí "
+"hesla, musíte v posledních verzích OpenSSH zakázat autentizaci challenge-"
+"response, nebo jinak zajistit, aby PAM nepovolilo autentizaci vùèi unixovému "
+"souboru hesel."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:84
+#: ../openssh-server.templates.master:58
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
+"Zaká¾ete-li autentizaci challenge-response, u¾ivatelé se nebudou moci "
+"pøihlásit pomocí hesel. Necháte-li ji povolenu (pøednastavená odpovìï), pak "
+"nebude mít volba 'PasswordAuthentication no' ¾ádný efekt, pokud ov¹em "
+"neupravíte nastavení PAM v /etc/pam.d/ssh."
+
+#~ msgid "Do you want ssh-keysign to be installed SUID root?"
+#~ msgstr "Chcete ssh-keysign nainstalovat jako SUID root?"
+
+#~ msgid ""
+#~ "You have the option of installing the ssh-keysign helper with the SUID "
+#~ "bit set."
+#~ msgstr ""
+#~ "Mù¾ete si vybrat, zda chcete nainstalovat ssh-keysign s nastaveným SUID "
+#~ "bitem."
+
+#~ msgid ""
+#~ "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 "
+#~ "host-based authentication."
+#~ msgstr ""
+#~ "Pokud nastavíte ssh-keysign SUID, mù¾ete pou¾ívat 'host-based' "
+#~ "autentizaci protokolu verze 2."
+
+#~ msgid ""
+#~ "If in doubt, I suggest you install it with SUID.  If it causes problems "
+#~ "you can change your mind later by running:   dpkg-reconfigure ssh"
+#~ msgstr ""
+#~ "Pokud jste na pochybách, doporuèujeme SUID bit povolit. Pokud zaznamenáte "
+#~ "problémy, mù¾ete nastavení zmìnit spu¹tìním:   dpkg-reconfigure ssh"
+
+#~ msgid "Allow SSH protocol 2 only"
+#~ msgstr "Povolit pouze SSH protokol verze 2"
+
+#~ msgid ""
+#~ "This version of OpenSSH supports version 2 of the ssh protocol, which is "
+#~ "much more secure.  Disabling ssh 1 is encouraged, however this will slow "
+#~ "things down on low end machines and might prevent older clients from "
+#~ "connecting (the ssh client shipped with \"potato\" is affected)."
+#~ msgstr ""
+#~ "Tato verze OpenSSH podporuje ssh protokol ve verzi 2, který je mnohem "
+#~ "bezpeènìj¹í. Je dobré ssh verze 1 zakázat, nicménì na slab¹ích poèítaèích "
+#~ "se projeví zpomalení a také tím znemo¾níte pøihlá¹ení star¹ích klientù "
+#~ "(napøíklad tìch z Debianu 2.2)."
+
+#~ msgid ""
+#~ "Also please note that keys used for protocol 1 are different so you will "
+#~ "not be able to use them if you only allow protocol 2 connections."
+#~ msgstr ""
+#~ "Také si v¹imnìte, ¾e klíèe protokolu verze 1 jsou odli¹né a pokud "
+#~ "povolíte pouze protokol verze 2, nebudete je moci pou¾ít. "
+
+#~ msgid ""
+#~ "If you later change your mind about this setting, README.Debian has "
+#~ "instructions on what to do to your sshd_config file."
+#~ msgstr ""
+#~ "Pokud se pozdìji rozhodnete jinak, v README.Debian se nachází pøesný "
+#~ "návod, jak upravit soubor sshd_config."
 
 #~ msgid "ssh2 keys merged in configuration files"
 #~ msgstr "Klíèe ssh2 v konfiguraèních souborech byly spojeny"
@@ -304,6 +257,26 @@ msgstr ""
 #~ "ssh2. To znamená, ¾e soubory authorized_keys2 a known_hosts2 ji¾ nejsou "
 #~ "potøeba, ov¹em z dùvodù zachování zpìtné kompatibility jsou stále "
 #~ "naèítány."
+
+#~ msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
+#~ msgstr "POZNÁMKA: Autorizace a pøesmìrování X11 je standardnì vypnuto."
+
+#~ msgid ""
+#~ "For security reasons, the Debian version of ssh has ForwardX11 and "
+#~ "ForwardAgent set to ``off'' by default."
+#~ msgstr ""
+#~ "Z bezpeènostních dùvodù má verze ssh v Debianu standardnì nastavené "
+#~ "ForwardX11 a ForwardAgent na hodnotu \"off\"."
+
+#~ msgid ""
+#~ "You can enable it for servers you trust, either in one of the "
+#~ "configuration files, or with the -X command line option."
+#~ msgstr ""
+#~ "Pro servery, kterým dùvìøujete, mù¾ete tyto parametry povolit v jednom z "
+#~ "konfiguraèních souborù, nebo z pøíkazové øádky parametrem -X."
+
+#~ msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
+#~ msgstr "Více naleznete v /usr/share/doc/ssh/README.Debian"
 
 #~ msgid "Do you want to run the sshd server?"
 #~ msgstr "Chcete spustit sshd server?"
@@ -348,48 +321,3 @@ msgstr ""
 #~ "Pro znovupovolení této volby si po aktualizaci pøeètìte varování v "
 #~ "manuálové stránce sshd_config(5) a v souboru /etc/ssh/sshd_config zadejte "
 #~ "\"PermitUserEnvironment yes\"."
-
-#~ msgid "Privilege separation"
-#~ msgstr "Oddìlení privilegií"
-
-#~ msgid ""
-#~ "Privilege separation is turned on by default, so if you decide you want "
-#~ "it turned off, you need to add \"UsePrivilegeSeparation no\" to /etc/ssh/"
-#~ "sshd_config."
-#~ msgstr ""
-#~ "Oddìlení privilegií je standardnì zapnuto. Pokud se rozhodnete jej "
-#~ "vypnout, musíte do /etc/ssh/sshd_config pøidat øádek "
-#~ "\"UsePrivilegeSeparation no\"."
-
-#~ msgid "Enable Privilege separation"
-#~ msgstr "Povolit oddìlení privilegií"
-
-#~ msgid ""
-#~ "This version of OpenSSH contains the new privilege separation option. "
-#~ "This significantly reduces the quantity of code that runs as root, and "
-#~ "therefore reduces the impact of security holes in sshd."
-#~ msgstr ""
-#~ "Tato verze OpenSSH obsahuje novou volbu oddìlení privilegií, èím¾ se "
-#~ "znaènì sni¾uje mno¾ství kódu, který bì¾í s právy u¾ivatele root, a tím "
-#~ "pádem zmen¹uje dopad bezpeènostních dìr v sshd."
-
-#~ msgid ""
-#~ "Unfortunately, privilege separation interacts badly with PAM. Any PAM "
-#~ "session modules that need to run as root (pam_mkhomedir, for example) "
-#~ "will fail, and PAM keyboard-interactive authentication won't work."
-#~ msgstr ""
-#~ "Bohu¾el, oddìlení privilegií se ¹patnì sná¹í se systémem PAM. Libovolný "
-#~ "PAM session modul, který musí být spu¹tìn jako root (napø. "
-#~ "pam_mkhomedir), sel¾e a také nebude fungovat autentizace vyu¾ívající "
-#~ "klávesnici."
-
-#~ msgid ""
-#~ "Since you've opted to have me generate an sshd_config file for you, you "
-#~ "can choose whether or not to have privilege separation turned on or not. "
-#~ "Unless you know you need to use PAM features that won't work with this "
-#~ "option, you should enable it."
-#~ msgstr ""
-#~ "Proto¾e jste se rozhodli, abych vytvoøil soubor sshd_config, mù¾ete si "
-#~ "vybrat, jestli chcete povolit nebo zakázat oddìlení privilegií. Pokud si "
-#~ "nejste jistí, ¾e potøebujete pou¾ívat PAM moduly, které s touto volbou "
-#~ "nebudou fungovat, mìli byste oddìlení privilegií povolit."

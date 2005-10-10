@@ -1,3 +1,237 @@
+openssh (1:4.1p1-7ubuntu4) breezy; urgency=low
+
+  * Add /usr/games to the default $PATH for non-privileged users.
+  * Explicitly tell po2debconf to use the 'popular' output encoding, to
+    avoid huge automatic changes to debian/po/*.po with po-debconf 0.9.0.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 10 Oct 2005 20:10:01 +0100
+
+openssh (1:4.1p1-7ubuntu3) breezy; urgency=low
+
+  * Increase MAX_SESSIONS to 64.
+
+ -- LaMont Jones <lamont@ubuntu.com>  Fri, 23 Sep 2005 05:40:52 -0600
+
+openssh (1:4.1p1-7ubuntu2) breezy; urgency=high
+
+  * Backport from OpenSSH 4.2p1:
+    - SECURITY (CAN-2005-2797): Fix a bug introduced in OpenSSH 4.0 that
+      caused GatewayPorts to be incorrectly activated for dynamic ("-D")
+      port forwardings when no listen address was explicitly specified.
+    - SECURITY (CAN-2005-2798): Fix improper delegation of GSSAPI
+      credentials. This code is only built in openssh-krb5, not openssh, but
+      I include the fix here anyway in case anyone is building this package
+      themselves with Kerberos support.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 14 Sep 2005 20:50:10 +0100
+
+openssh (1:4.1p1-7ubuntu1) breezy; urgency=low
+
+  * Resynchronise with Debian.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu,  8 Sep 2005 15:23:12 +0100
+
+openssh (1:4.1p1-7) unstable; urgency=low
+
+  * Do the IDEA host key check on a temporary file to avoid altering
+    /etc/ssh/ssh_host_key itself (closes: #312312).
+  * Work around the ssh-askpass alternative somehow ending up in manual mode
+    pointing to the obsolete /usr/lib/ssh/gnome-ssh-askpass.
+  * Add GNU/kFreeBSD support (thanks, Aurelien Jarno; closes: #318113).
+  * Fix XSIish uses of 'test' in openssh-server.preinst.
+  * Policy version 3.6.2: no changes required.
+
+ -- Colin Watson <cjwatson@debian.org>  Fri,  2 Sep 2005 16:18:11 +0100
+
+openssh (1:4.1p1-6ubuntu1) breezy; urgency=low
+
+  * Resynchronise with Debian.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Fri,  8 Jul 2005 10:18:56 +0100
+
+openssh (1:4.1p1-6) unstable; urgency=low
+
+  * Fix one-character typo that meant the binaries in openssh-client and
+    openssh-server got recompiled with the wrong options during
+    'debian/rules install' (closes: #317088, #317238, #317241).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu,  7 Jul 2005 10:56:16 +0100
+
+openssh (1:4.1p1-5) unstable; urgency=low
+
+  * Build-depend on libselinux1-dev on ppc64 too (closes: #314625).
+  * Drop priority of ssh to extra to match the override file.
+  * Make /usr/share/doc/openssh-server and /usr/share/doc/ssh symlinks to
+    /usr/share/doc/openssh-client (closes: #314745).
+  * Ship README.dns (closes: #284874).
+  * Disable btmp logging, since Debian's /var/log/btmp has inappropriate
+    permissions (closes: #314956).
+  * Allow ~/.ssh/config to be group-writable, provided that the group in
+    question contains only the file's owner (closes: #314347).
+  * debconf template translations:
+    - Update Brazilian Portuguese (thanks, André Luís Lopes;
+      closes: #315477).
+    - Add Vietnamese (thanks, Clytie Siddall; closes: #316636).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun,  3 Jul 2005 17:08:08 +0100
+
+openssh (1:4.1p1-4ubuntu1) breezy; urgency=low
+
+  * Resynchronise with Debian.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Fri, 17 Jun 2005 14:56:45 +0100
+
+openssh (1:4.1p1-4) unstable; urgency=low
+
+  * openssh-client and openssh-server conflict with ssh-krb5, as ssh-krb5
+    only conflicts with ssh (closes: #312475).
+  * SELinux support (thanks, Manoj Srivastava; closes: #308555):
+    - Added SELinux capability, and turned it on be default. Added
+      restorecon calls in preinst and postinst (should not matter if the
+      machine is not SELinux aware). By and large, the changes made should
+      have no effect unless the rules file calls --with-selinux; and even
+      then there should be no performance hit for machines not actively
+      running SELinux.
+    - Modified the preinst and postinst to call restorecon to set the
+      security context for the generated public key files.
+    - Added a comment to /etc/pam.d/ssh to indicate that an SELinux system
+      may want to also include pam_selinux.so.
+  * Re-enable ssh-askpass-gnome on the Hurd, now that its build-dependencies
+    are available.
+  * Restore /usr/lib/sftp-server temporarily, as a symlink to
+    /usr/lib/openssh/sftp-server (closes: #312891).
+  * Switch to debhelper compatibility level 3, since 2 is deprecated.
+  * debconf template translations:
+    - Update German (thanks, Jens Seidel; closes: #313949).
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 17 Jun 2005 14:20:20 +0100
+
+openssh (1:4.1p1-3) unstable; urgency=low
+
+  * Upload to unstable.
+
+ -- Colin Watson <cjwatson@debian.org>  Mon,  6 Jun 2005 22:28:33 +0100
+
+openssh (1:4.1p1-2ubuntu2) breezy; urgency=low
+
+  * Set path of xauth to /usr/bin/xauth instead of /usr/bin/X11/auth.
+
+ -- Jeff Bailey <jbailey@ubuntu.com>  Mon, 13 Jun 2005 22:43:56 +0000
+
+openssh (1:4.1p1-2ubuntu1) breezy; urgency=low
+
+  * Resynchronise with Debian.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Sat,  4 Jun 2005 01:16:24 +0100
+
+openssh (1:4.1p1-2) experimental; urgency=low
+
+  * Drop debconf support for allowing SSH protocol 1, which is discouraged
+    and has not been the default since openssh 1:3.0.1p1-1. Users who need
+    this should edit sshd_config instead (closes: #147212).
+  * Since ssh-keysign isn't used by default (you need to set
+    EnableSSHKeysign to "yes" in /etc/ssh/ssh_config), having a debconf
+    question to ask whether it should be setuid is overkill, and the
+    question text had got out of date anyway. Remove this question, ship
+    ssh-keysign setuid in openssh-client.deb, and set a statoverride if the
+    debconf question was previously set to false.
+  * Add lintian overrides for the above (setuid-binary,
+    no-debconf-templates).
+  * Fix picky lintian errors about slogin symlinks.
+  * Fix DEB_HOST_ARCH_OS/DEB_HOST_GNU_SYSTEM compatibility handling.
+  * Apply Linux 2.2 workaround (see #239999) only on Linux.
+
+ -- Colin Watson <cjwatson@debian.org>  Thu,  2 Jun 2005 00:55:58 +0100
+
+openssh (1:4.1p1-1) experimental; urgency=low
+
+  * New upstream release.
+    - Normalise socket addresses returned by get_remote_hostname(), fixing
+      4-in-6 mapping issues with AllowUsers et al (closes: #192234).
+  * Take upstream's hint and disable the unsupported USE_POSIX_THREADS
+    (closes: #295757, #308868, and possibly others; may open other bugs).
+    Use PAM password authentication to avoid #278394. In future I may
+    provide two sets of binaries built with and without this option, since
+    it seems I can't win.
+  * Disable ChallengeResponseAuthentication in new installations, returning
+    to PasswordAuthentication by default, since it now supports PAM and
+    apparently works better with a non-threaded sshd (closes: #247521).
+  * openssh-server Suggests: rssh (closes: #233012).
+  * Change libexecdir to /usr/lib/openssh, and fix up various alternatives
+    and configuration files to match (closes: #87900, #151321).
+  * Fix up very old sshd_config files that refer to /usr/libexec/sftp-server
+    (closes: #141979).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 31 May 2005 01:33:33 +0100
+
+openssh (1:4.0p1-1ubuntu1) breezy; urgency=low
+
+  * Resynchronise with Debian.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 26 May 2005 12:41:25 +0100
+
+openssh (1:4.0p1-1) experimental; urgency=low
+
+  * New upstream release.
+    - Port-forwarding specifications now take optional bind addresses, and
+      the server allows client-specified bind addresses for remote port
+      forwardings when configured with "GatewayPorts clientspecified"
+      (closes: #87253, #192206).
+    - ssh and ssh-keyscan now support hashing of known_hosts files for
+      improved privacy. ssh-keygen has new options for managing known_hosts
+      files, which understand hashing.
+    - sftp supports command history and editing support using libedit
+      (closes: #287013).
+    - Have scp and sftp wait for the spawned ssh to exit before they exit
+      themselves, allowing ssh to restore terminal modes (closes: #257130).
+    - Improved the handling of bad data in authorized_keys files,
+      eliminating fatal errors on corrupt or very large keys; e.g. linefeeds
+      in keys only produce errors in auth.log now (closes: #220726).
+    - Add "command mode" to ssh connection multiplexing (closes: #303452).
+    - Mention $HOME/.hushlogin in sshd(8) FILES section (closes: #163933).
+  * Make gnome-ssh-askpass stay above other windows (thanks, Liyang HU;
+    closes: #296487).
+  * Remove obsolete and unnecessary ssh/forward_warning debconf note.
+  * Hurd build fixes (although sshd still doesn't work):
+    - Restore X forwarding fix from #102991, lost somewhere along the way.
+    - Link with -lcrypt.
+    - Link with -lpthread rather than -pthread.
+    - Don't build ssh-askpass-gnome on the Hurd, until GNOME is available to
+      satisfy build-dependencies.
+  * Drop workaround for #242462 on amd64; it's been fixed properly upstream.
+  * Enable HashKnownHosts by default. This only affects new entries; use
+    'ssh-keygen -H' to convert an entire known_hosts file to hashed format.
+  * Note in ssh_config(5) that the SetupTimeOut option is Debian-specific
+    (closes: #307069).
+  * debconf template translations:
+    - Update Czech (thanks, Miroslav Kure; closes: #298744).
+    - Update Finnish (thanks, Matti Pöllä; closes: #303787).
+    - Synchronise Spanish with sarge branch (thanks, Javier
+      Fernández-Sanguino Peña; closes: #298536).
+    - Add Ukrainian (thanks, Eugeniy Meshcheryakov; closes: #301852).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 26 May 2005 11:23:18 +0100
+
+openssh (1:3.9p1-3) experimental; urgency=low
+
+  * Explain how to run sshd from inittab in README.Debian (closes: #147360).
+  * Add debian/watch file.
+
+ -- Colin Watson <cjwatson@debian.org>  Fri, 18 Feb 2005 00:20:16 +0000
+
+openssh (1:3.9p1-2) experimental; urgency=low
+
+  * Remove pam_nologin from /etc/pam.d/ssh, as sshd's built-in support
+    appears to be sufficient and more useful (closes: #162996).
+  * Depend on debconf | debconf-2.0.
+  * Drop LoginGraceTime back to the upstream default of two minutes on new
+    installs (closes: #289573).
+  * debconf template translations from Ubuntu bug #1232:
+    - Update Greek (thanks, Logiotatidis George).
+    - Update Spanish (thanks, Santiago Erquicia).
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 15 Jan 2005 12:37:54 +0000
+
 openssh (1:3.9p1-1ubuntu2) hoary; urgency=low
 
   * Don't ask unnecessary and misplaced ssh/forward_warning debconf note
@@ -1663,7 +1897,3 @@ openssh (1.2.0.19991027-3) unstable; urgency=low
   * Initial release
 
  -- Dan Brosemer <odin@linuxfreak.com>  Wed, 27 Oct 1999 19:39:46 -0500
-  
-Local variables:
-mode: debian-changelog
-End:

@@ -1,8 +1,5 @@
 # PAM configuration for the Secure Shell service
 
-# Disallow non-root logins when /etc/nologin exists.
-auth       required     pam_nologin.so
-
 # Read environment variables from /etc/environment and
 # /etc/security/pam_env.conf.
 auth       required     pam_env.so # [1]
@@ -24,6 +21,9 @@ session    optional     pam_mail.so standard noenv # [1]
 
 # Set up user limits from /etc/security/limits.conf.
 session    required     pam_limits.so
+
+# Set up SELinux capabilities (need modified pam)
+# session  required     pam_selinux.so multiple
 
 # Standard Un*x password updating.
 @include common-password
