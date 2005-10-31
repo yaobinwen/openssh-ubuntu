@@ -42,7 +42,7 @@
  */
 
 #include "includes.h"
-RCSID("$OpenBSD: sshd.c,v 1.308 2005/02/08 22:24:57 dtucker Exp $");
+RCSID("$OpenBSD: sshd.c,v 1.312 2005/07/25 11:59:40 markus Exp $");
 
 #include <openssl/dh.h>
 #include <openssl/bn.h>
@@ -358,7 +358,8 @@ key_regeneration_alarm(int sig)
 static void
 sshd_exchange_identification(int sock_in, int sock_out)
 {
-	int i, mismatch;
+	u_int i;
+	int mismatch;
 	int remote_major, remote_minor;
 	int major, minor;
 	char *s;
@@ -670,6 +671,12 @@ privsep_postauth(Authctxt *authctxt)
 
 	/* It is safe now to apply the key state */
 	monitor_apply_keystate(pmonitor);
+
+	/*
+	 * Tell the packet layer that authentication was successful, since
+	 * this information is not part of the key state.
+	 */
+	packet_set_authenticated();
 }
 
 static char *
@@ -1038,7 +1045,7 @@ main(int ac, char **av)
 	/*
 	 * Unset KRB5CCNAME, otherwise the user's session may inherit it from
 	 * root's environment
-	 */ 
+	 */
 	if (getenv("KRB5CCNAME") != NULL)
 		unsetenv("KRB5CCNAME");
 
@@ -1115,10 +1122,12 @@ main(int ac, char **av)
 		logit("Disabling protocol version 1. Could not load host key");
 		options.protocol &= ~SSH_PROTO_1;
 	}
+#ifndef GSSAPI
 	if ((options.protocol & SSH_PROTO_2) && !sensitive_data.have_ssh2_key) {
 		logit("Disabling protocol version 2. Could not load host key");
 		options.protocol &= ~SSH_PROTO_2;
 	}
+#endif
 	if (!(options.protocol & (SSH_PROTO_1|SSH_PROTO_2))) {
 		logit("sshd: no hostkeys available -- exiting.");
 		exit(1);
@@ -1620,19 +1629,22 @@ main(int ac, char **av)
 	signal(SIGCHLD, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
 
-	/* Set SO_KEEPALIVE if requested. */
-	if (options.tcp_keep_alive &&
-	    setsockopt(sock_in, SOL_SOCKET, SO_KEEPALIVE, &on,
-	    sizeof(on)) < 0)
-		error("setsockopt SO_KEEPALIVE: %.100s", strerror(errno));
-
 	/*
 	 * Register our connection.  This turns encryption off because we do
 	 * not have a key.
 	 */
 	packet_set_connection(sock_in, sock_out, -1);
+	packet_set_server();
 
-	remote_port = get_remote_port();
+	/* Set SO_KEEPALIVE if requested. */
+	if (options.tcp_keep_alive && packet_connection_is_on_socket() &&
+	    setsockopt(sock_in, SOL_SOCKET, SO_KEEPALIVE, &on, sizeof(on)) < 0)
+		error("setsockopt SO_KEEPALIVE: %.100s", strerror(errno));
+
+	if ((remote_port = get_remote_port()) < 0) {
+		debug("get_remote_port failed");
+		cleanup_exit(255);
+	}
 	remote_ip = get_remote_ipaddr();
 
 #ifdef SSH_AUDIT_EVENTS
@@ -1903,7 +1915,7 @@ do_ssh1_kex(void)
 	if (!rsafail) {
 		BN_mask_bits(session_key_int, sizeof(session_key) * 8);
 		len = BN_num_bytes(session_key_int);
-		if (len < 0 || len > sizeof(session_key)) {
+		if (len < 0 || (u_int)len > sizeof(session_key)) {
 			error("do_connection: bad session key len from %s: "
 			    "session_key_int %d > sizeof(session_key) %lu",
 			    get_remote_ipaddr(), len, (u_long)sizeof(session_key));
@@ -1990,20 +2002,70 @@ do_ssh2_kex(void)
 		myproposal[PROPOSAL_MAC_ALGS_CTOS] =
 		myproposal[PROPOSAL_MAC_ALGS_STOC] = options.macs;
 	}
-	if (!options.compression) {
+	if (options.compression == COMP_NONE) {
 		myproposal[PROPOSAL_COMP_ALGS_CTOS] =
 		myproposal[PROPOSAL_COMP_ALGS_STOC] = "none";
+	} else if (options.compression == COMP_DELAYED) {
+		myproposal[PROPOSAL_COMP_ALGS_CTOS] =
+		myproposal[PROPOSAL_COMP_ALGS_STOC] = "none,zlib@openssh.com";
 	}
+	
 	myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS] = list_hostkey_types();
 
 	/* start key exchange */
-	kex = kex_setup(myproposal);
-	kex->kex[KEX_DH_GRP1_SHA1] = kexdh_server;
+  
+#ifdef GSSAPI
+	{
+	char *orig;
+	char *gss = NULL;
+	char *newstr = NULL;
+	orig = myproposal[PROPOSAL_KEX_ALGS];
+
+	/* 
+ 	 * If we don't have a host key, then there's no point advertising
+         * the other key exchange algorithms
+	 */
+
+	if (strlen(myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS]) == 0)
+		orig = NULL;
+
+	gss = ssh_gssapi_server_mechanisms();
+
+	if (gss && orig) {
+		int len = strlen(orig) + strlen(gss) + 2;
+		newstr = xmalloc(len);
+		snprintf(newstr, len, "%s,%s", gss, orig);
+	} else if (gss) {
+		newstr = gss;
+	} else if (orig) {
+		newstr = orig;
+	}
+	/* 
+	 * If we've got GSSAPI mechanisms, then we've got the 'null' host
+	 * key alg, but we can't tell people about it unless its the only
+  	 * host key algorithm we support
+	 */
+	if (gss && (strlen(myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS])) == 0)
+		myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS] = "null";
+
+	if (newstr)
+		myproposal[PROPOSAL_KEX_ALGS] = newstr;
+	else
+		fatal("No supported key exchange algorithms");
+	}
+#endif
+
+  	/* start key exchange */
+  	kex = kex_setup(myproposal);
+  	kex->kex[KEX_DH_GRP1_SHA1] = kexdh_server;
 	kex->kex[KEX_DH_GRP14_SHA1] = kexdh_server;
 	kex->kex[KEX_DH_GEX_SHA1] = kexgex_server;
-	kex->server = 1;
-	kex->client_version_string=client_version_string;
-	kex->server_version_string=server_version_string;
+#ifdef GSSAPI
+	kex->kex[KEX_GSS_GRP1_SHA1] = kexgss_server;
+#endif
+  	kex->server = 1;
+  	kex->client_version_string=client_version_string;
+  	kex->server_version_string=server_version_string;
 	kex->load_host_key=&get_hostkey_by_type;
 	kex->host_key_index=&get_hostkey_index;
 
