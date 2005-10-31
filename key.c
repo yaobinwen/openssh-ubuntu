@@ -32,7 +32,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #include "includes.h"
-RCSID("$OpenBSD: key.c,v 1.57 2004/10/29 23:57:05 djm Exp $");
+RCSID("$OpenBSD: key.c,v 1.58 2005/06/17 02:44:32 djm Exp $");
 
 #include <openssl/evp.h>
 
@@ -231,7 +231,7 @@ static char *
 key_fingerprint_hex(u_char *dgst_raw, u_int dgst_raw_len)
 {
 	char *retval;
-	int i;
+	u_int i;
 
 	retval = xmalloc(dgst_raw_len * 3 + 1);
 	retval[0] = '\0';
@@ -650,6 +650,8 @@ key_type_from_name(char *name)
 		return KEY_RSA;
 	} else if (strcmp(name, "ssh-dss") == 0) {
 		return KEY_DSA;
+	} else if (strcmp(name, "null") == 0) {
+		return KEY_NULL;
 	}
 	debug2("key_type_from_name: unknown key type '%s'", name);
 	return KEY_UNSPEC;

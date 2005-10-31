@@ -55,6 +55,7 @@ extern Authmethod method_passwd;
 extern Authmethod method_kbdint;
 extern Authmethod method_hostbased;
 #ifdef GSSAPI
+extern Authmethod method_gsskeyex;
 extern Authmethod method_gssapi;
 #endif
 
@@ -62,6 +63,7 @@ Authmethod *authmethods[] = {
 	&method_none,
 	&method_pubkey,
 #ifdef GSSAPI
+	&method_gsskeyex,
 	&method_gssapi,
 #endif
 	&method_passwd,
@@ -240,7 +242,7 @@ userauth_finish(Authctxt *authctxt, int authenticated, char *method)
 				packet_write_wait();
 			}
 			fatal("Access denied for user %s by PAM account "
-			   "configuration", authctxt->user);
+			    "configuration", authctxt->user);
 		}
 	}
 #endif

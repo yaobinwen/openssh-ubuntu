@@ -1,4 +1,4 @@
-/*	$OpenBSD: gss-serv.c,v 1.5 2003/11/17 11:06:07 markus Exp $	*/
+/*	$OpenBSD: gss-serv.c,v 1.8 2005/08/30 22:08:05 djm Exp $	*/
 
 /*
  * Copyright (c) 2001-2003 Simon Wilkinson. All rights reserved.
@@ -60,6 +60,28 @@ ssh_gssapi_mech* supported_mechs[]= {
 #endif
 	&gssapi_null_mech,
 };
+
+/* Unpriviledged */
+char *
+ssh_gssapi_server_mechanisms() {
+	gss_OID_set	supported;
+
+	ssh_gssapi_supported_oids(&supported);
+	return (ssh_gssapi_kex_mechs(supported, &ssh_gssapi_server_check_mech,
+	    NULL));
+}
+
+/* Unpriviledged */
+int
+ssh_gssapi_server_check_mech(gss_OID oid, void *data) {
+        Gssctxt * ctx = NULL;
+	int res;
+
+	res = !GSS_ERROR(PRIVSEP(ssh_gssapi_server_ctx(&ctx, oid)));
+	ssh_gssapi_delete_ctx(&ctx);
+
+	return (res);
+}
 
 /* Unpriviledged */
 void
@@ -134,7 +156,7 @@ ssh_gssapi_accept_ctx(Gssctxt *ctx, gss_buffer_desc *recv_tok,
 static OM_uint32
 ssh_gssapi_parse_ename(Gssctxt *ctx, gss_buffer_t ename, gss_buffer_t name)
 {
-	char *tok;
+	u_char *tok;
 	OM_uint32 offset;
 	OM_uint32 oidl;
 
@@ -164,7 +186,7 @@ ssh_gssapi_parse_ename(Gssctxt *ctx, gss_buffer_t ename, gss_buffer_t name)
 	 */
 	if (tok[4] != 0x06 || tok[5] != oidl ||
 	    ename->length < oidl+6 ||
-	   !ssh_gssapi_check_oid(ctx,tok+6,oidl))
+	    !ssh_gssapi_check_oid(ctx,tok+6,oidl))
 		return GSS_S_FAILURE;
 
 	offset = oidl+6;
@@ -267,7 +289,7 @@ ssh_gssapi_do_child(char ***envp, u_int *envsizep)
 		debug("Setting %s to %s", gssapi_client.store.envvar,
 		gssapi_client.store.envval);
 		child_set_env(envp, envsizep, gssapi_client.store.envvar,
-		     gssapi_client.store.envval);
+		    gssapi_client.store.envval);
 	}
 }
 
@@ -296,16 +318,6 @@ ssh_gssapi_userok(char *user)
 	else
 		debug("ssh_gssapi_userok: Unknown GSSAPI mechanism");
 	return (0);
-}
-
-/* Priviledged */
-OM_uint32
-ssh_gssapi_checkmic(Gssctxt *ctx, gss_buffer_t gssbuf, gss_buffer_t gssmic)
-{
-	ctx->major = gss_verify_mic(&ctx->minor, ctx->context,
-	    gssbuf, gssmic, NULL);
-
-	return (ctx->major);
 }
 
 #endif

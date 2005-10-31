@@ -23,7 +23,7 @@
  */
 
 #include "includes.h"
-RCSID("$OpenBSD: sshconnect2.c,v 1.138 2004/06/13 12:53:24 djm Exp $");
+RCSID("$OpenBSD: sshconnect2.c,v 1.142 2005/08/30 22:08:05 djm Exp $");
 
 #include "openbsd-compat/sys-queue.h"
 
@@ -84,8 +84,27 @@ ssh_kex2(char *host, struct sockaddr *hostaddr)
 {
 	Kex *kex;
 
+#ifdef GSSAPI
+	char *orig, *gss = NULL;
+	int len;
+#endif
+
 	xxx_host = host;
 	xxx_hostaddr = hostaddr;
+
+#ifdef GSSAPI
+	if (options.gss_authentication) {
+		orig = myproposal[PROPOSAL_KEX_ALGS];
+		gss = ssh_gssapi_client_mechanisms(get_canonical_hostname(1));
+		debug("Offering GSSAPI proposal: %s",gss);
+		if (gss) {
+			len = strlen(orig) + strlen(gss) + 2;
+			myproposal[PROPOSAL_KEX_ALGS] = xmalloc(len);
+			snprintf(myproposal[PROPOSAL_KEX_ALGS], len, "%s,%s",
+			    gss, orig);
+		}
+	}
+#endif
 
 	if (options.ciphers == (char *)-1) {
 		logit("No valid ciphers for protocol version 2 given, using defaults.");
@@ -101,10 +120,10 @@ ssh_kex2(char *host, struct sockaddr *hostaddr)
 	    compat_cipher_proposal(myproposal[PROPOSAL_ENC_ALGS_STOC]);
 	if (options.compression) {
 		myproposal[PROPOSAL_COMP_ALGS_CTOS] =
-		myproposal[PROPOSAL_COMP_ALGS_STOC] = "zlib,none";
+		myproposal[PROPOSAL_COMP_ALGS_STOC] = "zlib@openssh.com,zlib,none";
 	} else {
 		myproposal[PROPOSAL_COMP_ALGS_CTOS] =
-		myproposal[PROPOSAL_COMP_ALGS_STOC] = "none,zlib";
+		myproposal[PROPOSAL_COMP_ALGS_STOC] = "none,zlib@openssh.com,zlib";
 	}
 	if (options.macs != NULL) {
 		myproposal[PROPOSAL_MAC_ALGS_CTOS] =
@@ -114,6 +133,16 @@ ssh_kex2(char *host, struct sockaddr *hostaddr)
 		myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS] =
 		    options.hostkeyalgorithms;
 
+#ifdef GSSAPI
+	if (gss) {
+		orig = myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS];
+		len = strlen(orig) + sizeof(",null");
+		myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS] = xmalloc(len);
+		snprintf(myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS], len, 
+		    "%s,null", orig);
+	}
+#endif
+
 	if (options.rekey_limit)
 		packet_set_rekey_limit(options.rekey_limit);
 
@@ -122,9 +151,17 @@ ssh_kex2(char *host, struct sockaddr *hostaddr)
 	kex->kex[KEX_DH_GRP1_SHA1] = kexdh_client;
 	kex->kex[KEX_DH_GRP14_SHA1] = kexdh_client;
 	kex->kex[KEX_DH_GEX_SHA1] = kexgex_client;
+#ifdef GSSAPI
+	if (options.gss_authentication)
+		kex->kex[KEX_GSS_GRP1_SHA1] = kexgss_client;
+#endif
 	kex->client_version_string=client_version_string;
 	kex->server_version_string=server_version_string;
 	kex->verify_host_key=&verify_host_key_callback;
+
+#ifdef GSSAPI
+	kex->gss_deleg_creds = options.gss_deleg_creds;
+#endif
 
 	xxx_kex = kex;
 
@@ -208,6 +245,7 @@ void	input_gssapi_token(int type, u_int32_t, void *);
 void	input_gssapi_hash(int type, u_int32_t, void *);
 void	input_gssapi_error(int, u_int32_t, void *);
 void	input_gssapi_errtok(int, u_int32_t, void *);
+int	userauth_gsskeyx(Authctxt *authctxt);
 #endif
 
 void	userauth(Authctxt *, char *);
@@ -223,7 +261,15 @@ static char *authmethods_get(void);
 
 Authmethod authmethods[] = {
 #ifdef GSSAPI
+	{"gssapi-keyx",
+		userauth_gsskeyx,
+		&options.gss_authentication,
+		NULL},
 	{"gssapi-with-mic",
+		userauth_gssapi,
+		&options.gss_authentication,
+		NULL},
+	{"gssapi",
 		userauth_gssapi,
 		&options.gss_authentication,
 		NULL},
@@ -352,7 +398,7 @@ void
 input_userauth_error(int type, u_int32_t seq, void *ctxt)
 {
 	fatal("input_userauth_error: bad message during authentication: "
-	   "type %d", type);
+	    "type %d", type);
 }
 
 void
@@ -482,9 +528,10 @@ userauth_gssapi(Authctxt *authctxt)
 {
 	Gssctxt *gssctxt = NULL;
 	static gss_OID_set gss_supported = NULL;
-	static int mech = 0;
+	static u_int mech = 0;
 	OM_uint32 min;
 	int ok = 0;
+	int old_gssapi_method;
 
 	/* Try one GSSAPI method at a time, rather than sending them all at
 	 * once. */
@@ -509,7 +556,8 @@ userauth_gssapi(Authctxt *authctxt)
 		}
 	}
 
-	if (!ok) return 0;
+	if (!ok)
+		return 0;
 
 	authctxt->methoddata=(void *)gssctxt;
 
@@ -518,13 +566,25 @@ userauth_gssapi(Authctxt *authctxt)
 	packet_put_cstring(authctxt->service);
 	packet_put_cstring(authctxt->method->name);
 
-	packet_put_int(1);
+	old_gssapi_method = !strcmp(authctxt->method->name, "gssapi");
+
+	/* Versions of Debian ssh-krb5 prior to 3.8.1p1-1 don't expect
+	 * tagged OIDs.  As such we include both tagged and untagged oids
+	 * for the old gssapi method.
+	 * We only include tagged oids for the new gssapi-with-mic method.
+	 */
+	packet_put_int(old_gssapi_method?2:1);
 
 	packet_put_int((gss_supported->elements[mech].length) + 2);
 	packet_put_char(SSH_GSS_OIDTYPE);
 	packet_put_char(gss_supported->elements[mech].length);
 	packet_put_raw(gss_supported->elements[mech].elements,
 	    gss_supported->elements[mech].length);
+	if (old_gssapi_method) {
+		packet_put_int((gss_supported->elements[mech].length));
+		packet_put_raw(gss_supported->elements[mech].elements,
+			       gss_supported->elements[mech].length);
+	}
 
 	packet_send();
 
@@ -564,8 +624,10 @@ process_gssapi_token(void *ctxt, gss_buffer_t recv_tok)
 	}
 
 	if (status == GSS_S_COMPLETE) {
+		int old_gssapi_method = !strcmp(authctxt->method->name,
+						"gssapi");
 		/* send either complete or MIC, depending on mechanism */
-		if (!(flags & GSS_C_INTEG_FLAG)) {
+		if (old_gssapi_method || !(flags & GSS_C_INTEG_FLAG)) {
 			packet_start(SSH2_MSG_USERAUTH_GSSAPI_EXCHANGE_COMPLETE);
 			packet_send();
 		} else {
@@ -598,7 +660,7 @@ input_gssapi_response(int type, u_int32_t plen, void *ctxt)
 	Authctxt *authctxt = ctxt;
 	Gssctxt *gssctxt;
 	int oidlen;
-	char *oidv;
+	char *oidv, *oidv_free;
 
 	if (authctxt == NULL)
 		fatal("input_gssapi_response: no authentication context");
@@ -606,22 +668,28 @@ input_gssapi_response(int type, u_int32_t plen, void *ctxt)
 
 	/* Setup our OID */
 	oidv = packet_get_string(&oidlen);
+	oidv_free = oidv;
 
 	if (oidlen <= 2 ||
 	    oidv[0] != SSH_GSS_OIDTYPE ||
 	    oidv[1] != oidlen - 2) {
-		xfree(oidv);
 		debug("Badly encoded mechanism OID received");
-		userauth(authctxt, NULL);
-		return;
+		if (oidlen < 2) {
+			xfree(oidv_free);
+			userauth(authctxt, NULL);
+			return;
+		}
+	} else {
+		oidlen -= 2;
+		oidv += 2;
 	}
 
-	if (!ssh_gssapi_check_oid(gssctxt, oidv + 2, oidlen - 2))
+	if (!ssh_gssapi_check_oid(gssctxt, oidv, oidlen))
 		fatal("Server returned different OID than expected");
 
 	packet_check_eom();
 
-	xfree(oidv);
+	xfree(oidv_free);
 
 	if (GSS_ERROR(process_gssapi_token(ctxt, GSS_C_NO_BUFFER))) {
 		/* Start again with next method on list */
@@ -679,7 +747,7 @@ input_gssapi_errtok(int type, u_int32_t plen, void *ctxt)
 
 	/* Stick it into GSSAPI and see what it says */
 	status = ssh_gssapi_init_ctx(gssctxt, options.gss_deleg_creds,
-				     &recv_tok, &send_tok, NULL);
+	    &recv_tok, &send_tok, NULL);
 
 	xfree(recv_tok.value);
 	gss_release_buffer(&ms, &send_tok);
@@ -705,6 +773,47 @@ input_gssapi_error(int type, u_int32_t plen, void *ctxt)
 	xfree(msg);
 	xfree(lang);
 }
+
+int
+userauth_gsskeyx(Authctxt *authctxt)
+{
+	Buffer b;
+	gss_buffer_desc gssbuf, mic;
+	OM_uint32 ms;
+
+	static int attempt = 0;
+	if (attempt++ >= 1)
+		return (0);
+
+	if (gss_kex_context == NULL) {
+		debug("No valid Key exchange context"); 
+		return (0);
+	}
+
+	ssh_gssapi_buildmic(&b, authctxt->server_user, authctxt->service,
+	    "gssapi-keyex");
+
+	gssbuf.value = buffer_ptr(&b);
+	gssbuf.length = buffer_len(&b);
+
+	if (GSS_ERROR(ssh_gssapi_sign(gss_kex_context, &gssbuf, &mic))) {
+		buffer_free(&b);
+		return (0);
+	}
+
+	packet_start(SSH2_MSG_USERAUTH_REQUEST);
+	packet_put_cstring(authctxt->server_user);
+	packet_put_cstring(authctxt->service);
+	packet_put_cstring(authctxt->method->name);
+	packet_put_string(mic.value, mic.length);
+	packet_send();
+
+	buffer_free(&b);
+	gss_release_buffer(&ms, &mic);
+
+	return (1);
+}
+
 #endif /* GSSAPI */
 
 int
