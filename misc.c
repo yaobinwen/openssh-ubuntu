@@ -358,10 +358,13 @@ addargs(arglist *args, char *fmt, ...)
 	va_list ap;
 	char buf[1024];
 	u_int nalloc;
+	int r;
 
 	va_start(ap, fmt);
-	vsnprintf(buf, sizeof(buf), fmt, ap);
+	r = vsnprintf(buf, sizeof(buf), fmt, ap);
 	va_end(ap);
+	if (r == -1 || r >= (int)sizeof(buf))
+		fatal("addargs: argument too long");
 
 	nalloc = args->nalloc;
 	if (args->list == NULL) {
@@ -374,6 +377,40 @@ addargs(arglist *args, char *fmt, ...)
 	args->nalloc = nalloc;
 	args->list[args->num++] = xstrdup(buf);
 	args->list[args->num] = NULL;
+}
+
+void
+replacearg(arglist *args, u_int which, char *fmt, ...)
+{
+	va_list ap;
+	char buf[1024];
+	int r;
+
+	va_start(ap, fmt);
+	r = vsnprintf(buf, sizeof(buf), fmt, ap);
+	va_end(ap);
+	if (r == -1 || r > (int)sizeof(buf))
+		fatal("replacearg: argument too long");
+
+	if (which >= args->num)
+		fatal("replacearg: tried to replace invalid arg %d >= %d",
+		    which, args->num);
+	xfree(args->list[which]);
+	args->list[which] = xstrdup(buf);
+}
+
+void
+freeargs(arglist *args)
+{
+	u_int i;
+
+	if (args->list != NULL) {
+		for (i = 0; i < args->num; i++)
+			xfree(args->list[i]);
+		xfree(args->list);
+		args->nalloc = args->num = 0;
+		args->list = NULL;
+	}
 }
 
 /*
