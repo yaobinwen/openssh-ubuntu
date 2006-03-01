@@ -1,3 +1,33 @@
+openssh (1:4.2p1-7ubuntu1) dapper; urgency=low
+
+  * Resynchronise with Debian.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed,  1 Mar 2006 16:22:22 +0000
+
+openssh (1:4.2p1-7) unstable; urgency=low
+
+  * I accidentally applied the default $PATH change in 1:4.2p1-6 to the udeb
+    rather than the deb. Fixed.
+
+ -- Colin Watson <cjwatson@debian.org>  Wed,  1 Mar 2006 16:19:00 +0000
+
+openssh (1:4.2p1-6) unstable; urgency=low
+
+  * Sync default values of $PATH from shadow 1:4.0.12-6, adding /usr/bin/X11
+    to the normal and superuser paths and /usr/games to the normal path.
+  * When the client receives a signal, don't fatal() with "Killed by signal
+    %d." (which produces unhelpful noise on stderr and causes confusion for
+    users of some applications that wrap ssh); instead, generate a debug
+    message and exit with the traditional status (closes: #313371).
+  * debconf template translations:
+    - Add Swedish (thanks, Daniel Nylander; closes: #333133).
+    - Update Spanish (thanks, Javier Fernández-Sanguino Peña;
+      closes: #341371).
+    - Correct erroneously-changed Last-Translator headers in Greek and
+      Spanish translations.
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 20 Feb 2006 16:50:55 +0000
+
 openssh (1:4.2p1-5ubuntu2) dapper; urgency=low
 
   * SECURITY UPDATE: Shell code injection with crafted file names in scp.
