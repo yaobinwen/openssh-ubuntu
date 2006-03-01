@@ -246,6 +246,23 @@ Description-ru: óÇÅÎÅÒÉÒÏ×ÁÔØ ÎÏ×ÙÊ ËÏÎÆÉÇÕÒÁÃÉÏÎÎÙÊ ÆÁÊÌ
  .
  îÁÓÔÏÑÔÅÌØÎÏ ÒÅËÏÍÅÎÄÕÅÔÓÑ, ÒÁÚÒÅÛÉÔØ ÓÇÅÎÅÒÉÒÏ×ÁÔØ ÄÌÑ ÷ÁÓ ÎÏ×ÙÊ ÆÁÊÌ
  ÎÁÓÔÒÏÅË.
+Description-sv: Generera ny konfigurationsfil
+ Denna version av OpenSSH har ansenligt ändrat konfigurationsfilen från den
+ version som skickades med i Debian's 'Potato'-utgåva som du verkar ha
+ uppgraderat från. Jag kan nu generera en ny konfigurationsfil
+ (/etc/ssh/sshd.config) som kommer att fungera med den nya serverversionen
+ men kommer inte att innehålla några ändringar du har gjort med den gamla
+ versionen.
+ .
+ Notera att den nya konfigurationsfilen kommer att sätta värdet av
+ 'PermitRootLogin' till 'yes' (betyder att vem som helst som kan
+ root-lösenordet kan logga in direkt som root). Det är paketansvariges
+ åsikt att detta är det satt som standard (se README.Debian för mer
+ detaljer) men du kan alltid ändra sshd_config och sätta detta till 'no' om
+ du vill.
+ .
+ Det är mycket rekommenderat att du låter mig generera en ny
+ konfigurationsfil till dig.
 Description-tr: Yeni yapılandırma dosyası oluştur
  Debian 'Potato' dağıtımından yükseltme yaptığınız görünüyor. OpenSSH'ın bu
  sürümü Debian 'Potato' ile birlikte gelen sürümden çok farklı bir
@@ -427,6 +444,13 @@ Description-ru: ÷Ù ÈÏÔÉÔÅ ĞÒÏÄÏÌÖÉÔØ (ÒÉÓËÕÑ ĞÏÔÅÒÑÔØ ÁËÔÉ×ÎÙÅ ssh-ÓÏÅÄÉÎÅÎÉÑ)?
  .
  üÔÏ ÍÏÖÎÏ ÉÓĞÒÁ×ÉÔØ ÄÏÂÁ×ÌÅÎÉÅÍ "--pidfile /var/run/sshd.pid" × ÓÔÒÏËÅ
  start-stop-daemon × ÒÁÚÄÅÌÅ stop ÜÔÏÇÏ ÆÁÊÌÁ.
+Description-sv: Vill du fortsätta (och riska att döda aktiva ssh sessioner)?
+ Versionen av /etc/init.d/ssh som du har installerad kommer antagligen att
+ döda alla instanser av ssh som körs.  Om du gör denna uppgradering via en
+ ssh-session är detta en Dålig Idé(tm).
+ .
+ Du kan lösa detta genom att lägga till "--pidfile /var/run/sshd.pid" till
+ raden med start-stop-daemon i sektionen "stop" i filen.
 Description-tr: Devam etmek istiyor musunuz? (Etkin ssh oturumlarının öldürülmesi riski var.)
  Kurmuş olduğunuz /etc/init.d/ssh sürümü büyük olasılıkla, çalışıyor olan
  tüm sshd süreçlerini öldürür. Bu yükseltmeyi bir ssh oturumu üzerinden
@@ -512,6 +536,9 @@ Description-pt_BR: Aviso: rsh-server está instalado --- provavelmente não é uma 
 Description-ru: ğÒÅÄÕĞÒÅÖÄÅÎÉÅ: ÕÓÔÁÎÏ×ÌÅÎ rsh-server --- ĞÏÖÁÌÕÊ, ÜÔÏ ÎÅ ÏŞÅÎØ ÈÏÒÏÛÏ
  õÓÔÁÎÏ×ÌÅÎÎÙÊ rsh-ÓÅÒ×ÅÒ ÓÎÉÖÁÅÔ ÂÅÚÏĞÁÓÎÏÓÔØ, ËÏÔÏÒÕÀ ÷Ù ×ÅÒÏÑÔÎÏ ÈÏÔÉÔÅ
  ĞÏ×ÙÓÉÔØ ÕÓÔÁÎÁ×ÌÉ×ÁÑ ssh. òÅËÏÍÅÎÄÕÅÔÓÑ ÕÄÁÌÉÔØ ÜÔÏÔ ĞÁËÅÔ.
+Description-sv: Varning: rsh-server är installerad --- kanske inte en bra ide
+ att ha rsh-server installerad förvärrar säkerheten som du säkerligen ville
+ ha genom att installera ssh.  Jag föreslår att du tar bort det paketet.
 Description-tr: Uyarı: rsh-server kurulmuş --- bu muhtemelen iyi bir fikir değil
  rsh-server'ın kurulu durumda olması muhtemelen ssh'ı kurmakla elde
  edilmesini istediğiniz güvenliği gölgeliyor. Bu paketi kaldırmanızı
@@ -607,6 +634,11 @@ Description-ru: ğÒÅÄÕĞÒÅÖÄÅÎÉÅ: ÕÓÔÁÎÏ×ÌÅÎ telnetd --- ĞÏÖÁÌÕÊ, ÜÔÏ ÎÅ ÏŞÅÎØ ÈÏÒ
  ÎÕÖÅÎ ÄÏÓÔÕĞ telnet) ÉÌÉ ÕÓÔÁÎÏ×ÉÔØ telnet-ssl, ŞÔÏÂÙ ÉÍÅÔØ ÈÏÔÑ ÂÙ
  ×ÏÚÍÏÖÎÏÓÔØ ÎÅ ĞÅÒÅÄÁ×ÁÔØ ĞÏ ÓÅÔÉ ÎÅÚÁÛÉÆÒÏ×ÁÎÎÙÅ ÉÍÅÎÁ É ĞÁÒÏÌÉ
  ĞÏÌØÚÏ×ÁÔÅÌÅÊ É ĞÒÏŞÕÀ ÉÎÆÏÒÍÁÃÉÀ × telnet-ÓÅÓÓÉÑÈ.
+Description-sv: Varning: telnetd är installerad --- detta är inte en bra ide
+ Jag föreslår att du antingen tar bort paketet telnetd (om du inte faktiskt
+ behöver erbjuda telnet-tjänsten) eller installera telnetd-ssl så att det i
+ alla fall finns en liten chans att telnet-sessioner inte kommer att sända
+ okrypterade login/lösenord och sessionsinformation över nätverket.
 Description-tr: Uyarı: telnetd kurulmuş --- bu muhtemelen iyi bir fikir değil
  Telnetd paketini (eğer gerçekten telnet erişimi sunmak gibi bir
  zorunluluğunuz yoksa) kaldırmanızı veya en azından, telnet oturumlarında
@@ -725,6 +757,12 @@ Description-ru: ğÒÅÄÕĞÒÅÖÄÅÎÉÅ: ÷Ù ÄÏÌÖÎÙ ÓÏÚÄÁÔØ ÎÏ×ÙÊ ÈÏÓÔÏ×ÙÊ ËÌÀŞ.
  ssh-keygen ÏÔ ÓÔÁÒÏÊ (ÎÅÓ×ÏÂÏÄÎÏÊ) ÉÎÓÔÁÌÌÑÃÉÉ SSH.
  .
  ÷ÁÍ ÎÁÄÏ ÂÕÄÅÔ ÓÇÅÎÅÒÉÒÏ×ÁÔØ ÎÏ×ÙÊ ËÌÀŞ ÈÏÓÔÁ.
+Description-sv: Varning: du måste skapa en ny hostnyckel
+ Det finns en gammal /etc/ssh/ssh_host_key som är IDEA-krypterad. OpenSSh
+ kan inte hantera dessa värdnyckelfiler och jag kan inte hitta verktyget
+ ssh-keygen från den gamla (non-free) installationen av SSH.
+ .
+ Du behöver generera en ny hostnyckel
 Description-tr: Uyarı: yeni bir makine anahtarı oluşturmalısınız
  IDEA ile şifrelenmiş eski bir /ect/ssh/ssh_host_key dosyanız var. OpenSSH
  bu anahtar dosyasını yönetemez. Eski (özgür olmayan) SSH kurulumuna ait
@@ -805,7 +843,7 @@ Description-es: ¿Desea deshabilitar la autenticación basada en desafío-respuesta
  Parece que la configuración actual de su servidor de OpenSSH tiene
  deshabilitada la autenticación mediante contraseñas. En las versiones
  recientes de OpenSSH para impedir que los usuarios se puedan conectar con
- contraseñas (y obligar la utilización de sistemas de autenticació con
+ contraseñas (y obligar la utilización de sistemas de autenticación con
  clave pública) debe deshabilitar la autenticación basada en
  desafío-respuesta o asegurarse de que su configuración PAM no permite
  autenticación basada en el fichero de contraseñas Unix.
@@ -879,6 +917,18 @@ Description-pt_BR: Desabilitar autenticação desafio-resposta ?
  autenticação habilitada (a resposta padrão), a opção
  'PasswordAuthentication no' não terá efeito útil a menos que você também
  ajuste sua configuração PAM em /etc/pam.d/ssh.
+Description-sv: Stäng av challenge-response autentisering?
+ Lösenordsautentisering verkar vara avstängt i din nuvarande OpenSSH-server
+ konfiguration. För att motverka att användare loggar in med lösenord
+ (kanske med bara publik nyckelautentisering istället) med senare versioner
+ av OpenSSH, måste du stänga av challenge-response autentisering eller se
+ till att din PAM-konfiguration inte tillåter Unix
+ lösenordsfil-autentisering.
+ .
+ Om du stänger av challenge-response autentisering så kan användarna inte
+ logga in med lösenord. Om du lämnar det aktiverat (som är standard) så
+ kommer 'PasswordAuthentication no' inte ha någon effekt om du inte
+ justerar din PAM-konfiguration i /etc/pam.d/ssh.
 Description-uk: úÁÂÏÒÏÎÉÔÉ Á×ÔÅÎÔÉÆ¦ËÁÃ¦À ÚÁĞÉÔ-×¦ÄĞÏ×¦ÄØ?
  óÈÏÖÅ, İÏ Á×ÔÅÎÔÉÆ¦ËÁÃ¦Ñ Ú ×ÉËÏÒÉÓÔÁÎÎÑÍ ĞÁÒÏÌ¦× ÚÁÂÏÒÏÎÅÎÁ Õ ĞÏÔÏŞÎ¦Ê
  ËÏÎÆ¦ÇÕÒÁÃ¦§ ÓÅÒ×ÅÒÁ OpenSSH. ıÏÂ ĞÅÒÅÛËÏÄÉÔÉ ËÏÒÉÓÔÕ×ÁŞÁÍ ÒÅ¤ÓÔÒÕ×ÁÔÉÓÑ Ú
