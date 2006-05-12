@@ -1,3 +1,12 @@
+openssh (1:4.2p1-7ubuntu2) dapper; urgency=low
+
+  * Backport from OpenSSH 4.3 (closes: Malone #25528):
+    - Set SO_REUSEADDR on X11 listeners to avoid problems caused by
+      lingering sockets from previous session (X11 applications can
+      sometimes not connect to 127.0.0.1:60xx).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Fri, 12 May 2006 13:27:01 +0100
+
 openssh (1:4.2p1-7ubuntu1) dapper; urgency=low
 
   * Resynchronise with Debian.
