@@ -1,3 +1,11 @@
+openssh (1:4.2p1-7ubuntu3) dapper; urgency=low
+
+  * On '/etc/init.d/ssh restart', create /var/run/sshd before checking the
+    server configuration, as otherwise 'sshd -t' will complain about the
+    lack of /var/run/sshd (closes: Malone #45234).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 17 May 2006 23:24:18 +0100
+
 openssh (1:4.2p1-7ubuntu2) dapper; urgency=low
 
   * Backport from OpenSSH 4.3 (closes: Malone #25528):
