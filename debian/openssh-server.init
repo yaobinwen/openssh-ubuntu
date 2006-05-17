@@ -61,10 +61,10 @@ case "$1" in
 
   restart)
 	log_begin_msg "Restarting OpenBSD Secure Shell server..."
+	check_privsep_dir
 	check_config
 	start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile /var/run/sshd.pid
 	check_for_no_start
-	check_privsep_dir
 	start-stop-daemon --start --quiet --pidfile /var/run/sshd.pid --exec /usr/sbin/sshd -- $SSHD_OPTS || log_end_msg 1
 	log_end_msg 0
 	;;
