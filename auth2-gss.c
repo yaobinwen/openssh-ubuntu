@@ -1,4 +1,4 @@
-/*	$OpenBSD: auth2-gss.c,v 1.10 2005/07/17 07:17:54 djm Exp $	*/
+/*	$OpenBSD: auth2-gss.c,v 1.12 2005/10/13 22:24:31 stevesk Exp $	*/
 
 /*
  * Copyright (c) 2001-2003 Simon Wilkinson. All rights reserved.
@@ -34,7 +34,6 @@
 #include "log.h"
 #include "dispatch.h"
 #include "servconf.h"
-#include "compat.h"
 #include "packet.h"
 #include "monitor_wrap.h"
 
@@ -82,7 +81,7 @@ userauth_gsskeyex(Authctxt *authctxt)
 
 /*
  * We only support those mechanisms that we know about (ie ones that we know
- * how to check local user kuserok and the like
+ * how to check local user kuserok and the like)
  */
 static int
 userauth_gssapi(Authctxt *authctxt)
@@ -130,15 +129,17 @@ userauth_gssapi(Authctxt *authctxt)
 
 	if (!present) {
 		xfree(doid);
+		authctxt->server_caused_failure = 1;
 		return (0);
 	}
 
 	if (GSS_ERROR(PRIVSEP(ssh_gssapi_server_ctx(&ctxt, &goid)))) {
 		xfree(doid);
+		authctxt->server_caused_failure = 1;
 		return (0);
 	}
 
-	authctxt->methoddata=(void *)ctxt;
+	authctxt->methoddata = (void *)ctxt;
 
 	packet_start(SSH2_MSG_USERAUTH_GSSAPI_RESPONSE);
 
@@ -319,7 +320,7 @@ input_gssapi_mic(int type, u_int32_t plen, void *ctxt)
 }
 
 Authmethod method_gsskeyex = {
-	"gssapi-keyx",
+	"gssapi-keyex",
 	userauth_gsskeyex,
 	&options.gss_authentication
 };

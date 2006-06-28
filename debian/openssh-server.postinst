@@ -181,7 +181,7 @@ create_sshdconfig() {
 
 		# An empty version means we're upgrading from before the
 		# package split, so check.
-		if dpkg --compare-versions "$oldversion" lt 1:3.8p1-1; then
+		if dpkg --compare-versions "$oldversion" lt 1:3.8.1p1-11; then
 		    check_password_auth
 		fi
 
@@ -265,7 +265,7 @@ X11Forwarding yes
 X11DisplayOffset 10
 PrintMotd no
 PrintLastLog yes
-KeepAlive yes
+TCPKeepAlive yes
 #UseLogin no
 
 #MaxStartups 10:30:60
