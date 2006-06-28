@@ -72,7 +72,6 @@ extern struct monitor *pmonitor;
 extern Buffer input, output;
 extern Buffer loginmsg;
 extern ServerOptions options;
-extern Buffer loginmsg;
 
 int
 mm_is_monitor(void)
@@ -1223,6 +1222,7 @@ mm_ssh_gssapi_sign(Gssctxt *ctx, gss_buffer_desc *data, gss_buffer_desc *hash)
 {
 	Buffer m;
 	OM_uint32 major;
+	u_int len;
 
 	buffer_init(&m);
 	buffer_put_string(&m, data->value, data->length);
@@ -1231,7 +1231,8 @@ mm_ssh_gssapi_sign(Gssctxt *ctx, gss_buffer_desc *data, gss_buffer_desc *hash)
 	mm_request_receive_expect(pmonitor->m_recvfd, MONITOR_ANS_GSSSIGN, &m);
 
 	major = buffer_get_int(&m);
-	hash->value = buffer_get_string(&m, &hash->length);
+	hash->value = buffer_get_string(&m, &len);
+	hash->length = len;
 
 	buffer_free(&m);
 
