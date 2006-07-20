@@ -303,12 +303,18 @@ fix_conffile_permissions() {
 
 setup_init() {
 	if [ -x /etc/init.d/ssh ]; then
-		update-rc.d ssh defaults >/dev/null
+		update-rc.d ssh multiuser >/dev/null
 		if [ -x /usr/sbin/invoke-rc.d ]; then
 			invoke-rc.d ssh restart
 		else
 			/etc/init.d/ssh restart
 		fi
+	fi
+
+
+	# Remove shutdown and reboot links; this init script does not need them.
+	if dpkg --compare-versions "$2" lt "1:4.3p2-2ubuntu2"; then
+		rm -f /etc/rc0.d/K20ssh /etc/rc6.d/K20ssh
 	fi
 }
 
