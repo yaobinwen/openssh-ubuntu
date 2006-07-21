@@ -1,3 +1,10 @@
+openssh (1:4.3p2-2ubuntu3) edgy; urgency=low
+
+  * Add forgotten versioned-dependency on sysv-rc to get new update-rc.d
+    behaviour.  Go me.
+
+ -- Scott James Remnant <scott@ubuntu.com>  Fri, 21 Jul 2006 01:22:39 +0100
+
 openssh (1:4.3p2-2ubuntu2) edgy; urgency=low
 
   * Remove stop links from rc0 and rc6
