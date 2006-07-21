@@ -313,7 +313,7 @@ setup_init() {
 
 
 	# Remove shutdown and reboot links; this init script does not need them.
-	if dpkg --compare-versions "$2" lt "1:4.3p2-2ubuntu2"; then
+	if dpkg --compare-versions "$oldversion" lt "1:4.3p2-2ubuntu2"; then
 		rm -f /etc/rc0.d/K20ssh /etc/rc6.d/K20ssh
 	fi
 }
