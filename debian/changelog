@@ -1,3 +1,9 @@
+openssh (1:4.3p2-2ubuntu4) edgy; urgency=low
+
+  * Fix setup_init changes; $2 means something different inside a function.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Fri, 21 Jul 2006 15:43:31 +0100
+
 openssh (1:4.3p2-2ubuntu3) edgy; urgency=low
 
   * Add forgotten versioned-dependency on sysv-rc to get new update-rc.d
