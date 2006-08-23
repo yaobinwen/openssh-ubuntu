@@ -1,3 +1,10 @@
+openssh (1:4.3p2-2ubuntu5) edgy; urgency=low
+
+  * Move sysv-rc versioned dependency from openssh-client to openssh-server
+    (closes: Malone #56021).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 23 Aug 2006 13:10:24 +0100
+
 openssh (1:4.3p2-2ubuntu4) edgy; urgency=low
 
   * Fix setup_init changes; $2 means something different inside a function.
