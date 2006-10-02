@@ -1,3 +1,25 @@
+openssh (1:4.1p1-7ubuntu4.2) breezy-security; urgency=low
+
+  * SECURITY UPDATE: Remote DoS.
+  * CVE-2006-4924: Fix a pre-authentication denial of service found by
+    Tavis Ormandy, that would cause sshd(8) to spin until the login grace
+    time expired.
+    Upstream fixes:
+    http://www.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/deattack.c.diff?r1=1.29&r2=1.30&sortby=date&f=h
+    http://www.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/packet.c.diff?r1=1.143&r2=1.144&sortby=date&f=h
+    http://www.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/deattack.h.diff?r1=1.9&r2=1.10&sortby=date&f=h
+  * Fix an unsafe signal hander reported by Mark Dowd. The
+    signal handler was vulnerable to a race condition that could be
+    exploited to perform a pre-authentication denial of service. [CVE-2006-5051]
+    On portable OpenSSH, this vulnerability could theoretically lead to
+    pre-authentication remote code execution if GSSAPI authentication is
+    enabled, but the likelihood of successful exploitation appears remote.
+    [CVE-2006-5052]
+  * Above patches taken from Debian's 4.3p2-4 version, thanks to Colin Watson
+    for backporting them from 4.4p1.
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Mon,  2 Oct 2006 10:07:27 +0000
+
 openssh (1:4.1p1-7ubuntu4.1) breezy-security; urgency=low
 
   * SECURITY UPDATE: Shell code injection with crafted file names in scp.
