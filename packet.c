@@ -672,6 +672,9 @@ packet_enable_delayed_compress(void)
 	 */
 	after_authentication = 1;
 	for (mode = 0; mode < MODE_MAX; mode++) {
+		/* protocol error: USERAUTH_SUCCESS received before NEWKEYS */
+		if (newkeys[mode] == NULL)
+			continue;
 		comp = &newkeys[mode]->comp;
 		if (comp && !comp->enabled && comp->type == COMP_DELAYED) {
 			packet_init_compression();
@@ -992,9 +995,16 @@ packet_read_poll1(void)
 	 * (C)1998 CORE-SDI, Buenos Aires Argentina
 	 * Ariel Futoransky(futo@core-sdi.com)
 	 */
-	if (!receive_context.plaintext &&
-	    detect_attack(buffer_ptr(&input), padded_len, NULL) == DEATTACK_DETECTED)
-		packet_disconnect("crc32 compensation attack: network attack detected");
+	if (!receive_context.plaintext) {
+		switch (detect_attack(buffer_ptr(&input), padded_len, NULL)) {
+		case DEATTACK_DETECTED:
+			packet_disconnect("crc32 compensation attack: "
+			    "network attack detected");
+		case DEATTACK_DOS_DETECTED:
+			packet_disconnect("deattack denial of "
+			    "service detected");
+		}
+	}
 
 	/* Decrypt data to incoming_packet. */
 	buffer_clear(&incoming_packet);
