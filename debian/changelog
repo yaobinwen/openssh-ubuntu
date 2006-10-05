@@ -1,3 +1,17 @@
+openssh (1:4.3p2-5ubuntu1) edgy; urgency=low
+
+  * Resynchronise with Debian.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu,  5 Oct 2006 09:20:53 +0100
+
+openssh (1:4.3p2-5) unstable; urgency=low
+
+  * Remove ssh/insecure_telnetd check altogether (closes: #391081).
+  * debconf template translations:
+    - Update Danish (thanks, Claus Hindsgaul; closes: #390612).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu,  5 Oct 2006 09:04:19 +0100
+
 openssh (1:4.3p2-4ubuntu1) edgy; urgency=low
 
   * Resynchronise with Debian.

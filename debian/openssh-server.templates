@@ -22,6 +22,12 @@ Description-cs: Vytvoøit novı konfiguraèní soubor?
  V novém konfiguraèním souboru bude parametr PermitRootLogin nastaven na hodnotu 'yes'. To znamená, ¾e se kdokoliv se znalostí rootova hesla mù¾e pøihlásit rovnou jako root. Pokud se chcete vrátit ke starému chování, staèí v sshd_config nastavit tento parametr na hodnotu 'no'. Více v README.Debian.
  .
  Je vøele doporuèeno nechat balík, aby si nyní vytvoøil novı konfiguraèní soubor.
+Description-da: Generér ny opsætningsfil?
+ Opsætningsfilen i denne version af OpenSSH er ændret betydeligt i forhold til den, der fulgte med Debian Potato, som det ser ud til, at du opgraderer fra. Denne pakke kan nu generere en ny opsætningsfil (/etc/ssh/sshd.config), som vil fungere med den nye serverversion, men den vil ikke indeholde eventuelle justeringer, du måtte have indført i den gamle version.
+ .
+ Bemærk at den nye opsætningsfil vil sætte værdien af 'PermitRootLogin' til ja (som betyder at alle der kender roots adgangskode, kan tilgå maskinen via ssh direkte). Det er vedligeholderens mening, at dette er den korrekte standardværdi (se README.Debian for flere detaljer), men du kan altid redigere sshd_config og slå det fra, hvis du ønsker det.
+ .
+ Du anbefales stærkt at lade mig oprette en ny opsætningsfil for dig nu.
 Description-es: ¿Desea generar un nuevo fichero de configuración?
  Esta versión de OpenSSH tiene un fichero de configuración considerablemente diferente del incluido en Debian 'Potato', que es la versión desde la que parece estar actualizando. Puede crear automáticamente un nuevo fichero de configuración (/etc/ssh/sshd.config), que funcionará con la nueva versión del servidor, pero no incuirá las modificaciones que hiciera en la versión antigua.
  .
@@ -175,58 +181,6 @@ Description-zh_CN: ÄúÒª¼ÌĞøÂğ(»áÓĞÉ±ËÀ»î¶¯µÄ ssh »á»°µÄÎ£ÏÕ)£¿
  .
  Äú¿ÉÒÔÍ¨¹ıÌí¼Ó¡°--pidfile /var/run/sshd.pid¡±µ½Õâ¸öÎÄ¼şµÄ stop ²¿·ÖµÄ start-stop-daemon ĞĞÀ´ĞŞÕıÕâ¸öÎÊÌâ¡£
 
-Template: ssh/insecure_telnetd
-Type: error
-Description: Warning: telnetd is installed --- probably not a good idea
- I'd advise you to either remove the telnetd package (if you don't actually
- need to offer telnet access) or install telnetd-ssl so that there is at
- least some chance that telnet sessions will not be sending unencrypted
- login/password and session information over the network.
-Description-ca: Avís: el telnetd està instal·lat --- probablement no sigui una bona idea
- Es aconsellable suprimir el paquet telnetd (si no heu d'oferir accés a telnet) o torneu a instal·lar el paquet telnetd-ssl si més no per assegurar que les sessions de telnet no enviaran les informació del nom d'usuari i contrasenya sense xifrar a través de la xarxa.
-Description-cs: Varování: je nainstalován telnetd --- to není dobrı nápad
- Doporuèujeme buï odstranit balík telnetd (pokud telnet pøístup nepotøebujete), nebo nainstalovat telnetd-ssl, kde je alespoò nìjaká ¹ance, ¾e spojení nebudou po síti zasílat neza¹ifrovaná jména/hesla/informace.
-Description-da: Advarsel: telnetd er installeret --- sikkert ikke en god idé
- Jeg vil råde dig til enten at fjerne pakken telnetd (hvis du i virkeligheden ikke har brug for at tilbyde telnet-adgang) eller installere telnetd-ssl, så der i det mindste er en mulighed for, at telnet-sessioner ikke sender adgangskoder og sessions-oplysninger ukrypteret over netværket.
-Description-de: Warnung: telnetd ist installiert --- wahrscheinlich keine gute Idee
- Wir empfehlen das telnetd Paket zu entfernen (falls Sie keinen telnet Zugang anbieten) oder telnetd-ssl zu installieren, so daß Sie verhindern können, daß Login und Passwort unverschlüsselt durch das Netz gesendet werden.
-Description-el: Ğñïóï÷Ş: åßíáé Şäç åãêáôåóôçìİíïò ï telnetd --- ü÷é êáé ôïóï êáëŞ éäİá
- ÓõíéóôÜôáé åßôå íá áöáéñİóåôå ôï ğáêİôï telnetd (áí äåí åßíáé ğñáãìáôéêÜ áğáñáßôçôç ç ğñüóâáóç ìİóù telnet) Ş íá åãêáôáóôŞóåôå ôï ğáêİôï telnetd-ssl, şóôå íá õğÜñ÷åé ôïõëÜ÷éóôïí ìéá ğéèáíüôçôá ïé óõíäİóåéò telnet íá ìçí áğïóôİëëïõí ìç êñõğôïãñáöçìİíåò ğëçñïöïñßåò êùäéêşí ğñüóâáóçò êáé óõíåäñéşí ìİóù äéêôıïõ.
-Description-es: Aviso: tiene telnetd instalado (posiblemente no es una buena idea)
- Es muy aconsejable que borre el paquete telnetd si no necesita realmente ofrecer acceso mediante telnet o instalar telnetd-ssl para que las contraseñas, nombres de usuario y demás información de las sesiones telnet no viajen sin cifrar por la red.
-Description-fi: Varoitus: telnetd on asennettu --- tämä ei liene hyvä idea
- On suositeltavaa joko poistaa telnetd-paketti (jos telnet-yhteyksien tarjoaminen 
- ei ole tarpeellista) tai asentaa paketti telnetd-ssl, jotta salaamattomia 
- käyttäjätunnuksia/salasanoja ja istunnon tietoja ei lähetettäisi verkon yli.
-Description-fr: Telnetd installé : paquet déconseillé
- Vous devriez soit enlever le paquet telnetd (si ce service n'est pas nécessaire), soit le remplacer par le paquet telnetd-ssl pour qu'il y ait au moins une chance que les sessions telnet soient chiffrées et que les mots de passe et noms d'utilisateurs ne passent pas en clair sur le réseau.
-Description-gl: Aviso: telnetd está instalado --- seguramente non sexa unha boa idea
- Recoméndase que elimine o paquete telnetd (se non precisa de fornecer acceso por telnet) ou instale telnetd-ssl para que exista alomenos algunha posibilidade de que as sesións telnet non envíen información de usuario/contrasinal e das sesións sen cifrar pola rede.
-Description-it: Attenzione: telnetd è installato --- probabilmente non è una buona idea
- È consigliabile rimuovere il pacchetto telnetd (se non è proprio necessario offrire l'accesso via telnet) o installare telnetd-ssl per evitare che ci sia qualche possibilità che la sessione telnet invii sulla rete login/password e informazioni di sessione non criptate.
-Description-ja: ·Ù¹ğ: telnetd ¤¬¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤Æ¤¤¤Ş¤¹¡£¤¿¤Ö¤óÎÉ¤¤¹Í¤¨¤Ç¤Ï¤¢¤ê¤Ş¤»¤ó
- (¤â¤· telnet ¥¢¥¯¥»¥¹¤òÄó¶¡¤·¤¿¤¤¤È»×¤Ã¤Æ¤¤¤Ê¤¤¤Î¤Ç¤·¤¿¤é) telnetd ¥Ñ¥Ã¥±¡¼¥¸¤ò¥¢¥ó¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¤«¡¢¤Ş¤¿¤Ï¡¢telnetd-ssh ¥Ñ¥Ã¥±¡¼¥¸¤ò ¥¤¥ó¥¹¥È¡¼¥ë¤·¤Æ¾¯¤Ê¤¯¤È¤â¥Í¥Ã¥È¥ï¡¼¥¯¾å¤ò°Å¹æ²½¤µ¤ì¤Æ¤¤¤Ê¤¤¥æ¡¼¥¶Ì¾¤ä¥Ñ¥¹¥ï¡¼¥É¤ä¥»¥Ã¥·¥ç¥ó¾ğÊó¤¬Î®¤ì¤Ê¤¤¤è¤¦¤Ë¤¹¤ë¤³¤È¤ò¤ª´«¤á¤·¤Ş¤¹¡£
-Description-nl: Waarschuwing: telnetd is geïnstalleerd -- dit is waarschijnlijk geen goed idee
- Het is aan te raden om of het telnetd-pakket te verwijderen (indien u geen telnettoegang hoeft aan te bieden), of telnetd-ssl te installeren zodat er enige kans is dat telnetsessies geen onversleutelde gebruikersnaam/wachtwoord en sessie informatie over het netwerk versturen.
-Description-pl: Uwaga: telnetd jest zainstalowany --- prawdopodobnie nienajlepszy pomys³
- Radzi³bym albo usun±æ pakiet telnetd (je¶li nie potrzebujesz koniecznie udostêpniaæ telnet'a) albo zainstalowaæ telnetd-ssl aby by³a choæ szansza, ¿e sesje telnet nie bêd± przesy³aæ niezaszyfrowanego loginu/has³a oraz danych sesji przez sieæ.
-Description-pt: Aviso: o telnetd está instalado -- provavelmente não é uma boa ideia
- Aconselho que ou remova o pacote telnetd (se não necessita mesmo de oferecer acesso por telnet) ou instale o telnetd-ssl para que tenha alguma hipótese de que as sessões de telnet não enviem login/palavra-chave não-cifradas pela rede.
-Description-pt_BR: Aviso: telnetd está instalado --- provavelmente não é uma boa idéia
- Eu recomendaria a você ou remover o pacote telnetd (se você atualmente não precisa oferecer acesso telnet) ou instalar telnetd-ssl. Assim existe pelo menos uma chance das sessões telnet não enviarem login/senha não criptografadas e informações de sessão através da rede.
-Description-ru: ğÒÅÄÕĞÒÅÖÄÅÎÉÅ: ÕÓÔÁÎÏ×ÌÅÎ telnetd --- ĞÏÖÁÌÕÊ, ÜÔÏ ÎÅ ÏŞÅÎØ ÈÏÒÏÛÏ
- ñ ÒÅËÏÍÅÎÄÏ×ÁÌ ÂÙ ÷ÁÍ ÕÄÁÌÉÔØ ĞÁËÅÔ telnetd (ÅÓÌÉ ÷ÁÍ ÄÅÊÓÔ×ÉÔÅÌØÎÏ ÎÅ ÎÕÖÅÎ ÄÏÓÔÕĞ telnet) ÉÌÉ ÕÓÔÁÎÏ×ÉÔØ telnet-ssl, ŞÔÏÂÙ ÉÍÅÔØ ÈÏÔÑ ÂÙ ×ÏÚÍÏÖÎÏÓÔØ ÎÅ ĞÅÒÅÄÁ×ÁÔØ ĞÏ ÓÅÔÉ ÎÅÚÁÛÉÆÒÏ×ÁÎÎÙÅ ÉÍÅÎÁ É ĞÁÒÏÌÉ ĞÏÌØÚÏ×ÁÔÅÌÅÊ É ĞÒÏŞÕÀ ÉÎÆÏÒÍÁÃÉÀ × telnet-ÓÅÓÓÉÑÈ.
-Description-sv: Varning: telnetd är installerad --- detta är inte en bra ide
- Jag föreslår att du antingen tar bort paketet telnetd (om du inte faktiskt behöver erbjuda en telnet-tjänst) eller installera telnetd-ssl så att det i alla fall finns en liten chans att telnet-sessioner inte kommer att sända okrypterade login/lösenord och sessionsinformation över nätverket.
-Description-tr: Uyarı: telnetd kurulmuş --- bu muhtemelen iyi bir fikir değil
- Telnetd paketini (eğer gerçekten telnet erişimi sunmak gibi bir zorunluluğunuz yoksa) kaldırmanızı veya en azından, telnet oturumlarında şifrelenmemiş giriş/parola ve oturum bilgilerinin ağ üzerinden gönderilmemesi olanağını sunan telnetd-ssl paketini kurmanızı öneririm.
-Description-uk: ğÏĞÅÒÅÄÖÅÎÎÑ: telnetd ×ÓÔÁÎÏ×ÌÅÎÉÊ - ÃÅ ĞÏÇÁÎÁ ¦ÄÅÑ
- òÅËÏÍÅÎÄÕ¤ÔØÓÑ ÁÂÏ ×ÉÄÁÌÉÔÉ ĞÁËÕÎÏË telnetd (ÑËİÏ ×ÁÍ ÎÅ ĞÏÔÒ¦ÂÎÏ ÎÁÄÁ×ÁÔÉ ÄÏÓÔÕĞ ŞÅÒÅÚ telnet), ÁÂÏ ×ÓÔÁÎÏ×ÉÔÉ telnetd-ssl, İÏÂ ÍÁÔÉ ÍÏÖÌÉ×¦ÓÔØ ÎÅ ĞÅÒÅÄÁ×ÁÔÉ ÎÅÚÁÛÉÆÒÏ×ÁÎ¦ ÌÏÇ¦Î/ĞÁÒÏÌØ ÔÁ ¦ÎÛÕ ¦ÎÆÏÒÍÁÃ¦À ŞÅÒÅÚ ÍÅÒÅÖÕ.
-Description-vi: Cáº£nh bÃ¡o: Â«telnetdÂ» Ä‘Ã£ Ä‘Æ°á»£c cÃ i Ä‘áº·t â€” ráº¥t khÃ´ng thá»ƒ lÃ  má»™t Ã½ kiáº¿n tá»‘t.
- KhuyÃªn báº¡n hoáº·c loáº¡i bá» gÃ³i tin Â«telnetdÂ» (náº¿u báº¡n khÃ´ng tháº­t sá»± cáº§n cung cáº¥p cÃ¡ch truy cáº­p telnet) hoáº·c cÃ i Ä‘áº·t gÃ³i tin Â«telnetd-sslÂ» Ä‘á»ƒ cá»‘ trÃ¡nh cháº¡y phiÃªn telnet cÃ³ gá»Ÿi thÃ´ng tin Ä‘Äƒng nháº­p/máº­t kháº©u vÃ  thÃ´ng tin phiÃªn lÃ m viá»‡c khÃ´ng máº­t mÃ£ qua máº¡ng.
-Description-zh_CN: ¾¯¸æ£ºÒÑ¾­°²×°ÁË telnetd ·şÎñÆ÷ --- ¿ÉÄÜ²»ÊÇ¸öºÃÖ÷Òâ
- ÎÒ½¨ÒéÄúÉ¾³ı telnetd °ü(Èç¹ûÄú²»ÊÇÕæµÄĞèÒªÌá¹© telnet ·ÃÎÊ)£¬»òÕß°²×° telnetd-ssl£¬ÕâÑùÖÁÉÙÓĞÊ±ºò telnet »á»°²»»á½«Î´¼ÓÃÜµÄ µÇÂ¼Ãû/ÃÜÂë ºÍ»á»°ĞÅÏ¢Í¨¹ıÍøÂç·¢ËÍ¡£
-
 Template: ssh/encrypted_host_key_but_no_keygen
 Type: note
 Description: Warning: you must create a new host key
@@ -239,6 +193,10 @@ Description-cs: Varování: musíte vytvoøit novı serverovı klíè
  V /etc/ssh/ssh_host_key se nachází starı klíè ¹ifrovanı algoritmem IDEA. OpenSSH neumí tento soubor zpracovat a zdá se, ¾e utilita ssh-keygen ze staré (nesvobodné) instalace SSH není k dispozici.
  .
  Musíte vygenerovat novı serverovı klíè
+Description-da: Advarsel: du skal oprette en ny værtsnøgle
+ Der er en gammel, IDEA-krypteret /etc/ssh/ssh_host_key. OpenSSH kan ikke håndtere en sådan værtsnøglefil, og værktøjet ssh-keygen fra den gamle (ikke-frie, 'non-free') SSH-installation lader ikke til at være tilgængeligt.
+ .
+ Du skal oprette en ny værtsnøgle.
 Description-es: Aviso: debe crear una nueva clave para su servidor
  Su sistema tiene un /etc/ssh/ssh_host_key antiguo, que usa cifrado IDEA. OpenSSH no puede manejar este fichero de claves y tampoco parece estar disponible la utilidad ssh-keygen de la instalación antigua de SSH (no libre).
  .
@@ -296,9 +254,9 @@ Description-cs: Zakázat autentizaci challenge-response?
  .
  Zaká¾ete-li autentizaci challenge-response, u¾ivatelé se nebudou moci pøihlásit pomocí hesel. Necháte-li ji povolenu (pøednastavená odpovìï), pak nebude mít volba 'PasswordAuthentication no' ¾ádnı efekt, pokud ov¹em neupravíte nastavení PAM v /etc/pam.d/ssh.
 Description-da: Slå udfordrings-svar godkendelse fra?
- Adgangskodegodkendelse ser ud til at være deaktiveret i din nuværende OpenSSH server opsætning. For at forhindre brugere i at logge ind med adgangskoder (f.eks. kun offentlig nøgle godkendelse) med nyere versioner af OpenSSH, skal du deaktivere udfordrings-svar godkendelse, eller sikre at din PAM opsætning ikke itllader Unix adgangskodefil godkendelse.
+ Adgangskodegodkendelse ser ud til at være deaktiveret i din nuværende OpenSSH-serveropsætning. For at forhindre brugere i at logge ind med adgangskoder (f.eks. kun offentlig nøgle godkendelse) med nyere versioner af OpenSSH, skal du deaktivere udfordrings-svar godkendelse, eller sikre at din PAM opsætning ikke itllader Unix adgangskodefil godkendelse.
  .
- Hvis du deaktiverer udfordrings-svar godkendelse, vil brugere ikke være i stand til at logge ind med adgangskoder. Hvis du lader det slået til (standard svaret), så vil 'PasswordAuthentication no' indstillingen ikke have nogen effekt, medmindre du også redigerer din PAM opsætning i /etc/pam.d/ssh.
+ Hvis du deaktiverer udfordrings-svar godkendelse, vil brugere ikke være i stand til at logge ind med adgangskoder. Hvis du lader det være slået til (standard svaret), så vil 'PasswordAuthentication no' indstillingen ikke have nogen effekt, medmindre du også redigerer din PAM-opsætning i /etc/pam.d/ssh.
 Description-el: Íá áğåíåñãïğïéçèåß ç ğéóôïğïßçóç challenge-response;
  Ç ğéóôïğïßçóç ìå êùäéêü åßíáé áğåíåñãïğïéçìİíç óôï ôùñéíü OpenSSH åîõğçñåôçôŞ. Ãéá íá áğïôñİøåôå ôçí åßóïäï ôïí ÷ñçóôşí ìå ÷ñŞóç êùäéêïı (ãéá ğáñÜäåéãìá íá ãßíåôáé ÷ñŞóç ìüíï ôïõ äçìïóßïõ êëåéäéïı) ìå ôçí ğñüóöáôåò åêäüóåéò ôïõ OpenSSH, èá ğñİğåé íá áğåíåñãïğïéŞóåôå ôçí ğéóôïğïßçóç challenge-response Ş íá åğéâåâáéşóåôå üôé ç äéáìüñöùóç ôïõ PAM äåí åğéôñİğåé ôçí ğéóôïğïßçóç ìå áñ÷åßï êùäéêşí.
  .

@@ -11,29 +11,29 @@
 #
 #    Developers do not need to manually edit POT or PO files.
 #
+# Claus Hindsgaul <claus.hindsgaul@gmail.com>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: openssh 3.8.1p1\n"
 "Report-Msgid-Bugs-To: matthew@debian.org\n"
-"POT-Creation-Date: 2006-09-29 11:14+0100\n"
-"PO-Revision-Date: 2004-10-10 21:04+0200\n"
-"Last-Translator: Morten Brix Pedersen <morten@wtf.dk>\n"
-"Language-Team: Danish <dansk@klid.dk>\n"
+"POT-Creation-Date: 2006-10-04 22:14+0100\n"
+"PO-Revision-Date: 2006-10-02 08:53+0200\n"
+"Last-Translator: Claus Hindsgaul <claus.hindsgaul@gmail.com>\n"
+"Language-Team: Danish\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:1001
-#, fuzzy
 msgid "Generate new configuration file?"
-msgstr "Opret ny opsÃ¦tningsfil"
+msgstr "Generér ny opsætningsfil?"
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:1001
-#, fuzzy
 msgid ""
 "This version of OpenSSH has a considerably changed configuration file from "
 "the version shipped in Debian 'Potato', which you appear to be upgrading "
@@ -41,11 +41,11 @@ msgid ""
 "config), which will work with the new server version, but will not contain "
 "any customisations you made with the old version."
 msgstr ""
-"Denne version af OpenSSH har en betydeligt Ã¦ndret opsÃ¦tningsfil fra den "
-"version der kom med Debian 'Potato', som du ser ud til at opgradere fra. Jeg "
-"kan oprette en ny opsÃ¦tningsfil (/etc/ssh/sshd.config), som vil virke med "
-"den nye server version, men det vil ikke beholde eventuelle Ã¦ndringer du "
-"lavede med den gamle version."
+"Opsætningsfilen i denne version af OpenSSH er ændret betydeligt i forhold "
+"til den, der fulgte med Debian Potato, som det ser ud til, at du opgraderer "
+"fra. Denne pakke kan nu generere en ny opsætningsfil (/etc/ssh/sshd.config), "
+"som vil fungere med den nye serverversion, men den vil ikke indeholde "
+"eventuelle justeringer, du måtte have indført i den gamle version."
 
 #. Type: boolean
 #. Description
@@ -57,26 +57,26 @@ msgid ""
 "the correct default (see README.Debian for more details), but you can always "
 "edit sshd_config and set it to no if you wish."
 msgstr ""
-"BemÃ¦rk at den nye opsÃ¦tningsfil vil sÃ¦tte vÃ¦rdien af 'PermitRootLogin' til "
-"ja (som betyder at alle der kender roots adgangskode, kan tilgÃ¥ maskinen via "
-"ssh direkte). Det er vedligeholderens mening, at det er den korrekte "
-"standard-vÃ¦rdi (se README.Debian for flere detaljer), men du kan altid "
-"redigere sshd_config og slÃ¥ det fra, hvis du Ã¸nsker."
+"Bemærk at den nye opsætningsfil vil sætte værdien af 'PermitRootLogin' til "
+"ja (som betyder at alle der kender roots adgangskode, kan tilgå maskinen via "
+"ssh direkte). Det er vedligeholderens mening, at dette er den korrekte "
+"standardværdi (se README.Debian for flere detaljer), men du kan altid "
+"redigere sshd_config og slå det fra, hvis du ønsker det."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:1001
-#, fuzzy
 msgid ""
 "It is strongly recommended that you let this package generate a new "
 "configuration file now."
-msgstr "Du rÃ¥des stÃ¦rkt til at lade mig oprette en ny opsÃ¦tningsfil for dig."
+msgstr ""
+"Du anbefales stærkt at lade mig oprette en ny opsætningsfil for dig nu."
 
 #. Type: boolean
 #. Description
 #: ../openssh-server.templates.master:2001
 msgid "Do you want to continue (and risk killing active ssh sessions)?"
-msgstr "Vil du fortsÃ¦tte (og risikere at afbryde aktive ssh-forbindelser)?"
+msgstr "Vil du fortsætte (og risikere at afbryde aktive ssh-forbindelser)?"
 
 #. Type: boolean
 #. Description
@@ -87,7 +87,7 @@ msgid ""
 "session, that would be a Bad Thing(tm)."
 msgstr ""
 "Den udgave af /etc/init.d/ssh, du har installeret, vil sandsynligvis afbryde "
-"alle sshd-dÃ¦moner. Det vil vÃ¦re en rigtigt dÃ¥rlig idÃ©, hvis du er ved at "
+"alle sshd-dæmoner. Det vil være en rigtigt dårlig idé, hvis du er ved at "
 "opgradere via en ssh-forbindelse."
 
 #. Type: boolean
@@ -97,63 +97,42 @@ msgid ""
 "You can fix this by adding \"--pidfile /var/run/sshd.pid\" to the start-stop-"
 "daemon line in the stop section of the file."
 msgstr ""
-"Du kan afhjÃ¦lpe dette ved at tilfÃ¸je \"--pidfile /var/run/sshd.pid\" til "
+"Du kan afhjælpe dette ved at tilføje \"--pidfile /var/run/sshd.pid\" til "
 "'start-stop-daemon'-linjen i stop-afsnittet af filen."
 
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid "Warning: telnetd is installed --- probably not a good idea"
-msgstr "Advarsel: telnetd er installeret --- sikkert ikke en god idÃ©"
-
-#. Type: error
-#. Description
-#: ../openssh-server.templates.master:3001
-msgid ""
-"I'd advise you to either remove the telnetd package (if you don't actually "
-"need to offer telnet access) or install telnetd-ssl so that there is at "
-"least some chance that telnet sessions will not be sending unencrypted login/"
-"password and session information over the network."
-msgstr ""
-"Jeg vil rÃ¥de dig til enten at fjerne pakken telnetd (hvis du i virkeligheden "
-"ikke har brug for at tilbyde telnet-adgang) eller installere telnetd-ssl, sÃ¥ "
-"der i det mindste er en mulighed for, at telnet-sessioner ikke sender "
-"adgangskoder og sessions-oplysninger ukrypteret over netvÃ¦rket."
-
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "Warning: you must create a new host key"
-msgstr "Advarsel: du skal oprette en ny vÃ¦rtsnÃ¸gle"
+msgstr "Advarsel: du skal oprette en ny værtsnøgle"
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
-#, fuzzy
+#: ../openssh-server.templates.master:3001
 msgid ""
 "There is an old /etc/ssh/ssh_host_key, which is IDEA encrypted. OpenSSH can "
 "not handle this host key file, and the ssh-keygen utility from the old (non-"
 "free) SSH installation does not appear to be available."
 msgstr ""
-"Der ligger en gammel, IDEA-krypteret /etc/ssh/ssh_host_key. OpenSSH kan ikke "
-"hÃ¥ndtere en sÃ¥dan vÃ¦rtsnÃ¸glefil, og jeg kan ikke finde vÃ¦rktÃ¸jet ssh-keygen "
-"fra den gamle (ikke-frie, 'non-free') SSH-installation."
+"Der er en gammel, IDEA-krypteret /etc/ssh/ssh_host_key. OpenSSH kan ikke "
+"håndtere en sådan værtsnøglefil, og værktøjet ssh-keygen fra den gamle (ikke-"
+"frie, 'non-free') SSH-installation lader ikke til at være tilgængeligt."
 
 #. Type: note
 #. Description
-#: ../openssh-server.templates.master:4001
+#: ../openssh-server.templates.master:3001
 msgid "You will need to generate a new host key."
-msgstr "Du skal oprette en ny vÃ¦rtsnÃ¸gle."
+msgstr "Du skal oprette en ny værtsnøgle."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid "Disable challenge-response authentication?"
-msgstr "SlÃ¥ udfordrings-svar godkendelse fra?"
+msgstr "Slå udfordrings-svar godkendelse fra?"
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "Password authentication appears to be disabled in your current OpenSSH "
 "server configuration. In order to prevent users from logging in using "
@@ -162,37 +141,52 @@ msgid ""
 "else ensure that your PAM configuration does not allow Unix password file "
 "authentication."
 msgstr ""
-"Adgangskodegodkendelse ser ud til at vÃ¦re deaktiveret i din nuvÃ¦rende "
-"OpenSSH server opsÃ¦tning. For at forhindre brugere i at logge ind med "
-"adgangskoder (f.eks. kun offentlig nÃ¸gle godkendelse) med nyere versioner af "
+"Adgangskodegodkendelse ser ud til at være deaktiveret i din nuværende "
+"OpenSSH-serveropsætning. For at forhindre brugere i at logge ind med "
+"adgangskoder (f.eks. kun offentlig nøgle godkendelse) med nyere versioner af "
 "OpenSSH, skal du deaktivere udfordrings-svar godkendelse, eller sikre at din "
-"PAM opsÃ¦tning ikke itllader Unix adgangskodefil godkendelse."
+"PAM opsætning ikke itllader Unix adgangskodefil godkendelse."
 
 #. Type: boolean
 #. Description
-#: ../openssh-server.templates.master:5001
+#: ../openssh-server.templates.master:4001
 msgid ""
 "If you disable challenge-response authentication, then users will not be "
 "able to log in using passwords. If you leave it enabled (the default "
 "answer), then the 'PasswordAuthentication no' option will have no useful "
 "effect unless you also adjust your PAM configuration in /etc/pam.d/ssh."
 msgstr ""
-"Hvis du deaktiverer udfordrings-svar godkendelse, vil brugere ikke vÃ¦re i "
-"stand til at logge ind med adgangskoder. Hvis du lader det slÃ¥et til "
-"(standard svaret), sÃ¥ vil 'PasswordAuthentication no' indstillingen ikke "
-"have nogen effekt, medmindre du ogsÃ¥ redigerer din PAM opsÃ¦tning i /etc/pam."
+"Hvis du deaktiverer udfordrings-svar godkendelse, vil brugere ikke være i "
+"stand til at logge ind med adgangskoder. Hvis du lader det være slået til "
+"(standard svaret), så vil 'PasswordAuthentication no' indstillingen ikke "
+"have nogen effekt, medmindre du også redigerer din PAM-opsætning i /etc/pam."
 "d/ssh."
 
+#~ msgid "Warning: telnetd is installed --- probably not a good idea"
+#~ msgstr "Advarsel: telnetd er installeret --- sikkert ikke en god idé"
+
+#~ msgid ""
+#~ "I'd advise you to either remove the telnetd package (if you don't "
+#~ "actually need to offer telnet access) or install telnetd-ssl so that "
+#~ "there is at least some chance that telnet sessions will not be sending "
+#~ "unencrypted login/password and session information over the network."
+#~ msgstr ""
+#~ "Jeg vil råde dig til enten at fjerne pakken telnetd (hvis du i "
+#~ "virkeligheden ikke har brug for at tilbyde telnet-adgang) eller "
+#~ "installere telnetd-ssl, så der i det mindste er en mulighed for, at "
+#~ "telnet-sessioner ikke sender adgangskoder og sessions-oplysninger "
+#~ "ukrypteret over netværket."
+
 #~ msgid "Warning: rsh-server is installed --- probably not a good idea"
-#~ msgstr "Advarsel: rsh-serveren er installeret --- sikkert ikke en god idÃ©"
+#~ msgstr "Advarsel: rsh-serveren er installeret --- sikkert ikke en god idé"
 
 #~ msgid ""
 #~ "having rsh-server installed undermines the security that you were "
 #~ "probably wanting to obtain by installing ssh.  I'd advise you to remove "
 #~ "that package."
 #~ msgstr ""
-#~ "Den sikkerhed, du nok Ã¸nskede at opnÃ¥ ved at installere ssh undermineres "
-#~ "ved, at du har rsh-server installeret. Jeg vil rÃ¥de dig til at fjerne "
+#~ "Den sikkerhed, du nok ønskede at opnå ved at installere ssh undermineres "
+#~ "ved, at du har rsh-server installeret. Jeg vil råde dig til at fjerne "
 #~ "pakken rsh-server."
 
 #~ msgid "Do you want ssh-keysign to be installed SUID root?"
@@ -202,22 +196,22 @@ msgstr ""
 #~ "You have the option of installing the ssh-keysign helper with the SUID "
 #~ "bit set."
 #~ msgstr ""
-#~ "Du har mulighed for at installere ssh-keysign hjÃ¦lperen med SUID-flaget "
+#~ "Du har mulighed for at installere ssh-keysign hjælperen med SUID-flaget "
 #~ "sat."
 
 #~ msgid ""
 #~ "If you make ssh-keysign SUID, you will be able to use SSH's Protocol 2 "
 #~ "host-based authentication."
 #~ msgstr ""
-#~ "Hvis du gÃ¸r ssh-keysign SUID, vil du blive i stand til at benytte SSH "
-#~ "protokol 2's vÃ¦rtsnavn-baserede autentifikation."
+#~ "Hvis du gør ssh-keysign SUID, vil du blive i stand til at benytte SSH "
+#~ "protokol 2's værtsnavn-baserede autentifikation."
 
 #~ msgid ""
 #~ "If in doubt, I suggest you install it with SUID.  If it causes problems "
 #~ "you can change your mind later by running:   dpkg-reconfigure ssh"
 #~ msgstr ""
-#~ "Hvis du er i tvivl, vil jeg rÃ¥de dig til at installere den med SUID. Hvis "
-#~ "det skaber problemer, kan du Ã¦ndre det tilbage igen ved at kÃ¸re: dpkg-"
+#~ "Hvis du er i tvivl, vil jeg råde dig til at installere den med SUID. Hvis "
+#~ "det skaber problemer, kan du ændre det tilbage igen ved at køre: dpkg-"
 #~ "reconfigure ssh"
 
 #~ msgid "Allow SSH protocol 2 only"
@@ -229,29 +223,29 @@ msgstr ""
 #~ "things down on low end machines and might prevent older clients from "
 #~ "connecting (the ssh client shipped with \"potato\" is affected)."
 #~ msgstr ""
-#~ "Denne udgave af OpenSSH understÃ¸tter version 2 af ssh-protokollen, som er "
+#~ "Denne udgave af OpenSSH understøtter version 2 af ssh-protokollen, som er "
 #~ "betydeligt mere sikker. Det anbefales at deaktivere version 1. Dog kan "
-#~ "det slÃ¸ve langsomme maskiner ned, og forhindre Ã¦ldre klienter i at opnÃ¥ "
+#~ "det sløve langsomme maskiner ned, og forhindre ældre klienter i at opnå "
 #~ "forbindelse (ssh klienten der kommer med \"potato\" er en af dem)."
 
 #~ msgid ""
 #~ "Also please note that keys used for protocol 1 are different so you will "
 #~ "not be able to use them if you only allow protocol 2 connections."
 #~ msgstr ""
-#~ "Du skal ogsÃ¥ bemÃ¦rke at de nÃ¸gler som bliver anvendt til protokol 1 er "
-#~ "forskellige, sÃ¥ du vil ikke vÃ¦re i stand til at bruge dem, hvis du kun "
+#~ "Du skal også bemærke at de nøgler som bliver anvendt til protokol 1 er "
+#~ "forskellige, så du vil ikke være i stand til at bruge dem, hvis du kun "
 #~ "tillader protokol 2 forbindelser."
 
 #~ msgid ""
 #~ "If you later change your mind about this setting, README.Debian has "
 #~ "instructions on what to do to your sshd_config file."
 #~ msgstr ""
-#~ "Hvis du senere Ã¦ndrer din mening om denne indstilling, har README.Debian "
-#~ "instruktioner pÃ¥ hvad du skal gÃ¸re ved din sshd_config fil."
+#~ "Hvis du senere ændrer din mening om denne indstilling, har README.Debian "
+#~ "instruktioner på hvad du skal gøre ved din sshd_config fil."
 
 #~ msgid "NOTE: Forwarding of X11 and Authorization disabled by default."
 #~ msgstr ""
-#~ "BEMÃ†RK: Videregivelse af X11 og adgangkontrol er som standard deaktiveret."
+#~ "BEMÆRK: Videregivelse af X11 og adgangkontrol er som standard deaktiveret."
 
 #~ msgid ""
 #~ "For security reasons, the Debian version of ssh has ForwardX11 and "
@@ -264,8 +258,8 @@ msgstr ""
 #~ "You can enable it for servers you trust, either in one of the "
 #~ "configuration files, or with the -X command line option."
 #~ msgstr ""
-#~ "Du kan aktivere dem for servere du stoler pÃ¥, enten i en af "
-#~ "opsÃ¦tningsfilerne eller med kommandolinjetilvalget '-X'."
+#~ "Du kan aktivere dem for servere du stoler på, enten i en af "
+#~ "opsætningsfilerne eller med kommandolinjetilvalget '-X'."
 
 #~ msgid "More details can be found in /usr/share/doc/ssh/README.Debian"
 #~ msgstr "Flere detaljer kan findes i /usr/share/doc/ssh/README.Debian"
