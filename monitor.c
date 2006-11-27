@@ -111,6 +111,7 @@ int mm_answer_sign(int, Buffer *);
 int mm_answer_pwnamallow(int, Buffer *);
 int mm_answer_auth2_read_banner(int, Buffer *);
 int mm_answer_authserv(int, Buffer *);
+int mm_answer_authrole(int, Buffer *);
 int mm_answer_authpassword(int, Buffer *);
 int mm_answer_bsdauthquery(int, Buffer *);
 int mm_answer_bsdauthrespond(int, Buffer *);
@@ -182,6 +183,7 @@ struct mon_table mon_dispatch_proto20[] = {
     {MONITOR_REQ_SIGN, MON_ONCE, mm_answer_sign},
     {MONITOR_REQ_PWNAM, MON_ONCE, mm_answer_pwnamallow},
     {MONITOR_REQ_AUTHSERV, MON_ONCE, mm_answer_authserv},
+    {MONITOR_REQ_AUTHROLE, MON_ONCE, mm_answer_authrole},
     {MONITOR_REQ_AUTH2_READ_BANNER, MON_ONCE, mm_answer_auth2_read_banner},
     {MONITOR_REQ_AUTHPASSWORD, MON_AUTH, mm_answer_authpassword},
 #ifdef USE_PAM
@@ -337,7 +339,7 @@ monitor_child_preauth(Authctxt *_authctxt, struct monitor *pmonitor)
 
 	/* The first few requests do not require asynchronous access */
 	while (!authenticated) {
-		authenticated = monitor_read(pmonitor, mon_dispatch, &ent);
+		authenticated = (monitor_read(pmonitor, mon_dispatch, &ent) == 1);
 		if (authenticated) {
 			if (!(ent->flags & MON_AUTHDECIDE))
 				fatal("%s: unexpected authentication from %d",
@@ -638,6 +640,7 @@ mm_answer_pwnamallow(int sock, Buffer *m)
 	else {
 		/* Allow service/style information on the auth context */
 		monitor_permit(mon_dispatch, MONITOR_REQ_AUTHSERV, 1);
+		monitor_permit(mon_dispatch, MONITOR_REQ_AUTHROLE, 1);
 		monitor_permit(mon_dispatch, MONITOR_REQ_AUTH2_READ_BANNER, 1);
 	}
 
@@ -682,6 +685,23 @@ mm_answer_authserv(int sock, Buffer *m)
 		xfree(authctxt->style);
 		authctxt->style = NULL;
 	}
+
+	if (strlen(authctxt->role) == 0) {
+		xfree(authctxt->role);
+		authctxt->role = NULL;
+	}
+
+	return (0);
+}
+
+int
+mm_answer_authrole(int sock, Buffer *m)
+{
+	monitor_permit_authentications(1);
+
+	authctxt->role = buffer_get_string(m, NULL);
+	debug3("%s: role=%s",
+	    __func__, authctxt->role);
 
 	if (strlen(authctxt->role) == 0) {
 		xfree(authctxt->role);
@@ -1200,7 +1220,7 @@ mm_answer_keyverify(int sock, Buffer *m)
 
 	verified = key_verify(key, signature, signaturelen, data, datalen);
 	debug3("%s: key %p signature %s",
-	    __func__, key, verified ? "verified" : "unverified");
+	    __func__, key, (verified == 1) ? "verified" : "unverified");
 
 	key_free(key);
 	xfree(blob);
@@ -1215,7 +1235,7 @@ mm_answer_keyverify(int sock, Buffer *m)
 	buffer_put_int(m, verified);
 	mm_request_send(sock, MONITOR_ANS_KEYVERIFY, m);
 
-	return (verified);
+	return (verified == 1);
 }
 
 static void

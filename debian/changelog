@@ -1,3 +1,34 @@
+openssh (1:4.3p2-6ubuntu1) feisty; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add /sbin, /usr/sbin, and /usr/local/sbin to the default path.
+    - Use LSB init script functions.
+    - Increase MAX_SESSIONS to 64.
+    - Remove stop links from rc0 and rc6.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 27 Nov 2006 03:47:26 +0000
+
+openssh (1:4.3p2-6) unstable; urgency=low
+
+  * Acknowledge NMU (thanks, Manoj; closes: #394795).
+  * Backport from 4.5p1:
+    - Fix a bug in the sshd privilege separation monitor that weakened its
+      verification of successful authentication. This bug is not known to be
+      exploitable in the absence of additional vulnerabilities.
+  * openssh-server Suggests: molly-guard (closes: #395473).
+  * debconf template translations:
+    - Update German (thanks, Helge Kreutzmann; closes: #395947).
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 15 Nov 2006 00:07:32 +0000
+
+openssh (1:4.3p2-5.1) unstable; urgency=low
+
+  * NMU to update SELinux patch, bringing it in line with current selinux
+    releases.  The patch for this NMU is simply the Bug#394795 patch, 
+    and no other changes.                       (closes: #394795)
+
+ -- Manoj Srivastava <srivasta@debian.org>  Mon,  23 Oct 2006 14:11:24 -0500
+
 openssh (1:4.3p2-5ubuntu1) edgy; urgency=low
 
   * Resynchronise with Debian.
