@@ -1,3 +1,38 @@
+openssh (1:4.3p2-7ubuntu1) feisty; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add /sbin, /usr/sbin, and /usr/local/sbin to the default path.
+    - Use LSB init script functions.
+    - Increase MAX_SESSIONS to 64.
+    - Remove stop links from rc0 and rc6.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 11 Dec 2006 14:47:01 +0000
+
+openssh (1:4.3p2-7) unstable; urgency=medium
+
+  [ Colin Watson ]
+  * Ignore errors from usermod when changing sshd's shell, since it will
+    fail if the sshd user is not local (closes: #398436).
+  * Remove version control tags from /etc/ssh/moduli and /etc/ssh/ssh_config
+    to avoid unnecessary conffile resolution steps for administrators
+    (thanks, Jari Aalto; closes: #335259).
+  * Fix quoting error in configure.ac and regenerate configure (thanks, Ben
+    Pfaff; closes: #391248).
+  * When installing openssh-client or openssh-server from scratch, remove
+    any unchanged conffiles from the pre-split ssh package to work around a
+    bug in sarge's dpkg (thanks, Justin Pryzby and others; closes: #335276).
+
+  [ Russ Allbery ]
+  * Create transitional ssh-krb5 package which enables GSSAPI configuration
+    in sshd_config (closes: #390986).
+  * Default client to attempting GSSAPI authentication.
+  * Remove obsolete GSSAPINoMICAuthentication from sshd_config if it's
+    found.
+  * Add ssh -K option, the converse of -k, to enable GSSAPI credential
+    delegation (closes: #401483).
+
+ -- Colin Watson <cjwatson@debian.org>  Wed,  6 Dec 2006 23:00:49 +0000
+
 openssh (1:4.3p2-6ubuntu1) feisty; urgency=low
 
   * Resynchronise with Debian. Remaining changes:
