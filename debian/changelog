@@ -1,3 +1,44 @@
+openssh (1:4.3p2-8ubuntu1) feisty; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add /sbin, /usr/sbin, and /usr/local/sbin to the default path.
+    - Use LSB init script functions.
+    - Increase MAX_SESSIONS to 64.
+    - Remove stop links from rc0 and rc6.
+  * Build position-independent executables (only for debs, not for udebs) to
+    take advantage of address space layout randomisation (thanks, Kees
+    Cook).
+  * Set Maintainer to me.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 19 Feb 2007 11:18:12 +0000
+
+openssh (1:4.3p2-8) unstable; urgency=medium
+
+  [ Vincent Untz ]
+  * Give the ssh-askpass-gnome window a default icon; remove unnecessary
+    icon extension from .desktop file (closes:
+    https://launchpad.net/bugs/27152).
+
+  [ Colin Watson ]
+  * Drop versioning on ssh/ssh-krb5 Replaces, as otherwise it isn't
+    sufficient to replace conffiles (closes: #402804).
+  * Make GSSAPICleanupCreds a compatibility alias for
+    GSSAPICleanupCredentials. Mark GSSUseSessionCCache and
+    GSSAPIUseSessionCredCache as known-but-unsupported options, and migrate
+    away from them on upgrade.
+  * It turns out that the people who told me that removing a conffile in the
+    preinst was sufficient to have dpkg replace it without prompting when
+    moving a conffile between packages were very much mistaken. As far as I
+    can tell, the only way to do this reliably is to write out the desired
+    new text of the conffile in the preinst. This is gross, and requires
+    shipping the text of all conffiles in the preinst too, but there's
+    nothing for it. Fortunately this nonsense is only required for smooth
+    upgrades from sarge.
+  * debconf template translations:
+    - Add Romanian (thanks, Stan Ioan-Eugen; closes: #403528).
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 23 Dec 2006 18:38:33 +0000
+
 openssh (1:4.3p2-7ubuntu1) feisty; urgency=low
 
   * Resynchronise with Debian. Remaining changes:
