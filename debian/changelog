@@ -1,3 +1,34 @@
+openssh (1:4.3p2-10ubuntu1) gutsy; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add /sbin, /usr/sbin, and /usr/local/sbin to the default path.
+    - Use LSB init script functions.
+    - Remove stop links from rc0 and rc6.
+    - Build position-independent executables (only for debs, not for udebs)
+      to take advantage of address space layout randomisation.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Fri, 27 Apr 2007 14:11:48 +0100
+
+openssh (1:4.3p2-10) unstable; urgency=low
+
+  * Multiply openssh-client-udeb's Installer-Menu-Item by 100.
+  * Increase MAX_SESSIONS to 64.
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 10 Apr 2007 19:17:20 +0100
+
+openssh (1:4.3p2-9) unstable; urgency=high
+
+  [ Russ Allbery ]
+  * Fix GSSAPIKeyExchange configuration file handling logic in ssh-krb5
+    (closes: #404863).
+  * Fix uncommenting of GSSAPI options by ssh-krb5 (closes: #407766).
+
+  [ Colin Watson ]
+  * debconf template translations:
+    - Add Norwegian Bokmål (thanks, Bjørn Steensrud; closes: #412330).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon,  5 Mar 2007 16:13:50 +0000
+
 openssh (1:4.3p2-8ubuntu1) feisty; urgency=low
 
   * Resynchronise with Debian. Remaining changes:
