@@ -8,6 +8,8 @@ ssh-keysign
 ssh-agent
 sftp-server
 sftp
+configure
+config.h.in
 config.h
 config.status
 config.cache
@@ -16,9 +18,11 @@ stamp-h.in
 Makefile
 ssh_prng_cmds
 *.out
+*.0
 buildit.sh
+buildpkg.sh
+autom4te.cache
 ssh-rand-helper
-build-deb
-build-deb-stamp
-build-udeb
-build-udeb-stamp
+survey.sh
+survey
+opensshd.init
