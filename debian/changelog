@@ -1,3 +1,17 @@
+openssh (1:4.6p1-5ubuntu0.1) gutsy-security; urgency=low
+
+  * SECURITY UPDATE: trusted cookie leak when untrusted cookie cannot be
+    generated.
+  * debian/control: Updated Maintainer Field to follow Ubuntu Maintainer Policy
+  * clientloop.c: Applied patch according to openssh upstream (LP: #162171),
+    thanks to Stephan Hermann.
+  * References:
+    CVE-2007-4752
+    http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=444738
+    http://www.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/clientloop.c.diff?r1=1.180&r2=1.181
+
+ -- Kees Cook <kees@ubuntu.com>  Wed, 09 Jan 2008 12:37:26 -0800
+
 openssh (1:4.6p1-5build1) gutsy; urgency=low
 
   * Trigger rebuild for hppa
