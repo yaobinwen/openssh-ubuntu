@@ -1294,6 +1294,9 @@
 /* platform uses an in-memory credentials cache */
 #undef USE_CCAPI
 
+/* Define if you want ConsoleKit support. */
+#undef USE_CONSOLEKIT
+
 /* Use libedit for sftp */
 #undef USE_LIBEDIT
 
