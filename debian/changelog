@@ -1,3 +1,16 @@
+openssh (1:4.7p1-7ubuntu1) hardy; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 31 Mar 2008 16:30:53 +0100
+
+openssh (1:4.7p1-7) unstable; urgency=low
+
+  * Ignore errors writing to oom_adj (closes: #473573).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 31 Mar 2008 16:24:44 +0100
+
 openssh (1:4.7p1-6ubuntu1) hardy; urgency=low
 
   * Resynchronise with Debian. Remaining changes:
