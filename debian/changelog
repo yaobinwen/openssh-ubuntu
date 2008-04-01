@@ -1,3 +1,13 @@
+openssh (1:4.3p2-8ubuntu1.2) feisty-security; urgency=low
+
+  * SECURITY UPDATE: X11 forward hijacking via alternate address families.
+  * channels.c: upstream fixes, patched inline.  Thanks to Nicolas Valcarcel
+    (LP: #210175).
+  * References
+    CVE-2008-1483
+
+ -- Kees Cook <kees@ubuntu.com>  Tue, 01 Apr 2008 10:31:42 -0700
+
 openssh (1:4.3p2-8ubuntu1.1) feisty-security; urgency=low
 
   * SECURITY UPDATE: trusted cookie leak when untrusted cookie cannot be
