@@ -1,3 +1,29 @@
+openssh (1:4.7p1-8ubuntu1) hardy; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Sun, 06 Apr 2008 12:44:11 +0100
+
+openssh (1:4.7p1-8) unstable; urgency=high
+
+  * Fill in CVE identifier for security vulnerability fixed in 1:4.7p1-5.
+  * Rename KeepAlive to TCPKeepAlive in sshd_config, cleaning up from old
+    configurations (LP: #211400).
+  * Tweak scp's reporting of filenames in verbose mode to be a bit less
+    confusing with spaces (thanks, Nicolas Valcárcel; LP: #89945).
+  * Backport from 4.9p1:
+    - Ignore ~/.ssh/rc if a sshd_config ForceCommand is specified (see
+      http://www.securityfocus.com/bid/28531/info).
+    - Add no-user-rc authorized_keys option to disable execution of
+      ~/.ssh/rc.
+  * Backport from Simon Wilkinson's GSSAPI key exchange patch for 5.0p1:
+    - Add code to actually implement GSSAPIStrictAcceptorCheck, which had
+      somehow been omitted from a previous version of this patch (closes:
+      #474246).
+
+ -- Colin Watson <cjwatson@debian.org>  Sun, 06 Apr 2008 12:34:19 +0100
+
 openssh (1:4.7p1-7ubuntu1) hardy; urgency=low
 
   * Resynchronise with Debian. Remaining changes:
@@ -38,8 +64,8 @@ openssh (1:4.7p1-5) unstable; urgency=low
   * Document in ssh(1) that '-S none' disables connection sharing
     (closes: #471437).
   * Patch from Red Hat / Fedora:
-    - SECURITY: Don't use X11 forwarding port which can't be bound on all
-      address families, preventing hijacking of X11 forwarding by
+    - CVE-2008-1483: Don't use X11 forwarding port which can't be bound on
+      all address families, preventing hijacking of X11 forwarding by
       unprivileged users when both IPv4 and IPv6 are configured (closes:
       #463011).
   * Use printf rather than echo -en (a bashism) in openssh-server.config and
