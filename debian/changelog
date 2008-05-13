@@ -1,3 +1,9 @@
+openssh (1:4.6p1-5ubuntu0.4) gutsy-security; urgency=low
+
+  * fix error in Template file 
+
+ -- Jamie Strandboge <jamie@ubuntu.com>  Tue, 13 May 2008 11:44:24 -0400
+
 openssh (1:4.6p1-5ubuntu0.3) gutsy-security; urgency=low
 
   * Mitigate OpenSSL security vulnerability thank to Colin Watson:
