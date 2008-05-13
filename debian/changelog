@@ -1,3 +1,29 @@
+openssh (1:4.7p1-9ubuntu1) intrepid; urgency=critical
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 13 May 2008 12:36:59 +0100
+
+openssh (1:4.7p1-9) unstable; urgency=critical
+
+  * Fill in CVE identifier for security vulnerability fixed in 1:4.7p1-8.
+  * Mitigate OpenSSL security vulnerability (CVE-2008-0166):
+    - Add key blacklisting support. Keys listed in
+      /etc/ssh/blacklist.TYPE-LENGTH will be rejected for authentication by
+      sshd, unless "PermitBlacklistedKeys yes" is set in
+      /etc/ssh/sshd_config.
+    - Add a new program, ssh-vulnkey, which can be used to check keys
+      against these blacklists.
+    - Depend on openssh-blacklist.
+    - Force dependencies on libssl0.9.8 / libcrypto0.9.8-udeb to at least
+      0.9.8g-9.
+    - Automatically regenerate known-compromised host keys, with a
+      critical-priority debconf note. (I regret that there was no time to
+      gather translations.)
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 13 May 2008 12:33:38 +0100
+
 openssh (1:4.7p1-8ubuntu1) hardy; urgency=low
 
   * Resynchronise with Debian. Remaining changes:
@@ -13,8 +39,8 @@ openssh (1:4.7p1-8) unstable; urgency=high
   * Tweak scp's reporting of filenames in verbose mode to be a bit less
     confusing with spaces (thanks, Nicolas Valcárcel; LP: #89945).
   * Backport from 4.9p1:
-    - Ignore ~/.ssh/rc if a sshd_config ForceCommand is specified (see
-      http://www.securityfocus.com/bid/28531/info).
+    - CVE-2008-1657: Ignore ~/.ssh/rc if a sshd_config ForceCommand is
+      specified.
     - Add no-user-rc authorized_keys option to disable execution of
       ~/.ssh/rc.
   * Backport from Simon Wilkinson's GSSAPI key exchange patch for 5.0p1:
