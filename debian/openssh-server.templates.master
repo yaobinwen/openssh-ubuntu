@@ -62,6 +62,7 @@ _Description: Disable challenge-response authentication?
  able to log in using passwords. If you leave it enabled (the default
  answer), then the 'PasswordAuthentication no' option will have no useful
  effect unless you also adjust your PAM configuration in /etc/pam.d/ssh.
+
 Template: ssh/vulnerable_host_keys
 Type: note
 _Description: Vulnerable host keys will be regenerated
