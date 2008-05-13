@@ -335,3 +335,24 @@ Description-vi: Vô hiệu hóa xác thực cách yêu cầu/đáp ứng không?
  Hình như xác thực cách mật khẩu bị tắt trong cấu hình trình phục vụ OpenSSH của bạn. Để cản trở người dùng đăng nhập dùng mặt khẩu (có thể dùng chỉ xác thực cách khóa công thay vào đó) với phiên bản gần đây của OpenSSH, bạn phải vô hiệu hóa xác thực cách yêu cầu/đáp ứng, hoặc đảm bảo cấu hình PAM của bạn không cho phép xác thực cách tập tin mật khẩu Unix.
  .
  Nếu bạn vô hiệu hóa xác thực cách yêu cầu/đáp ứng thì người dùng sẽ không thể đăng nhập dùng mật khẩu. Nếu bạn cho phép nó bật (tùy chọn mặc định) thì tùy chọn «'PasswordAuthentication no» (xác thực mật khẩu không) sẽ không có tác dụng có ích nào, nếu bạn không cũng tùy chỉnh cấu hình bạn trong «/etc/pam.d/ssh».
+
+Template: ssh/vulnerable_host_keys
+Type: note
+Description: Vulnerable host keys will be regenerated
+ Some of the OpenSSH server host keys on this system were generated with a
+ version of OpenSSL that had a broken random number generator. As a result,
+ these host keys are from a well-known set, are subject to brute-force
+ attacks, and must be regenerated.
+ .
+ Users of this system should be informed of this change, as they will be
+ prompted about the host key change the next time they log in. Use
+ 'ssh-keygen -l -f HOST_KEY_FILE' after the upgrade has changed to print the
+ fingerprints of the new host keys.
+ .
+ The affected host keys are:
+ .
+ ${HOST_KEYS}
+ .
+ User keys may also be affected by this problem. The 'ssh-vulnkey' command
+ may be used as a partial test for this. See
+ /usr/share/doc/openssh-server/README.compromised-keys.gz for more details.

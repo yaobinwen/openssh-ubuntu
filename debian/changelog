@@ -1,3 +1,25 @@
+openssh (1:4.3p2-8ubuntu1.3) feisty-security; urgency=low
+
+  * Mitigate OpenSSL security vulnerability thank to Colin Watson:
+    - Add key blacklisting support. Keys listed in
+      /etc/ssh/blacklist.TYPE-LENGTH will be rejected for authentication by
+      sshd, unless "PermitBlacklistedKeys yes" is set in
+      /etc/ssh/sshd_config.
+    - Add a new program, ssh-vulnkey, which can be used to check keys
+      against these blacklists.
+    - Depend on openssh-blacklist.
+    - Force dependencies on libssl0.9.8 / libcrypto0.9.8-udeb to at least
+      0.9.8c-4ubuntu0.3.
+    - Automatically regenerate known-compromised host keys, with a
+      critical-priority debconf note. (I regret that there was no time to
+      gather translations.)
+  * added README.compromised-keys thanks to Colin Watson
+  * References
+    CVE-2008-0166
+    http://www.ubuntu.com/usn/usn-612-1
+
+ -- Jamie Strandboge <jamie@ubuntu.com>  Tue, 13 May 2008 00:16:35 -0400
+
 openssh (1:4.3p2-8ubuntu1.2) feisty-security; urgency=low
 
   * SECURITY UPDATE: X11 forward hijacking via alternate address families.
