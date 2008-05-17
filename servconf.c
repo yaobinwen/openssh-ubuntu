@@ -76,6 +76,7 @@ initialize_server_options(ServerOptions *options)
 	options->password_authentication = -1;
 	options->kbd_interactive_authentication = -1;
 	options->challenge_response_authentication = -1;
+	options->permit_blacklisted_keys = -1;
 	options->permit_empty_passwd = -1;
 	options->permit_user_env = -1;
 	options->use_login = -1;
@@ -194,6 +195,8 @@ fill_default_server_options(ServerOptions *options)
 		options->kbd_interactive_authentication = 0;
 	if (options->challenge_response_authentication == -1)
 		options->challenge_response_authentication = 1;
+	if (options->permit_blacklisted_keys == -1)
+		options->permit_blacklisted_keys = 0;
 	if (options->permit_empty_passwd == -1)
 		options->permit_empty_passwd = 0;
 	if (options->permit_user_env == -1)
@@ -261,7 +264,7 @@ typedef enum {
 	sListenAddress, sAddressFamily,
 	sPrintMotd, sPrintLastLog, sIgnoreRhosts,
 	sX11Forwarding, sX11DisplayOffset, sX11UseLocalhost,
-	sStrictModes, sEmptyPasswd, sTCPKeepAlive,
+	sStrictModes, sPermitBlacklistedKeys, sEmptyPasswd, sTCPKeepAlive,
 	sPermitUserEnvironment, sUseLogin, sAllowTcpForwarding, sCompression,
 	sAllowUsers, sDenyUsers, sAllowGroups, sDenyGroups,
 	sIgnoreUserKnownHosts, sCiphers, sMacs, sProtocol, sPidFile,
@@ -345,6 +348,7 @@ static struct {
 	{ "x11uselocalhost", sX11UseLocalhost },
 	{ "xauthlocation", sXAuthLocation },
 	{ "strictmodes", sStrictModes },
+	{ "permitblacklistedkeys", sPermitBlacklistedKeys },
 	{ "permitemptypasswords", sEmptyPasswd },
 	{ "permituserenvironment", sPermitUserEnvironment },
 	{ "uselogin", sUseLogin },
@@ -715,6 +719,10 @@ parse_flag:
 
 	case sTCPKeepAlive:
 		intptr = &options->tcp_keep_alive;
+		goto parse_flag;
+
+	case sPermitBlacklistedKeys:
+		intptr = &options->permit_blacklisted_keys;
 		goto parse_flag;
 
 	case sEmptyPasswd:

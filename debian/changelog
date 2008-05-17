@@ -1,3 +1,16 @@
+openssh (1:4.2p1-7ubuntu3.4) dapper-security; urgency=low
+
+  * Mitigate OpenSSL security vulnerability (CVE-2008-0166):
+    - Add key blacklisting support. Keys listed in
+      /etc/ssh/blacklist.TYPE-LENGTH will be rejected for authentication by
+      sshd, unless "PermitBlacklistedKeys yes" is set in
+      /etc/ssh/sshd_config.
+    - Add a new program, ssh-vulnkey, which can be used to check keys
+      against these blacklists.
+    - Depend on openssh-blacklist.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Sat, 17 May 2008 10:37:40 +0200
+
 openssh (1:4.2p1-7ubuntu3.3) dapper-security; urgency=low
 
   * SECURITY UPDATE: X11 forward hijacking via alternate address families.
