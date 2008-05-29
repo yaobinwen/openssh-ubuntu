@@ -1,3 +1,89 @@
+openssh (1:4.7p1-12ubuntu1) intrepid; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 29 May 2008 21:50:22 +0100
+
+openssh (1:4.7p1-12) unstable; urgency=low
+
+  * Fill in CVE identifier for ssh-vulnkey bug fixed in 1:4.7p1-10.
+  * Refactor rejection of blacklisted user keys into a single
+    reject_blacklisted_key function in auth.c (thanks, Dmitry V. Levin).
+  * Fix memory leak of blacklisted host keys (thanks, Dmitry V. Levin).
+  * debconf template translations:
+    - Update Dutch (thanks, Bart Cornelis; closes: #483004).
+    - Update Brazilian Portuguese (thanks, Eder L. Marques; closes:
+      #483142).
+    - Update Slovak (thanks, Ivan Masár; closes: #483517).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 29 May 2008 21:41:29 +0100
+
+openssh (1:4.7p1-11) unstable; urgency=low
+
+  * Make init script depend on $syslog, and fix some other dependency
+    glitches (thanks, Petter Reinholdtsen; closes: #481018).
+  * Remove 0 and 6 from Default-Stop in init script (thanks, Kel Modderman;
+    closes: #481151).
+  * Restore OOM killer adjustment for child processes (thanks, Vaclav Ovsik;
+    closes: #480020).
+  * Allow building with heimdal-dev (LP: #125805).
+
+  * Check RSA1 keys without the need for a separate blacklist. Thanks to
+    Simon Tatham for the idea.
+  * Generate two keys with the PID forced to the same value and test that
+    they differ, to defend against recurrences of the recent Debian OpenSSL
+    vulnerability.
+  * Recommend openssh-blacklist from openssh-client (closes: #481187).
+  * Recommend openssh-blacklist-extra from openssh-client and
+    openssh-server.
+  * Make ssh-vulnkey report the file name and line number for each key
+    (thanks, Heiko Schlittermann and Christopher Perry; closes: #481398).
+  * Check for blacklists in /usr/share/ssh/ as well as /etc/ssh/ (see
+    #481283).
+  * Log IP addresses of hosts attempting to use blacklisted keys (closes:
+    #481721).
+  * Incorporate various ssh-vulnkey suggestions from Hugh Daniel:
+    - Add -v (verbose) option, and don't print output for keys that have a
+      blacklist file but that are not listed unless in verbose mode.
+    - Move exit status documentation to a separate section.
+    - Document key status descriptions.
+    - Add key type to output.
+    - Fix error output if ssh-vulnkey fails to read key files, with the
+      exception of host keys unless -a was given.
+    - In verbose mode, output the name of each file examined.
+  * Handle leading IP addresses in ssh-vulnkey input (LP: #230497).
+  * Fix various ssh-vulnkey problems pointed out by Solar Designer:
+    - Fix some buffer handling inconsistencies.
+    - Use xasprintf to build user key file names, avoiding truncation
+      problems.
+    - Drop to the user's UID when reading user keys with -a.
+    - Use EUID rather than UID when run with no file names and without -a.
+    - Reword "Unknown (no blacklist information)" to "Unknown (blacklist
+      file not installed)".
+
+  * Fix typo in ssh/vulnerable_host_keys message (thanks, Esko Arajärvi).
+  * debconf template translations:
+    - Update Finnish (thanks, Esko Arajärvi; closes: #481530).
+    - Update French (thanks, Christian Perrier; closes: #481576).
+    - Update Norwegian Bokmål (thanks, Bjørn Steensrud; closes: #481591).
+    - Update Galician (thanks, Jacobo Tarrio; closes: #481596).
+    - Update Japanese (thanks, Kenshi Muto; closes: #481621).
+    - Update Czech (thanks, Miroslav Kure; closes: #481624).
+    - Update German (thanks, Helge Kreutzmann; closes: #481676).
+    - Update Portuguese (thanks, Ricardo Silva; closes: #481781).
+    - Update Basque (thanks, Piarres Beobide; closes: #481836).
+    - Update Bulgarian (thanks, Damyan Ivanov; closes: #481870).
+    - Update Vietnamese (thanks, Clytie Siddall; closes: #481876).
+    - Update Spanish (thanks, Javier Fernandez-Sanguino Peña; closes:
+      #482341).
+    - Update Turkish (thanks, Mert Dirik; closes: #482548).
+    - Update Russian (thanks, Yuri Kozlov; closes: #482887).
+    - Update Swedish (thanks, Martin Bagge; closes: #482464).
+    - Update Italian (thanks, Luca Monducci; closes: #482808).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 26 May 2008 12:21:39 +0100
+
 openssh (1:4.7p1-10ubuntu1) intrepid; urgency=low
 
   * Resynchronise with Debian. Remaining changes:
@@ -8,8 +94,9 @@ openssh (1:4.7p1-10ubuntu1) intrepid; urgency=low
 openssh (1:4.7p1-10) unstable; urgency=low
 
   * Add a FILES section to ssh-vulnkey(1) (thanks, Hugh Daniel).
-  * ssh-vulnkey handles options in authorized_keys (LP: #230029), and treats
-    # as introducing a comment even if it is preceded by whitespace.
+  * CVE-2008-2285: ssh-vulnkey handles options in authorized_keys
+    (LP: #230029), and treats # as introducing a comment even if it is
+    preceded by whitespace.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 14 May 2008 12:35:05 +0100
 
