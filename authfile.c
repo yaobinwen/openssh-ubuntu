@@ -679,21 +679,10 @@ key_load_public(const char *filename, char **commentp)
 	return NULL;
 }
 
-char *
-blacklist_filename(const Key *key)
+/* Scan a blacklist of known-vulnerable keys in blacklist_file. */
+static int
+blacklisted_key_in_file(const Key *key, const char *blacklist_file, char **fp)
 {
-	char *name;
-
-	xasprintf(&name, "%s.%s-%u",
-	    _PATH_BLACKLIST, key_type(key), key_size(key));
-	return name;
-}
-
-/* Scan a blacklist of known-vulnerable keys. */
-int
-blacklisted_key(const Key *key)
-{
-	char *blacklist_file;
 	int fd = -1;
 	char *dgst_hex = NULL;
 	char *dgst_packed = NULL, *p;
@@ -704,11 +693,12 @@ blacklisted_key(const Key *key)
 	off_t start, lower, upper;
 	int ret = 0;
 
-	blacklist_file = blacklist_filename(key);
 	debug("Checking blacklist file %s", blacklist_file);
 	fd = open(blacklist_file, O_RDONLY);
-	if (fd < 0)
+	if (fd < 0) {
+		ret = -1;
 		goto out;
+	}
 
 	dgst_hex = key_fingerprint(key, SSH_FP_MD5, SSH_FP_HEX);
 	/* Remove all colons */
@@ -729,13 +719,13 @@ blacklisted_key(const Key *key)
 		ssize_t r;
 		char *newline;
 
-		r = atomicio(read, fd, buf, 256);
+		r = atomicio(read, fd, buf, sizeof(buf));
 		if (r <= 0)
 			goto out;
 		if (buf[0] != '#')
 			break;
 
-		newline = memchr(buf, '\n', 256);
+		newline = memchr(buf, '\n', sizeof(buf));
 		if (!newline)
 			goto out;
 		start += newline + 1 - buf;
@@ -751,7 +741,6 @@ blacklisted_key(const Key *key)
 
 	while (lower != upper) {
 		off_t cur;
-		char buf[32];
 		int cmp;
 
 		cur = lower + (upper - lower) / 2;
@@ -781,10 +770,48 @@ blacklisted_key(const Key *key)
 out:
 	if (dgst_packed)
 		xfree(dgst_packed);
-	if (dgst_hex)
+	if (ret != 1 && dgst_hex) {
 		xfree(dgst_hex);
+		dgst_hex = NULL;
+	}
+	if (fp)
+		*fp = dgst_hex;
 	if (fd >= 0)
 		close(fd);
+	return ret;
+}
+
+/*
+ * Scan blacklists of known-vulnerable keys. If a vulnerable key is found,
+ * its fingerprint is returned in *fp, unless fp is NULL.
+ */
+int
+blacklisted_key(const Key *key, char **fp)
+{
+	Key *public;
+	char *blacklist_file;
+	int ret, ret2;
+
+	public = key_demote(key);
+	if (public->type == KEY_RSA1)
+		public->type = KEY_RSA;
+
+	xasprintf(&blacklist_file, "%s.%s-%u",
+	    _PATH_BLACKLIST, key_type(public), key_size(public));
+	ret = blacklisted_key_in_file(public, blacklist_file, fp);
 	xfree(blacklist_file);
+	if (ret > 0) {
+		key_free(public);
+		return ret;
+	}
+
+	xasprintf(&blacklist_file, "%s.%s-%u",
+	    _PATH_BLACKLIST_CONFIG, key_type(public), key_size(public));
+	ret2 = blacklisted_key_in_file(public, blacklist_file, fp);
+	xfree(blacklist_file);
+	if (ret2 > ret)
+		ret = ret2;
+
+	key_free(public);
 	return ret;
 }
