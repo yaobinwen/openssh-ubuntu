@@ -1,3 +1,10 @@
+openssh (1:4.7p1-12ubuntu4) intrepid; urgency=low
+
+  * Really move openssh-blacklist and openssh-blacklist-extra to Suggests,
+    not Conflicts!
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 14 Jul 2008 14:07:16 +0100
+
 openssh (1:4.7p1-12ubuntu3) intrepid; urgency=low
 
   * Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
