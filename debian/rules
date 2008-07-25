@@ -6,7 +6,7 @@
 # This has to be exported to make some magic below work.
 export DH_OPTIONS
 
-ifeq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+ifeq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
 OPTFLAGS := -O2
 else
 OPTFLAGS := -O0
@@ -178,7 +178,6 @@ install: build
 
 	install -m 755 contrib/ssh-copy-id debian/openssh-client/usr/bin/ssh-copy-id
 	install -m 644 -c contrib/ssh-copy-id.1 debian/openssh-client/usr/share/man/man1/ssh-copy-id.1
-	install -m 644 debian/moduli.5 debian/openssh-client/usr/share/man/man5/moduli.5
 
 	install -s -o root -g root -m 755 contrib/gnome-ssh-askpass2 debian/ssh-askpass-gnome/usr/lib/openssh/gnome-ssh-askpass
 	install -m 644 debian/gnome-ssh-askpass.1 debian/ssh-askpass-gnome/usr/share/man/man1/gnome-ssh-askpass.1
@@ -243,6 +242,7 @@ binary-openssh-server: build install
 	dh_installdocs
 	mv debian/openssh-server/usr/share/doc/openssh-server debian/openssh-server/usr/share/doc/openssh-client
 	rm -f debian/openssh-server/usr/share/doc/openssh-client/copyright
+	install -m644 debian/openssh-server.lintian debian/openssh-server/usr/share/lintian/overrides/openssh-server
 	dh_installpam --name sshd
 	dh_link
 	dh_strip
@@ -263,9 +263,11 @@ binary-ssh: DH_OPTIONS=-pssh
 binary-ssh: build install
 	dh_testdir
 	dh_testroot
+	dh_installdirs
 	dh_installdocs
 	mv debian/ssh/usr/share/doc/ssh debian/ssh/usr/share/doc/openssh-client
 	rm -f debian/ssh/usr/share/doc/openssh-client/copyright
+	install -m644 debian/ssh.lintian debian/ssh/usr/share/lintian/overrides/ssh
 	dh_link
 	dh_compress
 	dh_fixperms
@@ -312,7 +314,6 @@ binary-openssh-client-udeb: build install
 	dh_compress
 	dh_fixperms
 	dh_installdeb
-	install -p -o root -g root -m 755 debian/openssh-client-udeb.isinstallable debian/openssh-client-udeb/DEBIAN/isinstallable
 	dh_shlibdeps
 	dh_gencontrol
 	dh_md5sums
@@ -337,11 +338,6 @@ debian/faq.html:
 	wget -O - http://www.openssh.org/faq.html | \
 		sed 's,\(href="\)\(txt/\|[^":]*\.html\),\1http://www.openssh.org/\2,g' \
 		> debian/faq.html
-
-debian/moduli.5:
-	wget -q -O - 'http://www.openbsd.org/cgi-bin/cvsweb/~checkout~/src/share/man/man5/moduli.5?content-type=text/plain' | \
-		sed 's,/etc/moduli,/etc/ssh/moduli,g; s/\$$Mdocdate\$$/$(shell date +'%B %-d %Y')/' \
-		> debian/moduli.5
 
 .PHONY: build clean binary-indep binary-arch binary install
 .PHONY: build-deb build-udeb
