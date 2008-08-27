@@ -1,3 +1,14 @@
+openssh (1:5.1p1-1ubuntu2) intrepid; urgency=low
+
+  * add ufw integration (see
+    https://wiki.ubuntu.com/UbuntuFirewall#Integrating%20UFW%20with%20Packages)
+    (LP: #261884)
+    - debian/control: suggest ufw for openssh-server
+    - add openssh-server.ufw.profile with one profile and install it to
+      /etc/ufw/applications.d/openssh-server
+
+ -- Didier Roche <didrocks@ubuntu-fr.org>  Wed, 27 Aug 2008 18:00:07 +0200
+
 openssh (1:5.1p1-1ubuntu1) intrepid; urgency=low
 
   * Resynchronise with Debian. Remaining changes:
