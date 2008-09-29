@@ -134,11 +134,14 @@ error(const char *fmt,...)
 void
 sigdie(const char *fmt,...)
 {
+/* syslog and friends are not async-signal safe on Debian. */
+#if 0
 	va_list args;
 
 	va_start(args, fmt);
 	do_log(SYSLOG_LEVEL_FATAL, fmt, args);
 	va_end(args);
+#endif
 	_exit(1);
 }
 

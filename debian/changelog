@@ -1,3 +1,12 @@
+openssh (1:4.2p1-7ubuntu3.5) dapper-security; urgency=low
+
+  * SECURITY UPDATE: block signal handler crash DoS.
+  * log.c: backport upstream corrections, thanks to Florian Weimer.
+  * References
+    CVE-2008-4109
+
+ -- Kees Cook <kees@ubuntu.com>  Mon, 29 Sep 2008 11:22:43 -0700
+
 openssh (1:4.2p1-7ubuntu3.4) dapper-security; urgency=low
 
   * Mitigate OpenSSL security vulnerability (CVE-2008-0166):
