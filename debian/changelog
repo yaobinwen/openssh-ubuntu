@@ -1,3 +1,11 @@
+openssh (1:4.6p1-5ubuntu0.6) gutsy-security; urgency=low
+
+  * SECURITY UPDATE: block .ssh/rc processing when running ForceCommand.
+  * References
+    CVE-2008-1657
+
+ -- Kees Cook <kees@ubuntu.com>  Mon, 29 Sep 2008 11:29:08 -0700
+
 openssh (1:4.6p1-5ubuntu0.5) gutsy-security; urgency=low
 
   * Add a FILES section to ssh-vulnkey(1) (thanks, Hugh Daniel).
