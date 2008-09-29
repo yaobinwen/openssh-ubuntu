@@ -1,3 +1,12 @@
+openssh (1:4.3p2-8ubuntu1.5) feisty-security; urgency=low
+
+  * SECURITY UPDATE: block signal handler crash DoS.
+  * log.c: backport upstream corrections, thanks to Florian Weimer.
+  * References
+    CVE-2008-4109
+
+ -- Kees Cook <kees@ubuntu.com>  Mon, 29 Sep 2008 11:20:12 -0700
+
 openssh (1:4.3p2-8ubuntu1.4) feisty-security; urgency=low
 
   * Add a FILES section to ssh-vulnkey(1) (thanks, Hugh Daniel).
