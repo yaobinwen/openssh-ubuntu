@@ -64,6 +64,7 @@ static char *default_files[] = {
 
 static int verbosity = 0;
 
+static int some_keys = 0;
 static int some_unknown = 0;
 static int some_compromised = 0;
 
@@ -103,6 +104,8 @@ do_key(const char *filename, u_long linenum,
 	Key *public;
 	int blacklist_status;
 	int ret = 1;
+
+	some_keys = 1;
 
 	public = key_demote(key);
 	if (public->type == KEY_RSA1)
@@ -372,8 +375,13 @@ main(int argc, char **argv)
 			printf("# Some keys on your system have been compromised!\n");
 			printf("# You must replace them using ssh-keygen(1).\n");
 		}
-		printf("#\n");
-		printf("# See the ssh-vulnkey(1) manual page for further advice.\n");
+		if (some_unknown || some_compromised) {
+			printf("#\n");
+			printf("# See the ssh-vulnkey(1) manual page for further advice.\n");
+		} else if (some_keys && verbosity > 0) {
+			printf("#\n");
+			printf("# No blacklisted keys!\n");
+		}
 	}
 
 	return ret;
