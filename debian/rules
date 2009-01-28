@@ -85,6 +85,7 @@ confflags += --with-ssl-engine
 ifeq ($(DEB_HOST_ARCH_OS),linux)
 confflags += --with-selinux
 endif
+confflags += --with-consolekit
 
 # The deb build wants xauth; the udeb build doesn't.
 confflags += --with-xauth=/usr/bin/X11/xauth
@@ -195,6 +196,9 @@ install: build
 	install -m 755 build-udeb/sftp debian/openssh-client-udeb/usr/bin/sftp
 	install -m 755 build-udeb/sshd debian/openssh-server-udeb/usr/sbin/sshd
 	install -m 755 build-udeb/ssh-keygen debian/openssh-server-udeb/usr/bin/ssh-keygen
+
+	# ufw integration
+	install -m644 debian/openssh-server.ufw.profile debian/openssh-server/etc/ufw/applications.d/openssh-server
 
 	# Remove version control tags to avoid unnecessary conffile
 	# resolution steps for administrators.
