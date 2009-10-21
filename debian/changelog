@@ -1,3 +1,9 @@
+openssh (1:5.1p1-6ubuntu2) karmic; urgency=low
+
+  * No change rebuild to fix misbuilt binaries on armel.
+
+ -- Loïc Minier <loic.minier@ubuntu.com>  Wed, 21 Oct 2009 14:48:08 +0200
+
 openssh (1:5.1p1-6ubuntu1) karmic; urgency=low
 
   * Merge from Debian unstable, remaining changes:
