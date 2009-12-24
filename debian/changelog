@@ -1,3 +1,10 @@
+openssh (1:5.1p1-8ubuntu2) lucid; urgency=low
+
+  * Add -Wl,-z,now to LDFLAGS to enhance the existing RELRO hardening
+    done by the Ubuntu compiler (Debian bug 561887).
+
+ -- Kees Cook <kees@ubuntu.com>  Wed, 23 Dec 2009 21:59:05 -0800
+
 openssh (1:5.1p1-8ubuntu1) lucid; urgency=low
 
   * Resynchronise with Debian. Remaining changes:
