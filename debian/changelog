@@ -1,3 +1,31 @@
+openssh (1:5.3p1-1ubuntu1) lucid; urgency=low
+
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 26 Jan 2010 13:07:40 +0000
+
+openssh (1:5.3p1-1) unstable; urgency=low
+
+  * New upstream release.
+  * Update to GSSAPI patch from
+    http://www.sxw.org.uk/computing/patches/openssh-5.3p1-gsskex-all-20100124.patch.
+  * Backport from upstream:
+    - Do not fall back to adding keys without contraints (ssh-add -c / -t
+      ...) when the agent refuses the constrained add request. This was a
+      useful migration measure back in 2002 when constraints were new, but
+      just adds risk now (LP: #209447).
+  * Drop change from 1:3.8p1-3 to avoid setresuid() and setresgid() system
+    calls.  This only applied to Linux 2.2, which it's no longer feasible to
+    run anyway (see 1:5.2p1-2 changelog).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 26 Jan 2010 11:55:29 +0000
+
 openssh (1:5.2p1-2ubuntu1) lucid; urgency=low
 
   * Resynchronise with Debian.  Remaining changes:
