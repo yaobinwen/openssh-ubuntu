@@ -1,3 +1,11 @@
+openssh (1:5.3p1-1ubuntu2) lucid; urgency=low
+
+  [ Chuck Short ]
+  * Install apport hook; part of the server-lucid-apport-hooks
+    specification.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Sun, 14 Feb 2010 02:21:13 +0000
+
 openssh (1:5.3p1-1ubuntu1) lucid; urgency=low
 
   * Resynchronise with Debian.  Remaining changes:
