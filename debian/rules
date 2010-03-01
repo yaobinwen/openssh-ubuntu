@@ -95,6 +95,7 @@ confflags += --with-ssl-engine
 ifeq ($(DEB_HOST_ARCH_OS),linux)
 confflags += --with-selinux
 endif
+confflags += --with-consolekit
 
 # The deb build wants xauth; the udeb build doesn't.
 confflags += --with-xauth=/usr/bin/X11/xauth
@@ -192,6 +193,7 @@ install: build
 	install -m 755 debian/ssh-argv0 debian/openssh-client/usr/bin/ssh-argv0
 	install -m 644 debian/ssh-argv0.1 debian/openssh-client/usr/share/man/man1/ssh-argv0.1
 
+	install -o root -g root -m 644 debian/openssh-server.upstart debian/openssh-server/etc/init/ssh.conf
 	install -o root -g root debian/openssh-server.init debian/openssh-server/etc/init.d/ssh
 	install -o root -g root -m 644 debian/openssh-server.default debian/openssh-server/etc/default/ssh
 	install -o root -g root debian/openssh-server.if-up debian/openssh-server/etc/network/if-up.d/openssh-server
@@ -224,6 +226,7 @@ binary-openssh-client: build install
 	dh_installdebconf
 	dh_installdocs
 	dh_installchangelogs
+	dh_apport
 	dh_lintian
 	dh_strip
 	dh_compress
@@ -249,6 +252,7 @@ binary-openssh-server: build install
 	dh_installdocs
 	mv debian/openssh-server/usr/share/doc/openssh-server debian/openssh-server/usr/share/doc/openssh-client
 	rm -f debian/openssh-server/usr/share/doc/openssh-client/copyright
+	dh_apport
 	dh_installpam --name sshd
 	dh_lintian
 	dh_link
