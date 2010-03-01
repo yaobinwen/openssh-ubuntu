@@ -59,3 +59,7 @@ doc-hash-tab-completion.patch
 no-openssl-version-check.patch
 gnome-ssh-askpass2-icon.patch
 debian-config.patch
+
+# Ubuntu additions
+consolekit.patch
+doc-upstart.patch

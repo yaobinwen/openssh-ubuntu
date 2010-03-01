@@ -420,14 +420,18 @@ remove_old_init_links() {
 }
 
 setup_init() {
-	if [ -x /etc/init.d/ssh ]; then
-		update-rc.d ssh start 16 2 3 4 5 . >/dev/null
-		if [ -x /usr/sbin/invoke-rc.d ]; then
-			invoke-rc.d ssh restart
-		else
-			/etc/init.d/ssh restart
+	if [ -e /etc/init/ssh.conf ]; then
+		if dpkg --compare-versions "$oldversion" lt 1:5.1p1-8ubuntu2; then
+			if [ -x /usr/sbin/invoke-rc.d ]; then
+				invoke-rc.d ssh stop
+			else
+				/etc/init.d/ssh stop
+			fi
 		fi
+		stop ssh 2>/dev/null || true
+		start ssh || true
 	fi
+	update-rc.d -f ssh remove >/dev/null || true
 }
 
 commit_transfer_conffile () {
