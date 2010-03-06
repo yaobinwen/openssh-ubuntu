@@ -1,3 +1,14 @@
+openssh (1:5.3p1-3ubuntu2) lucid; urgency=low
+
+  * Always set child processes' OOM adjustment to 0, since Upstart will have
+    set sshd's OOM adjustment on startup and so simply restoring the startup
+    value won't work (LP: #293000).  Thanks to Karsten Suehring for
+    analysis.
+  * Limit automatic respawning to 10 times in 5 seconds (thanks to Fumihito
+    YOSHIDA for the suggestion; LP: #533352).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Sat, 06 Mar 2010 22:00:19 +0000
+
 openssh (1:5.3p1-3ubuntu1) lucid; urgency=low
 
   * Resynchronise with Debian.  Remaining changes:
