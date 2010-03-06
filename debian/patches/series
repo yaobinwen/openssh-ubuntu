@@ -22,6 +22,7 @@ keepalive-extensions.patch
 
 # Linux OOM handling
 oom-adjust.patch
+oom-adjust-always-reset.patch
 
 # Message adjustments
 syslog-level-silent.patch

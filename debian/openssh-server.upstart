@@ -9,6 +9,7 @@ stop on runlevel S
 
 expect fork
 respawn
+respawn limit 10 5
 umask 022
 # replaces SSHD_OOM_ADJUST in /etc/default/ssh
 oom never
