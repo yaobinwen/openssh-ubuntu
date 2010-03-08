@@ -1,3 +1,9 @@
+openssh (1:5.3p1-3ubuntu3) lucid; urgency=low
+
+  * Fix syntax error in openssh-server apport hook (LP: #534365).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 08 Mar 2010 15:24:44 +0000
+
 openssh (1:5.3p1-3ubuntu2) lucid; urgency=low
 
   * Always set child processes' OOM adjustment to 0, since Upstart will have
