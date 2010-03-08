@@ -25,4 +25,4 @@ def add_info(report, ui):
         raise StopIteration
 
     elif response == True:
-        report['SSHDConfig'] = root_command_output('/usr/sbin/sshd', '-T'])
+        report['SSHDConfig'] = root_command_output(['/usr/sbin/sshd', '-T'])
