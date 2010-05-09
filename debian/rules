@@ -93,6 +93,7 @@ confflags += --with-ssl-engine
 ifeq ($(DEB_HOST_ARCH_OS),linux)
 confflags += --with-selinux
 endif
+confflags += --with-consolekit
 
 # The deb build wants xauth; the udeb build doesn't.
 confflags += --with-xauth=/usr/bin/xauth
@@ -116,7 +117,7 @@ confflags += --with-ldflags='$(strip -Wl,--as-needed $(PIC_LDFLAGS) $(HARDENING_
 confflags_udeb += --with-ldflags='-Wl,--as-needed'
 
 %:
-	dh $@
+	dh --with apport $@
 
 override_dh_auto_configure:
 	dh_auto_configure -Bbuild-deb -- $(confflags)
@@ -178,7 +179,11 @@ override_dh_installdocs:
 	mkdir -p debian/openssh-server/usr/share/doc/openssh-client
 
 override_dh_installinit:
-	dh_installinit --name ssh
+	dh_installinit -n --name ssh
+	# We need to keep the init script as well as the Upstart job for
+	# now, for the benefit of people running sshd in chroots.
+	install -D -o root -g root debian/openssh-server.ssh.init debian/openssh-server/etc/init.d/ssh
+	install -D -o root -g root -m 644 debian/openssh-server.ssh.default debian/openssh-server/etc/default/ssh
 
 override_dh_installpam:
 	dh_installpam --name sshd

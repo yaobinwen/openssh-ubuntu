@@ -22,20 +22,6 @@ fix_doc_symlink() {
 	fi
 }
 
-check_idea_key() {
-	# check for old host_key files using IDEA, which openssh does not
-	# support
-	if [ -f /etc/ssh/ssh_host_key ] ; then
-		cp -a /etc/ssh/ssh_host_key /etc/ssh/ssh_host_key.check_idea
-		if ssh-keygen -p -N '' -f /etc/ssh/ssh_host_key.check_idea 2>&1 | \
-				grep -q 'unknown cipher' 2>/dev/null; then
-			mv /etc/ssh/ssh_host_key /etc/ssh/ssh_host_key.old
-			mv /etc/ssh/ssh_host_key.pub /etc/ssh/ssh_host_key.pub.old
-		fi
-		rm -f /etc/ssh/ssh_host_key.check_idea
-	fi
-}
-
 
 get_config_option() {
 	option="$1"
@@ -432,14 +418,18 @@ remove_old_init_links() {
 }
 
 setup_init() {
-	if [ -x /etc/init.d/ssh ]; then
-		update-rc.d ssh start 16 2 3 4 5 . >/dev/null
-		if [ -x /usr/sbin/invoke-rc.d ]; then
-			invoke-rc.d ssh restart
-		else
-			/etc/init.d/ssh restart
+	if [ -e /etc/init/ssh.conf ]; then
+		if dpkg --compare-versions "$oldversion" lt 1:5.1p1-8ubuntu2; then
+			if [ -x /usr/sbin/invoke-rc.d ]; then
+				invoke-rc.d ssh stop
+			else
+				/etc/init.d/ssh stop
+			fi
 		fi
+		stop ssh 2>/dev/null || true
+		start ssh || true
 	fi
+	update-rc.d -f ssh remove >/dev/null || true
 }
 
 commit_transfer_conffile () {
@@ -465,7 +455,6 @@ commit_mv_conffile () {
 
 fix_doc_symlink
 create_sshdconfig
-check_idea_key
 create_keys
 vulnerable_host_keys
 fix_statoverride
