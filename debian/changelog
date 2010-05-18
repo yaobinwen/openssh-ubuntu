@@ -1,3 +1,13 @@
+openssh (1:5.3p1-3ubuntu4) lucid-proposed; urgency=low
+
+  * Backport from trunk:
+    - Hardcode the location of xauth to /usr/bin/xauth rather than
+      /usr/bin/X11/xauth (thanks, Aron Griffis; LP: #582251).  xauth no
+      longer depends on x11-common, so we're no longer guaranteed to have
+      the /usr/bin/X11 symlink available.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 18 May 2010 18:10:23 +0100
+
 openssh (1:5.3p1-3ubuntu3) lucid; urgency=low
 
   * Fix syntax error in openssh-server apport hook (LP: #534365).
