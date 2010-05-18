@@ -98,7 +98,7 @@ endif
 confflags += --with-consolekit
 
 # The deb build wants xauth; the udeb build doesn't.
-confflags += --with-xauth=/usr/bin/X11/xauth
+confflags += --with-xauth=/usr/bin/xauth
 confflags_udeb += --without-xauth
 
 # Default paths. The udeb build has /usr/bin/X11 and /usr/games removed.
