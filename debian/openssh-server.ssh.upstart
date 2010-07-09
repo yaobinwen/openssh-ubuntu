@@ -5,7 +5,7 @@
 description	"OpenSSH server"
 
 start on filesystem
-stop on runlevel S
+stop on runlevel [!2345]
 
 expect fork
 respawn
