@@ -1,3 +1,11 @@
+openssh (1:5.5p1-4ubuntu2) maverick; urgency=low
+
+  * Stop Upstart job on runlevel [!2345] rather than just S, since
+    /etc/init.d/sendsigs no longer kills jobs under Upstart's control
+    (thanks, Rob Donovan; LP: #603363).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Fri, 09 Jul 2010 12:21:17 +0100
+
 openssh (1:5.5p1-4ubuntu1) maverick; urgency=low
 
   * Resynchronise with Debian.  Remaining changes:
