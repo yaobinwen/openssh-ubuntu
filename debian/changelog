@@ -1,3 +1,28 @@
+openssh (1:5.5p1-4ubuntu3) maverick; urgency=low
+
+  [ Colin Watson ]
+  * Use 'dh $@ --options' rather than 'dh --options $@', for
+    forward-compatibility with debhelper v8.
+
+  [ Dustin Kirkland ]
+  * debian/openssh-server.install, debian/ssh-import-id:
+    - move the ssh-import-lp-id utility from the ssh-import
+      package to openssh-server (which is the logical destination
+      for this tool)
+    - rename it from ssh-import-lp-id (clumsy) to ssh-import-id (nicer,
+      more like 'ssh-copy-id')
+  * debian/openssh-server.links:
+    - add a symlink from ssh-import-lp-id (old name) to ssh-import-id
+      (new name) to maintain compatibility with existing user scripts;
+      link the manpage too
+  * debian/control:
+    - ensure that openssh-server replaces and conflicts ssh-import (which
+      will be removed from the archive)
+  * debian/ssh-import-id.1, debian/openssh-server.manpages:
+    - add/install a manpage
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 22 Jul 2010 15:49:14 +0100
+
 openssh (1:5.5p1-4ubuntu2) maverick; urgency=low
 
   * Stop Upstart job on runlevel [!2345] rather than just S, since
