@@ -1,3 +1,9 @@
+openssh (1:5.5p1-4ubuntu4) maverick; urgency=low
+
+  * Fix stray hyphen in the title of ssh-import-id(1).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 14 Sep 2010 18:50:57 +0100
+
 openssh (1:5.5p1-4ubuntu3) maverick; urgency=low
 
   [ Colin Watson ]
