@@ -1,3 +1,25 @@
+openssh (1:5.6p1-2ubuntu1) natty; urgency=low
+
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+    - Add ssh-import-id utility.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 26 Oct 2010 15:41:46 +0100
+
+openssh (1:5.6p1-2) experimental; urgency=low
+
+  * Backport upstream patch to install a SIGCHLD handler to reap expired ssh
+    child processes, preventing lots of zombies when using ControlPersist
+    (closes: #594687).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 26 Oct 2010 14:46:40 +0100
+
 openssh (1:5.6p1-1ubuntu1) natty; urgency=low
 
   * Resynchronise with Debian experimental.  Remaining changes:

@@ -41,6 +41,7 @@ doc-hash-tab-completion.patch
 # Debian-specific configuration
 gnome-ssh-askpass2-icon.patch
 debian-config.patch
+ssh-sigchld.patch
 
 # Ubuntu additions
 consolekit.patch
