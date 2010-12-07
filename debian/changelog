@@ -1,3 +1,10 @@
+openssh (1:5.6p1-2ubuntu2) natty; urgency=low
+
+  * Add mention-ssh-keygen-on-keychange.patch, mention of ssh-keygen
+    in ssh connect warning (LP: #686607) https://bugzilla.mindrot.org/show_bug.cgi?id=1843
+
+ -- Scott Moser <smoser@ubuntu.com>  Tue, 07 Dec 2010 10:34:30 -0500
+
 openssh (1:5.6p1-2ubuntu1) natty; urgency=low
 
   * Resynchronise with Debian.  Remaining changes:
