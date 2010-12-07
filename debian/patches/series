@@ -46,3 +46,4 @@ ssh-sigchld.patch
 # Ubuntu additions
 consolekit.patch
 doc-upstart.patch
+mention-ssh-keygen-on-keychange.patch
