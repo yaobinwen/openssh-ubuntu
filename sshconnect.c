@@ -910,7 +910,7 @@ check_host_key(char *hostname, struct sockaddr *hostaddr, u_short port,
 			error("and its host key have changed at the same time.");
 			if (ip_status != HOST_NEW) {
 				error("Offending key for IP in %s:%d", ip_file, ip_line);
-				error("  remove with: ssh-keygen -f \"%s\" -R %d", ip_file, ip_line);
+				error("  remove with: ssh-keygen -f \"%s\" -R %s", ip_file, ip);
 			}
 		}
 		/* The host key has changed. */
@@ -918,7 +918,7 @@ check_host_key(char *hostname, struct sockaddr *hostaddr, u_short port,
 		error("Add correct host key in %.100s to get rid of this message.",
 		    user_hostfile);
 		error("Offending key in %s:%d", host_file, host_line);
-		error("  remove with: ssh-keygen -f \"%s\" -R %d", host_file, host_line);
+		error("  remove with: ssh-keygen -f \"%s\" -R %s", host_file, host);
 
 		/*
 		 * If strict host key checking is in use, the user will have
