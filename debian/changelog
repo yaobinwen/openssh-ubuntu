@@ -1,7 +1,18 @@
+openssh (1:5.6p1-2ubuntu3) natty; urgency=low
+
+  [ Clint Byrum ]
+  * debian/openssh-server.ssh.upstart: drop 'expect fork' and run sshd 
+    with -D to avoid losing track on reload (LP: #687535)
+
+  [ Colin Watson ]
+  * Fix up mention-ssh-keygen-on-keychange.patch to match what was actually
+    applied to the source tree.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 14 Dec 2010 11:52:43 +0000
+
 openssh (1:5.6p1-2ubuntu2) natty; urgency=low
 
-  * Add mention-ssh-keygen-on-keychange.patch, mention of ssh-keygen
-    in ssh connect warning (LP: #686607) https://bugzilla.mindrot.org/show_bug.cgi?id=1843
+  * add mention of ssh-keygen in ssh connect warning (LP: #686607)
 
  -- Scott Moser <smoser@ubuntu.com>  Tue, 07 Dec 2010 10:34:30 -0500
 
