@@ -1,3 +1,13 @@
+openssh (1:5.6p1-2ubuntu4) natty; urgency=low
+
+  * debian/control, debian/openssh-server.install, debian/openssh-
+    server.links, debian/openssh-server.manpages, debian/ssh-import-id,
+    debian/ssh-import-id.1: drop all remnants of the ssh-import-id
+    utility which is now in its own source package; have openssh-server
+    recommend that package
+
+ -- Dustin Kirkland <kirkland@ubuntu.com>  Wed, 05 Jan 2011 11:54:03 +0000
+
 openssh (1:5.6p1-2ubuntu3) natty; urgency=low
 
   [ Clint Byrum ]
