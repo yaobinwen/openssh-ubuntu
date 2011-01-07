@@ -1,3 +1,10 @@
+openssh (1:5.3p1-3ubuntu5) lucid-proposed; urgency=low
+
+  * debian/openssh-server.ssh.upstart: drop 'expect fork' and run sshd
+    with -D to avoid losing track on reload (LP: #687535)
+
+ -- Imre Gergely <gimre@narancs.net>  Fri, 07 Jan 2011 10:19:13 +0000
+
 openssh (1:5.3p1-3ubuntu4) lucid-proposed; urgency=low
 
   * Backport from trunk:
