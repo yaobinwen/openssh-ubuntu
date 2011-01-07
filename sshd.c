@@ -933,8 +933,8 @@ oom_adjust_startup(void)
 static void
 oom_restore(void)
 {
-	if (oom_adj_save[0])
-		oom_adj_set(oom_adj_save);
+	/* always reset to 0, in case our adjustment was set on sshd startup */
+	oom_adj_set("0");
 }
 #endif
 
