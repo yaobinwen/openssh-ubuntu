@@ -7,7 +7,6 @@ description	"OpenSSH server"
 start on filesystem
 stop on runlevel S
 
-expect fork
 respawn
 respawn limit 10 5
 umask 022
@@ -24,4 +23,4 @@ end script
 
 # if you used to set SSHD_OPTS in /etc/default/ssh, you can change the
 # 'exec' line here instead
-exec /usr/sbin/sshd
+exec /usr/sbin/sshd -D
