@@ -1,3 +1,23 @@
+openssh (1:5.7p1-2ubuntu1) natty; urgency=low
+
+  * Resynchronise with Debian experimental.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+    - Add mention of ssh-keygen in ssh connect warning.
+    - Make openssh-server recommend ssh-import-id.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 27 Jan 2011 12:20:29 +0000
+
+openssh (1:5.7p1-2) experimental; urgency=low
+
+  * Fix crash in ssh_selinux_setfscreatecon when SELinux is disabled
+    (LP: #708571).
+
+ -- Colin Watson <cjwatson@debian.org>  Thu, 27 Jan 2011 12:14:17 +0000
+
 openssh (1:5.7p1-1ubuntu1) natty; urgency=low
 
   * Resynchronise with Debian experimental.  Remaining changes:
