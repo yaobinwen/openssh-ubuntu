@@ -1,4 +1,4 @@
-/* $OpenBSD: monitor.c,v 1.108 2010/07/13 23:13:16 djm Exp $ */
+/* $OpenBSD: monitor.c,v 1.110 2010/09/09 10:45:45 djm Exp $ */
 /*
  * Copyright 2002 Niels Provos <provos@citi.umich.edu>
  * Copyright 2002 Markus Friedl <markus@openbsd.org>
@@ -89,6 +89,9 @@
 #include "ssh2.h"
 #include "jpake.h"
 #include "roaming.h"
+#ifdef USE_CONSOLEKIT
+#include "consolekit.h"
+#endif
 
 #ifdef GSSAPI
 static Gssctxt *gsscontext = NULL;
@@ -182,6 +185,10 @@ int mm_answer_audit_event(int, Buffer *);
 int mm_answer_audit_command(int, Buffer *);
 #endif
 
+#ifdef USE_CONSOLEKIT
+int mm_answer_consolekit_register(int, Buffer *);
+#endif
+
 static Authctxt *authctxt;
 static BIGNUM *ssh1_challenge = NULL;	/* used for ssh1 rsa auth */
 
@@ -273,6 +280,9 @@ struct mon_table mon_dispatch_postauth20[] = {
     {MONITOR_REQ_AUDIT_EVENT, MON_PERMIT, mm_answer_audit_event},
     {MONITOR_REQ_AUDIT_COMMAND, MON_PERMIT, mm_answer_audit_command},
 #endif
+#ifdef USE_CONSOLEKIT
+    {MONITOR_REQ_CONSOLEKIT_REGISTER, 0, mm_answer_consolekit_register},
+#endif
     {0, 0, NULL}
 };
 
@@ -314,6 +324,9 @@ struct mon_table mon_dispatch_postauth15[] = {
 #ifdef SSH_AUDIT_EVENTS
     {MONITOR_REQ_AUDIT_EVENT, MON_PERMIT, mm_answer_audit_event},
     {MONITOR_REQ_AUDIT_COMMAND, MON_PERMIT|MON_ONCE, mm_answer_audit_command},
+#endif
+#ifdef USE_CONSOLEKIT
+    {MONITOR_REQ_CONSOLEKIT_REGISTER, 0, mm_answer_consolekit_register},
 #endif
     {0, 0, NULL}
 };
@@ -470,6 +483,9 @@ monitor_child_postauth(struct monitor *pmonitor)
 		monitor_permit(mon_dispatch, MONITOR_REQ_PTY, 1);
 		monitor_permit(mon_dispatch, MONITOR_REQ_PTYCLEANUP, 1);
 	}
+#ifdef USE_CONSOLEKIT
+	monitor_permit(mon_dispatch, MONITOR_REQ_CONSOLEKIT_REGISTER, 1);
+#endif
 
 	for (;;)
 		monitor_read(pmonitor, mon_dispatch, NULL);
@@ -609,10 +625,10 @@ mm_answer_sign(int sock, Buffer *m)
 	p = buffer_get_string(m, &datlen);
 
 	/*
-	 * Supported KEX types will only return SHA1 (20 byte) or
-	 * SHA256 (32 byte) hashes
+	 * Supported KEX types use SHA1 (20 bytes), SHA256 (32 bytes),
+	 * SHA384 (48 bytes) and SHA512 (64 bytes).
 	 */
-	if (datlen != 20 && datlen != 32)
+	if (datlen != 20 && datlen != 32 && datlen != 48 && datlen != 64)
 		fatal("%s: data length incorrect: %u", __func__, datlen);
 
 	/* save session id, it will be passed on the first call */
@@ -1353,7 +1369,7 @@ mm_answer_pty(int sock, Buffer *m)
 	res = pty_allocate(&s->ptyfd, &s->ttyfd, s->tty, sizeof(s->tty));
 	if (res == 0)
 		goto error;
-	pty_setowner(authctxt->pw, s->tty);
+	pty_setowner(authctxt->pw, s->tty, authctxt->role);
 
 	buffer_put_int(m, 1);
 	buffer_put_cstring(m, s->tty);
@@ -1734,6 +1750,7 @@ mm_get_kex(Buffer *m)
 	kex->kex[KEX_DH_GRP14_SHA1] = kexdh_server;
 	kex->kex[KEX_DH_GEX_SHA1] = kexgex_server;
 	kex->kex[KEX_DH_GEX_SHA256] = kexgex_server;
+	kex->kex[KEX_ECDH_SHA2] = kexecdh_server;
 #ifdef GSSAPI
 	if (options.gss_keyex) {
 		kex->kex[KEX_GSS_GRP1_SHA1] = kexgss_server;
@@ -2086,6 +2103,34 @@ mm_answer_gss_sign(int socket, Buffer *m)
 	buffer_clear(m);
 	buffer_put_int(m, major);
 	buffer_put_string(m, hash.value, hash.length);
+
+#ifdef USE_CONSOLEKIT
+int
+mm_answer_consolekit_register(int sock, Buffer *m)
+{
+	Session *s;
+	char *tty, *display;
+	char *cookie = NULL;
+
+	debug3("%s entering", __func__);
+
+	tty = buffer_get_string(m, NULL);
+	display = buffer_get_string(m, NULL);
+	s = session_by_tty(tty);
+	if (s != NULL)
+		cookie = consolekit_register(s, display);
+	buffer_clear(m);
+	buffer_put_cstring(m, cookie != NULL ? cookie : "");
+	mm_request_send(sock, MONITOR_ANS_CONSOLEKIT_REGISTER, m);
+
+	if (cookie != NULL)
+		xfree(cookie);
+	xfree(display);
+	xfree(tty);
+
+	return (0);
+}
+#endif /* USE_CONSOLEKIT */
 
 	mm_request_send(socket, MONITOR_ANS_GSSSIGN, m);
 

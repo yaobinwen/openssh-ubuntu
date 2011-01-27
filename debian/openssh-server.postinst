@@ -131,6 +131,7 @@ host_keys_required() {
 		if echo "$protocol" | grep 2 >/dev/null; then
 			echo /etc/ssh/ssh_host_rsa_key
 			echo /etc/ssh/ssh_host_dsa_key
+			echo /etc/ssh/ssh_host_ecdsa_key
 		fi
 	fi
 }
@@ -166,6 +167,8 @@ create_keys() {
 		"$hostkeys" /etc/ssh/ssh_host_rsa_key -t rsa
 	create_key "Creating SSH2 DSA key; this may take some time ..." \
 		"$hostkeys" /etc/ssh/ssh_host_dsa_key -t dsa
+	create_key "Creating SSH2 ECDSA key; this may take some time ..." \
+		"$hostkeys" /etc/ssh/ssh_host_ecdsa_key -t ecdsa
 }
 
 
@@ -303,6 +306,7 @@ Protocol 2
 # HostKeys for protocol version 2
 HostKey /etc/ssh/ssh_host_rsa_key
 HostKey /etc/ssh/ssh_host_dsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
 #Privilege Separation is turned on for security
 UsePrivilegeSeparation yes
 
@@ -418,14 +422,18 @@ remove_old_init_links() {
 }
 
 setup_init() {
-	if [ -x /etc/init.d/ssh ]; then
-		update-rc.d ssh start 16 2 3 4 5 . >/dev/null
-		if [ -x /usr/sbin/invoke-rc.d ]; then
-			invoke-rc.d ssh restart
-		else
-			/etc/init.d/ssh restart
+	if [ -e /etc/init/ssh.conf ]; then
+		if dpkg --compare-versions "$oldversion" lt 1:5.1p1-8ubuntu2; then
+			if [ -x /usr/sbin/invoke-rc.d ]; then
+				invoke-rc.d ssh stop
+			else
+				/etc/init.d/ssh stop
+			fi
 		fi
+		stop ssh 2>/dev/null || true
+		start ssh || true
 	fi
+	update-rc.d -f ssh remove >/dev/null || true
 }
 
 commit_transfer_conffile () {

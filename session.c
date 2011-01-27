@@ -1,4 +1,4 @@
-/* $OpenBSD: session.c,v 1.256 2010/06/25 07:20:04 djm Exp $ */
+/* $OpenBSD: session.c,v 1.258 2010/11/25 04:10:09 djm Exp $ */
 /*
  * Copyright (c) 1995 Tatu Ylonen <ylo@cs.hut.fi>, Espoo, Finland
  *                    All rights reserved
@@ -91,6 +91,7 @@
 #include "kex.h"
 #include "monitor_wrap.h"
 #include "sftp.h"
+#include "consolekit.h"
 
 #if defined(KRB5) && defined(USE_AFS)
 #include <kafs.h>
@@ -585,7 +586,8 @@ do_exec_no_pty(Session *s, const char *command)
 
 	s->pid = pid;
 	/* Set interactive/non-interactive mode. */
-	packet_set_interactive(s->display != NULL);
+	packet_set_interactive(s->display != NULL,
+	    options.ip_qos_interactive, options.ip_qos_bulk);
 
 	/*
 	 * Clear loginmsg, since it's the child's responsibility to display
@@ -739,7 +741,8 @@ do_exec_pty(Session *s, const char *command)
 
 	/* Enter interactive session. */
 	s->ptymaster = ptymaster;
-	packet_set_interactive(1);
+	packet_set_interactive(1, 
+	    options.ip_qos_interactive, options.ip_qos_bulk);
 	if (compat20) {
 		session_set_fds(s, ptyfd, fdout, -1, 1, 1);
 	} else {
@@ -1123,6 +1126,9 @@ do_setup_env(Session *s, const char *shell)
 #if !defined (HAVE_LOGIN_CAP) && !defined (HAVE_CYGWIN)
 	char *path = NULL;
 #endif
+#ifdef USE_CONSOLEKIT
+	const char *ckcookie = NULL;
+#endif /* USE_CONSOLEKIT */
 
 	/* Initialize the environment. */
 	envsize = 100;
@@ -1267,6 +1273,11 @@ do_setup_env(Session *s, const char *shell)
 		child_set_env(&env, &envsize, "KRB5CCNAME",
 		    s->authctxt->krb5_ccname);
 #endif
+#ifdef USE_CONSOLEKIT
+	ckcookie = PRIVSEP(consolekit_register(s, s->display));
+	if (ckcookie)
+		child_set_env(&env, &envsize, "XDG_SESSION_COOKIE", ckcookie);
+#endif /* USE_CONSOLEKIT */
 #ifdef USE_PAM
 	/*
 	 * Pull in any environment variables that may have
@@ -1465,40 +1476,20 @@ safely_chroot(const char *path, uid_t uid)
 
 /* Set login name, uid, gid, and groups. */
 void
-do_setusercontext(struct passwd *pw)
+do_setusercontext(struct passwd *pw, const char *role)
 {
 	char *chroot_path, *tmp;
 
-#ifdef WITH_SELINUX
-	/* Cache selinux status for later use */
-	(void)ssh_selinux_enabled();
-#endif
+	platform_setusercontext(pw);
 
-#ifndef HAVE_CYGWIN
-	if (getuid() == 0 || geteuid() == 0)
-#endif /* HAVE_CYGWIN */
-	{
+	if (platform_privileged_uidswap()) {
 #ifdef HAVE_LOGIN_CAP
-# ifdef __bsdi__
-		setpgid(0, 0);
-# endif
-# ifdef USE_PAM
-		if (options.use_pam) {
-			do_pam_setcred(use_privsep);
-		}
-# endif /* USE_PAM */
 		if (setusercontext(lc, pw, pw->pw_uid,
 		    (LOGIN_SETALL & ~(LOGIN_SETPATH|LOGIN_SETUSER))) < 0) {
 			perror("unable to set user context");
 			exit(1);
 		}
 #else
-# if defined(HAVE_GETLUID) && defined(HAVE_SETLUID)
-		/* Sets login uid for accounting */
-		if (getluid() == -1 && setluid(pw->pw_uid) == -1)
-			error("setluid: %s", strerror(errno));
-# endif /* defined(HAVE_GETLUID) && defined(HAVE_SETLUID) */
-
 		if (setlogin(pw->pw_name) < 0)
 			error("setlogin failed: %s", strerror(errno));
 		if (setgid(pw->pw_gid) < 0) {
@@ -1511,50 +1502,9 @@ do_setusercontext(struct passwd *pw)
 			exit(1);
 		}
 		endgrent();
-# ifdef USE_PAM
-		/*
-		 * PAM credentials may take the form of supplementary groups.
-		 * These will have been wiped by the above initgroups() call.
-		 * Reestablish them here.
-		 */
-		if (options.use_pam) {
-			do_pam_setcred(use_privsep);
-		}
-# endif /* USE_PAM */
-# if defined(WITH_IRIX_PROJECT) || defined(WITH_IRIX_JOBS) || defined(WITH_IRIX_ARRAY)
-		irix_setusercontext(pw);
-# endif /* defined(WITH_IRIX_PROJECT) || defined(WITH_IRIX_JOBS) || defined(WITH_IRIX_ARRAY) */
-# ifdef _AIX
-		aix_usrinfo(pw);
-# endif /* _AIX */
-# ifdef USE_LIBIAF
-		if (set_id(pw->pw_name) != 0) {
-			exit(1);
-		}
-# endif /* USE_LIBIAF */
 #endif
-#ifdef HAVE_SETPCRED
-		/*
-		 * If we have a chroot directory, we set all creds except real
-		 * uid which we will need for chroot.  If we don't have a
-		 * chroot directory, we don't override anything.
-		 */
-		{
-			char **creds = NULL, *chroot_creds[] =
-			    { "REAL_USER=root", NULL };
 
-			if (options.chroot_directory != NULL &&
-			    strcasecmp(options.chroot_directory, "none") != 0)
-				creds = chroot_creds;
-
-			if (setpcred(pw->pw_name, creds) == -1)
-				fatal("Failed to set process credentials");
-		}
-#endif /* HAVE_SETPCRED */
-
-#ifdef WITH_SELINUX
-		ssh_selinux_setup_exec_context(pw->pw_name);
-#endif
+		platform_setusercontext_post_groups(pw, role);
 
 		if (options.chroot_directory != NULL &&
 		    strcasecmp(options.chroot_directory, "none") != 0) {
@@ -1628,8 +1578,6 @@ launch_login(struct passwd *pw, const char *hostname)
 static void
 child_close_fds(void)
 {
-	int i;
-
 	if (packet_get_connection_in() == packet_get_connection_out())
 		close(packet_get_connection_in());
 	else {
@@ -1655,8 +1603,7 @@ child_close_fds(void)
 	 * initgroups, because at least on Solaris 2.3 it leaves file
 	 * descriptors open.
 	 */
-	for (i = 3; i < 64; i++)
-		close(i);
+	closefrom(STDERR_FILENO + 1);
 }
 
 /*
@@ -1680,7 +1627,7 @@ do_child(Session *s, const char *command)
 
 	/* Force a password change */
 	if (s->authctxt->force_pwchange) {
-		do_setusercontext(pw);
+		do_setusercontext(pw, s->authctxt->role);
 		child_close_fds();
 		do_pwchange(s);
 		exit(1);
@@ -1707,7 +1654,7 @@ do_child(Session *s, const char *command)
 		/* When PAM is enabled we rely on it to do the nologin check */
 		if (!options.use_pam)
 			do_nologin(pw);
-		do_setusercontext(pw);
+		do_setusercontext(pw, s->authctxt->role);
 		/*
 		 * PAM session modules in do_setusercontext may have
 		 * generated messages, so if this in an interactive
@@ -2119,7 +2066,7 @@ session_pty_req(Session *s)
 	tty_parse_modes(s->ttyfd, &n_bytes);
 
 	if (!use_privsep)
-		pty_setowner(s->pw, s->tty);
+		pty_setowner(s->pw, s->tty, s->authctxt->role);
 
 	/* Set window size from the packet. */
 	pty_change_window_size(s->ptyfd, s->row, s->col, s->xpixel, s->ypixel);
@@ -2354,6 +2301,10 @@ session_pty_cleanup2(Session *s)
 		return;
 
 	debug("session_pty_cleanup: session %d release %s", s->self, s->tty);
+
+#ifdef USE_CONSOLEKIT
+	consolekit_unregister(s);
+#endif /* USE_CONSOLEKIT */
 
 	/* Record that the user has logged out. */
 	if (s->pid != 0)
