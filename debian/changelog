@@ -1,3 +1,10 @@
+openssh (1:4.7p1-8ubuntu2) hardy-proposed; urgency=low
+
+  * Backport from upstream:
+    - Only listen for IPv6 connections on AF_INET6 sockets (LP: #713002).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 08 Feb 2011 11:49:01 +0000
+
 openssh (1:4.7p1-8ubuntu1) hardy; urgency=low
 
   * Resynchronise with Debian. Remaining changes:
