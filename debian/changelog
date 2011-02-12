@@ -1,3 +1,11 @@
+openssh (1:5.3p1-3ubuntu6) lucid-proposed; urgency=low
+
+  * Stop Upstart job on runlevel [!2345] rather than just S, since
+    /etc/init.d/sendsigs no longer kills jobs under Upstart's control
+    (thanks, Rob Donovan; LP: #603363).
+
+ -- Clint Byrum <clint@ubuntu.com>  Sat, 12 Feb 2011 08:38:43 -0800
+
 openssh (1:5.3p1-3ubuntu5) lucid-proposed; urgency=low
 
   * debian/openssh-server.ssh.upstart: drop 'expect fork' and run sshd
