@@ -1,9 +1,46 @@
+openssh (1:4.7p1-8ubuntu3) hardy-proposed; urgency=low
+
+  * Merge 1:4.7p1-8ubuntu1.1 and 1:4.7p1-8ubuntu1.2 from hardy-security.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 02 Mar 2011 10:53:07 +0000
+
 openssh (1:4.7p1-8ubuntu2) hardy-proposed; urgency=low
 
   * Backport from upstream:
     - Only listen for IPv6 connections on AF_INET6 sockets (LP: #713002).
 
  -- Colin Watson <cjwatson@ubuntu.com>  Tue, 08 Feb 2011 11:49:01 +0000
+
+openssh (1:4.7p1-8ubuntu1.2) hardy-security; urgency=low
+
+  * Add a FILES section to ssh-vulnkey(1) (thanks, Hugh Daniel).
+  * ssh-vulnkey handles options in authorized_keys (LP: #230029), and treats
+    # as introducing a comment even if it is preceded by whitespace (thanks
+    Colin Watson)
+
+ -- Jamie Strandboge <jamie@ubuntu.com>  Wed, 14 May 2008 08:32:08 -0400
+
+openssh (1:4.7p1-8ubuntu1.1) hardy-security; urgency=low
+
+  * Mitigate OpenSSL security vulnerability thanks to Colin Watson:
+    - Add key blacklisting support. Keys listed in
+      /etc/ssh/blacklist.TYPE-LENGTH will be rejected for authentication by
+      sshd, unless "PermitBlacklistedKeys yes" is set in
+      /etc/ssh/sshd_config.
+    - Add a new program, ssh-vulnkey, which can be used to check keys
+      against these blacklists.
+    - Depend on openssh-blacklist.
+    - Force dependencies on libssl0.9.8 / libcrypto0.9.8-udeb to at least
+      0.9.8g-4ubuntu3.1.
+    - Automatically regenerate known-compromised host keys, with a
+      critical-priority debconf note. (I regret that there was no time to
+      gather translations.)
+  * added README.compromised-keys thanks to Colin Watson
+  * References
+    CVE-2008-0166
+    http://www.ubuntu.com/usn/usn-612-1
+
+ -- Jamie Strandboge <jamie@ubuntu.com>  Mon, 12 May 2008 23:44:33 -0400
 
 openssh (1:4.7p1-8ubuntu1) hardy; urgency=low
 
