@@ -1,3 +1,17 @@
+openssh (1:5.8p1-1ubuntu2) natty; urgency=low
+
+  [ Clint Byrum ]
+  * debian/openssh-server.ssh.init: Adding upstart awareness that will
+    call /lib/init/upstart-job when script is run outside of a chroot.
+    While this fixes LP: #531912, the change should be reverted when
+    upstart gains chroot session support.
+
+  [ Colin Watson ]
+  * Only do the above if /etc/init/ssh.conf still exists, since apparently
+    some people have been removing it.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 03 Mar 2011 16:18:24 +0000
+
 openssh (1:5.8p1-1ubuntu1) natty; urgency=low
 
   * Resynchronise with Debian.  Remaining changes:
