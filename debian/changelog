@@ -1,3 +1,10 @@
+openssh (1:5.8p1-1ubuntu3) natty; urgency=low
+
+  * Start on runlevel [2345] so that switching back to runlevel 2
+    from single user mode starts ssh again. (LP: #747756)
+
+ -- Clint Byrum <clint@ubuntu.com>  Fri, 01 Apr 2011 16:05:43 -0700
+
 openssh (1:5.8p1-1ubuntu2) natty; urgency=low
 
   [ Clint Byrum ]
