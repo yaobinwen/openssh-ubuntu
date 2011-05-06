@@ -31,10 +31,7 @@ if [ ! -f /var/run/sshd.pid ] || \
 fi
 
 # We'd like to use 'reload' here, but it has some problems; see #502444.
-if [ -x /usr/sbin/invoke-rc.d ]; then
-	invoke-rc.d ssh restart >/dev/null 2>&1 || true
-else
-	/etc/init.d/ssh restart >/dev/null 2>&1 || true
-fi
+stop ssh || true
+start ssh || true
 
 exit 0
