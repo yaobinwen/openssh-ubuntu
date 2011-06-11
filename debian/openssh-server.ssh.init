@@ -16,6 +16,23 @@ set -e
 test -x /usr/sbin/sshd || exit 0
 ( /usr/sbin/sshd -\? 2>&1 | grep -q OpenSSH ) 2>/dev/null || exit 0
 
+chrooted() {
+    # borrowed from udev's postinst
+    # and then borrowed from initramfs-tools's preinst
+    if [ "$(stat -c %d/%i /)" = "$(stat -Lc %d/%i /proc/1/root 2>/dev/null)" ]; then
+	# the devicenumber/inode pair of / is the same as that of
+	# /sbin/init's root, so we're *not* in a chroot and hence
+	# return false.
+	return 1
+    fi
+    return 0
+}
+
+# The init.d script is only for chroots
+if [ -e /etc/init/ssh.conf ] && ! chrooted; then
+    exec /lib/init/upstart-job ssh $@
+fi
+
 umask 022
 
 if test -f /etc/default/ssh; then
