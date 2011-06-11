@@ -1,3 +1,17 @@
+openssh (1:5.3p1-3ubuntu7) lucid-proposed; urgency=low
+
+  [ Clint Byrum ]
+  * debian/openssh-server.ssh.init: Adding upstart awareness that will
+    call /lib/init/upstart-job when script is run outside of a chroot.
+    While this fixes LP: #531912, the change should be reverted when
+    upstart gains chroot session support.
+
+  [ Colin Watson ]
+  * Only do the above if /etc/init/ssh.conf still exists, since apparently
+    some people have been removing it.
+
+ -- Clint Byrum <clint@ubuntu.com>  Fri, 10 Jun 2011 22:46:07 -0700
+
 openssh (1:5.3p1-3ubuntu6) lucid-proposed; urgency=low
 
   * Stop Upstart job on runlevel [!2345] rather than just S, since
