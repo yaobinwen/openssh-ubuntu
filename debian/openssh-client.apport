@@ -26,7 +26,7 @@ def add_info(report, ui):
 
     elif response == True:
         attach_conffiles(report, 'openssh-client')
-        attach_related_packages(report,
-                                ['ssh-askpass', 'libpam-ssh', 'keychain',
-                                 'ssh-askpass-gnome'])
-        report['SSHClientVersion'] = command_output(['/usr/bin/ssh', '-V'])
+
+    attach_related_packages(report,
+        ['ssh-askpass', 'libpam-ssh', 'keychain', 'ssh-askpass-gnome'])
+    report['SSHClientVersion'] = command_output(['/usr/bin/ssh', '-V'])

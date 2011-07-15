@@ -1,3 +1,11 @@
+openssh (1:5.8p1-4ubuntu2) oneiric; urgency=low
+
+  * openssh-client.apport:
+    - neither related packages nor the SSHClientVersion contain sensitive
+      information so include it regardless of yes/no response  
+
+ -- Brian Murray <brian@ubuntu.com>  Fri, 15 Jul 2011 12:09:55 -0700
+
 openssh (1:5.8p1-4ubuntu1) oneiric; urgency=low
 
   * Resynchronise with Debian.  Remaining changes:
