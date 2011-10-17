@@ -1,3 +1,15 @@
+openssh (1:5.9p1-1ubuntu1) precise; urgency=low
+
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+    - Add mention of ssh-keygen in ssh connect warning.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 17 Oct 2011 16:04:47 +0100
+
 openssh (1:5.9p1-1) unstable; urgency=low
 
   * New upstream release (http://www.openssh.org/txt/release-5.9).
@@ -25,6 +37,18 @@ openssh (1:5.9p1-1) unstable; urgency=low
   * Update OpenSSH FAQ to revision 1.112.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 07 Sep 2011 23:46:00 +0100
+
+openssh (1:5.8p1-7ubuntu1) oneiric; urgency=low
+
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+    - Add mention of ssh-keygen in ssh connect warning.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Fri, 29 Jul 2011 16:56:27 +0100
 
 openssh (1:5.8p1-7) unstable; urgency=low
 
@@ -57,6 +81,27 @@ openssh (1:5.8p1-5) unstable; urgency=low
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 24 Jul 2011 11:06:47 +0100
 
+openssh (1:5.8p1-4ubuntu2) oneiric; urgency=low
+
+  * openssh-client.apport:
+    - neither related packages nor the SSHClientVersion contain sensitive
+      information so include it regardless of yes/no response  
+
+ -- Brian Murray <brian@ubuntu.com>  Fri, 15 Jul 2011 12:09:55 -0700
+
+openssh (1:5.8p1-4ubuntu1) oneiric; urgency=low
+
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+    - Add mention of ssh-keygen in ssh connect warning.
+    - Make openssh-server recommend ssh-import-id.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Fri, 06 May 2011 15:57:36 +0100
+
 openssh (1:5.8p1-4) unstable; urgency=low
 
   * Drop hardcoded dependencies on libssl0.9.8 and libcrypto0.9.8-udeb,
@@ -81,6 +126,40 @@ openssh (1:5.8p1-2) unstable; urgency=low
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 08 Feb 2011 10:59:17 +0000
 
+openssh (1:5.8p1-1ubuntu3) natty; urgency=low
+
+  * Start on runlevel [2345] so that switching back to runlevel 2
+    from single user mode starts ssh again. (LP: #747756)
+
+ -- Clint Byrum <clint@ubuntu.com>  Fri, 01 Apr 2011 16:05:43 -0700
+
+openssh (1:5.8p1-1ubuntu2) natty; urgency=low
+
+  [ Clint Byrum ]
+  * debian/openssh-server.ssh.init: Adding upstart awareness that will
+    call /lib/init/upstart-job when script is run outside of a chroot.
+    While this fixes LP: #531912, the change should be reverted when
+    upstart gains chroot session support.
+
+  [ Colin Watson ]
+  * Only do the above if /etc/init/ssh.conf still exists, since apparently
+    some people have been removing it.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 03 Mar 2011 16:18:24 +0000
+
+openssh (1:5.8p1-1ubuntu1) natty; urgency=low
+
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+    - Add mention of ssh-keygen in ssh connect warning.
+    - Make openssh-server recommend ssh-import-id.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Sat, 05 Feb 2011 11:34:38 +0000
+
 openssh (1:5.8p1-1) experimental; urgency=low
 
   * New upstream release (http://www.openssh.org/txt/release-5.8):
@@ -89,12 +168,38 @@ openssh (1:5.8p1-1) experimental; urgency=low
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 05 Feb 2011 11:13:11 +0000
 
+openssh (1:5.7p1-2ubuntu1) natty; urgency=low
+
+  * Resynchronise with Debian experimental.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+    - Add mention of ssh-keygen in ssh connect warning.
+    - Make openssh-server recommend ssh-import-id.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 27 Jan 2011 12:20:29 +0000
+
 openssh (1:5.7p1-2) experimental; urgency=low
 
   * Fix crash in ssh_selinux_setfscreatecon when SELinux is disabled
     (LP: #708571).
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 27 Jan 2011 12:14:17 +0000
+
+openssh (1:5.7p1-1ubuntu1) natty; urgency=low
+
+  * Resynchronise with Debian experimental.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+    - Add mention of ssh-keygen in ssh connect warning.
+    - Make openssh-server recommend ssh-import-id.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 27 Jan 2011 00:27:13 +0000
 
 openssh (1:5.7p1-1) experimental; urgency=low
 
@@ -142,6 +247,48 @@ openssh (1:5.6p1-3) experimental; urgency=low
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 30 Dec 2010 11:48:00 +0000
 
+openssh (1:5.6p1-2ubuntu4) natty; urgency=low
+
+  * debian/control, debian/openssh-server.install, debian/openssh-
+    server.links, debian/openssh-server.manpages, debian/ssh-import-id,
+    debian/ssh-import-id.1: drop all remnants of the ssh-import-id
+    utility which is now in its own source package; have openssh-server
+    recommend that package
+
+ -- Dustin Kirkland <kirkland@ubuntu.com>  Wed, 05 Jan 2011 11:54:03 +0000
+
+openssh (1:5.6p1-2ubuntu3) natty; urgency=low
+
+  [ Clint Byrum ]
+  * debian/openssh-server.ssh.upstart: drop 'expect fork' and run sshd 
+    with -D to avoid losing track on reload (LP: #687535)
+
+  [ Colin Watson ]
+  * Fix up mention-ssh-keygen-on-keychange.patch to match what was actually
+    applied to the source tree.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 14 Dec 2010 11:52:43 +0000
+
+openssh (1:5.6p1-2ubuntu2) natty; urgency=low
+
+  * add mention of ssh-keygen in ssh connect warning (LP: #686607)
+
+ -- Scott Moser <smoser@ubuntu.com>  Tue, 07 Dec 2010 10:34:30 -0500
+
+openssh (1:5.6p1-2ubuntu1) natty; urgency=low
+
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+    - Add ssh-import-id utility.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 26 Oct 2010 15:41:46 +0100
+
 openssh (1:5.6p1-2) experimental; urgency=low
 
   * Backport upstream patch to install a SIGCHLD handler to reap expired ssh
@@ -149,6 +296,20 @@ openssh (1:5.6p1-2) experimental; urgency=low
     (closes: #594687).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 26 Oct 2010 14:46:40 +0100
+
+openssh (1:5.6p1-1ubuntu1) natty; urgency=low
+
+  * Resynchronise with Debian experimental.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+    - Add ssh-import-id utility.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 13 Oct 2010 11:25:40 +0100
 
 openssh (1:5.6p1-1) experimental; urgency=low
 
@@ -183,6 +344,58 @@ openssh (1:5.5p1-5) unstable; urgency=low
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 23 Aug 2010 22:59:03 +0100
 
+openssh (1:5.5p1-4ubuntu4) maverick; urgency=low
+
+  * Fix stray hyphen in the title of ssh-import-id(1).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 14 Sep 2010 18:50:57 +0100
+
+openssh (1:5.5p1-4ubuntu3) maverick; urgency=low
+
+  [ Colin Watson ]
+  * Use 'dh $@ --options' rather than 'dh --options $@', for
+    forward-compatibility with debhelper v8.
+
+  [ Dustin Kirkland ]
+  * debian/openssh-server.install, debian/ssh-import-id:
+    - move the ssh-import-lp-id utility from the ssh-import
+      package to openssh-server (which is the logical destination
+      for this tool)
+    - rename it from ssh-import-lp-id (clumsy) to ssh-import-id (nicer,
+      more like 'ssh-copy-id')
+  * debian/openssh-server.links:
+    - add a symlink from ssh-import-lp-id (old name) to ssh-import-id
+      (new name) to maintain compatibility with existing user scripts;
+      link the manpage too
+  * debian/control:
+    - ensure that openssh-server replaces and conflicts ssh-import (which
+      will be removed from the archive)
+  * debian/ssh-import-id.1, debian/openssh-server.manpages:
+    - add/install a manpage
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 22 Jul 2010 15:49:14 +0100
+
+openssh (1:5.5p1-4ubuntu2) maverick; urgency=low
+
+  * Stop Upstart job on runlevel [!2345] rather than just S, since
+    /etc/init.d/sendsigs no longer kills jobs under Upstart's control
+    (thanks, Rob Donovan; LP: #603363).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Fri, 09 Jul 2010 12:21:17 +0100
+
+openssh (1:5.5p1-4ubuntu1) maverick; urgency=low
+
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 26 May 2010 19:59:05 +0100
+
 openssh (1:5.5p1-4) unstable; urgency=low
 
   [ Sebastian Andrzej Siewior ]
@@ -200,6 +413,20 @@ openssh (1:5.5p1-4) unstable; urgency=low
     rather than being user-private groups (closes: #581697).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 22 May 2010 23:37:20 +0100
+
+openssh (1:5.5p1-3ubuntu1) maverick; urgency=low
+
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+  * Stop setting OOM adjustment in Upstart job; sshd does it itself now.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Sun, 09 May 2010 18:04:01 +0200
 
 openssh (1:5.5p1-3) unstable; urgency=low
 
@@ -315,6 +542,36 @@ openssh (1:5.4p1-1) unstable; urgency=low
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 06 Apr 2010 22:38:31 +0100
 
+openssh (1:5.3p1-3ubuntu3) lucid; urgency=low
+
+  * Fix syntax error in openssh-server apport hook (LP: #534365).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 08 Mar 2010 15:24:44 +0000
+
+openssh (1:5.3p1-3ubuntu2) lucid; urgency=low
+
+  * Always set child processes' OOM adjustment to 0, since Upstart will have
+    set sshd's OOM adjustment on startup and so simply restoring the startup
+    value won't work (LP: #293000).  Thanks to Karsten Suehring for
+    analysis.
+  * Limit automatic respawning to 10 times in 5 seconds (thanks to Fumihito
+    YOSHIDA for the suggestion; LP: #533352).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Sat, 06 Mar 2010 22:00:19 +0000
+
+openssh (1:5.3p1-3ubuntu1) lucid; urgency=low
+
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 01 Mar 2010 22:01:14 +0000
+
 openssh (1:5.3p1-3) unstable; urgency=low
 
   * Convert to source format 3.0 (quilt).
@@ -340,6 +597,26 @@ openssh (1:5.3p1-2) unstable; urgency=low
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 22 Feb 2010 12:43:24 +0000
 
+openssh (1:5.3p1-1ubuntu2) lucid; urgency=low
+
+  [ Chuck Short ]
+  * Install apport hook; part of the server-lucid-apport-hooks
+    specification.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Sun, 14 Feb 2010 02:21:13 +0000
+
+openssh (1:5.3p1-1ubuntu1) lucid; urgency=low
+
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 26 Jan 2010 13:07:40 +0000
+
 openssh (1:5.3p1-1) unstable; urgency=low
 
   * New upstream release.
@@ -355,6 +632,18 @@ openssh (1:5.3p1-1) unstable; urgency=low
     run anyway (see 1:5.2p1-2 changelog).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 26 Jan 2010 11:55:29 +0000
+
+openssh (1:5.2p1-2ubuntu1) lucid; urgency=low
+
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Sat, 16 Jan 2010 03:58:17 +0000
 
 openssh (1:5.2p1-2) unstable; urgency=low
 
@@ -377,6 +666,20 @@ openssh (1:5.2p1-2) unstable; urgency=low
     initial protocol handshake (closes: #562048).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 16 Jan 2010 01:28:58 +0000
+
+openssh (1:5.2p1-1ubuntu1) lucid; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+  * Convert to Upstart. The init script is still here for the benefit of
+    people running sshd in chroots. Note that the Upstart job does not
+    support /etc/default/ssh, because it's much more straightforward to edit
+    the job (/etc/init/ssh.conf) than it was to edit the init script.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 04 Jan 2010 13:45:21 +0000
 
 openssh (1:5.2p1-1) unstable; urgency=low
 
@@ -442,6 +745,23 @@ openssh (1:5.2p1-1) unstable; urgency=low
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 04 Jan 2010 13:23:35 +0000
 
+openssh (1:5.1p1-8ubuntu2) lucid; urgency=low
+
+  * Add -Wl,-z,now to LDFLAGS to enhance the existing RELRO hardening
+    done by the Ubuntu compiler (Debian bug 561887).
+
+ -- Kees Cook <kees@ubuntu.com>  Wed, 23 Dec 2009 21:59:05 -0800
+
+openssh (1:5.1p1-8ubuntu1) lucid; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 02 Dec 2009 20:21:06 +0000
+
 openssh (1:5.1p1-8) unstable; urgency=low
 
   * Build with just -fPIC on mips/mipsel, not -fPIE as well (thanks, LIU Qi;
@@ -466,6 +786,22 @@ openssh (1:5.1p1-7) unstable; urgency=low
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 31 Jul 2009 16:28:10 +0100
 
+openssh (1:5.1p1-6ubuntu2) karmic; urgency=low
+
+  * No change rebuild to fix misbuilt binaries on armel.
+
+ -- Loïc Minier <loic.minier@ubuntu.com>  Wed, 21 Oct 2009 14:48:08 +0200
+
+openssh (1:5.1p1-6ubuntu1) karmic; urgency=low
+
+  * Merge from Debian unstable, remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Tue, 09 Jun 2009 02:33:10 +0000
+
 openssh (1:5.1p1-6) unstable; urgency=low
 
   * Open /proc/self/oom_adj with O_RDONLY or O_WRONLY as necessary, rather
@@ -485,6 +821,23 @@ openssh (1:5.1p1-6) unstable; urgency=low
 
  -- Colin Watson <cjwatson@debian.org>  Fri, 05 Jun 2009 11:56:03 +0100
 
+openssh (1:5.1p1-5ubuntu2) karmic; urgency=low
+
+  * No-change rebuild against libkrb5-3.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Wed, 03 Jun 2009 23:59:09 +0000
+
+openssh (1:5.1p1-5ubuntu1) jaunty; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+    - Add ufw integration.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 28 Jan 2009 14:34:21 +0000
+
 openssh (1:5.1p1-5) unstable; urgency=low
 
   * Backport from upstream CVS (Markus Friedl):
@@ -502,6 +855,17 @@ openssh (1:5.1p1-5) unstable; urgency=low
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 14 Jan 2009 00:34:08 +0000
 
+openssh (1:5.1p1-4ubuntu1) jaunty; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+    - Add ufw integration.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Sun, 23 Nov 2008 14:55:17 +0000
+
 openssh (1:5.1p1-4) unstable; urgency=low
 
   * ssh-copy-id: Strip trailing colons from hostname (closes: #226172,
@@ -516,6 +880,17 @@ openssh (1:5.1p1-4) unstable; urgency=low
     https://bugzilla.mindrot.org/show_bug.cgi?id=1539).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 23 Nov 2008 14:46:10 +0000
+
+openssh (1:5.1p1-3ubuntu1) intrepid; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+    - Add ufw integration.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 13 Oct 2008 19:40:53 +0100
 
 openssh (1:5.1p1-3) unstable; urgency=low
 
@@ -535,6 +910,27 @@ openssh (1:5.1p1-2) unstable; urgency=low
     LocalCommands (closes: #492728).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 29 Jul 2008 15:31:25 +0100
+
+openssh (1:5.1p1-1ubuntu2) intrepid; urgency=low
+
+  * add ufw integration (see
+    https://wiki.ubuntu.com/UbuntuFirewall#Integrating%20UFW%20with%20Packages)
+    (LP: #261884)
+    - debian/control: suggest ufw for openssh-server
+    - add openssh-server.ufw.profile with one profile and install it to
+      /etc/ufw/applications.d/openssh-server
+
+ -- Didier Roche <didrocks@ubuntu-fr.org>  Wed, 27 Aug 2008 18:00:07 +0200
+
+openssh (1:5.1p1-1ubuntu1) intrepid; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Fri, 25 Jul 2008 11:46:28 +0100
 
 openssh (1:5.1p1-1) unstable; urgency=low
 
@@ -714,6 +1110,36 @@ openssh (1:4.7p1-13) unstable; urgency=low
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 21 Jul 2008 12:18:28 +0100
 
+openssh (1:4.7p1-12ubuntu4) intrepid; urgency=low
+
+  * Really move openssh-blacklist and openssh-blacklist-extra to Suggests,
+    not Conflicts!
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 14 Jul 2008 14:07:16 +0100
+
+openssh (1:4.7p1-12ubuntu3) intrepid; urgency=low
+
+  * Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+    take up a lot of CD space, and I suspect that rolling them out in
+    security updates has covered most affected systems now.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 14 Jul 2008 09:48:01 +0100
+
+openssh (1:4.7p1-12ubuntu2) intrepid; urgency=low
+
+  * debian/control: Depend on lsb-base >= 3.2-12ubuntu3, which has the
+    status_of_proc() function.
+  * debian/openssh-server.init: Add the 'status' action (LP: #247103).
+
+ -- Dustin Kirkland <kirkland@ubuntu.com>  Thu, 10 Jul 2008 10:45:01 -0500
+
+openssh (1:4.7p1-12ubuntu1) intrepid; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Thu, 29 May 2008 21:50:22 +0100
+
 openssh (1:4.7p1-12) unstable; urgency=low
 
   * Fill in CVE identifier for ssh-vulnkey bug fixed in 1:4.7p1-10.
@@ -793,6 +1219,13 @@ openssh (1:4.7p1-11) unstable; urgency=low
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 26 May 2008 12:21:39 +0100
 
+openssh (1:4.7p1-10ubuntu1) intrepid; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 14 May 2008 13:25:45 +0100
+
 openssh (1:4.7p1-10) unstable; urgency=low
 
   * Add a FILES section to ssh-vulnkey(1) (thanks, Hugh Daniel).
@@ -801,6 +1234,13 @@ openssh (1:4.7p1-10) unstable; urgency=low
     preceded by whitespace.
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 14 May 2008 12:35:05 +0100
+
+openssh (1:4.7p1-9ubuntu1) intrepid; urgency=critical
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 13 May 2008 12:36:59 +0100
 
 openssh (1:4.7p1-9) unstable; urgency=critical
 
@@ -821,6 +1261,13 @@ openssh (1:4.7p1-9) unstable; urgency=critical
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 13 May 2008 12:33:38 +0100
 
+openssh (1:4.7p1-8ubuntu1) hardy; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Sun, 06 Apr 2008 12:44:11 +0100
+
 openssh (1:4.7p1-8) unstable; urgency=high
 
   * Fill in CVE identifier for security vulnerability fixed in 1:4.7p1-5.
@@ -840,11 +1287,25 @@ openssh (1:4.7p1-8) unstable; urgency=high
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 06 Apr 2008 12:34:19 +0100
 
+openssh (1:4.7p1-7ubuntu1) hardy; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 31 Mar 2008 16:30:53 +0100
+
 openssh (1:4.7p1-7) unstable; urgency=low
 
   * Ignore errors writing to oom_adj (closes: #473573).
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 31 Mar 2008 16:24:44 +0100
+
+openssh (1:4.7p1-6ubuntu1) hardy; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Sun, 30 Mar 2008 21:32:41 +0100
 
 openssh (1:4.7p1-6) unstable; urgency=low
 
@@ -852,6 +1313,13 @@ openssh (1:4.7p1-6) unstable; urgency=low
     SSHD_OOM_ADJUST in /etc/default/ssh to change this (closes: #341767).
 
  -- Colin Watson <cjwatson@debian.org>  Sun, 30 Mar 2008 21:14:12 +0100
+
+openssh (1:4.7p1-5ubuntu1) hardy; urgency=low
+
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Sat, 22 Mar 2008 12:41:13 +0000
 
 openssh (1:4.7p1-5) unstable; urgency=low
 
@@ -869,6 +1337,12 @@ openssh (1:4.7p1-5) unstable; urgency=low
     - Update Finnish (thanks, Esko Arajärvi; closes: #468563).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 22 Mar 2008 12:37:00 +0000
+
+openssh (1:4.7p1-4ubuntu1) hardy; urgency=low
+
+  * Add support for registering ConsoleKit sessions on login.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Wed, 13 Feb 2008 19:58:17 +0000
 
 openssh (1:4.7p1-4) unstable; urgency=low
 
