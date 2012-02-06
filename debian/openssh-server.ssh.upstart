@@ -11,6 +11,9 @@ respawn
 respawn limit 10 5
 umask 022
 
+# 'sshd -D' leaks stderr and confuses things in conjunction with 'console log'
+console none
+
 pre-start script
     test -x /usr/sbin/sshd || { stop; exit 0; }
     test -e /etc/ssh/sshd_not_to_be_run && { stop; exit 0; }
