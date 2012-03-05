@@ -18,11 +18,7 @@ set -e
 case "$1" in
     remove|deconfigure)
 	if [ -x /etc/init.d/ssh ]; then
-		if [ -x /usr/sbin/invoke-rc.d ]; then
-			invoke-rc.d ssh stop
-		else
-			/etc/init.d/ssh stop
-		fi
+		stop ssh || true
 	fi
 	;;
     upgrade)
