@@ -1,3 +1,22 @@
+openssh (1:5.9p1-4ubuntu1) precise; urgency=low
+
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+    - Add mention of ssh-keygen in ssh connect warning.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 19 Mar 2012 12:40:02 +0000
+
+openssh (1:5.9p1-4) unstable; urgency=low
+
+  * Disable OpenSSL version check again, as its SONAME is sufficient
+    nowadays (closes: #664383).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 19 Mar 2012 11:06:30 +0000
+
 openssh (1:5.9p1-3ubuntu1) precise; urgency=low
 
   * Resynchronise with Debian.  Remaining changes:
