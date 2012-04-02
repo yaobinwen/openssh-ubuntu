@@ -1349,7 +1349,7 @@ AC_ARG_WITH([libedit],
 	[  --with-libedit[[=PATH]]   Enable libedit support for sftp],
 	[ if test "x$withval" != "xno" ; then
 		if test "x$withval" = "xyes" ; then
-			AC_PATH_PROG([PKGCONFIG], [pkg-config], [no])
+			AC_PATH_TOOL([PKGCONFIG], [pkg-config], [no])
 			if test "x$PKGCONFIG" != "xno"; then
 				AC_MSG_CHECKING([if $PKGCONFIG knows about libedit])
 			 	if "$PKGCONFIG" libedit; then
@@ -3509,12 +3509,12 @@ LIBCK_CONNECTOR=""
 AC_ARG_WITH(consolekit,
 	[  --with-consolekit       Enable ConsoleKit support],
 	[ if test "x$withval" != "xno" ; then
-		AC_PATH_TOOL([PKG_CONFIG], [pkg-config], [no])
-		if test "$PKG_CONFIG" != "no"; then
+		AC_PATH_TOOL([PKGCONFIG], [pkg-config], [no])
+		if test "$PKGCONFIG" != "no"; then
 			AC_MSG_CHECKING([for ck-connector])
-			if $PKG_CONFIG --exists ck-connector; then
-				CKCON_CFLAGS=`$PKG_CONFIG --cflags ck-connector`
-				CKCON_LIBS=`$PKG_CONFIG --libs ck-connector`
+			if $PKGCONFIG --exists ck-connector; then
+				CKCON_CFLAGS=`$PKGCONFIG --cflags ck-connector`
+				CKCON_LIBS=`$PKGCONFIG --libs ck-connector`
 				CPPFLAGS="$CPPFLAGS $CKCON_CFLAGS"
 				SSHDLIBS="$SSHDLIBS $CKCON_LIBS"
 				AC_MSG_RESULT([yes])

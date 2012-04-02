@@ -1,3 +1,29 @@
+openssh (1:5.9p1-5ubuntu1) precise; urgency=low
+
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+    - Add mention of ssh-keygen in ssh connect warning.
+  * Sync up pkg-config variable used in configure's ConsoleKit test with
+    that used for libedit.
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Mon, 02 Apr 2012 11:43:31 +0100
+
+openssh (1:5.9p1-5) unstable; urgency=low
+
+  * Use dpkg-buildflags, including for hardening support; drop use of
+    hardening-includes.
+  * Fix cross-building:
+    - Allow using a cross-architecture pkg-config.
+    - Pass default LDFLAGS to contrib/Makefile.
+    - Allow dh_strip to strip gnome-ssh-askpass, rather than calling
+      'install -s'.
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 02 Apr 2012 11:20:33 +0100
+
 openssh (1:5.9p1-4ubuntu1) precise; urgency=low
 
   * Resynchronise with Debian.  Remaining changes:

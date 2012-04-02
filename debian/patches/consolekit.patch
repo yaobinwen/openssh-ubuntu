@@ -31,12 +31,12 @@ Index: b/configure.ac
 +AC_ARG_WITH(consolekit,
 +	[  --with-consolekit       Enable ConsoleKit support],
 +	[ if test "x$withval" != "xno" ; then
-+		AC_PATH_TOOL([PKG_CONFIG], [pkg-config], [no])
-+		if test "$PKG_CONFIG" != "no"; then
++		AC_PATH_TOOL([PKGCONFIG], [pkg-config], [no])
++		if test "$PKGCONFIG" != "no"; then
 +			AC_MSG_CHECKING([for ck-connector])
-+			if $PKG_CONFIG --exists ck-connector; then
-+				CKCON_CFLAGS=`$PKG_CONFIG --cflags ck-connector`
-+				CKCON_LIBS=`$PKG_CONFIG --libs ck-connector`
++			if $PKGCONFIG --exists ck-connector; then
++				CKCON_CFLAGS=`$PKGCONFIG --cflags ck-connector`
++				CKCON_LIBS=`$PKGCONFIG --libs ck-connector`
 +				CPPFLAGS="$CPPFLAGS $CKCON_CFLAGS"
 +				SSHDLIBS="$SSHDLIBS $CKCON_LIBS"
 +				AC_MSG_RESULT([yes])
@@ -64,15 +64,7 @@ Index: b/configure
 ===================================================================
 --- a/configure
 +++ b/configure
-@@ -614,6 +614,7 @@
- STRIP_OPT
- xauth_path
- PRIVSEP_PATH
-+PKG_CONFIG
- KRB5CONF
- SSHDLIBS
- SSHLIBS
-@@ -734,6 +735,7 @@
+@@ -734,6 +734,7 @@
  with_sandbox
  with_selinux
  with_kerberos5
@@ -80,7 +72,7 @@ Index: b/configure
  with_privsep_path
  with_xauth
  enable_strip
-@@ -1423,6 +1425,7 @@
+@@ -1423,6 +1424,7 @@
    --with-sandbox=style    Specify privilege separation sandbox (no, darwin, rlimit, systrace)
    --with-selinux          Enable SELinux support
    --with-kerberos5=PATH   Enable Kerberos 5 support
@@ -88,7 +80,7 @@ Index: b/configure
    --with-privsep-path=xxx Path for privilege separation chroot (default=/var/empty)
    --with-xauth=PATH       Specify path to xauth program
    --with-maildir=/path/to/mail    Specify your system mail directory
-@@ -15071,6 +15074,135 @@
+@@ -15128,6 +15130,135 @@
  fi
  
  
@@ -104,12 +96,12 @@ Index: b/configure
 +set dummy ${ac_tool_prefix}pkg-config; ac_word=$2
 +{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 +$as_echo_n "checking for $ac_word... " >&6; }
-+if ${ac_cv_path_PKG_CONFIG+:} false; then :
++if ${ac_cv_path_PKGCONFIG+:} false; then :
 +  $as_echo_n "(cached) " >&6
 +else
-+  case $PKG_CONFIG in
++  case $PKGCONFIG in
 +  [\\/]* | ?:[\\/]*)
-+  ac_cv_path_PKG_CONFIG="$PKG_CONFIG" # Let the user override the test with a path.
++  ac_cv_path_PKGCONFIG="$PKGCONFIG" # Let the user override the test with a path.
 +  ;;
 +  *)
 +  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
@@ -119,7 +111,7 @@ Index: b/configure
 +  test -z "$as_dir" && as_dir=.
 +    for ac_exec_ext in '' $ac_executable_extensions; do
 +  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-+    ac_cv_path_PKG_CONFIG="$as_dir/$ac_word$ac_exec_ext"
++    ac_cv_path_PKGCONFIG="$as_dir/$ac_word$ac_exec_ext"
 +    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
 +    break 2
 +  fi
@@ -130,10 +122,10 @@ Index: b/configure
 +  ;;
 +esac
 +fi
-+PKG_CONFIG=$ac_cv_path_PKG_CONFIG
-+if test -n "$PKG_CONFIG"; then
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PKG_CONFIG" >&5
-+$as_echo "$PKG_CONFIG" >&6; }
++PKGCONFIG=$ac_cv_path_PKGCONFIG
++if test -n "$PKGCONFIG"; then
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $PKGCONFIG" >&5
++$as_echo "$PKGCONFIG" >&6; }
 +else
 +  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 +$as_echo "no" >&6; }
@@ -141,18 +133,18 @@ Index: b/configure
 +
 +
 +fi
-+if test -z "$ac_cv_path_PKG_CONFIG"; then
-+  ac_pt_PKG_CONFIG=$PKG_CONFIG
++if test -z "$ac_cv_path_PKGCONFIG"; then
++  ac_pt_PKGCONFIG=$PKGCONFIG
 +  # Extract the first word of "pkg-config", so it can be a program name with args.
 +set dummy pkg-config; ac_word=$2
 +{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
 +$as_echo_n "checking for $ac_word... " >&6; }
-+if ${ac_cv_path_ac_pt_PKG_CONFIG+:} false; then :
++if ${ac_cv_path_ac_pt_PKGCONFIG+:} false; then :
 +  $as_echo_n "(cached) " >&6
 +else
-+  case $ac_pt_PKG_CONFIG in
++  case $ac_pt_PKGCONFIG in
 +  [\\/]* | ?:[\\/]*)
-+  ac_cv_path_ac_pt_PKG_CONFIG="$ac_pt_PKG_CONFIG" # Let the user override the test with a path.
++  ac_cv_path_ac_pt_PKGCONFIG="$ac_pt_PKGCONFIG" # Let the user override the test with a path.
 +  ;;
 +  *)
 +  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
@@ -162,7 +154,7 @@ Index: b/configure
 +  test -z "$as_dir" && as_dir=.
 +    for ac_exec_ext in '' $ac_executable_extensions; do
 +  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-+    ac_cv_path_ac_pt_PKG_CONFIG="$as_dir/$ac_word$ac_exec_ext"
++    ac_cv_path_ac_pt_PKGCONFIG="$as_dir/$ac_word$ac_exec_ext"
 +    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
 +    break 2
 +  fi
@@ -173,17 +165,17 @@ Index: b/configure
 +  ;;
 +esac
 +fi
-+ac_pt_PKG_CONFIG=$ac_cv_path_ac_pt_PKG_CONFIG
-+if test -n "$ac_pt_PKG_CONFIG"; then
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_pt_PKG_CONFIG" >&5
-+$as_echo "$ac_pt_PKG_CONFIG" >&6; }
++ac_pt_PKGCONFIG=$ac_cv_path_ac_pt_PKGCONFIG
++if test -n "$ac_pt_PKGCONFIG"; then
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_pt_PKGCONFIG" >&5
++$as_echo "$ac_pt_PKGCONFIG" >&6; }
 +else
 +  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 +$as_echo "no" >&6; }
 +fi
 +
-+  if test "x$ac_pt_PKG_CONFIG" = x; then
-+    PKG_CONFIG="no"
++  if test "x$ac_pt_PKGCONFIG" = x; then
++    PKGCONFIG="no"
 +  else
 +    case $cross_compiling:$ac_tool_warned in
 +yes:)
@@ -191,18 +183,18 @@ Index: b/configure
 +$as_echo "$as_me: WARNING: using cross tools not prefixed with host triplet" >&2;}
 +ac_tool_warned=yes ;;
 +esac
-+    PKG_CONFIG=$ac_pt_PKG_CONFIG
++    PKGCONFIG=$ac_pt_PKGCONFIG
 +  fi
 +else
-+  PKG_CONFIG="$ac_cv_path_PKG_CONFIG"
++  PKGCONFIG="$ac_cv_path_PKGCONFIG"
 +fi
 +
-+		if test "$PKG_CONFIG" != "no"; then
++		if test "$PKGCONFIG" != "no"; then
 +			{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for ck-connector" >&5
 +$as_echo_n "checking for ck-connector... " >&6; }
-+			if $PKG_CONFIG --exists ck-connector; then
-+				CKCON_CFLAGS=`$PKG_CONFIG --cflags ck-connector`
-+				CKCON_LIBS=`$PKG_CONFIG --libs ck-connector`
++			if $PKGCONFIG --exists ck-connector; then
++				CKCON_CFLAGS=`$PKGCONFIG --cflags ck-connector`
++				CKCON_LIBS=`$PKGCONFIG --libs ck-connector`
 +				CPPFLAGS="$CPPFLAGS $CKCON_CFLAGS"
 +				SSHDLIBS="$SSHDLIBS $CKCON_LIBS"
 +				{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
@@ -224,7 +216,7 @@ Index: b/configure
  # Looking for programs, paths and files
  
  PRIVSEP_PATH=/var/empty
-@@ -17540,6 +17672,7 @@
+@@ -17597,6 +17728,7 @@
  echo "                   libedit support: $LIBEDIT_MSG"
  echo "  Solaris process contract support: $SPC_MSG"
  echo "           Solaris project support: $SP_MSG"
