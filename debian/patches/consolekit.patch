@@ -7,12 +7,12 @@ Index: b/Makefile.in
 ===================================================================
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -93,7 +93,8 @@
- 	loginrec.o auth-pam.o auth-shadow.o auth-sia.o md5crypt.o \
+@@ -94,7 +94,8 @@
  	sftp-server.o sftp-common.o \
  	roaming_common.o roaming_serv.o \
--	sandbox-null.o sandbox-rlimit.o sandbox-systrace.o sandbox-darwin.o
-+	sandbox-null.o sandbox-rlimit.o sandbox-systrace.o sandbox-darwin.o \
+ 	sandbox.o sandbox-null.o sandbox-rlimit.o sandbox-systrace.o \
+-	sandbox-darwin.o sandbox-seccomp-filter.o
++	sandbox-darwin.o sandbox-seccomp-filter.o \
 +	consolekit.o
  
  MANPAGES	= moduli.5.out scp.1.out ssh-add.1.out ssh-agent.1.out ssh-keygen.1.out ssh-keyscan.1.out ssh.1.out sshd.8.out sftp-server.8.out sftp.1.out ssh-keysign.8.out ssh-pkcs11-helper.8.out ssh-vulnkey.1.out sshd_config.5.out ssh_config.5.out
@@ -21,7 +21,7 @@ Index: b/configure.ac
 ===================================================================
 --- a/configure.ac
 +++ b/configure.ac
-@@ -3503,6 +3503,30 @@
+@@ -3596,6 +3596,30 @@
  	]
  )
  
@@ -52,7 +52,7 @@ Index: b/configure.ac
  # Looking for programs, paths and files
  
  PRIVSEP_PATH=/var/empty
-@@ -4263,6 +4287,7 @@
+@@ -4356,6 +4380,7 @@
  echo "                   libedit support: $LIBEDIT_MSG"
  echo "  Solaris process contract support: $SPC_MSG"
  echo "           Solaris project support: $SP_MSG"
@@ -64,7 +64,7 @@ Index: b/configure
 ===================================================================
 --- a/configure
 +++ b/configure
-@@ -734,6 +734,7 @@
+@@ -735,6 +735,7 @@
  with_sandbox
  with_selinux
  with_kerberos5
@@ -72,15 +72,15 @@ Index: b/configure
  with_privsep_path
  with_xauth
  enable_strip
-@@ -1423,6 +1424,7 @@
-   --with-sandbox=style    Specify privilege separation sandbox (no, darwin, rlimit, systrace)
+@@ -1425,6 +1426,7 @@
+   --with-sandbox=style    Specify privilege separation sandbox (no, darwin, rlimit, systrace, seccomp_filter)
    --with-selinux          Enable SELinux support
    --with-kerberos5=PATH   Enable Kerberos 5 support
 +  --with-consolekit       Enable ConsoleKit support
    --with-privsep-path=xxx Path for privilege separation chroot (default=/var/empty)
    --with-xauth=PATH       Specify path to xauth program
    --with-maildir=/path/to/mail    Specify your system mail directory
-@@ -15128,6 +15130,135 @@
+@@ -15537,6 +15539,135 @@
  fi
  
  
@@ -216,7 +216,7 @@ Index: b/configure
  # Looking for programs, paths and files
  
  PRIVSEP_PATH=/var/empty
-@@ -17597,6 +17728,7 @@
+@@ -18006,6 +18137,7 @@
  echo "                   libedit support: $LIBEDIT_MSG"
  echo "  Solaris process contract support: $SPC_MSG"
  echo "           Solaris project support: $SP_MSG"
@@ -552,7 +552,7 @@ Index: b/monitor.c
  
  	for (;;)
  		monitor_read(pmonitor, mon_dispatch, NULL);
-@@ -2198,6 +2214,34 @@
+@@ -2199,6 +2215,34 @@
  	buffer_put_int(m, major);
  	buffer_put_string(m, hash.value, hash.length);
  
