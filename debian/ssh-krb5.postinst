@@ -58,12 +58,9 @@ GSSAPIKeyExchange yes
 EOF
             fi
         fi
-        if [ -n "$changed" ] && [ -x /etc/init.d/ssh ] ; then
-            if [ -x /usr/sbin/invoke-rc.d ] ; then
-                invoke-rc.d ssh restart
-            else
-                /etc/init.d/ssh restart
-            fi
+        if [ -n "$changed" ] && [ -e /etc/init/ssh.conf ] ; then
+            stop ssh || true
+            start ssh || true
         fi
     fi
 fi
