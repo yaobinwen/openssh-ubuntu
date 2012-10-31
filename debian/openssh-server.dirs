@@ -1,3 +1,4 @@
+etc/init
 etc/init.d
 etc/default
 etc/network/if-up.d
