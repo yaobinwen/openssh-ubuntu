@@ -40,3 +40,8 @@ doc-hash-tab-completion.patch
 # Debian-specific configuration
 gnome-ssh-askpass2-icon.patch
 debian-config.patch
+
+# Ubuntu additions
+consolekit.patch
+doc-upstart.patch
+mention-ssh-keygen-on-keychange.patch
