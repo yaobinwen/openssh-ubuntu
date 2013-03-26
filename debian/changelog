@@ -1,3 +1,12 @@
+openssh (1:5.9p1-5ubuntu1.1) precise; urgency=low
+
+  [ Gunnar Hjalmarsson ]
+  * debian/openssh-server.sshd.pam: Explicitly state that ~/.pam_environment
+    should be read, and move the pam_env calls from "auth" to "session" so
+    that it's also read when $HOME is encrypted (LP: #952185).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Tue, 26 Mar 2013 14:15:06 +0000
+
 openssh (1:5.9p1-5ubuntu1) precise; urgency=low
 
   * Resynchronise with Debian.  Remaining changes:
