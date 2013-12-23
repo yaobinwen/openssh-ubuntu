@@ -216,7 +216,7 @@ seed_rng(void)
 	 * allow 1.0.1 to work with 1.0.0). Going backwards is only allowed
 	 * within a patch series.
 	 */
-	u_long version_mask = SSLeay() >= 0x1000000f ?  ~0xffff0L : ~0xff0L;
+	u_long version_mask = SSLeay() >= 0x1000000f ?  ~0xfffffL : ~0xff0L;
 	if (((SSLeay() ^ OPENSSL_VERSION_NUMBER) & version_mask) ||
 	    (SSLeay() >> 12) < (OPENSSL_VERSION_NUMBER >> 12))
 		fatal("OpenSSL version mismatch. Built against %lx, you "
