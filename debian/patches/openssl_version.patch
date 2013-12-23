@@ -1,0 +1,23 @@
+From: Kurt Roeckx <kurt@roeckx.be>
+Date: Mon, 23 Dec 2013 10:44:43 +0100
+Subject: Don't check the status field of the openssl version
+
+There is no reason to check the version of openssl (in Debian).  If it's not
+compatible the soname will change.  Openssh seems to want to do a check for the
+soname based on the version number, but wants to keep the status of the release
+the same.  Remove that check on the status since it doesn't tell you anything
+about how compatible that version is.
+
+Index: openssh-6.4p1/entropy.c
+===================================================================
+--- openssh-6.4p1.orig/entropy.c	2013-12-23 11:08:36.035642096 +0100
++++ openssh-6.4p1/entropy.c	2013-12-23 11:08:52.723282762 +0100
+@@ -216,7 +216,7 @@
+ 	 * allow 1.0.1 to work with 1.0.0). Going backwards is only allowed
+ 	 * within a patch series.
+ 	 */
+-	u_long version_mask = SSLeay() >= 0x1000000f ?  ~0xffff0L : ~0xff0L;
++	u_long version_mask = SSLeay() >= 0x1000000f ?  ~0xfffffL : ~0xff0L;
+ 	if (((SSLeay() ^ OPENSSL_VERSION_NUMBER) & version_mask) ||
+ 	    (SSLeay() >> 12) < (OPENSSL_VERSION_NUMBER >> 12))
+ 		fatal("OpenSSL version mismatch. Built against %lx, you "
