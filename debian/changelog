@@ -1,3 +1,12 @@
+openssh (1:6.0p1-3ubuntu1.1) quantal-security; urgency=medium
+
+  * SECURITY UPDATE: AcceptEnv wildcard environment restrictions bypass
+    - debian/patches/CVE-2014-2532.patch: don't allow invalid chars in
+      session.c.
+    - CVE-2014-2532
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Fri, 21 Mar 2014 11:05:15 -0400
+
 openssh (1:6.0p1-3ubuntu1) quantal; urgency=low
 
   * Resynchronise with Debian.  Remaining changes:
