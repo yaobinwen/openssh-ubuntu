@@ -1,3 +1,12 @@
+openssh (1:5.3p1-3ubuntu7.1) lucid-security; urgency=medium
+
+  * SECURITY UPDATE: AcceptEnv wildcard environment restrictions bypass
+    - debian/patches/CVE-2014-2532.patch: don't allow invalid chars in
+      session.c.
+    - CVE-2014-2532
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Fri, 21 Mar 2014 11:07:31 -0400
+
 openssh (1:5.3p1-3ubuntu7) lucid-proposed; urgency=low
 
   [ Clint Byrum ]
