@@ -50,3 +50,4 @@ debian-config.patch
 consolekit.patch
 doc-upstart.patch
 mention-ssh-keygen-on-keychange.patch
+CVE-2014-2532.patch
