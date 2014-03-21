@@ -951,6 +951,11 @@ child_set_env(char ***envp, u_int *envsizep, const char *name,
 		*envsizep = 1;
 	}
 
+	if (strchr(name, '=') != NULL) {
+		error("Invalid environment variable \"%.100s\"", name);
+		return;
+	}
+
 	/*
 	 * Find the slot where the value should be stored.  If the variable
 	 * already exists, we reuse the slot; otherwise we append a new slot
