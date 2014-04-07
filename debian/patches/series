@@ -49,3 +49,4 @@ consolekit.patch
 doc-upstart.patch
 mention-ssh-keygen-on-keychange.patch
 CVE-2014-2532.patch
+CVE-2014-2653.patch
