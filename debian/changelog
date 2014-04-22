@@ -1,3 +1,10 @@
+openssh (1:5.9p1-5ubuntu1.4) precise; urgency=medium
+
+  * Re-enable btmp logging, as its permissions were fixed a long time ago.
+    Backport from Debian and Trusty. (LP: #743858)
+
+ -- Louis Bouchard <louis.bouchard@ubuntu.com>  Tue, 22 Apr 2014 08:28:40 -0500
+
 openssh (1:5.9p1-5ubuntu1.3) precise-security; urgency=medium
 
   * SECURITY UPDATE: failure to check SSHFP records if server presents a
