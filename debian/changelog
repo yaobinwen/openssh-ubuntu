@@ -1,3 +1,10 @@
+openssh (1:6.6p1-5build1) utopic; urgency=high
+
+  * No change rebuild against new dh_installinit, to call update-rc.d at
+    postinst.
+
+ -- Dimitri John Ledkov <xnox@ubuntu.com>  Wed, 28 May 2014 10:42:16 +0100
+
 openssh (1:6.6p1-5) unstable; urgency=medium
 
   * Force ssh-agent Upstart job to use sh syntax regardless of the user's
