@@ -1,0 +1,33 @@
+From 5e75f5198769056089fb06c4d738ab0e5abc66f7 Mon Sep 17 00:00:00 2001
+From: Damien Miller <djm@mindrot.org>
+Date: Tue, 11 Aug 2015 13:34:12 +1000
+Subject: [PATCH] set sshpam_ctxt to NULL after free
+
+Avoids use-after-free in monitor when privsep child is compromised.
+Reported by Moritz Jodeit; ok dtucker@
+---
+ monitor.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+Index: openssh-6.6p1/monitor.c
+===================================================================
+--- openssh-6.6p1.orig/monitor.c	2015-08-14 07:30:51.083855870 -0400
++++ openssh-6.6p1/monitor.c	2015-08-14 07:30:51.079855837 -0400
+@@ -1168,14 +1168,16 @@
+ int
+ mm_answer_pam_free_ctx(int sock, Buffer *m)
+ {
++	int r = sshpam_authok != NULL && sshpam_authok == sshpam_ctxt;
+ 
+ 	debug3("%s", __func__);
+ 	(sshpam_device.free_ctx)(sshpam_ctxt);
++	sshpam_ctxt = sshpam_authok = NULL;
+ 	buffer_clear(m);
+ 	mm_request_send(sock, MONITOR_ANS_PAM_FREE_CTX, m);
+ 	auth_method = "keyboard-interactive";
+ 	auth_submethod = "pam";
+-	return (sshpam_authok == sshpam_ctxt);
++	return r;
+ }
+ #endif
+ 
