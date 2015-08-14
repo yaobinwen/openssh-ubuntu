@@ -1,3 +1,25 @@
+openssh (1:6.6p1-2ubuntu2.2) trusty-security; urgency=medium
+
+  * SECURITY UPDATE: possible user impersonation via PAM support
+    - debian/patches/pam-security-1.patch: don't resend username to PAM in
+      monitor.c, monitor_wrap.c.
+    - CVE number pending
+  * SECURITY UPDATE: use-after-free in PAM support
+    - debian/patches/pam-security-2.patch: fix use after free in monitor.c.
+    - CVE number pending
+  * SECURITY UPDATE: 
+    - debian/patches/CVE-2015-5600.patch: only query each
+      keyboard-interactive device once per authentication request in
+      auth2-chall.c.
+    - CVE-2015-5600
+  * SECURITY UPDATE: X connections access restriction bypass
+    - debian/patches/CVE-2015-5352.patch: refuse ForwardX11Trusted=no
+      connections attempted after ForwardX11Timeout expires in channels.c,
+      channels.h, clientloop.c.
+    - CVE-2015-5352
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Fri, 14 Aug 2015 07:31:00 -0400
+
 openssh (1:6.6p1-2ubuntu2) trusty; urgency=medium
 
   * Apply upstream-recommended patch to fix bignum encoding for

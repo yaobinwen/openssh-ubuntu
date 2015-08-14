@@ -28,3 +28,7 @@ sigstop.patch
 debian-config.patch
 sshfp_with_server_cert_upstr
 curve25519-sha256-bignum-encoding.patch
+CVE-2015-5600.patch
+pam-security-1.patch
+pam-security-2.patch
+CVE-2015-5352.patch
