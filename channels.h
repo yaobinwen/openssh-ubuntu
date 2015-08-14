@@ -267,6 +267,7 @@ int	 channel_cancel_rport_listener(const char *, u_short);
 
 /* x11 forwarding */
 
+void	 channel_set_x11_refuse_time(u_int);
 int	 x11_connect_display(void);
 int	 x11_create_display_inet(int, int, int, u_int *, int **);
 void     x11_input_open(int, u_int32_t, void *);
