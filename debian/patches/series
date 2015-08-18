@@ -31,3 +31,4 @@ CVE-2015-5600.patch
 pam-security-1.patch
 pam-security-2.patch
 CVE-2015-5352.patch
+CVE-2015-5600-2.patch
