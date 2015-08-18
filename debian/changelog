@@ -1,3 +1,11 @@
+openssh (1:5.9p1-5ubuntu1.7) precise-security; urgency=medium
+
+  * SECURITY REGRESSION: random auth failures because of uninitialized
+    struct field (LP: #1485719)
+    - debian/patches/CVE-2015-5600-2.patch:
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Mon, 17 Aug 2015 21:53:19 -0400
+
 openssh (1:5.9p1-5ubuntu1.6) precise-security; urgency=medium
 
   * SECURITY UPDATE: possible user impersonation via PAM support
