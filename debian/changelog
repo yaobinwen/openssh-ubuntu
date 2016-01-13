@@ -1,3 +1,13 @@
+openssh (1:6.9p1-2ubuntu0.1) wily-security; urgency=medium
+
+  * SECURITY UPDATE: information leak and overflow in roaming support
+    - debian/patches/CVE-2016-077x.patch: completely disable roaming option
+      in readconf.c.
+    - CVE-2016-0777
+    - CVE-2016-0778
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Wed, 13 Jan 2016 10:44:06 -0500
+
 openssh (1:6.9p1-2) unstable; urgency=medium
 
   [ Colin Watson ]
