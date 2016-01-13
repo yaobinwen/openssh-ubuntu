@@ -1,3 +1,13 @@
+openssh (1:6.7p1-5ubuntu1.4) vivid-security; urgency=medium
+
+  * SECURITY UPDATE: information leak and overflow in roaming support
+    - debian/patches/CVE-2016-077x.patch: completely disable roaming option
+      in readconf.c.
+    - CVE-2016-0777
+    - CVE-2016-0778
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Wed, 13 Jan 2016 10:47:46 -0500
+
 openssh (1:6.7p1-5ubuntu1.3) vivid-security; urgency=medium
 
   * SECURITY REGRESSION: random auth failures because of uninitialized
