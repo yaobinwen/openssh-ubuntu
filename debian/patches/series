@@ -34,3 +34,4 @@ pam-security-2.patch
 CVE-2015-5352.patch
 CVE-2015-5600-2.patch
 CVE-2016-077x.patch
+report-max-auth.patch
