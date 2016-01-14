@@ -49,6 +49,7 @@
 #include "dispatch.h"
 #include "pathnames.h"
 #include "buffer.h"
+#include "canohost.h"
 
 #ifdef GSSAPI
 #include "ssh-gss.h"
@@ -370,6 +371,13 @@ userauth_finish(Authctxt *authctxt, int authenticated, const char *method,
 #ifdef SSH_AUDIT_EVENTS
 			PRIVSEP(audit_event(SSH_LOGIN_EXCEED_MAXTRIES));
 #endif
+			error("maximum authentication attempts exceeded for "
+				"%s%.100s from %.200s port %d %s",
+				authctxt->valid ? "" : "invalid user ",
+				authctxt->user,
+				get_remote_ipaddr(),
+				get_remote_port(),
+				compat20 ? "ssh2" : "ssh1");
 			packet_disconnect(AUTH_FAIL_MSG, authctxt->user);
 		}
 		methods = authmethods_get(authctxt);
