@@ -1,3 +1,9 @@
+openssh (1:6.6p1-2ubuntu2.6) trusty; urgency=medium
+
+  * debian/control, debian/rules: enable libaudit support. (LP: #1478087)
+
+ -- Mathieu Trudel-Lapierre <mathieu-tl@ubuntu.com>  Tue, 26 Jan 2016 10:38:35 -0500
+
 openssh (1:6.6p1-2ubuntu2.5) trusty-proposed; urgency=medium
 
   * Backport upstream reporting of max auth attempts, so that fail2bail
