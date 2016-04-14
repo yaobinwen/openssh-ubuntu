@@ -50,3 +50,4 @@ debian-config.patch
 CVE-2014-2532.patch
 CVE-2014-2653.patch
 disable-roaming.patch
+CVE-2015-8325.patch
