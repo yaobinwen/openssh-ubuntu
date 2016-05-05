@@ -33,3 +33,8 @@ backport-pam-use-after-free.patch
 backport-kbdint-duplicates.patch
 backport-regress-principals-command-noexec.patch
 CVE-2016-077x.patch
+CVE-2015-8325.patch
+CVE-2016-1907.patch
+CVE-2016-1908-1.patch
+CVE-2016-1908-2.patch
+CVE-2016-3115.patch
