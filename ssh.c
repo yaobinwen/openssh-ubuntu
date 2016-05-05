@@ -1405,6 +1405,7 @@ ssh_session(void)
 	struct winsize ws;
 	char *cp;
 	const char *display;
+	char *proto = NULL, *data = NULL;
 
 	/* Enable compression if requested. */
 	if (options.compression) {
@@ -1473,13 +1474,9 @@ ssh_session(void)
 	}
 	/* Request X11 forwarding if enabled and DISPLAY is set. */
 	display = getenv("DISPLAY");
-	if (options.forward_x11 && display != NULL) {
-		char *proto, *data;
-		/* Get reasonable local authentication information. */
-		client_x11_get_proto(display, options.xauth_location,
-		    options.forward_x11_trusted,
-		    options.forward_x11_timeout,
-		    &proto, &data);
+	if (options.forward_x11 && client_x11_get_proto(display,
+	    options.xauth_location, options.forward_x11_trusted,
+	    options.forward_x11_timeout, &proto, &data) == 0) {
 		/* Request forwarding with authentication spoofing. */
 		debug("Requesting X11 forwarding with authentication "
 		    "spoofing.");
@@ -1569,17 +1566,15 @@ ssh_session2_setup(int id, int success, void *arg)
 	extern char **environ;
 	const char *display;
 	int interactive = tty_flag;
+	char *proto = NULL, *data = NULL;
 
 	if (!success)
 		return; /* No need for error message, channels code sens one */
 
 	display = getenv("DISPLAY");
-	if (options.forward_x11 && display != NULL) {
-		char *proto, *data;
-		/* Get reasonable local authentication information. */
-		client_x11_get_proto(display, options.xauth_location,
-		    options.forward_x11_trusted,
-		    options.forward_x11_timeout, &proto, &data);
+	if (options.forward_x11 && client_x11_get_proto(display,
+	    options.xauth_location, options.forward_x11_trusted,
+	    options.forward_x11_timeout, &proto, &data) == 0) {
 		/* Request forwarding with authentication spoofing. */
 		debug("Requesting X11 forwarding with authentication "
 		    "spoofing.");
