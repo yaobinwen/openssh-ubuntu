@@ -1,3 +1,11 @@
+openssh (1:7.2p2-4ubuntu2) xenial; urgency=medium
+
+  * debian/openssh-server.if-up: Don't block on a finished reload of
+    openssh.service, to avoid deadlocking with restarting networking.
+    (Closes: #832557, LP: #1584393)
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Sun, 31 Jul 2016 10:51:01 +0200
+
 openssh (1:7.2p2-4ubuntu1) xenial; urgency=medium
 
   * Backport upstream patch to unbreak authentication using lone certificate
