@@ -148,6 +148,9 @@ static char *x11_saved_proto = NULL;
 static char *x11_saved_data = NULL;
 static u_int x11_saved_data_len = 0;
 
+/* Deadline after which all X11 connections are refused */
+static u_int x11_refuse_time;
+
 /*
  * Fake X11 authentication data.  This is what the server will be sending us;
  * we should replace any occurrences of this by the real data.
@@ -883,6 +886,13 @@ x11_open_helper(Buffer *b)
 	u_char *ucp;
 	u_int proto_len, data_len;
 
+	/* Is this being called after the refusal deadline? */
+	if (x11_refuse_time != 0 && (u_int)time(NULL) >= x11_refuse_time) {
+		verbose("Rejected X11 connection after ForwardX11Timeout "
+		    "expired");
+		return -1;
+	}
+
 	/* Check if the fixed size part of the packet is in buffer. */
 	if (buffer_len(b) < 12)
 		return 0;
@@ -1436,6 +1446,12 @@ channel_set_reuseaddr(int fd)
 	 */
 	if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) == -1)
 		error("setsockopt SO_REUSEADDR fd %d: %s", fd, strerror(errno));
+}
+
+void
+channel_set_x11_refuse_time(u_int refuse_time)
+{
+	x11_refuse_time = refuse_time;
 }
 
 /*
