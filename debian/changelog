@@ -1,3 +1,11 @@
+openssh (1:7.2p2-4ubuntu2.2) xenial; urgency=medium
+
+  * Fix ssh-keygen -H accidentally corrupting known_hosts that contained
+    already-hashed entries (LP: #1668093).
+  * Fix ssh-keyscan to correctly hash hosts with a port number (LP: #1670745).
+
+ -- Christian Ehrhardt <christian.ehrhardt@canonical.com>  Wed, 15 Mar 2017 13:16:56 +0100
+
 openssh (1:7.2p2-4ubuntu2.1) xenial-security; urgency=medium
 
   * SECURITY UPDATE: user enumeration via covert timing channel
