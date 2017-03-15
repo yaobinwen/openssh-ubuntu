@@ -1,3 +1,11 @@
+openssh (1:7.3p1-1ubuntu0.1) yakkety; urgency=medium
+
+  * Fix ssh-keygen -H accidentally corrupting known_hosts that contained
+    already-hashed entries (LP: #1668093).
+  * Fix ssh-keyscan to correctly hash hosts with a port number (LP: #1670745).
+
+ -- Christian Ehrhardt <christian.ehrhardt@canonical.com>  Wed, 15 Mar 2017 14:25:22 +0100
+
 openssh (1:7.3p1-1) unstable; urgency=medium
 
   * New upstream release (http://www.openssh.com/txt/release-7.3):
