@@ -25,3 +25,6 @@ gnome-ssh-askpass2-icon.patch
 sigstop.patch
 systemd-readiness.patch
 debian-config.patch
+ssh-keygen-hash-corruption.patch
+ssh-keyscan-hash-port.patch
+ssh-keygen-fix-null-deref.patch
