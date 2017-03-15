@@ -31,3 +31,6 @@ CVE-2016-6210-1.patch
 CVE-2016-6210-2.patch
 CVE-2016-6210-3.patch
 CVE-2016-6515.patch
+ssh-keygen-hash-corruption.patch
+ssh-keyscan-hash-port.patch
+ssh-keygen-fix-null-deref.patch
