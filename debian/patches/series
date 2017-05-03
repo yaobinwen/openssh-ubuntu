@@ -34,3 +34,6 @@ ssh-keygen-hash-corruption.patch
 ssh-keyscan-hash-port.patch
 ssh-keygen-null-deref.patch
 unbreak-unix-forwarding-for-root.patch
+support-ioctls-for-ICA-crypto-card-on-Linux-s390.patch
+Fix-weakness-in-seccomp-bpf-sandbox-arg-inspection.patch
+Missing-header-on-Linux-s390.patch
