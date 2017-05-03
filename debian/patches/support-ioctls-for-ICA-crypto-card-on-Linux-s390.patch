@@ -1,0 +1,30 @@
+From 5f1596e11d55539678c41f68aed358628d33d86f Mon Sep 17 00:00:00 2001
+From: Damien Miller <djm@mindrot.org>
+Date: Tue, 14 Mar 2017 13:15:18 +1100
+Subject: [PATCH] support ioctls for ICA crypto card on Linux/s390
+
+Based on patch from Eduardo Barretto; ok dtucker@
+---
+ sandbox-seccomp-filter.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/sandbox-seccomp-filter.c b/sandbox-seccomp-filter.c
+index af5525a..6ceee33 100644
+--- a/sandbox-seccomp-filter.c
++++ b/sandbox-seccomp-filter.c
+@@ -223,6 +223,12 @@ static const struct sock_filter preauth_insns[] = {
+ #ifdef __NR_socketcall
+ 	SC_ALLOW_ARG(socketcall, 0, SYS_SHUTDOWN),
+ #endif
++#if defined(__NR_ioctl) && defined(__s390__)
++	/* Allow ioctls for ICA crypto card on s390 */
++	SC_ALLOW_ARG(ioctl, 1, Z90STAT_STATUS_MASK),
++	SC_ALLOW_ARG(ioctl, 1, ICARSAMODEXPO),
++	SC_ALLOW_ARG(ioctl, 1, ICARSACRT),
++#endif /* defined(__NR_ioctl) && defined(__s390__) */
+ 
+ 	/* Default deny */
+ 	BPF_STMT(BPF_RET+BPF_K, SECCOMP_FILTER_FAIL),
+-- 
+2.7.4
+
