@@ -1,0 +1,34 @@
+From 4f81cc234e744c774ff1545347e2af4cc0760539 Mon Sep 17 00:00:00 2001
+From: Harald Freudenberger <freude@linux.vnet.ibm.com>
+Date: Tue, 9 May 2017 11:53:07 +0200
+Subject: [PATCH] Permit geteuid syscall for Linux on s390
+
+The geteuid syscall is used by libica during shared lib initialization.
+So when openssl with ibmca engine and libica is used by openssh, this
+syscall causes a signal 31 issued by sandbox-seccomp filter.
+
+Added a rule which allows the geteuid syscall the s390 platform.
+
+Signed-off-by: Harald Freudenberger <freude@linux.vnet.ibm.com>
+---
+ sandbox-seccomp-filter.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/sandbox-seccomp-filter.c b/sandbox-seccomp-filter.c
+index ca75cc7..21cc080 100644
+--- a/sandbox-seccomp-filter.c
++++ b/sandbox-seccomp-filter.c
+@@ -233,6 +233,10 @@ static const struct sock_filter preauth_insns[] = {
+ 	SC_ALLOW_ARG(__NR_ioctl, 1, ICARSAMODEXPO),
+ 	SC_ALLOW_ARG(__NR_ioctl, 1, ICARSACRT),
+ #endif
++#if defined(__NR_geteuid) && defined(__s390__)
++	/* Allow geteuid for ICA crypto card on s390 */
++	SC_ALLOW(__NR_geteuid),
++#endif
+ #if defined(__x86_64__) && defined(__ILP32__) && defined(__X32_SYSCALL_BIT)
+ 	/*
+ 	 * On Linux x32, the clock_gettime VDSO falls back to the
+-- 
+2.7.4
+
