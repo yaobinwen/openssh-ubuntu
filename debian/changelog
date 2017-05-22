@@ -1,3 +1,12 @@
+openssh (1:7.5p1-3ubuntu1) artful; urgency=medium
+
+  * On s390x, allow geteuid syscall in the sandbox, to allow openssh
+    connections to work when hw accelerated cryptography is enabled. This
+    patch is to be replaced by the one accepted upstream, when
+    reviewed. LP: #1686618
+
+ -- Dimitri John Ledkov <xnox@ubuntu.com>  Mon, 22 May 2017 13:13:59 +0100
+
 openssh (1:7.5p1-3) experimental; urgency=medium
 
   * Fix debian/adjust-openssl-dependencies to account for preferring
