@@ -28,3 +28,6 @@ restore-authorized_keys2.patch
 s390-missing-header.patch
 x32-syntax-error.patch
 fix-incoming-compression-statistics.patch
+0001-Allow-flock-and-ipc-syscall-for-s390-architecture.patch
+0002-Allow-getuid-and-geteuid-calls.patch
+0003-Enable-specific-ioctl-call-for-EP11-crypto-card-s390.patch
