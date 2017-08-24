@@ -1,3 +1,12 @@
+openssh (1:7.5p1-7ubuntu2) artful; urgency=medium
+
+  * Enable haveged during autopkgtest, as virtual machines appear to run
+    out of entropy when networkd is enabled in the instance at the same
+    time. This will be further investigated, as it is not reasonable for
+    networkd to eat up all the previously available entropy. LP: #1712921
+
+ -- Dimitri John Ledkov <xnox@ubuntu.com>  Thu, 24 Aug 2017 22:55:53 +0100
+
 openssh (1:7.5p1-7ubuntu1) artful; urgency=low
 
   * Merge from Debian unstable.  Remaining changes:

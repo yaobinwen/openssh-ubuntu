@@ -1,6 +1,7 @@
 Tests: regress
 Restrictions: needs-root allow-stderr
 Depends: devscripts,
+         haveged,
          openssh-client,
          openssh-server,
          openssh-sftp-server,

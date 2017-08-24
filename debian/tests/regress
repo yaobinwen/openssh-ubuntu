@@ -5,6 +5,8 @@ if [ "$(id -un)" != openssh-tests ]; then
 	TMP="$ADTTMP/user"
 
 	cleanup () {
+		systemctl disable haveged || true
+		systemctl stop haveged || true
 		rm -rf "$TMP"
 		rm -f /etc/sudoers.d/openssh-tests
 		if id openssh-tests >/dev/null 2>&1; then
@@ -21,6 +23,12 @@ EOF
 	mkdir -p "$TMP"
 	cp -a . "$TMP/tree"
 	chown -R openssh-tests:openssh-tests "$TMP"
+
+	# If we're running in a container, haveged may not have started
+	# automatically.
+	systemctl enable haveged || true
+	systemctl start haveged || true
+
 	sudo -u openssh-tests env TMP="$TMP" "$0" "$@"
 	exit "$?"
 fi
