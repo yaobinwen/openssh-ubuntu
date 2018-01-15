@@ -314,11 +314,10 @@ client_x11_get_proto(const char *display, const char *xauth_path,
 	static char proto[512], data[512];
 	FILE *f;
 	int got_data = 0, generated = 0, do_unlink = 0, i;
-	char *xauthdir, *xauthfile;
+	char xauthdir[MAXPATHLEN] = "", xauthfile[MAXPATHLEN] = "";
 	struct stat st;
 	u_int now, x11_timeout_real;
 
-	xauthdir = xauthfile = NULL;
 	*_proto = proto;
 	*_data = data;
 	proto[0] = data[0] = '\0';
@@ -346,8 +345,6 @@ client_x11_get_proto(const char *display, const char *xauth_path,
 			display = xdisplay;
 		}
 		if (trusted == 0) {
-			xauthdir = xmalloc(MAXPATHLEN);
-			xauthfile = xmalloc(MAXPATHLEN);
 			mktemp_proto(xauthdir, MAXPATHLEN);
 			/*
 			 * The authentication cookie should briefly outlive
@@ -410,8 +407,6 @@ client_x11_get_proto(const char *display, const char *xauth_path,
 		unlink(xauthfile);
 		rmdir(xauthdir);
 	}
-	free(xauthdir);
-	free(xauthfile);
 
 	/*
 	 * If we didn't get authentication data, just make up some
