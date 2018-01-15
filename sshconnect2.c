@@ -178,10 +178,10 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
 	    compat_cipher_proposal(options.ciphers);
 	if (options.compression) {
 		myproposal[PROPOSAL_COMP_ALGS_CTOS] =
-		myproposal[PROPOSAL_COMP_ALGS_STOC] = "zlib@openssh.com,none";
+		myproposal[PROPOSAL_COMP_ALGS_STOC] = "zlib@openssh.com,zlib,none";
 	} else {
 		myproposal[PROPOSAL_COMP_ALGS_CTOS] =
-		myproposal[PROPOSAL_COMP_ALGS_STOC] = "none,zlib@openssh.com";
+		myproposal[PROPOSAL_COMP_ALGS_STOC] = "none,zlib@openssh.com,zlib";
 	}
 	myproposal[PROPOSAL_MAC_ALGS_CTOS] =
 	    myproposal[PROPOSAL_MAC_ALGS_STOC] = options.macs;
