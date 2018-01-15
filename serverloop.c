@@ -984,6 +984,10 @@ server_request_direct_streamlocal(void)
 	Channel *c = NULL;
 	char *target, *originator;
 	u_short originator_port;
+	struct passwd *pw = the_authctxt->pw;
+
+	if (pw == NULL || !the_authctxt->valid)
+		fatal("server_input_global_request: no/invalid user");
 
 	target = packet_get_string(NULL);
 	originator = packet_get_string(NULL);
@@ -995,7 +999,7 @@ server_request_direct_streamlocal(void)
 
 	/* XXX fine grained permissions */
 	if ((options.allow_streamlocal_forwarding & FORWARD_LOCAL) != 0 &&
-	    !no_port_forwarding_flag && use_privsep) {
+	    !no_port_forwarding_flag && (pw->pw_uid == 0 || use_privsep)) {
 		c = channel_connect_to_path(target,
 		    "direct-streamlocal@openssh.com", "direct-streamlocal");
 	} else {
@@ -1217,6 +1221,10 @@ server_input_global_request(int type, u_int32_t seq, void *ctxt)
 	int want_reply;
 	int r, success = 0, allocated_listen_port = 0;
 	struct sshbuf *resp = NULL;
+	struct passwd *pw = the_authctxt->pw;
+
+	if (pw == NULL || !the_authctxt->valid)
+		fatal("server_input_global_request: no/invalid user");
 
 	rtype = packet_get_string(NULL);
 	want_reply = packet_get_char();
@@ -1224,12 +1232,8 @@ server_input_global_request(int type, u_int32_t seq, void *ctxt)
 
 	/* -R style forwarding */
 	if (strcmp(rtype, "tcpip-forward") == 0) {
-		struct passwd *pw;
 		struct Forward fwd;
 
-		pw = the_authctxt->pw;
-		if (pw == NULL || !the_authctxt->valid)
-			fatal("server_input_global_request: no/invalid user");
 		memset(&fwd, 0, sizeof(fwd));
 		fwd.listen_host = packet_get_string(NULL);
 		fwd.listen_port = (u_short)packet_get_int();
@@ -1279,9 +1283,10 @@ server_input_global_request(int type, u_int32_t seq, void *ctxt)
 
 		/* check permissions */
 		if ((options.allow_streamlocal_forwarding & FORWARD_REMOTE) == 0
-		    || no_port_forwarding_flag || !use_privsep) {
+		    || no_port_forwarding_flag || (pw->pw_uid != 0 && !use_privsep)) {
 			success = 0;
-			packet_send_debug("Server has disabled port forwarding.");
+			packet_send_debug("Server has disabled "
+			    "streamlocal forwarding.");
 		} else {
 			/* Start listening on the socket */
 			success = channel_setup_remote_fwd_listener(
