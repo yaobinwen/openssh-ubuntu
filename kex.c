@@ -406,8 +406,6 @@ choose_comp(Comp *comp, char *client, char *server)
 		fatal("no matching comp found: client %s server %s", client, server);
 	if (strcmp(name, "zlib@openssh.com") == 0) {
 		comp->type = COMP_DELAYED;
-	} else if (strcmp(name, "zlib") == 0) {
-		comp->type = COMP_ZLIB;
 	} else if (strcmp(name, "none") == 0) {
 		comp->type = COMP_NONE;
 	} else {
