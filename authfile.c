@@ -694,6 +694,15 @@ key_load_file(int fd, const char *filename, Buffer *blob)
 		    filename == NULL ? "" : " ");
 		return 0;
 	}
+	/*
+	 * Pre-allocate the buffer used for the key contents and clamp its
+	 * maximum size. This ensures that key contents are never leaked via
+	 * implicit realloc() in the sshbuf code.
+	 */
+	if ((st.st_mode & S_IFREG) == 0 || st.st_size <= 0) {
+		st.st_size = 64*1024; /* 64k should be enough for anyone :) */
+	}
+	buffer_append_space(blob, st.st_size);
 	buffer_clear(blob);
 	for (;;) {
 		if ((len = atomicio(read, fd, buf, sizeof(buf))) == 0) {
@@ -706,12 +715,13 @@ key_load_file(int fd, const char *filename, Buffer *blob)
 			explicit_bzero(buf, sizeof(buf));
 			return 0;
 		}
-		buffer_append(blob, buf, len);
-		if (buffer_len(blob) > MAX_KEY_FILE_SIZE) {
+		/* first check limits to prevent automatic buffer blow-up */
+		if (buffer_len(blob) + len > (u_int)st.st_size) {
 			buffer_clear(blob);
 			explicit_bzero(buf, sizeof(buf));
 			goto toobig;
 		}
+		buffer_append(blob, buf, len);
 	}
 	explicit_bzero(buf, sizeof(buf));
 	if ((st.st_mode & (S_IFSOCK|S_IFCHR|S_IFIFO)) == 0 &&

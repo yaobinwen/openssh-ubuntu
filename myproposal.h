@@ -130,7 +130,7 @@
 	"hmac-sha1-96," \
 	"hmac-md5-96"
 
-#define	KEX_DEFAULT_COMP	"none,zlib@openssh.com,zlib"
+#define	KEX_DEFAULT_COMP	"none,zlib@openssh.com"
 #define	KEX_DEFAULT_LANG	""
 
 
