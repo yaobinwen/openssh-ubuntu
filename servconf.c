@@ -955,8 +955,8 @@ static const struct multistate multistate_permitrootlogin[] = {
 	{ NULL, -1 }
 };
 static const struct multistate multistate_compression[] = {
+	{ "yes",			COMP_DELAYED },
 	{ "delayed",			COMP_DELAYED },
-	{ "yes",			COMP_ZLIB },
 	{ "no",				COMP_NONE },
 	{ NULL, -1 }
 };
