@@ -31,3 +31,4 @@ fix-incoming-compression-statistics.patch
 seccomp-s390-flock-ipc.patch
 seccomp-getuid-geteuid.patch
 seccomp-s390-ioctl-ep11-crypto.patch
+CVE-2017-15906.patch
