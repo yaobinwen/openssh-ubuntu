@@ -1,3 +1,12 @@
+openssh (1:7.5p1-10ubuntu0.1) artful-security; urgency=medium
+
+  * SECURITY UPDATE: DoS via zero-length file creation in readonly mode
+    - debian/patches/CVE-2017-15906.patch: disallow creation of empty files
+      in sftp-server.c.
+    - CVE-2017-15906
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Tue, 16 Jan 2018 08:28:47 -0500
+
 openssh (1:7.5p1-10) unstable; urgency=medium
 
   * Tell haveged to create the pid file we expect.
