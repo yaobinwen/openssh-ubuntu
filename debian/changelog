@@ -1,3 +1,10 @@
+openssh (1:7.2p2-4ubuntu2.5) xenial; urgency=medium
+
+  * debian/systemd/ssh.service: Test configuration before starting or
+    reloading sshd (LP: #1771340)
+
+ -- Karl Stenerud <karl.stenerud@canonical.com>  Tue, 21 Aug 2018 10:45:26 -0700
+
 openssh (1:7.2p2-4ubuntu2.4) xenial-security; urgency=medium
 
   * SECURITY UPDATE: untrusted search path when loading PKCS#11 modules
