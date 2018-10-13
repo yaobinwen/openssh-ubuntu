@@ -76,15 +76,11 @@ userauth_pubkey(Authctxt *authctxt)
 	Buffer b;
 	Key *key = NULL;
 	char *pkalg, *userstyle;
-	u_char *pkblob, *sig;
+	u_char *pkblob, *sig = NULL;
 	u_int alen, blen, slen;
 	int have_sig, pktype;
 	int authenticated = 0;
 
-	if (!authctxt->valid) {
-		debug2("userauth_pubkey: disabled because of invalid user");
-		return 0;
-	}
 	have_sig = packet_get_char();
 	if (datafellows & SSH_BUG_PKAUTH) {
 		debug2("userauth_pubkey: SSH_BUG_PKAUTH");
@@ -131,6 +127,12 @@ userauth_pubkey(Authctxt *authctxt)
 		} else {
 			buffer_put_string(&b, session_id2, session_id2_len);
 		}
+		if (!authctxt->valid || authctxt->user == NULL) {
+			debug2("%s: disabled because of invalid user",
+			    __func__);
+			buffer_free(&b);
+			goto done;
+		}
 		/* reconstruct packet */
 		buffer_put_char(&b, SSH2_MSG_USERAUTH_REQUEST);
 		xasprintf(&userstyle, "%s%s%s", authctxt->user,
@@ -162,11 +164,14 @@ userauth_pubkey(Authctxt *authctxt)
 		    buffer_len(&b))) == 1)
 			authenticated = 1;
 		buffer_free(&b);
-		free(sig);
 	} else {
 		debug("test whether pkalg/pkblob are acceptable");
 		packet_check_eom();
-
+		if (!authctxt->valid || authctxt->user == NULL) {
+			debug2("%s: disabled because of invalid user",
+			    __func__);
+			goto done;
+		}
 		/* XXX fake reply and always send PK_OK ? */
 		/*
 		 * XXX this allows testing whether a user is allowed
@@ -192,6 +197,7 @@ done:
 		key_free(key);
 	free(pkalg);
 	free(pkblob);
+	free(sig);
 	return authenticated;
 }
 
