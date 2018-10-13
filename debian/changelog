@@ -1,3 +1,18 @@
+openssh (1:6.6p1-2ubuntu2.11) trusty-security; urgency=medium
+
+  * SECURITY UPDATE: OpenSSH User Enumeration Vulnerability (LP: #1794629)
+    - debian/patches/CVE-2018-15473.patch: delay bailout for invalid
+      authenticating user until after the packet containing the request
+      has been fully parsed.
+    - CVE-2018-15473
+  [ Leonidas S. Barbosa ]
+  * SECURITY UPDATE: Privsep process chrashing via an out-of-sequence
+    - debian/patches/CVE-2016-10708.patch: fix in kex.c,
+      pack.c.
+    - CVE-2016-10708
+
+ -- Ryan Finnie <ryan@finnie.org>  Sat, 13 Oct 2018 23:31:08 +0000
+
 openssh (1:6.6p1-2ubuntu2.10) trusty-security; urgency=medium
 
   * SECURITY UPDATE: untrusted search path when loading PKCS#11 modules
