@@ -703,6 +703,7 @@ process_remove_smartcard_key(SocketEntry *e)
 	else
 		error("process_remove_smartcard_key:"
 		    " pkcs11_del_provider failed");
+send:
 	free(provider);
 	buffer_put_int(&e->output, 1);
 	buffer_put_char(&e->output,
