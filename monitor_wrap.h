@@ -105,12 +105,6 @@ int mm_bsdauth_respond(void *, u_int, char **);
 int mm_skey_query(void *, char **, char **, u_int *, char ***, u_int **);
 int mm_skey_respond(void *, u_int, char **);
 
-/* zlib allocation hooks */
-
-void *mm_zalloc(struct mm_master *, u_int, u_int);
-void mm_zfree(struct mm_master *, void *);
-void mm_init_compression(struct mm_master *);
-
 #ifdef USE_CONSOLEKIT
 char *mm_consolekit_register(struct Session *, const char *);
 #endif /* USE_CONSOLEKIT */
