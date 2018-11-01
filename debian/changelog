@@ -1,3 +1,18 @@
+openssh (1:7.2p2-4ubuntu2.6) xenial-security; urgency=medium
+
+  [ Ryan Finnie ]
+  * SECURITY UPDATE: OpenSSH User Enumeration Vulnerability (LP: #1794629)
+    - debian/patches/CVE-2018-15473.patch: delay bailout for invalid
+      authenticating user until after the packet containing the request
+      has been fully parsed.
+    - CVE-2018-15473
+  * SECURITY UPDATE: Privsep process chrashing via an out-of-sequence
+    - debian/patches/CVE-2016-10708.patch: fix in kex.c,
+      pack.c.
+    - CVE-2016-10708
+
+ -- Leonidas S. Barbosa <leo.barbosa@canonical.com>  Thu, 01 Nov 2018 16:16:02 -0300
+
 openssh (1:7.2p2-4ubuntu2.5) xenial; urgency=medium
 
   * debian/systemd/ssh.service: Test configuration before starting or
