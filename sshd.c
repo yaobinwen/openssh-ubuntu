@@ -119,7 +119,6 @@
 #include "dispatch.h"
 #include "channels.h"
 #include "session.h"
-#include "monitor_mm.h"
 #include "monitor.h"
 #ifdef GSSAPI
 #include "ssh-gss.h"
@@ -698,9 +697,6 @@ privsep_preauth(Authctxt *authctxt)
 		if (box != NULL)
 			ssh_sandbox_parent_preauth(box, pid);
 		monitor_child_preauth(authctxt, pmonitor);
-
-		/* Sync memory */
-		monitor_sync(pmonitor);
 
 		/* Wait for the child's exit status */
 		while (waitpid(pid, &status, 0) < 0) {
@@ -2665,9 +2661,6 @@ do_ssh2_kex(void)
 	if (options.compression == COMP_NONE) {
 		myproposal[PROPOSAL_COMP_ALGS_CTOS] =
 		myproposal[PROPOSAL_COMP_ALGS_STOC] = "none";
-	} else if (options.compression == COMP_DELAYED) {
-		myproposal[PROPOSAL_COMP_ALGS_CTOS] =
-		myproposal[PROPOSAL_COMP_ALGS_STOC] = "none,zlib@openssh.com";
 	}
 
 	if (options.rekey_limit || options.rekey_interval)
