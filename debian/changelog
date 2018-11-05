@@ -1,3 +1,14 @@
+openssh (1:7.6p1-4ubuntu0.1) bionic-security; urgency=medium
+
+  [ Ryan Finnie ]
+  * SECURITY UPDATE: OpenSSH User Enumeration Vulnerability (LP: #1794629)
+    - debian/patches/CVE-2018-15473.patch: delay bailout for invalid
+      authenticating user until after the packet containing the request
+      has been fully parsed.
+    - CVE-2018-15473
+
+ -- Leonidas S. Barbosa <leo.barbosa@canonical.com>  Mon, 05 Nov 2018 08:51:29 -0300
+
 openssh (1:7.6p1-4) unstable; urgency=medium
 
   * Move VCS to salsa.debian.org.
