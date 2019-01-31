@@ -1780,9 +1780,7 @@ ssh_packet_read_poll2(struct ssh *ssh, u_char *typep, u_int32_t *seqnr_p)
 			return r;
 		return SSH_ERR_PROTOCOL_ERROR;
 	}
-	if (*typep == SSH2_MSG_NEWKEYS)
-		r = ssh_set_newkeys(ssh, MODE_IN);
-	else if (*typep == SSH2_MSG_USERAUTH_SUCCESS && !state->server_side)
+	if (*typep == SSH2_MSG_USERAUTH_SUCCESS && !state->server_side)
 		r = ssh_packet_enable_delayed_compress(ssh);
 	else
 		r = 0;
