@@ -1434,9 +1434,7 @@ packet_read_poll2(u_int32_t *seqnr_p)
 	type = buffer_get_char(&active_state->incoming_packet);
 	if (type < SSH2_MSG_MIN || type >= SSH2_MSG_LOCAL_MIN)
 		packet_disconnect("Invalid ssh2 packet type: %d", type);
-	if (type == SSH2_MSG_NEWKEYS)
-		set_newkeys(MODE_IN);
-	else if (type == SSH2_MSG_USERAUTH_SUCCESS &&
+	if (type == SSH2_MSG_USERAUTH_SUCCESS &&
 	    !active_state->server_side)
 		packet_enable_delayed_compress();
 #ifdef PACKET_DEBUG
