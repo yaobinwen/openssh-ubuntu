@@ -64,9 +64,14 @@ atomicio6(ssize_t (*f) (int, void *, size_t), int fd, void *_s, size_t n,
 		res = (f) (fd, s + pos, n - pos);
 		switch (res) {
 		case -1:
-			if (errno == EINTR)
+			if (errno == EINTR) {
+				/* possible SIGALARM, update callback */
+				if (cb != NULL && cb(cb_arg, 0) == -1) {
+					errno = EINTR;
+					return pos;
+				}
 				continue;
-			if (errno == EAGAIN || errno == EWOULDBLOCK) {
+			} else if (errno == EAGAIN || errno == EWOULDBLOCK) {
 #ifndef BROKEN_READ_COMPARISON
 				(void)poll(&pfd, 1, -1);
 #endif
@@ -121,9 +126,14 @@ atomiciov6(ssize_t (*f) (int, const struct iovec *, int), int fd,
 		res = (f) (fd, iov, iovcnt);
 		switch (res) {
 		case -1:
-			if (errno == EINTR)
+			if (errno == EINTR) {
+				/* possible SIGALARM, update callback */
+				if (cb != NULL && cb(cb_arg, 0) == -1) {
+					errno = EINTR;
+					return pos;
+				}
 				continue;
-			if (errno == EAGAIN || errno == EWOULDBLOCK) {
+			} else if (errno == EAGAIN || errno == EWOULDBLOCK) {
 #ifndef BROKEN_READV_COMPARISON
 				(void)poll(&pfd, 1, -1);
 #endif

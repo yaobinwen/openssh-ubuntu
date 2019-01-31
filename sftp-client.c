@@ -93,7 +93,9 @@ sftpio(void *_bwlimit, size_t amount)
 {
 	struct bwlimit *bwlimit = (struct bwlimit *)_bwlimit;
 
-	bandwidth_limit(bwlimit, amount);
+	refresh_progress_meter();
+	if (bwlimit != NULL)
+		bandwidth_limit(bwlimit, amount);
 	return 0;
 }
 
@@ -113,8 +115,8 @@ send_msg(struct sftp_conn *conn, Buffer *m)
 	iov[1].iov_base = buffer_ptr(m);
 	iov[1].iov_len = buffer_len(m);
 
-	if (atomiciov6(writev, conn->fd_out, iov, 2,
-	    conn->limit_kbps > 0 ? sftpio : NULL, &conn->bwlimit_out) !=
+	if (atomiciov6(writev, conn->fd_out, iov, 2, sftpio,
+	    conn->limit_kbps > 0 ? &conn->bwlimit_out : NULL) !=
 	    buffer_len(m) + sizeof(mlen))
 		fatal("Couldn't send packet: %s", strerror(errno));
 
@@ -127,8 +129,8 @@ get_msg(struct sftp_conn *conn, Buffer *m)
 	u_int msg_len;
 
 	buffer_append_space(m, 4);
-	if (atomicio6(read, conn->fd_in, buffer_ptr(m), 4,
-	    conn->limit_kbps > 0 ? sftpio : NULL, &conn->bwlimit_in) != 4) {
+	if (atomicio6(read, conn->fd_in, buffer_ptr(m), 4, sftpio,
+	    conn->limit_kbps > 0 ? &conn->bwlimit_in : NULL) != 4) {
 		if (errno == EPIPE)
 			fatal("Connection closed");
 		else
@@ -140,8 +142,8 @@ get_msg(struct sftp_conn *conn, Buffer *m)
 		fatal("Received message too long %u", msg_len);
 
 	buffer_append_space(m, msg_len);
-	if (atomicio6(read, conn->fd_in, buffer_ptr(m), msg_len,
-	    conn->limit_kbps > 0 ? sftpio : NULL, &conn->bwlimit_in)
+	if (atomicio6(read, conn->fd_in, buffer_ptr(m), msg_len, sftpio,
+	    conn->limit_kbps > 0 ? &conn->bwlimit_in : NULL)
 	    != msg_len) {
 		if (errno == EPIPE)
 			fatal("Connection closed");
