@@ -69,7 +69,7 @@ LIBSSH_OBJS=authfd.o authfile.o bufaux.o bufbn.o buffer.o \
 	compat.o compress.o crc32.o deattack.o fatal.o hostfile.o \
 	log.o match.o md-sha256.o moduli.o nchan.o packet.o \
 	readpass.o rsa.o ttymodes.o xmalloc.o addrmatch.o \
-	atomicio.o key.o dispatch.o kex.o mac.o uidswap.o uuencode.o misc.o \
+	atomicio.o key.o dispatch.o kex.o mac.o uidswap.o uuencode.o misc.o utf8.o \
 	monitor_fdpass.o rijndael.o ssh-dss.o ssh-ecdsa.o ssh-rsa.o dh.o \
 	kexdh.o kexgex.o kexdhc.o kexgexc.o bufec.o kexecdh.o kexecdhc.o \
 	kexgssc.o \
