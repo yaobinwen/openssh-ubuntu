@@ -790,7 +790,8 @@ set_newkeys(int mode)
 	/* explicit_bzero(enc->iv,  enc->block_size);
 	   explicit_bzero(enc->key, enc->key_len);
 	   explicit_bzero(mac->key, mac->key_len); */
-	if (((comp->type == COMP_DELAYED &&
+	if ((comp->type == COMP_ZLIB ||
+	    (comp->type == COMP_DELAYED &&
 	     active_state->after_authentication)) && comp->enabled == 0) {
 		packet_init_compression();
 		if (mode == MODE_OUT)
