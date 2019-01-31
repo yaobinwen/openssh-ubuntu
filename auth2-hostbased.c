@@ -64,10 +64,6 @@ userauth_hostbased(Authctxt *authctxt)
 	int pktype;
 	int authenticated = 0;
 
-	if (!authctxt->valid) {
-		debug2("userauth_hostbased: disabled because of invalid user");
-		return 0;
-	}
 	pkalg = packet_get_string(&alen);
 	pkblob = packet_get_string(&blen);
 	chost = packet_get_string(NULL);
@@ -106,6 +102,11 @@ userauth_hostbased(Authctxt *authctxt)
 		    "signature format");
 		goto done;
 	}
+	if (!authctxt->valid || authctxt->user == NULL) {
+		debug2("%s: disabled because of invalid user", __func__);
+		goto done;
+	}
+
 	service = datafellows & SSH_BUG_HBSERVICE ? "ssh-userauth" :
 	    authctxt->service;
 	buffer_init(&b);
