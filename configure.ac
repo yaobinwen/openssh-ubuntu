@@ -340,6 +340,7 @@ AC_CHECK_HEADERS([ \
 	ia.h \
 	iaf.h \
 	inttypes.h \
+	langinfo.h \
 	limits.h \
 	locale.h \
 	login.h \
@@ -392,6 +393,7 @@ AC_CHECK_HEADERS([ \
 	utmp.h \
 	utmpx.h \
 	vis.h \
+	wchar.h \
 ])
 
 # lastlog.h requires sys/time.h to be included first on Solaris
