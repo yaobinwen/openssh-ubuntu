@@ -79,16 +79,12 @@ userauth_pubkey(struct ssh *ssh)
 	Authctxt *authctxt = ssh->authctxt;
 	struct sshbuf *b;
 	struct sshkey *key = NULL;
-	char *pkalg, *userstyle = NULL, *fp = NULL;
-	u_char *pkblob, *sig, have_sig;
+	char *pkalg = NULL, *userstyle = NULL, *fp = NULL;
+	u_char *pkblob = NULL, *sig = NULL, have_sig;
 	size_t blen, slen;
 	int r, pktype;
 	int authenticated = 0;
 
-	if (!authctxt->valid) {
-		debug2("%s: disabled because of invalid user", __func__);
-		return 0;
-	}
 	if ((r = sshpkt_get_u8(ssh, &have_sig)) != 0)
 		fatal("%s: sshpkt_get_u8 failed: %s", __func__, ssh_err(r));
 	if (ssh->compat & SSH_BUG_PKAUTH) {
@@ -166,6 +162,12 @@ userauth_pubkey(struct ssh *ssh)
 				fatal("%s: sshbuf_put_string session id: %s",
 				    __func__, ssh_err(r));
 		}
+		if (!authctxt->valid || authctxt->user == NULL) {
+			debug2("%s: disabled because of invalid user",
+			    __func__);
+			buffer_free(&b);
+			goto done;
+		}
 		/* reconstruct packet */
 		xasprintf(&userstyle, "%s%s%s", authctxt->user,
 		    authctxt->style ? ":" : "",
@@ -202,7 +204,6 @@ userauth_pubkey(struct ssh *ssh)
 			authenticated = 1;
 		}
 		sshbuf_free(b);
-		free(sig);
 		auth2_record_key(authctxt, authenticated, key);
 	} else {
 		debug("%s: test whether pkalg/pkblob are acceptable for %s %s",
@@ -210,6 +211,11 @@ userauth_pubkey(struct ssh *ssh)
 		if ((r = sshpkt_get_end(ssh)) != 0)
 			fatal("%s: %s", __func__, ssh_err(r));
 
+               if (!authctxt->valid || authctxt->user == NULL) {
+                       debug2("%s: disabled because of invalid user",
+                           __func__);
+                       goto done;
+               }
 		/* XXX fake reply and always send PK_OK ? */
 		/*
 		 * XXX this allows testing whether a user is allowed
@@ -238,6 +244,7 @@ done:
 	free(pkalg);
 	free(pkblob);
 	free(fp);
+	free(sig);
 	return authenticated;
 }
 
