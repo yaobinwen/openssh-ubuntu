@@ -46,8 +46,7 @@
 #define	KEX_CURVE25519_SHA256	"curve25519-sha256@libssh.org"
 
 #define COMP_NONE	0
-#define COMP_ZLIB	1
-#define COMP_DELAYED	2
+#define COMP_DELAYED	1
 
 enum kex_init_proposals {
 	PROPOSAL_KEX_ALGS,
