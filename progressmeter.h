@@ -24,5 +24,5 @@
  */
 
 void	start_progress_meter(char *, off_t, off_t *);
-void	refresh_progress_meter(void);
+void	refresh_progress_meter(int);
 void	stop_progress_meter(void);
