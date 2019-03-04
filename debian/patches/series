@@ -28,6 +28,7 @@ upstream-relax-checking-of-authorized_keys-environme.patch
 upstream-delay-bailout-for-invalid-authenticating-user.patch
 fix-broken-tunnel-forwarding.patch
 CVE-2018-20685.patch
-CVE-2019-6109.patch
-CVE-2019-6111-1.patch
+CVE-2019-6111.patch
+CVE-2019-6109-1.patch
+CVE-2019-6109-2.patch
 CVE-2019-6111-2.patch
