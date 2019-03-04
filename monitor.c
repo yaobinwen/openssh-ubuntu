@@ -86,7 +86,6 @@
 #include "log.h"
 #include "servconf.h"
 #include "monitor.h"
-#include "monitor_mm.h"
 #ifdef GSSAPI
 #include "ssh-gss.h"
 #endif
@@ -119,8 +118,6 @@ extern Buffer loginmsg;
 /* State exported from the child */
 
 struct {
-	z_stream incoming;
-	z_stream outgoing;
 	u_char *keyin;
 	u_int keyinlen;
 	u_char *keyout;
@@ -511,15 +508,6 @@ monitor_child_postauth(struct monitor *pmonitor)
 
 	for (;;)
 		monitor_read(pmonitor, mon_dispatch, NULL);
-}
-
-void
-monitor_sync(struct monitor *pmonitor)
-{
-	if (options.compression) {
-		/* The member allocation is not visible, so sync it */
-		mm_share_sync(&pmonitor->m_zlib, &pmonitor->m_zback);
-	}
 }
 
 static int
@@ -1842,15 +1830,6 @@ monitor_apply_keystate(struct monitor *pmonitor)
 		free(child_state.ivin);
 	}
 
-	memcpy(&incoming_stream, &child_state.incoming,
-	    sizeof(incoming_stream));
-	memcpy(&outgoing_stream, &child_state.outgoing,
-	    sizeof(outgoing_stream));
-
-	/* Update with new address */
-	if (options.compression)
-		mm_init_compression(pmonitor->m_zlib);
-
 	if (options.rekey_limit || options.rekey_interval)
 		packet_set_rekey_limits((u_int32_t)options.rekey_limit,
 		    (time_t)options.rekey_interval);
@@ -1929,8 +1908,8 @@ void
 mm_get_keystate(struct monitor *pmonitor)
 {
 	Buffer m;
-	u_char *blob, *p;
-	u_int bloblen, plen;
+	u_char *blob;
+	u_int bloblen;
 	u_int32_t seqnr, packets;
 	u_int64_t blocks, bytes;
 
@@ -1978,20 +1957,6 @@ mm_get_keystate(struct monitor *pmonitor)
 	child_state.keyout = buffer_get_string(&m, &child_state.keyoutlen);
 	child_state.keyin  = buffer_get_string(&m, &child_state.keyinlen);
 
-	debug3("%s: Getting compression state", __func__);
-	/* Get compression state */
-	p = buffer_get_string(&m, &plen);
-	if (plen != sizeof(child_state.outgoing))
-		fatal("%s: bad request size", __func__);
-	memcpy(&child_state.outgoing, p, sizeof(child_state.outgoing));
-	free(p);
-
-	p = buffer_get_string(&m, &plen);
-	if (plen != sizeof(child_state.incoming))
-		fatal("%s: bad request size", __func__);
-	memcpy(&child_state.incoming, p, sizeof(child_state.incoming));
-	free(p);
-
 	/* Network I/O buffers */
 	debug3("%s: Getting Network I/O buffers", __func__);
 	child_state.input = buffer_get_string(&m, &child_state.ilen);
@@ -2006,39 +1971,6 @@ mm_get_keystate(struct monitor *pmonitor)
 	buffer_free(&m);
 }
 
-
-/* Allocation functions for zlib */
-void *
-mm_zalloc(struct mm_master *mm, u_int ncount, u_int size)
-{
-	size_t len = (size_t) size * ncount;
-	void *address;
-
-	if (len == 0 || ncount > SIZE_T_MAX / size)
-		fatal("%s: mm_zalloc(%u, %u)", __func__, ncount, size);
-
-	address = mm_malloc(mm, len);
-
-	return (address);
-}
-
-void
-mm_zfree(struct mm_master *mm, void *address)
-{
-	mm_free(mm, address);
-}
-
-void
-mm_init_compression(struct mm_master *mm)
-{
-	outgoing_stream.zalloc = (alloc_func)mm_zalloc;
-	outgoing_stream.zfree = (free_func)mm_zfree;
-	outgoing_stream.opaque = mm;
-
-	incoming_stream.zalloc = (alloc_func)mm_zalloc;
-	incoming_stream.zfree = (free_func)mm_zfree;
-	incoming_stream.opaque = mm;
-}
 
 /* XXX */
 
@@ -2080,15 +2012,6 @@ monitor_init(void)
 	mon = xcalloc(1, sizeof(*mon));
 
 	monitor_openfds(mon, 1);
-
-	/* Used to share zlib space across processes */
-	if (options.compression) {
-		mon->m_zback = mm_create(NULL, MM_MEMSIZE);
-		mon->m_zlib = mm_create(mon->m_zback, 20 * MM_MEMSIZE);
-
-		/* Compression needs to share state across borders */
-		mm_init_compression(mon->m_zlib);
-	}
 
 	return mon;
 }

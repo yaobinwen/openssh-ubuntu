@@ -790,8 +790,7 @@ set_newkeys(int mode)
 	/* explicit_bzero(enc->iv,  enc->block_size);
 	   explicit_bzero(enc->key, enc->key_len);
 	   explicit_bzero(mac->key, mac->key_len); */
-	if ((comp->type == COMP_ZLIB ||
-	    (comp->type == COMP_DELAYED &&
+	if (((comp->type == COMP_DELAYED &&
 	     active_state->after_authentication)) && comp->enabled == 0) {
 		packet_init_compression();
 		if (mode == MODE_OUT)
@@ -799,6 +798,7 @@ set_newkeys(int mode)
 		else
 			buffer_compress_init_recv();
 		comp->enabled = 1;
+
 	}
 	/*
 	 * The 2^(blocksize*2) limit is too expensive for 3DES,
@@ -1989,6 +1989,7 @@ void
 packet_set_authenticated(void)
 {
 	active_state->after_authentication = 1;
+	packet_enable_delayed_compress();
 }
 
 void *

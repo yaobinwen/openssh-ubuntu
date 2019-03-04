@@ -145,7 +145,6 @@ mm_request_receive(int sock, Buffer *m)
 	u_int msg_len;
 
 	debug3("%s entering", __func__);
-
 	if (atomicio(read, sock, buf, sizeof(buf)) != sizeof(buf)) {
 		if (errno == EPIPE)
 			cleanup_exit(255);
@@ -530,7 +529,6 @@ mm_newkeys_from_blob(u_char *blob, int blen)
 
 	/* Comp structure */
 	comp->type = buffer_get_int(&b);
-	comp->enabled = buffer_get_int(&b);
 	comp->name = buffer_get_string(&b, NULL);
 
 	len = buffer_len(&b);
@@ -580,7 +578,6 @@ mm_newkeys_to_blob(int mode, u_char **blobp, u_int *lenp)
 
 	/* Comp structure */
 	buffer_put_int(&b, comp->type);
-	buffer_put_int(&b, comp->enabled);
 	buffer_put_cstring(&b, comp->name);
 
 	len = buffer_len(&b);
@@ -691,11 +688,6 @@ mm_send_keystate(struct monitor *monitor)
 	packet_get_keycontext(MODE_IN, p);
 	buffer_put_string(&m, p, plen);
 	free(p);
-
-	/* Compression state */
-	debug3("%s: Sending compression state", __func__);
-	buffer_put_string(&m, &outgoing_stream, sizeof(outgoing_stream));
-	buffer_put_string(&m, &incoming_stream, sizeof(incoming_stream));
 
 	/* Network I/O buffers */
 	input = (Buffer *)packet_get_input();

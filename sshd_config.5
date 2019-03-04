@@ -428,15 +428,17 @@ The default
 is 0, indicating that these messages will not be sent to the client.
 This option applies to protocol version 2 only.
 .It Cm Compression
-Specifies whether compression is allowed, or delayed until
+Specifies whether compression is enabled after
 the user has authenticated successfully.
 The argument must be
 .Dq yes ,
-.Dq delayed ,
+.Dq delayed
+(a legacy synonym for
+.Dq yes )
 or
 .Dq no .
 The default is
-.Dq delayed .
+.Dq yes .
 .It Cm DebianBanner
 Specifies whether the distribution-specified extra version suffix is
 included during initial protocol handshake.
