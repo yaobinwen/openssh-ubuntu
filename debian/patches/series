@@ -30,6 +30,7 @@ permitopen-argument-handling.patch
 fix-regress-putty-transfer.patch
 CVE-2018-15473.patch
 CVE-2018-20685.patch
-CVE-2019-6109.patch
-CVE-2019-6111-1.patch
+CVE-2019-6111.patch
+CVE-2019-6109-1.patch
+CVE-2019-6109-2.patch
 CVE-2019-6111-2.patch
