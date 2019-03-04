@@ -250,6 +250,7 @@ kex_finish(Kex *kex)
 	packet_read_expect(SSH2_MSG_NEWKEYS);
 	packet_check_eom();
 	debug("SSH2_MSG_NEWKEYS received");
+	set_newkeys(MODE_IN);
 
 	kex->done = 1;
 	buffer_clear(&kex->peer);
