@@ -72,21 +72,17 @@ enum monitor_reqtype {
 
 };
 
-struct mm_master;
 struct monitor {
 	int			 m_recvfd;
 	int			 m_sendfd;
 	int			 m_log_recvfd;
 	int			 m_log_sendfd;
-	struct mm_master	*m_zback;
-	struct mm_master	*m_zlib;
 	struct kex		**m_pkex;
 	pid_t			 m_pid;
 };
 
 struct monitor *monitor_init(void);
 void monitor_reinit(struct monitor *);
-void monitor_sync(struct monitor *);
 
 struct Authctxt;
 void monitor_child_preauth(struct Authctxt *, struct monitor *);
