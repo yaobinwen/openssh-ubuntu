@@ -735,6 +735,9 @@ match_principals_command(struct passwd *user_pw, const struct sshkey *key)
 
 	ok = process_principals(f, NULL, pw, cert);
 
+	fclose(f);
+	f = NULL;
+
 	if (exited_cleanly(pid, "AuthorizedPrincipalsCommand", command) != 0)
 		goto out;
 
@@ -1059,6 +1062,9 @@ user_key_command_allowed2(struct passwd *user_pw, Key *key)
 	temporarily_use_uid(pw);
 
 	ok = check_authkeys_file(f, options.authorized_keys_command, key, pw);
+
+	fclose(f);
+	f = NULL;
 
 	if (exited_cleanly(pid, "AuthorizedKeysCommand", command) != 0)
 		goto out;
