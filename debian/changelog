@@ -1,3 +1,9 @@
+openssh (1:8.0p1-4build1) eoan; urgency=medium
+
+  * No-change upload with strops.h and sys/strops.h removed in glibc.
+
+ -- Matthias Klose <doko@ubuntu.com>  Thu, 05 Sep 2019 11:05:13 +0000
+
 openssh (1:8.0p1-4) unstable; urgency=medium
 
   * Use debhelper-compat instead of debian/compat.
