@@ -1,3 +1,9 @@
+openssh (1:8.0p1-6build1) eoan; urgency=medium
+
+  * No-change rebuild to drop runit dependency
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Thu, 12 Sep 2019 18:53:16 +0000
+
 openssh (1:8.0p1-6) unstable; urgency=medium
 
   * Only run dh_runit on openssh-server (closes: #935936).
