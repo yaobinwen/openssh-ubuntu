@@ -1,3 +1,10 @@
+openssh (1:8.0p1-6ubuntu0.1) eoan; urgency=medium
+
+  * Apply upstream patch to stop using 2020 as a future date in regress
+    tests. LP: #1859013
+
+ -- Dimitri John Ledkov <xnox@ubuntu.com>  Thu, 09 Jan 2020 23:53:27 +0000
+
 openssh (1:8.0p1-6build1) eoan; urgency=medium
 
   * No-change rebuild to drop runit dependency
