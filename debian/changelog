@@ -1,3 +1,10 @@
+openssh (1:7.6p1-4ubuntu0.4) bionic; urgency=medium
+
+  * Apply upstream patch to stop using 2020 as a future date in regress
+    tests. LP: #1859013
+
+ -- Dimitri John Ledkov <xnox@ubuntu.com>  Fri, 10 Jan 2020 00:00:50 +0000
+
 openssh (1:7.6p1-4ubuntu0.3) bionic-security; urgency=medium
 
   * SECURITY UPDATE: Incomplete fix for CVE-2019-6111
