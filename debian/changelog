@@ -1,3 +1,10 @@
+openssh (1:7.2p2-4ubuntu2.9) xenial; urgency=medium
+
+  * Apply upstream patch to stop using 2020 as a future date in regress
+    tests. LP: #1859013
+
+ -- Dimitri John Ledkov <xnox@ubuntu.com>  Fri, 10 Jan 2020 00:01:33 +0000
+
 openssh (1:7.2p2-4ubuntu2.8) xenial-security; urgency=medium
 
   * SECURITY UPDATE: Incomplete fix for CVE-2019-6111
