@@ -118,11 +118,6 @@ void     ssh_packet_send_debug(struct ssh *, const char *fmt, ...) __attribute__
 int	 ssh_set_newkeys(struct ssh *, int mode);
 void	 ssh_packet_get_bytes(struct ssh *, u_int64_t *, u_int64_t *);
 
-typedef void *(ssh_packet_comp_alloc_func)(void *, u_int, u_int);
-typedef void (ssh_packet_comp_free_func)(void *, void *);
-void	 ssh_packet_set_compress_hooks(struct ssh *, void *,
-    ssh_packet_comp_alloc_func *, ssh_packet_comp_free_func *);
-
 int	 ssh_packet_write_poll(struct ssh *);
 int	 ssh_packet_write_wait(struct ssh *);
 int      ssh_packet_have_data_to_write(struct ssh *);
