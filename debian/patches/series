@@ -35,3 +35,5 @@ CVE-2019-6109-1.patch
 CVE-2019-6109-2.patch
 CVE-2019-6111-2.patch
 regress-2020.patch
+lp-1863930-unbreak-clients-that-advertise-protocol.patch
+lp-1863930-Fix-logic-bug-in-sshd_exchange_identification.patch
