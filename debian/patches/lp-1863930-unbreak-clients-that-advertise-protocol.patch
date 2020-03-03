@@ -1,0 +1,31 @@
+From 9e9c4a7e57b96ab29fe6d7545ed09d2e5bddbdec Mon Sep 17 00:00:00 2001
+From: "djm@openbsd.org" <djm@openbsd.org>
+Date: Tue, 23 Jan 2018 05:12:12 +0000
+Subject: [PATCH] upstream commit
+
+unbreak support for clients that advertise a protocol
+version of "1.99" (indicating both v2 and v1 support). Busted by me during
+SSHv1 purge in r1.358; bz2810, ok dtucker
+
+OpenBSD-Commit-ID: e8f9c2bee11afc16c872bb79d6abe9c555bd0e4b
+
+Backport-Note: dropped the no-op file header change
+Origin: backport, https://anongit.mindrot.org/openssh.git/commit/?id=9e9c4a7e5
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/1863930
+Last-Update: 2020-03-03
+
+---
+ sshd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- a/sshd.c
++++ b/sshd.c
+@@ -466,7 +466,7 @@ sshd_exchange_identification(struct ssh
+ 	debug("Local version string %.200s", server_version_string);
+
+ 	if (remote_major != 2 ||
+-	    (remote_major == 1 && remote_minor != 99)) {
++	    !(remote_major == 1 && remote_minor == 99)) {
+ 		s = "Protocol major versions differ.\n";
+ 		(void) atomicio(vwrite, sock_out, s, strlen(s));
+ 		close(sock_in);

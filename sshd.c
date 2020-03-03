@@ -465,8 +465,8 @@ sshd_exchange_identification(struct ssh *ssh, int sock_in, int sock_out)
 	chop(server_version_string);
 	debug("Local version string %.200s", server_version_string);
 
-	if (remote_major != 2 ||
-	    (remote_major == 1 && remote_minor != 99)) {
+	if (remote_major != 2 &&
+	    !(remote_major == 1 && remote_minor == 99)) {
 		s = "Protocol major versions differ.\n";
 		(void) atomicio(vwrite, sock_out, s, strlen(s));
 		close(sock_in);
