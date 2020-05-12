@@ -1,0 +1,41 @@
+From: "djm@openbsd.org" <djm@openbsd.org>
+Date: Fri, 30 Dec 2016 22:08:02 +0000
+Subject: fix deadlock when keys/principals command produces a lot of output
+ and a key is matched early; bz#2655, patch from jboning AT gmail.com
+
+Upstream-ID: e19456429bf99087ea994432c16d00a642060afe
+
+Author: jboning@gmail.com
+Origin: upstream, https://github.com/openssh/openssh-portable/commit/ddd3d34e5c7979ca6f4a3a98a7d219a4ed3d98c2
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=2655
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/openssh/+bug/1877454
+Reviewed-By: Sergio Durigan Junior <sergio.durigan@canonical.com>
+Last-Update: 2020-05-08
+---
+ auth2-pubkey.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/auth2-pubkey.c b/auth2-pubkey.c
+index 1a3beeb..c8bbce3 100644
+--- a/auth2-pubkey.c
++++ b/auth2-pubkey.c
+@@ -704,6 +704,9 @@ match_principals_command(struct passwd *user_pw, struct sshkey_cert *cert)
+ 
+ 	ok = process_principals(f, NULL, pw, cert);
+ 
++	fclose(f);
++	f = NULL;
++
+ 	if (exited_cleanly(pid, "AuthorizedPrincipalsCommand", command) != 0)
+ 		goto out;
+ 
+@@ -1027,6 +1030,9 @@ user_key_command_allowed2(struct passwd *user_pw, Key *key)
+ 
+ 	ok = check_authkeys_file(f, options.authorized_keys_command, key, pw);
+ 
++	fclose(f);
++	f = NULL;
++
+ 	if (exited_cleanly(pid, "AuthorizedKeysCommand", command) != 0)
+ 		goto out;
+ 

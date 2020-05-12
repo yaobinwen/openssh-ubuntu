@@ -56,3 +56,5 @@ CVE-2019-6109-1.patch
 CVE-2019-6109-2.patch
 CVE-2019-6111-2.patch
 regress-2020.patch
+authkeyscommand-deadlock-01.patch
+authkeyscommand-deadlock-02.patch

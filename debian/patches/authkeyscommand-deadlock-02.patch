@@ -1,0 +1,74 @@
+From: "djm@openbsd.org" <djm@openbsd.org>
+Date: Mon, 30 Jan 2017 01:03:00 +0000
+Subject: revise keys/principals command hang fix (bz#2655) to consume entire
+ output, avoiding sending SIGPIPE to subprocesses early; ok dtucker@
+
+Upstream-ID: 7cb04b31a61f8c78c4e48ceededcd2fd5c4ee1bc
+
+Author: Damien Miller <djm@openbsd.org>
+Origin: upstream, https://github.com/openssh/openssh-portable/commit/52763dd3fe0a4678dafdf7aeb32286e514130afc
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=2655
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/openssh/+bug/1877454
+Reviewed-By: Sergio Durigan Junior <sergio.durigan@canonical.com>
+Last-Update: 2020-05-12
+---
+ auth2-pubkey.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
+
+diff --git a/auth2-pubkey.c b/auth2-pubkey.c
+index c8bbce3..fb4468e 100644
+--- a/auth2-pubkey.c
++++ b/auth2-pubkey.c
+@@ -571,10 +571,13 @@ process_principals(FILE *f, char *file, struct passwd *pw,
+ {
+ 	char line[SSH_MAX_PUBKEY_BYTES], *cp, *ep, *line_opts;
+ 	u_long linenum = 0;
+-	u_int i;
++	u_int i, found_principal = 0;
+ 
+ 	auth_start_parse_options();
+ 	while (read_keyfile_line(f, file, line, sizeof(line), &linenum) != -1) {
++		/* Always consume entire input */
++		if (found_principal)
++			continue;
+ 		/* Skip leading whitespace. */
+ 		for (cp = line; *cp == ' ' || *cp == '\t'; cp++)
+ 			;
+@@ -607,11 +610,12 @@ process_principals(FILE *f, char *file, struct passwd *pw,
+ 				if (auth_parse_options(pw, line_opts,
+ 				    file, linenum) != 1)
+ 					continue;
+-				return 1;
++				found_principal = 1;
++				continue;
+ 			}
+ 		}
+ 	}
+-	return 0;
++	return found_principal;
+ }
+ 
+ static int
+@@ -744,7 +748,12 @@ check_authkeys_file(FILE *f, char *file, Key* key, struct passwd *pw)
+ 	found = NULL;
+ 	auth_start_parse_options();
+ 	while (read_keyfile_line(f, file, line, sizeof(line), &linenum) != -1) {
+-		char *cp, *key_options = NULL;
++		char *cp, *key_options = NULL, *fp = NULL;
++		const char *reason = NULL;
++
++		/* Always consume entrire file */
++		if (found_key)
++			continue;
+ 		if (found != NULL)
+ 			key_free(found);
+ 		found = key_new(key_is_cert(key) ? KEY_UNSPEC : key->type);
+@@ -833,7 +842,7 @@ check_authkeys_file(FILE *f, char *file, Key* key, struct passwd *pw)
+ 			    file, linenum, key_type(found), fp);
+ 			free(fp);
+ 			found_key = 1;
+-			break;
++			continue;
+ 		}
+ 	}
+ 	if (found != NULL)
