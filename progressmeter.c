@@ -59,9 +59,6 @@ static void format_rate(char *, int, off_t);
 static void sig_winch(int);
 static void setscreensize(void);
 
-/* updates the progressmeter to reflect the current state of the transfer */
-void refresh_progress_meter(void);
-
 /* signal handler for updating the progress meter */
 static void sig_alarm(int);
 
@@ -120,7 +117,7 @@ format_size(char *buf, int size, off_t bytes)
 }
 
 void
-refresh_progress_meter(void)
+refresh_progress_meter(int force_update)
 {
 	char buf[MAX_WINSIZE + 1];
 	time_t now;
@@ -132,7 +129,7 @@ refresh_progress_meter(void)
 	int hours, minutes, seconds;
 	int file_len;
 
-	if ((!alarm_fired && !win_resized) || !can_output())
+	if ((!force_update && !alarm_fired && !win_resized) || !can_output())
 		return;
 	alarm_fired = 0;
 
@@ -255,7 +252,7 @@ start_progress_meter(const char *f, off_t filesize, off_t *ctr)
 	bytes_per_second = 0;
 
 	setscreensize();
-	refresh_progress_meter();
+	refresh_progress_meter(1);
 
 	signal(SIGALRM, sig_alarm);
 	signal(SIGWINCH, sig_winch);
@@ -272,7 +269,7 @@ stop_progress_meter(void)
 
 	/* Ensure we complete the progress */
 	if (cur_pos != end_pos)
-		refresh_progress_meter();
+		refresh_progress_meter(1);
 
 	atomicio(vwrite, STDOUT_FILENO, "\n", 1);
 }
