@@ -1,3 +1,10 @@
+openssh (1:8.2p1-4ubuntu0.1) focal; urgency=medium
+
+  * d/p/lp-1876320-*: avoid applying defaults for every include statement
+    (LP: #1876320)
+
+ -- Christian Ehrhardt <christian.ehrhardt@canonical.com>  Fri, 29 May 2020 09:37:09 +0200
+
 openssh (1:8.2p1-4) unstable; urgency=medium
 
   * Add /etc/ssh/ssh_config.d/ to openssh-client.
