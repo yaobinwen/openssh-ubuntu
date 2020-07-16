@@ -1,0 +1,2 @@
+  * Non-maintainer upload.
+  * Adjust check for openssl version (Closes: #732940)
