@@ -1,0 +1,2 @@
+  * Force ssh-agent Upstart job to use sh syntax regardless of the user's
+    shell (thanks, Steffen Stempel; LP: #1312928).
