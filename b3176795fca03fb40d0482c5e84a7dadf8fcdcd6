@@ -1,0 +1,4 @@
+  [ Gunnar Hjalmarsson ]
+  * debian/openssh-server.sshd.pam: Explicitly state that ~/.pam_environment
+    should be read, and move the pam_env calls from "auth" to "session" so
+    that it's also read when $HOME is encrypted (LP: #952185).
