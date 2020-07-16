@@ -1,0 +1,11 @@
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+    - Add mention of ssh-keygen in ssh connect warning.
+  * Only recommend ssh-import-id when built on Ubuntu (closes: #635887).
+  * Use 'dpkg-vendor --derives-from Ubuntu' to detect Ubuntu systems rather
+    than 'lsb_release -is' so that Ubuntu derivatives behave the same way as
+    Ubuntu itself.
