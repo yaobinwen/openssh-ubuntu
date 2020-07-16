@@ -1,0 +1,2 @@
+  * Drop dependency on libnss-files-udeb (closes: #819686).
+  * Policy version 3.9.7: no changes required.
