@@ -1,0 +1,4 @@
+  * New upstream release (http://www.openssh.com/txt/release-6.1).
+    - Enable pre-auth sandboxing by default for new installs.
+    - Allow "PermitOpen none" to refuse all port-forwarding requests
+      (closes: #543683).
