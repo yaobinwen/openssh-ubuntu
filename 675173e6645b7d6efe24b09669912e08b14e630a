@@ -1,0 +1,3 @@
+  * On '/etc/init.d/ssh restart', create /var/run/sshd before checking the
+    server configuration, as otherwise 'sshd -t' will complain about the
+    lack of /var/run/sshd (closes: Malone #45234).
