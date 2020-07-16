@@ -1,0 +1,4 @@
+  * Debconf translations:
+    - Spanish (thanks, Matías Bellone; closes: #744867).
+  * Apply upstream-recommended patch to fix bignum encoding for
+    curve25519-sha256@libssh.org, fixing occasional key exchange failures.
