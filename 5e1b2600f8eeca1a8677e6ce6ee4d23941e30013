@@ -1,0 +1,2 @@
+  * Disable OpenSSL version check again, as its SONAME is sufficient
+    nowadays (closes: #664383).
