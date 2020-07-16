@@ -1,0 +1,3 @@
+  * Fix kexgss_server to cope with DH_GRP_MIN/DH_GRP_MAX being stricter on
+    the server end than the client (thanks, Damien Miller; closes: #817870,
+    LP: #1558576).
