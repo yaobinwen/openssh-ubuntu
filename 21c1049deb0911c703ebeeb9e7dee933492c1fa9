@@ -1,0 +1,6 @@
+  * Run regression tests inside annotate-output to try to diagnose timeout
+    issues.
+  * Make integrity tests more robust against timeouts in the case where the
+    first test in a series for a given MAC happens to modify the low bytes
+    of a packet length.
+  * Fix race conditions in forwarding tests.
