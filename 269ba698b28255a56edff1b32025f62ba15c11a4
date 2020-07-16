@@ -1,0 +1,3 @@
+  * SECURITY UPDATE: block .ssh/rc processing when running ForceCommand.
+  * References
+    CVE-2008-1657
