@@ -1,0 +1,2 @@
+  * Add forgotten versioned-dependency on sysv-rc to get new update-rc.d
+    behaviour.  Go me.
