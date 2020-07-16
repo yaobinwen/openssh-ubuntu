@@ -1,0 +1,6 @@
+  * add ufw integration (see
+    https://wiki.ubuntu.com/UbuntuFirewall#Integrating%20UFW%20with%20Packages)
+    (LP: #261884)
+    - debian/control: suggest ufw for openssh-server
+    - add openssh-server.ufw.profile with one profile and install it to
+      /etc/ufw/applications.d/openssh-server
