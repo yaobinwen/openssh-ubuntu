@@ -1,0 +1,3 @@
+  * Drop override for desktop-file-but-no-dh_desktop-call, which Lintian no
+    longer issues.
+  * Merge 1:5.5p1-6.
