@@ -1,0 +1,15 @@
+  * Resynchronise with Debian. Remaining changes:
+    - Add /sbin, /usr/sbin, and /usr/local/sbin to the default path.
+    - Use LSB init script functions.
+    - Remove stop links from rc0 and rc6.
+    - Build position-independent executables (only for debs, not for udebs)
+      to take advantage of address space layout randomisation.
+  * Multiply openssh-client-udeb's Installer-Menu-Item by 100.
+  * Increase MAX_SESSIONS to 64.
+  [ Russ Allbery ]
+  * Fix GSSAPIKeyExchange configuration file handling logic in ssh-krb5
+    (closes: #404863).
+  * Fix uncommenting of GSSAPI options by ssh-krb5 (closes: #407766).
+  [ Colin Watson ]
+  * debconf template translations:
+    - Add Norwegian Bokmål (thanks, Bjørn Steensrud; closes: #412330).
