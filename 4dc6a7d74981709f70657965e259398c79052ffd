@@ -1,0 +1,4 @@
+  * Link with -Wl,--as-needed (closes: #560155).
+  * Install upstream sshd_config as an example (closes: #415008).
+  * Use dh_lintian.
+  * Honour DEB_BUILD_OPTIONS=nocheck.
