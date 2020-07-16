@@ -1,0 +1,3 @@
+  * Quieten logs when multiple from= restrictions are used in different
+    authorized_keys lines for the same key; it's still not ideal, but at
+    least you'll only get one log entry per key (closes: #630606).
