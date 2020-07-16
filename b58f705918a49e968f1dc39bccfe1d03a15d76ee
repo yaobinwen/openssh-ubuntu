@@ -1,0 +1,2 @@
+  * Non-maintainer upload by the Security Team.
+  * CVE-2015-8325: Ignore PAM environment vars when UseLogin=yes
