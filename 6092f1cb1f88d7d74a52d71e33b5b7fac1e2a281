@@ -1,0 +1,1 @@
+  * Only run dh_runit on openssh-server (closes: #935936).
