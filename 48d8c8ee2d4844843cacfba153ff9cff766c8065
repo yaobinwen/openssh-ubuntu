@@ -1,0 +1,4 @@
+  * Backport upstream reporting of max auth attempts, so that fail2bail
+    and similar tools can learn the IP address of brute forcers.
+    (LP: #1534340)
+    - debian/patches/report-max-auth.patch
