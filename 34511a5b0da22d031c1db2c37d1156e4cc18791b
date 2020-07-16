@@ -1,0 +1,28 @@
+  * Resynchronise with Debian.
+  * Backport from 4.4p1 (since I don't have an updated version of the GSSAPI
+    patch yet):
+    - CVE-2006-4924: Fix a pre-authentication denial of service found by
+      Tavis Ormandy, that would cause sshd(8) to spin until the login grace
+      time expired (closes: #389995).
+    - CVE-2006-5051: Fix an unsafe signal hander reported by Mark Dowd. The
+      signal handler was vulnerable to a race condition that could be
+      exploited to perform a pre-authentication denial of service. On
+      portable OpenSSH, this vulnerability could theoretically lead to
+      pre-authentication remote code execution if GSSAPI authentication is
+      enabled, but the likelihood of successful exploitation appears remote.
+  * Read /etc/default/locale as well as /etc/environment (thanks, Raphaël
+    Hertzog; closes: #369395).
+  * Remove no-longer-used ssh/insecure_rshd debconf template.
+  * Make ssh/insecure_telnetd Type: error (closes: #388946).
+  * debconf template translations:
+    - Update Portuguese (thanks, Rui Branco; closes: #381942).
+    - Update Spanish (thanks, Javier Fernández-Sanguino Peña;
+      closes: #382966).
+  * Document KeepAlive->TCPKeepAlive renaming in sshd_config(5) (closes:
+    https://launchpad.net/bugs/50702).
+  * Change sshd user's shell to /usr/sbin/nologin (closes: #366541).
+    Introduces dependency on passwd for usermod.
+  * debconf template translations:
+    - Update French (thanks, Denis Barbier; closes: #368503).
+    - Update Dutch (thanks, Bart Cornelis; closes: #375100).
+    - Update Japanese (thanks, Kenshi Muto; closes: #379950).
