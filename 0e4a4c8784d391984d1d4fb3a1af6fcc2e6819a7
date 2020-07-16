@@ -1,0 +1,4 @@
+  * Tell haveged to create the pid file we expect.
+  * Give up and use systemctl to start haveged if running under systemd;
+    this shouldn't be necessary, but I can't seem to get things working in
+    the Ubuntu autopkgtest environment otherwise.
