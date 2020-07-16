@@ -1,0 +1,4 @@
+  * Non-maintainer upload by the Security Team.
+  * Disable roaming in openssh client: roaming code is vulnerable to an
+    information leak (CVE-2016-0777) and heap-based buffer overflow
+    (CVE-2016-0778).
