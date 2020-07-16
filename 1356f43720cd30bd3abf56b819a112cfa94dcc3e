@@ -1,0 +1,3 @@
+  * Non-maintainer upload by the Security Team.
+  * CVE-2016-6210: User enumeration via covert timing channel
+    (closes: #831902).
