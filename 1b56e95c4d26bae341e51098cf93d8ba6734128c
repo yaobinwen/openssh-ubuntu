@@ -1,0 +1,5 @@
+  * debian/control, debian/openssh-server.install, debian/openssh-
+    server.links, debian/openssh-server.manpages, debian/ssh-import-id,
+    debian/ssh-import-id.1: drop all remnants of the ssh-import-id
+    utility which is now in its own source package; have openssh-server
+    recommend that package
