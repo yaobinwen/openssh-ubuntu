@@ -1,0 +1,2 @@
+  * Move sysv-rc versioned dependency from openssh-client to openssh-server
+    (closes: Malone #56021).
