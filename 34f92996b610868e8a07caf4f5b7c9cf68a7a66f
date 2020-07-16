@@ -1,0 +1,2 @@
+  * debian/tests/control: Add dependency on openssl, required by the PuTTY
+    interoperability tests.
