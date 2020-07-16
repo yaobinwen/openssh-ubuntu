@@ -1,0 +1,4 @@
+  * Resynchronise with Debian.
+  * Remove ssh/insecure_telnetd check altogether (closes: #391081).
+  * debconf template translations:
+    - Update Danish (thanks, Claus Hindsgaul; closes: #390612).
