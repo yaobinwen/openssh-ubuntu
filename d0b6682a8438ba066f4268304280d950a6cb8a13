@@ -1,0 +1,2 @@
+  * Add -Wl,-z,now to LDFLAGS to enhance the existing RELRO hardening
+    done by the Ubuntu compiler (Debian bug 561887).
