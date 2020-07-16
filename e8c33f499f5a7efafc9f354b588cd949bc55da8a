@@ -1,0 +1,2 @@
+  * Fix crash in ssh_selinux_setfscreatecon when SELinux is disabled
+    (LP: #708571).
