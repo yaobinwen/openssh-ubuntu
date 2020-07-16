@@ -1,0 +1,4 @@
+  * SECURITY UPDATE: AcceptEnv wildcard environment restrictions bypass
+    - debian/patches/CVE-2014-2532.patch: don't allow invalid chars in
+      session.c.
+    - CVE-2014-2532
