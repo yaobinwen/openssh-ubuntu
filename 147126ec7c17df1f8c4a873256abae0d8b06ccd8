@@ -1,0 +1,12 @@
+  * Use xz compression for binary packages.
+  * Merge from Ubuntu:
+    - Add support for registering ConsoleKit sessions on login.  (This is
+      currently enabled only when building for Ubuntu.)
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests.  It's
+      been long enough since the relevant vulnerability that we shouldn't
+      need these installed by default nowadays.
+    - Add an Upstart job (not currently used by default in Debian).
+    - Add mention of ssh-keygen in ssh connect warning (Scott Moser).
+    - Install apport hooks.
+  * Only build with -j if DEB_BUILD_OPTIONS=parallel=* is used (closes:
+    #694282).
