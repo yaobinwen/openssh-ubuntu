@@ -1,0 +1,4 @@
+  * debian/tests/control: Drop isolation-container, since the tests run on a
+    high port.  They're still not guaranteed to run correctly in an schroot,
+    but may manage to work, so this lets the tests at least try to run on
+    ci.debian.net.
