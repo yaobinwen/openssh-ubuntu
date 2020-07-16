@@ -1,0 +1,2 @@
+  * Re-enable btmp logging, as its permissions were fixed a long time ago.
+    Backport from Debian and Trusty. (LP: #743858)
