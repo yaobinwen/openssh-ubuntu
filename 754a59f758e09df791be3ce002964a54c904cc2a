@@ -1,0 +1,6 @@
+  * Non-maintainer upload by the Security Team.
+  * CVE-2018-20685: disallow empty filenames or ones that refer to the current
+    directory (Closes: #919101)
+  * CVE-2019-6109: sanitize scp filenames via snmprintf (Closes: #793412)
+  * CVE-2019-6111: check in scp client that filenames sent during
+    remote->local directory copies satisfy the wildcards specified by the user
