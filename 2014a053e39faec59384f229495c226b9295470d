@@ -1,0 +1,3 @@
+  * Increase ServerKeyBits value in package-generated sshd_config to 1024
+    (closes: #727622, LP: #1244272).
+  * Restore patch to disable OpenSSL version check (closes: #732940).
