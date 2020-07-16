@@ -1,0 +1,3 @@
+  * Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+    take up a lot of CD space, and I suspect that rolling them out in
+    security updates has covered most affected systems now.
