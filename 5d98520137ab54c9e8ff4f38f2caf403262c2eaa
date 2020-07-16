@@ -1,0 +1,3 @@
+  * Use an architecture wildcard for libselinux1-dev (closes: #591740).
+  * debconf template translations:
+    - Update Danish (thanks, Joe Hansen; closes: #592800).
