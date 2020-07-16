@@ -1,0 +1,7 @@
+  * Use dpkg-buildflags, including for hardening support; drop use of
+    hardening-includes.
+  * Fix cross-building:
+    - Allow using a cross-architecture pkg-config.
+    - Pass default LDFLAGS to contrib/Makefile.
+    - Allow dh_strip to strip gnome-ssh-askpass, rather than calling
+      'install -s'.
