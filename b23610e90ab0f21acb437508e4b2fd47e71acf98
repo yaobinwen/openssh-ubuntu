@@ -1,0 +1,4 @@
+  * CVE-2014-2532: Disallow invalid characters in environment variable names
+    to prevent bypassing AcceptEnv wildcard restrictions.
+  * CVE-2014-2653: Attempt SSHFP lookup even if server presents a
+    certificate (closes: #742513).
