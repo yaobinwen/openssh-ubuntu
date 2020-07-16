@@ -1,0 +1,3 @@
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+  * Ignore errors writing to oom_adj (closes: #473573).
