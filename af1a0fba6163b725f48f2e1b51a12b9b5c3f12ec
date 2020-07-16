@@ -1,0 +1,3 @@
+  * Drop priority of openssh-client-ssh1 to extra (closes: #807518).
+  * Redirect regression test input from /dev/zero, since otherwise conch
+    will immediately send EOF.
