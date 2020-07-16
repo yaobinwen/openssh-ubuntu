@@ -1,0 +1,4 @@
+  * Test configuration before starting or reloading sshd under systemd
+    (closes: #865770).
+  * Make "--" before the hostname terminate argument processing after the
+    hostname too (closes: #873201).
