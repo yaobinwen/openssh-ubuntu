@@ -1,0 +1,4 @@
+  * Correct ssh-keygen instruction in the changelog for 1:5.7p1-1 (thanks,
+    Joel Stanley).
+  * Allow ssh-add to read from FIFOs (thanks, Daniel Kahn Gillmor; closes:
+    #614897).
