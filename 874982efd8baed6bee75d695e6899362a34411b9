@@ -1,0 +1,4 @@
+  * SECURITY UPDATE: Information disclosure.
+  * gss-serv.c, sshconnect2.c: Do not delegate GSSAPI credentials to log in
+    with a different method than GSSAPI.
+  * CAN-2005-2798
