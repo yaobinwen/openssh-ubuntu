@@ -1,0 +1,10 @@
+  [ Colin Watson ]
+  * Adjust git-dpm tagging configuration.
+  * Remove no-longer-used Lintian overrides from openssh-server and ssh.
+  * Add Documentation keys to ssh-agent.service, ssh.service, and
+    ssh@.service.
+  [ Juri Grabowski ]
+  * Add rescue.target with ssh support.
+  [ Christian Ehrhardt ]
+  * Fix unintentional restriction of authorized keys environment options
+    to be alphanumeric (closes: #903474, LP: #1771011).
