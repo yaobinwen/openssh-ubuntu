@@ -1,0 +1,3 @@
+  * Apply upstream patch to make scp handle shell-style brace expansions
+    when checking that filenames sent by the server match what the client
+    requested (closes: #923486).
