@@ -1,0 +1,2 @@
+  * Really move openssh-blacklist and openssh-blacklist-extra to Suggests,
+    not Conflicts!
