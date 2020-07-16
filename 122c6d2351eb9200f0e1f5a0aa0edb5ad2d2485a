@@ -1,0 +1,4 @@
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+  * Disable the Linux kernel's OOM-killer for the sshd parent; tweak
+    SSHD_OOM_ADJUST in /etc/default/ssh to change this (closes: #341767).
