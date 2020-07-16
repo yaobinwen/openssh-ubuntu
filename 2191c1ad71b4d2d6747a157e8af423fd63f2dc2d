@@ -1,0 +1,4 @@
+  * On s390x, allow geteuid syscall in the sandbox, to allow openssh
+    connections to work when hw accelerated cryptography is enabled. This
+    patch is to be replaced by the one accepted upstream, when
+    reviewed. LP: #1686618
