@@ -1,0 +1,5 @@
+  * SECURITY UPDATE: X11 forward hijacking via alternate address families.
+  * channels.c: upstream fixes, patched inline.  Thanks to Nicolas Valcarcel
+    (LP: #210175).
+  * References
+    CVE-2008-1483
