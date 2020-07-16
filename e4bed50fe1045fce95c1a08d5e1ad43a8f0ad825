@@ -1,0 +1,12 @@
+  * SECURITY UPDATE: user enumeration via covert timing channel
+    - debian/patches/CVE-2016-6210-1.patch: determine appropriate salt for
+      invalid users in auth-passwd.c, openbsd-compat/xcrypt.c.
+    - debian/patches/CVE-2016-6210-2.patch: mitigate timing of disallowed
+      users PAM logins in auth-pam.c.
+    - debian/patches/CVE-2016-6210-3.patch: search users for one with a
+      valid salt in openbsd-compat/xcrypt.c.
+    - CVE-2016-6210
+  * SECURITY UPDATE: denial of service via long passwords
+    - debian/patches/CVE-2016-6515.patch: skip passwords longer than 1k in
+      length in auth-passwd.c.
+    - CVE-2016-6515
