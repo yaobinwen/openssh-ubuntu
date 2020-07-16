@@ -1,0 +1,8 @@
+  [ Gunnar Hjalmarsson ]
+  * debian/openssh-server.sshd.pam: Explicitly state that ~/.pam_environment
+    should be read, and move the pam_env calls from "auth" to "session" so
+    that it's also read when $HOME is encrypted (LP: #952185).
+  [ Stéphane Graber ]
+  * Add ssh-agent upstart user job.  This implements something similar to
+    the 90x11-common_ssh-agent Xsession script.  That is, start ssh-agent
+    and set the appropriate environment variables (closes: #703906).
