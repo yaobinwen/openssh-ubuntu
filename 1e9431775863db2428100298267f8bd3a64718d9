@@ -1,0 +1,5 @@
+  * Apply upstream patch to deny (non-fatally) ipc in the seccomp sandbox,
+    fixing failures with OpenSSL 1.1.1d and Linux < 3.19 on some
+    architectures (closes: #946242).  Note that this also drops the previous
+    change to allow ipc on s390, since upstream has security concerns with
+    that and it doesn't currently seem to be needed.
