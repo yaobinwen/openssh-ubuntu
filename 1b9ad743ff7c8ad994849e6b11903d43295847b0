@@ -1,0 +1,16 @@
+  * Resynchronise with Debian. Remaining changes:
+    - Add /sbin, /usr/sbin, and /usr/local/sbin to the default path.
+    - Use LSB init script functions.
+    - Increase MAX_SESSIONS to 64.
+    - Remove stop links from rc0 and rc6.
+  * Acknowledge NMU (thanks, Manoj; closes: #394795).
+  * Backport from 4.5p1:
+    - Fix a bug in the sshd privilege separation monitor that weakened its
+      verification of successful authentication. This bug is not known to be
+      exploitable in the absence of additional vulnerabilities.
+  * openssh-server Suggests: molly-guard (closes: #395473).
+  * debconf template translations:
+    - Update German (thanks, Helge Kreutzmann; closes: #395947).
+  * NMU to update SELinux patch, bringing it in line with current selinux
+    releases.  The patch for this NMU is simply the Bug#394795 patch, 
+    and no other changes.                       (closes: #394795)
