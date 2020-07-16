@@ -1,0 +1,2 @@
+  [ Michael Biebl ]
+  * Add systemd readiness notification support (closes: #778913).
