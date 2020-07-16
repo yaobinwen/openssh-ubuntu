@@ -1,0 +1,1 @@
+  * Fix syntax error in openssh-server apport hook (LP: #534365).
