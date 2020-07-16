@@ -1,0 +1,2 @@
+  * Add missing header on Linux/s390.
+  * Fix syntax error on Linux/X32.
