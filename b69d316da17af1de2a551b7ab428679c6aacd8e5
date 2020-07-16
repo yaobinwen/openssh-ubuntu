@@ -1,0 +1,3 @@
+  * Run debian/tests/regress with "set -x".
+  * Run haveged without "-w 1024", as setting the low water mark doesn't
+    seem possible in all autopkgtest virtualisation environments.
