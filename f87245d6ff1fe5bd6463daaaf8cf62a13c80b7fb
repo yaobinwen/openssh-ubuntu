@@ -1,0 +1,4 @@
+  * Enable haveged during autopkgtest, as virtual machines appear to run
+    out of entropy when networkd is enabled in the instance at the same
+    time. This will be further investigated, as it is not reasonable for
+    networkd to eat up all the previously available entropy. LP: #1712921
