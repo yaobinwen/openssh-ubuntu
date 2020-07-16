@@ -1,0 +1,3 @@
+  * Non-maintainer upload by the Security Team
+  * CVE-2018-15473: fix username enumeration issue, initially reported
+    by Dariusz Tytko and Michal Sajdak (Closes: #906236)
