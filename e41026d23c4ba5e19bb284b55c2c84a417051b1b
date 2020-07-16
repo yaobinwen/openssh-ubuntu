@@ -1,0 +1,9 @@
+  * SECURITY UPDATE: Incomplete fix for CVE-2019-6111
+    - debian/patches/CVE-2019-6111-pre1.patch: add reallocarray to
+      openbsd-compat/Makefile.in, openbsd-compat/openbsd-compat.h,
+      openbsd-compat/reallocarray.c.
+    - debian/patches/CVE-2019-6111-2.patch: add another fix to the filename
+      check in scp.c.
+    - CVE-2019-6111
+  * Fixed inverted CVE numbers in patch filenames and in previous
+    changelog.
