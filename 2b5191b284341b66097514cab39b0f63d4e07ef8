@@ -1,0 +1,6 @@
+  * Use debhelper-compat instead of debian/compat.
+  * debian/*.apport:
+    - Remove #! lines.
+    - Avoid star imports.
+    - Fix flake8 errors.
+  * Run regression tests against the Python 3 version of Twisted Conch.
