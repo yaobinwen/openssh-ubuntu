@@ -1,0 +1,7 @@
+  * Fix debian/adjust-openssl-dependencies to account for preferring
+    libssl1.0-dev.
+  * Adjust OpenSSL dependencies for openssh-client-ssh1 too.
+  * Fix purge failure when /etc/ssh has already somehow been removed
+    (LP: #1682817).
+  * Ensure that /etc/ssh exists before trying to create /etc/ssh/sshd_config
+    (LP: #1685022).
