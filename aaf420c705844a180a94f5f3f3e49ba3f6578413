@@ -1,0 +1,4 @@
+  * Only recommend ssh-import-id when built on Ubuntu (closes: #635887).
+  * Use 'dpkg-vendor --derives-from Ubuntu' to detect Ubuntu systems rather
+    than 'lsb_release -is' so that Ubuntu derivatives behave the same way as
+    Ubuntu itself.
