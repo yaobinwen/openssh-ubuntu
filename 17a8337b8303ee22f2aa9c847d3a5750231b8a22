@@ -1,0 +1,3 @@
+  * Move privilege separation directory and PID file from /var/run/ to /run/
+    (closes: #760422, #856825).
+  * Unbreak Unix domain socket forwarding for root (closes: #858252).
