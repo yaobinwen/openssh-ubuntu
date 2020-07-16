@@ -1,0 +1,16 @@
+  * Discard error messages while checking whether rsh, rlogin, and rcp
+    alternatives exist (closes: #579285).
+  * Drop IDEA key check; I don't think it works properly any more due to
+    textual changes in error output, it's only relevant for direct upgrades
+    from truly ancient versions, and it breaks upgrades if
+    /etc/ssh/ssh_host_key can't be loaded (closes: #579570).
+  * Use dh_installinit -n, since our maintainer scripts already handle this
+    more carefully (thanks, Julien Cristau).
+  * New upstream release:
+    - Unbreak sshd_config's AuthorizedKeysFile option for $HOME-relative
+      paths.
+    - Include a language tag when sending a protocol 2 disconnection
+      message.
+    - Make logging of certificates used for user authentication more clear
+      and consistent between CAs specified using TrustedUserCAKeys and
+      authorized_keys.
