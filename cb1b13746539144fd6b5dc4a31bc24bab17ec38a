@@ -1,0 +1,5 @@
+  [ Colin Watson ]
+  * Drop suggestion of rssh, since it's been removed (see
+    https://bugs.debian.org/923691).
+  [ Steve Langasek ]
+  * Don't build openssh-tests on Ubuntu i386 (closes: #948466).
