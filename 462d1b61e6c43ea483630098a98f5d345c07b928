@@ -1,0 +1,3 @@
+  * Fix Ubuntu detection in debian/rules, since the documentation comment
+    for dpkg_vendor_derives_from is wrong (thanks, Jeremy Bicha; see
+    #913816).
