@@ -1,0 +1,5 @@
+  * Drop openssh-server's dependency on openssh-blacklist to a
+    recommendation (closes: #622604).
+  * Update Vcs-* fields and README.source for Alioth changes.
+  * Backport from upstream:
+    - Make hostbased auth with ECDSA keys work correctly (closes: #633368).
