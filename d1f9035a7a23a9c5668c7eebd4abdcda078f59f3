@@ -1,0 +1,4 @@
+  * debconf template translations:
+    - Update Polish (thanks, Michał Kułach; closes: #659829).
+  * Ignore errors writing to console in init script (closes: #546743).
+  * Move ssh-krb5 to Section: oldlibs.
