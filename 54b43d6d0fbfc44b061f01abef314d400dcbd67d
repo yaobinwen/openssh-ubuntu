@@ -1,0 +1,2 @@
+  * Tighten libssl1.0.0 and libcrypto1.0.0-udeb dependencies to the current
+    "fix" version at build time (closes: #678661).
