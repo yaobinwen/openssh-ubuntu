@@ -1,0 +1,3 @@
+  * SECURITY REGRESSION: random auth failures because of uninitialized
+    struct field (LP: #1485719)
+    - debian/patches/CVE-2015-5600-2.patch:
