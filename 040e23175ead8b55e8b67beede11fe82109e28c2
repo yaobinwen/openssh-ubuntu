@@ -1,0 +1,1 @@
+  * Restore patch to disable OpenSSL version check (closes: #749472).
