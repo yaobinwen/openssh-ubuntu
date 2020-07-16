@@ -1,0 +1,4 @@
+  * Backport upstream patch to unbreak authentication using lone certificate
+    keys in ssh-agent: when attempting pubkey auth with a certificate, if no
+    separate private key is found among the keys then try with the
+    certificate key itself (thanks, Paul Querna; LP: #1575961).
