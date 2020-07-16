@@ -1,0 +1,7 @@
+  * New upstream release (http://www.openssh.com/txt/release-6.2).
+    - Add support for multiple required authentication in SSH protocol 2 via
+      an AuthenticationMethods option (closes: #195716).
+    - Fix Sophie Germain formula in moduli(5) (closes: #698612).
+    - Update ssh-copy-id to Phil Hands' greatly revised version (closes:
+      #99785, #322228, #620428; LP: #518883, #835901, #1074798).
+  * Use dh-autoreconf.
