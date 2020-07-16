@@ -1,0 +1,5 @@
+  * Give ssh and ssh-krb5 versioned dependencies on openssh-client and
+    openssh-server, to try to reduce confusion when people run 'apt-get
+    install ssh' or similar and expect that to upgrade everything relevant.
+  * CVE-2010-5107: Improve DoS resistance by changing default of MaxStartups
+    to 10:30:100 (closes: #700102).
