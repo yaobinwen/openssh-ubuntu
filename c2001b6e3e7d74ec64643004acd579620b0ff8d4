@@ -1,0 +1,6 @@
+  [ Clint Byrum ]
+  * debian/openssh-server.ssh.upstart: drop 'expect fork' and run sshd 
+    with -D to avoid losing track on reload (LP: #687535)
+  [ Colin Watson ]
+  * Fix up mention-ssh-keygen-on-keychange.patch to match what was actually
+    applied to the source tree.
