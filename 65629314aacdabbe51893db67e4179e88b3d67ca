@@ -1,0 +1,2 @@
+  * Change all openssh.org references to openssh.com (closes: #819213).
+  * CVE-2015-8325: Ignore PAM environment vars when UseLogin=yes.
