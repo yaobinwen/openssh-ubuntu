@@ -1,0 +1,2 @@
+  * Backport upstream patch to unbreak connections with peers that set
+    first_kex_follows (LP: #1526357).
