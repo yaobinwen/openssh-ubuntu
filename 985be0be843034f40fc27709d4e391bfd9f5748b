@@ -1,0 +1,4 @@
+  * SECURITY UPDATE: failure to check SSHFP records if server presents a
+    certificate
+    - debian/patches/CVE-2014-2653.patch: fix logic in sshconnect.c.
+    - CVE-2014-2653
