@@ -1,0 +1,2 @@
+  * debian/openssh-server.ssh.upstart: drop 'expect fork' and run sshd
+    with -D to avoid losing track on reload (LP: #687535)
