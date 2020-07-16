@@ -1,0 +1,3 @@
+  * Update config.guess and config.sub automatically at build time.
+    dh_autoreconf does not take care of that by default because openssh does
+    not use automake.
