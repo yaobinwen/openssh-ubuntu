@@ -1,0 +1,4 @@
+  * Debconf translations:
+    - Dutch (thanks, Frans Spiesschaert; closes: #765851).
+  * Assume that dpkg-statoverride exists and drop the test for an obsolete
+    compatibility path.
