@@ -1,0 +1,2 @@
+  * Renumber Debian-specific additions to enum monitor_reqtype so that they
+    fit within a single byte (thanks, Jason Conti; LP: #1179202).
