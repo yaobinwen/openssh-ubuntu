@@ -1,0 +1,4 @@
+  * Add /etc/ssh/ssh_config.d/ to openssh-client.
+  * Add /etc/ssh/sshd_config.d/ to openssh-server (closes: #952427).
+  * Install ssh-sk-helper even on non-Linux architectures, though it will
+    need an external middleware library in those cases.
