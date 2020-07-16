@@ -1,0 +1,5 @@
+  * Apply upstream-recommended patch to fix bignum encoding for
+    curve25519-sha256@libssh.org, fixing occasional key exchange failures
+    (LP: #1310781).
+  * Force ssh-agent Upstart job to use sh syntax regardless of the user's
+    shell (thanks, Steffen Stempel; LP: #1312928).
