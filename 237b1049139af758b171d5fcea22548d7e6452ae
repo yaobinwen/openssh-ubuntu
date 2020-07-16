@@ -1,0 +1,25 @@
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+  * Stop setting OOM adjustment in Upstart job; sshd does it itself now.
+  * Discard error messages while checking whether rsh, rlogin, and rcp
+    alternatives exist (closes: #579285).
+  * Drop IDEA key check; I don't think it works properly any more due to
+    textual changes in error output, it's only relevant for direct upgrades
+    from truly ancient versions, and it breaks upgrades if
+    /etc/ssh/ssh_host_key can't be loaded (closes: #579570).
+  * Use dh_installinit -n, since our maintainer scripts already handle this
+    more carefully (thanks, Julien Cristau).
+  * New upstream release:
+    - Unbreak sshd_config's AuthorizedKeysFile option for $HOME-relative
+      paths.
+    - Include a language tag when sending a protocol 2 disconnection
+      message.
+    - Make logging of certificates used for user authentication more clear
+      and consistent between CAs specified using TrustedUserCAKeys and
+      authorized_keys.
