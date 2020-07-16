@@ -1,0 +1,3 @@
+  * Fix ssh-keygen -H accidentally corrupting known_hosts that contained
+    already-hashed entries (LP: #1668093).
+  * Fix ssh-keyscan to correctly hash hosts with a port number (LP: #1670745).
