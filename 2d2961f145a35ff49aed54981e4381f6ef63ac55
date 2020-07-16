@@ -1,0 +1,3 @@
+  * Stop Upstart job on runlevel [!2345] rather than just S, since
+    /etc/init.d/sendsigs no longer kills jobs under Upstart's control
+    (thanks, Rob Donovan; LP: #603363).
