@@ -1,0 +1,3 @@
+  * CVE-2017-15906: sftp-server(8): In read-only mode, sftp-server was
+    incorrectly permitting creation of zero-length files. Reported by Michal
+    Zalewski.
