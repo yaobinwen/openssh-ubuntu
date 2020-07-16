@@ -1,0 +1,2 @@
+  * Fix null pointer dereference in ssh-keygen; this fixes an autopkgtest
+    regression introduced in 1:7.4p1-8.
