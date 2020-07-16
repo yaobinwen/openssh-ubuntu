@@ -1,0 +1,2 @@
+  * Fix Breaks/Replaces versions of openssh-sftp-server on openssh-server
+    (thanks, Axel Beckert).
