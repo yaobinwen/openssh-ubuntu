@@ -1,0 +1,4 @@
+  * Only enable ssh.service for systemd, not both ssh.service and
+    ssh.socket.  Thanks to Michael Biebl for spotting this.
+  * Backport upstream patch to unbreak case-sensitive matching of ssh_config
+    (closes: #738619).
