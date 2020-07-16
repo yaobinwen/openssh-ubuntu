@@ -1,0 +1,2 @@
+  * Make Upstart job 'console none', to avoid pathological behaviour due to
+    leaking Upstart's log fd 2 to child processes (LP: #926468).
