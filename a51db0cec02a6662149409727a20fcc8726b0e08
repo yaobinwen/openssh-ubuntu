@@ -1,0 +1,5 @@
+  * SECURITY UPDATE: Shell code injection with crafted file names in scp.
+  * Ported upstream patch from 4.3p2 to replace system() call with a proper
+    exec() call; this avoids expanding shell metacharacters in local-to-local
+    or remote-to-remote copies.
+  * CVE-2006-0225
