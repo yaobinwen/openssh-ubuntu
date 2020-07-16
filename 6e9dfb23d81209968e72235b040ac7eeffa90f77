@@ -1,0 +1,2 @@
+  * CVE-2011-5000: Fix potential int overflow when using gssapi-with-mac
+    authentation.
