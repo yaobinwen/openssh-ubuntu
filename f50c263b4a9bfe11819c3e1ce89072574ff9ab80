@@ -1,0 +1,16 @@
+  * SECURITY UPDATE: privilege escalation via environment files when
+    UseLogin is configured
+    - debian/patches/CVE-2015-8325.patch: ignore PAM environment vars when
+      UseLogin is enabled in session.c.
+    - CVE-2015-8325
+  * SECURITY UPDATE: fallback from untrusted X11-forwarding to trusted
+    - debian/patches/CVE-2016-1908-1.patch: use stack memory in
+      clientloop.c.
+    - debian/patches/CVE-2016-1908-2.patch: eliminate fallback in
+      clientloop.c, clientloop.h, mux.c, ssh.c.
+    - CVE-2016-1908
+  * SECURITY UPDATE: shell-command restrictions bypass via crafted X11
+    forwarding data
+    - debian/patches/CVE-2016-3115.patch: sanitise characters destined for
+      xauth in session.c.
+    - CVE-2016-3115
