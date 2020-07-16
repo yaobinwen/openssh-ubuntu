@@ -1,0 +1,9 @@
+  [ Colin Watson ]
+  * Test configuration before starting or reloading sshd under systemd
+    (closes: #865770).
+  * Create /run/sshd under systemd using RuntimeDirectory rather than
+    tmpfiles.d (thanks, Dmitry Smirnov; closes: #864190).
+  [ Dimitri John Ledkov ]
+  * Drop upstart system and user jobs (closes: #872851).
+  [ Chris Lamb ]
+  * Quote IP address in suggested "ssh-keygen -f" calls (closes: #872643).
