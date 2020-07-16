@@ -1,0 +1,9 @@
+  * Improve grammar of ssh-askpass-gnome description.
+  * Backport from upstream:
+    - Use the correct packet maximum sizes for remote port and agent
+      forwarding. Prevents the server from killing the connection if too
+      much data is queued and an excessively large packet gets sent
+      (https://bugzilla.mindrot.org/show_bug.cgi?id=1360).
+  * Allow passing temporary daemon parameters on the init script's command
+    line, e.g. '/etc/init.d/ssh start "-o PermitRootLogin=yes"' (thanks,
+    Marc Haber; closes: #458547).
