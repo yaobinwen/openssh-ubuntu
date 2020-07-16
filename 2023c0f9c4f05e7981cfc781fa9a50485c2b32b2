@@ -1,0 +1,5 @@
+  * SECURITY UPDATE: code execution via memory corruption when using an
+    AES-GCM cipher
+    - debian/patches/CVE-2013-4548.patch: properly initialize MAC context
+      in monitor_wrap.c.
+    - CVE-2013-4548
