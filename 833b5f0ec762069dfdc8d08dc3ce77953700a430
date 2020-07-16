@@ -1,0 +1,5 @@
+  * New upstream release (http://www.openssh.com/txt/release-6.2p2):
+    - Only warn for missing identity files that were explicitly specified
+      (closes: #708275).
+    - Fix bug in contributed contrib/ssh-copy-id script that could result in
+      "rm *" being called on mktemp failure (closes: #708419).
