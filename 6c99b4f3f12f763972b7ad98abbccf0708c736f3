@@ -1,0 +1,5 @@
+  * Reupload with -sa to work around confusion with 1:8.2p1-1 being in NEW.
+  * Move ssh-sk-helper into openssh-client rather than shipping it in a
+    separate package.  The extra library dependencies are pretty small, so
+    it doesn't seem worth bloating the Packages file.  Suggested by Bastian
+    Blank.
