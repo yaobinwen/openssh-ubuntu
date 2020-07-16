@@ -1,0 +1,12 @@
+  * Resynchronise with Debian.  Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+    - Drop openssh-blacklist and openssh-blacklist-extra to Suggests; they
+      take up a lot of CD space, and I suspect that rolling them out in
+      security updates has covered most affected systems now.
+    - Convert to Upstart.  The init script is still here for the benefit of
+      people running sshd in chroots.
+    - Install apport hook.
+    - Add ssh-import-id utility.
+  * Backport upstream patch to install a SIGCHLD handler to reap expired ssh
+    child processes, preventing lots of zombies when using ControlPersist
+    (closes: #594687).
