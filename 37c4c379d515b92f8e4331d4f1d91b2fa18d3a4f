@@ -1,0 +1,2 @@
+  * No change rebuild against new dh_installinit, to call update-rc.d at
+    postinst.
