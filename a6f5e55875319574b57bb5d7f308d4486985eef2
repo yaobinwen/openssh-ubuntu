@@ -1,0 +1,16 @@
+  * Resynchronise with Debian. Remaining changes:
+    - Add support for registering ConsoleKit sessions on login.
+  * Fill in CVE identifier for security vulnerability fixed in 1:4.7p1-8.
+  * Mitigate OpenSSL security vulnerability (CVE-2008-0166):
+    - Add key blacklisting support. Keys listed in
+      /etc/ssh/blacklist.TYPE-LENGTH will be rejected for authentication by
+      sshd, unless "PermitBlacklistedKeys yes" is set in
+      /etc/ssh/sshd_config.
+    - Add a new program, ssh-vulnkey, which can be used to check keys
+      against these blacklists.
+    - Depend on openssh-blacklist.
+    - Force dependencies on libssl0.9.8 / libcrypto0.9.8-udeb to at least
+      0.9.8g-9.
+    - Automatically regenerate known-compromised host keys, with a
+      critical-priority debconf note. (I regret that there was no time to
+      gather translations.)
