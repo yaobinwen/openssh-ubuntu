@@ -1,0 +1,2 @@
+  * Add mention-ssh-keygen-on-keychange.patch, mention of ssh-keygen
+    in ssh connect warning (LP: #686607) https://bugzilla.mindrot.org/show_bug.cgi?id=1843
