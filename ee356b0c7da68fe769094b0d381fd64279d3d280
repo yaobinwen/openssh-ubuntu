@@ -1,0 +1,7 @@
+  * Test configuration before starting or reloading sshd under systemd
+    (closes: #865770).
+  * Adjust compatibility patterns for WinSCP to correctly identify versions
+    that implement only the legacy DH group exchange scheme (closes:
+    #877800).
+  * Make "--" before the hostname terminate argument processing after the
+    hostname too (closes: #873201).
