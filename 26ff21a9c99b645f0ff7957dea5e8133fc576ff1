@@ -1,0 +1,8 @@
+  * Make the if-up hook use "reload" rather than "restart" if the system was
+    booted using systemd (closes: #756547).
+  * Show fingerprints of new keys after creating them in the postinst
+    (closes: #762128).
+  * Policy version 3.9.6: no changes required.
+  * Don't link /usr/share/doc/ssh to openssh-client, as this is not safe
+    between Architecture: all and Architecture: any binary packages (closes:
+    #763375).
