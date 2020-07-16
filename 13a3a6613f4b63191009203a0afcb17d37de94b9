@@ -1,0 +1,2 @@
+  * Remove protocol 1 host key generation from openssh-server.postinst
+    (closes: #811265).
