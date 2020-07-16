@@ -1,0 +1,1 @@
+  * Fix parsing of DebianBanner option (closes: #894730).
