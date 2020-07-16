@@ -1,0 +1,8 @@
+  [ Colin Watson ]
+  * Document consequences of ssh-agent being setgid in ssh-agent(1); see
+    #711623.
+  * Use 'set -e' rather than '#! /bin/sh -e' in maintainer scripts and
+    ssh-argv0.
+  [ Yolanda Robla ]
+  * debian/rules: Include real distribution in SSH_EXTRAVERSION instead of
+    hardcoding Debian (LP: #1195342).
