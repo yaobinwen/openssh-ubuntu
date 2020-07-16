@@ -1,0 +1,1 @@
+  * debian/control, debian/rules: enable libaudit support. (LP: #1478087)
