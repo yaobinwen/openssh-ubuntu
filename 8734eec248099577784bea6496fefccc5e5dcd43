@@ -1,0 +1,4 @@
+  * SECURITY UPDATE: block signal handler crash DoS.
+  * log.c: backport upstream corrections, thanks to Florian Weimer.
+  * References
+    CVE-2008-4109
