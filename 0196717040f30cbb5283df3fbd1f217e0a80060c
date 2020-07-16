@@ -1,0 +1,3 @@
+  * debian/openssh-server.if-up: Don't block on a finished reload of
+    openssh.service, to avoid deadlocking with restarting networking.
+    (Closes: #832557, LP: #1584393)
