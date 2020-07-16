@@ -1,0 +1,18 @@
+  * Identify ssh as a metapackage rather than a transitional package. It's
+    still useful as a quick way to install both the client and the server.
+  * ssh-copy-id now checks the exit status of ssh-add -L (thanks, Adeodato
+    Simó; closes: #221675).
+  * ssh-copy-id no longer prints the output of expr (thanks, Peter
+    Eisentraut; closes: #291534).
+  * ssh-copy-id defaults to ~/.ssh/id_rsa.pub rather than
+    ~/.ssh/identity.pub, in line with ssh-keygen (thanks, Greg Norris;
+    closes: #234627).
+  * Build-depend on libselinux1-dev on lpia.
+  * openssh-client Suggests: keychain.
+  * debconf template translations:
+    - Update Catalan (thanks, Jordà Polo; closes: #431970).
+  * Don't build PIE executables on hppa, as they crash.
+  * Only build PIE executables on Linux and NetBSD (closes: #430455).
+  * Fix broken switch fallthrough when SELinux is running in permissive mode
+    (closes: #430838).
+  * Document that HashKnownHosts may break tab-completion (closes: #430154).
