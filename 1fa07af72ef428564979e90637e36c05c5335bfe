@@ -1,0 +1,4 @@
+  * Debconf translations:
+    - French (thanks, Étienne Gilli; closes: #743242).
+  * Never signal the service supervisor with SIGSTOP more than once, to
+    prevent a hang on re-exec (thanks, Robie Basak; LP: #1306877).
