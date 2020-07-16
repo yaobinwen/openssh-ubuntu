@@ -1,0 +1,3 @@
+  * Backport upstream patch to install a SIGCHLD handler to reap expired ssh
+    child processes, preventing lots of zombies when using ControlPersist
+    (closes: #594687).
