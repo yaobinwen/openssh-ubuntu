@@ -1,0 +1,12 @@
+  [ Sebastian Andrzej Siewior ]
+  * Add powerpcspe to architecture list for libselinux1-dev build-dependency
+    (closes: #579843).
+  [ Colin Watson ]
+  * Allow ~/.ssh/authorized_keys and other secure files to be
+    group-writable, provided that the group in question contains only the
+    file's owner; this extends a patch previously applied to ~/.ssh/config
+    (closes: #581919).
+  * Check primary group memberships as well as supplementary group
+    memberships, and only allow group-writability by groups with exactly one
+    member, as zero-member groups are typically used by setgid binaries
+    rather than being user-private groups (closes: #581697).
