@@ -1,0 +1,4 @@
+  * SECURITY UPDATE: DoS via zero-length file creation in readonly mode
+    - debian/patches/CVE-2017-15906.patch: disallow creation of empty files
+      in sftp-server.c.
+    - CVE-2017-15906
