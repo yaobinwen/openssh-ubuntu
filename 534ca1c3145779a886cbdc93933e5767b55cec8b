@@ -1,0 +1,14 @@
+  * Be more specific about what files to install in openssh-tests, to avoid
+    installing a symlink into the build tree.
+  * Re-export debian/upstream/signing-key.asc without extra signatures.
+  * Restore direct test dependencies on openssl, putty-tools, and
+    python-twisted-conch; these are really only indirect dependencies via
+    openssh-tests, but including them means that this package will be
+    retested when they change.
+  * Add GitLab CI configuration.
+  * Make the autopkgtest create /run/sshd if it doesn't already exist.
+  * Drop "set -x" verbosity from the autopkgtest; I think we can do without
+    this in most cases nowadays.
+  * Add an openssh-tests binary package containing enough files to run the
+    upstream regression tests.  This allows autopkgtest to run more
+    efficiently, as it doesn't have to build part of the source tree again.
