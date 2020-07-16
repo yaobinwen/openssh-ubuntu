@@ -1,0 +1,2 @@
+  * CVE-2010-5107: Improve DoS resistance by changing default of MaxStartups
+    to 10:30:100 (closes: #700102).
