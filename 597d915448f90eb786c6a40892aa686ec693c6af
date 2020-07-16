@@ -1,0 +1,6 @@
+  * Send/accept only specific known LC_* variables, rather than using a
+    wildcard (closes: #765633).
+  * Document interactions between ListenAddress/Port and ssh.socket in
+    README.Debian (closes: #764842).
+  * Debconf translations:
+    - Brazilian Portuguese (thanks, José de Figueiredo; closes: #771859).
