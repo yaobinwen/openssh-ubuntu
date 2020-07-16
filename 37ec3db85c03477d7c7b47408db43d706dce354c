@@ -1,0 +1,3 @@
+  * Fix spelling of RuntimeDirectoryMode (closes: #872976).
+  * Add RuntimeDirectory and RuntimeDirectoryMode to ssh@.service as well as
+    ssh.service (closes: #872978).
