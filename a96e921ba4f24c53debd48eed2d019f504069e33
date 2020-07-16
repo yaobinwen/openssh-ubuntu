@@ -1,0 +1,41 @@
+  * SECURITY UPDATE: untrusted search path when loading PKCS#11 modules
+    - debian/patches/CVE-2016-10009.patch: add a whitelist of paths from
+      which ssh-agent will load a PKCS#11 module in ssh-agent.1,
+      ssh-agent.c.
+    - debian/patches/CVE-2016-10009-2.patch: fix deletion of PKCS#11 keys
+      in ssh-agent.c.
+    - debian/patches/CVE-2016-10009-3.patch: relax whitelist in
+      ssh-agent.c.
+    - debian/patches/CVE-2016-10009-4.patch: add missing label in
+      ssh-agent.c.
+    - CVE-2016-10009
+  * SECURITY UPDATE: local privilege escalation via socket permissions when
+    privilege separation is disabled
+    - debian/patches/CVE-2016-10010.patch: disable Unix-domain socket
+      forwarding when privsep is disabled in serverloop.c.
+    - debian/patches/CVE-2016-10010-2.patch: unbreak Unix domain socket
+      forwarding for root in serverloop.c.
+    - CVE-2016-10010
+  * SECURITY UPDATE: local information disclosure via effects of realloc on
+    buffer contents
+    - debian/patches/CVE-2016-10011-pre.patch: split allocation out of
+      sshbuf_reserve() in sshbuf.c, sshbuf.h.
+    - debian/patches/CVE-2016-10011.patch: pre-allocate the buffer used for
+      loading keys in authfile.c.
+    - CVE-2016-10011
+  * SECURITY UPDATE: local privilege escalation via incorrect bounds check
+    in shared memory manager
+    - debian/patches/CVE-2016-10012-1.patch: remove support for
+      pre-authentication compression in Makefile.in, monitor.c, monitor.h,
+      monitor_mm.c, monitor_mm.h, monitor_wrap.h, myproposal.h, opacket.h,
+      packet.c, packet.h, servconf.c, sshconnect2.c, sshd.c.
+    - debian/patches/CVE-2016-10012-2.patch: restore pre-auth compression
+      support in the client in kex.c, kex.h, packet.c, servconf.c,
+      sshconnect2.c, sshd_config.5.
+    - debian/patches/CVE-2016-10012-3.patch: put back some pre-auth zlib
+      bits in kex.c, kex.h, packet.c.
+    - CVE-2016-10012
+  * SECURITY UPDATE: DoS via zero-length file creation in readonly mode
+    - debian/patches/CVE-2017-15906.patch: disallow creation of empty files
+      in sftp-server.c.
+    - CVE-2017-15906
