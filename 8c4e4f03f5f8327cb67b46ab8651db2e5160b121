@@ -1,0 +1,9 @@
+  * Drop README.Debian section on privilege separation, as it's no longer
+    optional.
+  * Only call "initctl set-env" from agent-launch if $UPSTART_SESSION is set
+    (LP: #1689299).
+  * Fix incoming compression statistics (thanks, Russell Coker; closes:
+    #797964).
+  * Relicense debian/* under a two-clause BSD licence for bidirectional
+    compatibility with upstream, with permission from Matthew Vernon and
+    others.
