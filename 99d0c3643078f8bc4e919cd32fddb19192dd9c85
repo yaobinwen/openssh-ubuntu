@@ -1,0 +1,3 @@
+  * Apply upstream patch to delay bailout for invalid authenticating user
+    until after the packet containing the request has been fully parsed
+    (closes: #906236).
