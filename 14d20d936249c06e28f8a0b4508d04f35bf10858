@@ -1,0 +1,2 @@
+  * Fix incoming compression statistics (thanks, Russell Coker; closes:
+    #797964).
