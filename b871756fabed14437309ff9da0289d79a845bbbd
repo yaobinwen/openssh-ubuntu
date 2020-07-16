@@ -1,0 +1,4 @@
+  * Attempt to hack around regress/forwarding.sh test failure in some
+    environments.
+  * Avoid calling into Kerberos libraries from ssh_gssapi_server_mechanisms
+    in the privsep monitor.
