@@ -1,0 +1,4 @@
+  * Move VCS to salsa.debian.org.
+  * Add a preseeding-only openssh-server/password-authentication debconf
+    template that can be used to disable password authentication (closes:
+    #878945).
