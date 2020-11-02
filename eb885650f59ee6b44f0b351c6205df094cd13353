@@ -1,0 +1,2 @@
+  * Revert incorrect upstream patch that claimed to fix the seccomp sandbox
+    on x32 but in fact broke it instead.
