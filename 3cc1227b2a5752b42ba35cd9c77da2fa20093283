@@ -1,0 +1,2 @@
+  * Backport from upstream:
+    - Fix `EOF: command not found` error in ssh-copy-id (closes: #975540).
