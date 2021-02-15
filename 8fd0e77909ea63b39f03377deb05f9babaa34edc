@@ -1,0 +1,1 @@
+  * Avoid using libmd's <sha2.h> even if it's installed (closes: #982705).
