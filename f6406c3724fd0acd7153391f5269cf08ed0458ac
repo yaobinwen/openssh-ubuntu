@@ -1,0 +1,2 @@
+  * Cherry-pick seccomp fixes for glibc 2.33 thanks to Dave Jones for
+    reports on armhf.
