@@ -1,3 +1,12 @@
+openssh (1:8.2p1-4ubuntu0.2) focal-security; urgency=medium
+
+  * SECURITY UPDATE: double-free memory corruption in ssh-agent
+    - debian/patches/CVE-2021-28041.patch: set ext_name to NULL after
+      freeing it so it doesn't get freed again later on in ssh-agent.c.
+    - CVE-2021-28041
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Tue, 09 Mar 2021 09:17:50 -0500
+
 openssh (1:8.2p1-4ubuntu0.1) focal; urgency=medium
 
   * d/p/lp-1876320-*: avoid applying defaults for every include statement
