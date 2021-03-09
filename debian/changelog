@@ -1,3 +1,12 @@
+openssh (1:8.4p1-4ubuntu2) hirsute; urgency=medium
+
+  * SECURITY UPDATE: double-free memory corruption in ssh-agent
+    - debian/patches/CVE-2021-28041.patch: set ext_name to NULL after
+      freeing it so it doesn't get freed again later on in ssh-agent.c.
+    - CVE-2021-28041
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Tue, 09 Mar 2021 08:44:15 -0500
+
 openssh (1:8.4p1-4ubuntu1) hirsute; urgency=medium
 
   * Cherry-pick seccomp fixes for glibc 2.33 thanks to Dave Jones for
