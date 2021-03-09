@@ -1,3 +1,12 @@
+openssh (1:8.3p1-1ubuntu0.1) groovy-security; urgency=medium
+
+  * SECURITY UPDATE: double-free memory corruption in ssh-agent
+    - debian/patches/CVE-2021-28041.patch: set ext_name to NULL after
+      freeing it so it doesn't get freed again later on in ssh-agent.c.
+    - CVE-2021-28041
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Tue, 09 Mar 2021 09:17:17 -0500
+
 openssh (1:8.3p1-1) unstable; urgency=medium
 
   * New upstream release (https://www.openssh.com/txt/release-8.3):
