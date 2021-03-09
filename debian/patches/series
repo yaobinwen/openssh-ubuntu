@@ -28,3 +28,4 @@ ssh-copy-id-heredoc-syntax.patch
 0f90440ca70abab947acbd77795e9f130967956c.patch
 2e0beff67def2120f4b051b1016d7fbf84823e78.patch
 1bb130ed34721d46452529d094d9bbf045607d79.patch
+CVE-2021-28041.patch
