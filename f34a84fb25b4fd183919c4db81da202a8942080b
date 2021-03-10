@@ -1,0 +1,4 @@
+  * SECURITY UPDATE: double-free memory corruption in ssh-agent
+    - debian/patches/CVE-2021-28041.patch: set ext_name to NULL after
+      freeing it so it doesn't get freed again later on in ssh-agent.c.
+    - CVE-2021-28041
