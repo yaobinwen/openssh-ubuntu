@@ -1,8 +1,44 @@
+openssh (1:8.4p1-5ubuntu1) hirsute; urgency=medium
+
+  * Merge with Debian; remaining changes:
+    - Cherry-pick seccomp fixes for glibc 2.33 thanks to Dave Jones for
+      reports on armhf.
+
+ -- Matthias Klose <doko@ubuntu.com>  Tue, 23 Mar 2021 15:27:12 +0100
+
 openssh (1:8.4p1-5) unstable; urgency=high
 
   * CVE-2021-28041: Fix double free in ssh-agent(1) (closes: #984940).
 
  -- Colin Watson <cjwatson@debian.org>  Sat, 13 Mar 2021 09:59:40 +0000
+
+openssh (1:8.4p1-4ubuntu2) hirsute; urgency=medium
+
+  * SECURITY UPDATE: double-free memory corruption in ssh-agent
+    - debian/patches/CVE-2021-28041.patch: set ext_name to NULL after
+      freeing it so it doesn't get freed again later on in ssh-agent.c.
+    - CVE-2021-28041
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Tue, 09 Mar 2021 08:44:15 -0500
+
+openssh (1:8.4p1-4ubuntu1) hirsute; urgency=medium
+
+  * Cherry-pick seccomp fixes for glibc 2.33 thanks to Dave Jones for
+    reports on armhf.
+
+ -- Dimitri John Ledkov <xnox@ubuntu.com>  Tue, 23 Feb 2021 12:55:46 +0000
+
+openssh (1:8.4p1-4build2) hirsute; urgency=medium
+
+  * No-change rebuild to drop the udeb package.
+
+ -- Matthias Klose <doko@ubuntu.com>  Mon, 22 Feb 2021 10:35:45 +0100
+
+openssh (1:8.4p1-4build1) hirsute; urgency=medium
+
+  * No change rebuild with fixed ownership.
+
+ -- Dimitri John Ledkov <xnox@ubuntu.com>  Tue, 16 Feb 2021 15:19:19 +0000
 
 openssh (1:8.4p1-4) unstable; urgency=medium
 
