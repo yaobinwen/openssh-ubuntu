@@ -1,3 +1,11 @@
+openssh (1:8.2p1-4ubuntu0.3) focal; urgency=medium
+
+  * d/systemd/ssh@.service: preserve the systemd managed runtime directory to
+    ensure parallel processes will not disrupt one another when halting
+    (LP: #1905285)
+
+ -- Athos Ribeiro <athos.ribeiro@canonical.com>  Fri, 23 Jul 2021 09:55:12 -0300
+
 openssh (1:8.2p1-4ubuntu0.2) focal-security; urgency=medium
 
   * SECURITY UPDATE: double-free memory corruption in ssh-agent
