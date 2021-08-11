@@ -77,7 +77,7 @@ static int
 userauth_pubkey(struct ssh *ssh)
 {
 	Authctxt *authctxt = ssh->authctxt;
-	struct sshbuf *b;
+	struct sshbuf *b = NULL;
 	struct sshkey *key = NULL;
 	char *pkalg = NULL, *userstyle = NULL, *fp = NULL;
 	u_char *pkblob = NULL, *sig = NULL, have_sig;
@@ -165,7 +165,7 @@ userauth_pubkey(struct ssh *ssh)
 		if (!authctxt->valid || authctxt->user == NULL) {
 			debug2("%s: disabled because of invalid user",
 			    __func__);
-			buffer_free(&b);
+			sshbuf_free(b);
 			goto done;
 		}
 		/* reconstruct packet */

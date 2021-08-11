@@ -1,3 +1,11 @@
+openssh (1:7.6p1-4ubuntu0.5) bionic-security; urgency=medium
+
+  * SECURITY REGRESSION: User enumeration issue (LP: #1934501)
+    - debian/patches/CVE-2018-15473.patch: updated to fix bad patch
+      backport.
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Wed, 11 Aug 2021 14:02:09 -0400
+
 openssh (1:7.6p1-4ubuntu0.4) bionic; urgency=medium
 
   * Apply upstream patch to stop using 2020 as a future date in regress
