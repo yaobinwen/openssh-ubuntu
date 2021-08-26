@@ -26,4 +26,7 @@ revert-ipqos-defaults.patch
 revert-x32-sandbox-breakage.patch
 ssh-copy-id-heredoc-syntax.patch
 ssh-agent-double-free.patch
+0f90440ca70abab947acbd77795e9f130967956c.patch
+2e0beff67def2120f4b051b1016d7fbf84823e78.patch
+1bb130ed34721d46452529d094d9bbf045607d79.patch
 regress-includes.patch
