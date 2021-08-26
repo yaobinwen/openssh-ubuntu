@@ -1,0 +1,25 @@
+From 1bb130ed34721d46452529d094d9bbf045607d79 Mon Sep 17 00:00:00 2001
+From: Darren Tucker <dtucker@dtucker.net>
+Date: Thu, 11 Feb 2021 10:18:05 +1100
+Subject: [PATCH] Add __NR_futex_time64 to seccomp sandbox.
+
+This is apparently needed for (some) 32 bit platforms with glibc 2.33.
+Patch from nix at esperi.org.uk and jjelen at redhat.com via bz#3260.
+---
+ sandbox-seccomp-filter.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/sandbox-seccomp-filter.c b/sandbox-seccomp-filter.c
+index d942b5e167..d8dc7120bd 100644
+--- a/sandbox-seccomp-filter.c
++++ b/sandbox-seccomp-filter.c
+@@ -207,6 +207,9 @@ static const struct sock_filter preauth_insns[] = {
+ #ifdef __NR_futex
+ 	SC_ALLOW(__NR_futex),
+ #endif
++#ifdef __NR_futex_time64
++	SC_ALLOW(__NR_futex_time64),
++#endif
+ #ifdef __NR_geteuid
+ 	SC_ALLOW(__NR_geteuid),
+ #endif
