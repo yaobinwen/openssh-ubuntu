@@ -1,3 +1,10 @@
+openssh (1:8.4p1-6ubuntu2) impish; urgency=medium
+
+  * Configure with ac_cv_func_closefrom=no to avoid an incompatibility
+    with glibc 2.34's fallback_closefrom function (LP: #1944621)
+
+ -- William 'jawn-smith' Wilson <william.wilson@canonical.com>  Tue, 21 Sep 2021 22:08:39 +0000
+
 openssh (1:8.4p1-6ubuntu1) impish; urgency=low
 
   * Merge from Debian unstable (LP: #1941799). Remaining changes:
