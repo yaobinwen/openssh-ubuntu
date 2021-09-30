@@ -1,0 +1,2 @@
+  * Configure with ac_cv_func_closefrom=no to avoid an incompatibility
+    with glibc 2.34's fallback_closefrom function (LP: #1944621)
