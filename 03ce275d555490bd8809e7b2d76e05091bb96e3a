@@ -1,0 +1,2 @@
+  * Backport from upstream:
+    - Avoid NULL deref in -Y find-principals (closes: #999593).
