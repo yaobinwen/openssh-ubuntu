@@ -1,3 +1,9 @@
+openssh (1:8.7p1-2build1) jammy; urgency=medium
+
+  * No-change rebuild against openssl3
+
+ -- Simon Chopin <simon.chopin@canonical.com>  Wed, 01 Dec 2021 16:09:22 +0000
+
 openssh (1:8.7p1-2) unstable; urgency=medium
 
   * Backport from upstream:
