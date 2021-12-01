@@ -1,3 +1,11 @@
+openssh (1:8.4p1-5ubuntu1.2) hirsute; urgency=medium
+
+  * d/p/match-host-certs-w-public-keys.patch: Add patch
+    to match host certificates agianst host public keys.
+    (LP: #1952421)
+
+ -- Chloé S <chlo@kajiya.xyz>  Wed, 01 Dec 2021 14:12:42 +0000
+
 openssh (1:8.4p1-5ubuntu1.1) hirsute; urgency=medium
 
   * d/systemd/ssh@.service: preserve the systemd managed runtime directory to
