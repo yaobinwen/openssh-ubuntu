@@ -19,7 +19,7 @@ OpenBSD-Commit-ID: 25f5bf70003126d19162862d9eb380bf34bac22a
 
 --- a/sshd.c
 +++ b/sshd.c
-@@ -1933,7 +1933,7 @@
+@@ -1945,7 +1945,7 @@
  		/* Find matching private key */
  		for (j = 0; j < options.num_host_key_files; j++) {
  			if (sshkey_equal_public(key,
