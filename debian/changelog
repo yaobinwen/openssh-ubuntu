@@ -1,3 +1,11 @@
+openssh (1:8.2p1-4ubuntu0.4) focal; urgency=medium
+
+  * d/p/match-host-certs-w-public-keys.patch: Add patch
+    to match host certificates agianst host public keys.
+    (LP: #1952421)
+
+ -- Chloé S <chloe.smith@canonical.com>  Thu, 02 Dec 2021 22:38:52 +0000
+
 openssh (1:8.2p1-4ubuntu0.3) focal; urgency=medium
 
   * d/systemd/ssh@.service: preserve the systemd managed runtime directory to
