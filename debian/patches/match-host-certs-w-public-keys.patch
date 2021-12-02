@@ -1,0 +1,30 @@
+Description: Match host certificates against host public keys
+ not private keys. Allows use of certificates with private keys
+ held in a ssh-agent.
+Origin: upstream
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=3254
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/openssh/+bug/1952421
+Forwarded: not-needed
+Applied-Upstream: https://github.com/openssh/openssh-portable/commit/530739d4
+
+From 530739d42f6102668aecd699be0ce59815c1eceb Mon Sep 17 00:00:00 2001
+From: "djm@openbsd.org" <djm@openbsd.org>
+Date: Sun, 6 Jun 2021 11:34:16 +0000
+Reported by Miles Zhou in bz3524; ok dtucker@
+OpenBSD-Commit-ID: 25f5bf70003126d19162862d9eb380bf34bac22a
+
+---
+ sshd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- a/sshd.c
++++ b/sshd.c
+@@ -1896,7 +1896,7 @@
+ 		/* Find matching private key */
+ 		for (j = 0; j < options.num_host_key_files; j++) {
+ 			if (sshkey_equal_public(key,
+-			    sensitive_data.host_keys[j])) {
++			    sensitive_data.host_pubkeys[j])) {
+ 				sensitive_data.host_certificates[j] = key;
+ 				break;
+ 			}
