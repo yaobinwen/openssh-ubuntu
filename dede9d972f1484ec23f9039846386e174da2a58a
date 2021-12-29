@@ -1,0 +1,4 @@
+  [ Daniel Baumann ]
+  * Fix typo in openssh-client.alternatives (closes: #1002803).
+  [ Colin Watson ]
+  * Further clarify socket activation instructions.
