@@ -1,0 +1,3 @@
+  * fix clients advertising version 1.99 (LP: #1863930)
+    - d/p/lp-1863930-Fix-logic-bug-in-sshd_exchange_identification.patch
+    - d/p/lp-1863930-unbreak-clients-that-advertise-protocol.patch
