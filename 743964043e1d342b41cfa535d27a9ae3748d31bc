@@ -1,0 +1,1 @@
+  * Allow ppoll_time64 in seccomp filter (closes: #1006445).
