@@ -1,3 +1,10 @@
+openssh (1:8.4p1-6ubuntu2.2) impish; urgency=medium
+
+  * d/p/fix-connect-timeout-overflow.patch: prevent ConnectTimeout overflow.
+    (LP: #1903516)
+
+ -- Athos Ribeiro <athos.ribeiro@canonical.com>  Wed, 30 Mar 2022 09:40:10 -0300
+
 openssh (1:8.4p1-6ubuntu2.1) impish; urgency=medium
 
   * d/p/match-host-certs-w-public-keys.patch: Add patch
