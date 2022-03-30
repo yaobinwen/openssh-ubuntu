@@ -1,3 +1,14 @@
+openssh (1:7.6p1-4ubuntu0.7) bionic; urgency=medium
+
+  * d/p/fix-connect-timeout-overflow.patch: prevent ConnectTimeout overflow.
+    (LP: #1903516)
+
+  [ Sergio Durigan Junior ]
+  * d/p/lp1966591-upstream-preserve-group-world-read-permission-on-kno.patch:
+    Preserve group/world read permissions on known_hosts. (LP: #1966591)
+
+ -- Athos Ribeiro <athos.ribeiro@canonical.com>  Wed, 30 Mar 2022 10:17:14 -0300
+
 openssh (1:7.6p1-4ubuntu0.6) bionic; urgency=medium
 
   * fix clients advertising version 1.99 (LP: #1863930)
