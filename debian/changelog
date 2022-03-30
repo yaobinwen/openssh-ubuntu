@@ -1,3 +1,14 @@
+openssh (1:8.2p1-4ubuntu0.5) focal; urgency=medium
+
+  * d/p/fix-connect-timeout-overflow.patch: prevent ConnectTimeout overflow.
+    (LP: #1903516)
+
+  [ Sergio Durigan Junior ]
+  * d/p/lp1966591-upstream-preserve-group-world-read-permission-on-kno.patch:
+    Preserve group/world read permissions on known_hosts. (LP: #1966591)
+
+ -- Athos Ribeiro <athos.ribeiro@canonical.com>  Wed, 30 Mar 2022 10:03:15 -0300
+
 openssh (1:8.2p1-4ubuntu0.4) focal; urgency=medium
 
   * d/p/match-host-certs-w-public-keys.patch: Add patch
