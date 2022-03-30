@@ -1,0 +1,32 @@
+From 819b44e8b9af6ce18d3ec7505b9f461bf7991a1f Mon Sep 17 00:00:00 2001
+From: "dtucker@openbsd.org" <dtucker@openbsd.org>
+Date: Thu, 12 Nov 2020 22:38:57 +0000
+Subject: [PATCH] upstream: Prevent integer overflow when ridiculously large
+
+ConnectTimeout is specified, capping the effective value (for most platforms)
+at 24 days. bz#3229, ok djm@
+
+OpenBSD-Commit-ID: 62d4c4b7b87d111045f8e9f28b5b532d17ac5bc0
+
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=3229
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/openssh/+bug/1903516
+Origin: upstream, http://anongit.mindrot.org/openssh.git/commit/?id=819b44e8b9af6ce18d3ec7505b9f461bf7991a1f
+Last-Update: 2022-03-30
+---
+ ssh.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+--- a/ssh.c
++++ b/ssh.c
+@@ -1279,7 +1279,10 @@
+ 			cleanup_exit(255); /* resolve_host logs the error */
+ 	}
+ 
+-	timeout_ms = options.connection_timeout * 1000;
++	if (options.connection_timeout >= INT_MAX/1000)
++		timeout_ms = INT_MAX;
++	else
++		timeout_ms = options.connection_timeout * 1000;
+ 
+ 	/* Open a connection to the remote host. */
+ 	if (ssh_connect(ssh, host, addrs, &hostaddr, options.port,
