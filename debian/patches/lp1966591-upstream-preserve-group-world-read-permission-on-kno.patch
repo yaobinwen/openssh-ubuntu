@@ -1,0 +1,46 @@
+From: "djm@openbsd.org" <djm@openbsd.org>
+Date: Wed, 13 May 2020 09:55:57 +0000
+Subject: upstream: preserve group/world read permission on known_hosts
+
+file across runs of "ssh-keygen -Rf /path". The old behaviour was to remove
+all rights for group/other. bz#3146 ok dtucker@
+
+OpenBSD-Commit-ID: dc369d0e0b5dd826430c63fd5f4b269953448a8a
+
+Origin: backport, https://github.com/openssh/openssh-portable/commit/f2d84f1b3fa68d77c99238d4c645d0266fae2a74
+Bug: https://bugzilla.mindrot.org/show_bug.cgi?id=3146
+Bug-Ubuntu: https://bugs.launchpad.net/openssh/+bug/1966591
+Applied-Upstream: 8.4
+---
+ ssh-keygen.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/ssh-keygen.c b/ssh-keygen.c
+index 835f7d0..bfc5233 100644
+--- a/ssh-keygen.c
++++ b/ssh-keygen.c
+@@ -1235,6 +1235,7 @@ do_known_hosts(struct passwd *pw, const char *name)
+ 	int r, fd, oerrno, inplace = 0;
+ 	struct known_hosts_ctx ctx;
+ 	u_int foreach_options;
++	struct stat sb;
+ 
+ 	if (!have_identity) {
+ 		cp = tilde_expand_filename(_PATH_SSH_USER_HOSTFILE, pw->pw_uid);
+@@ -1244,6 +1245,8 @@ do_known_hosts(struct passwd *pw, const char *name)
+ 		free(cp);
+ 		have_identity = 1;
+ 	}
++	if (stat(identity_file, &sb) != 0)
++		fatal("Cannot stat %s: %s", identity_file, strerror(errno));
+ 
+ 	memset(&ctx, 0, sizeof(ctx));
+ 	ctx.out = stdout;
+@@ -1267,6 +1270,7 @@ do_known_hosts(struct passwd *pw, const char *name)
+ 			unlink(tmp);
+ 			fatal("fdopen: %s", strerror(oerrno));
+ 		}
++		fchmod(fd, sb.st_mode & 0644);
+ 		inplace = 1;
+ 	}
+ 

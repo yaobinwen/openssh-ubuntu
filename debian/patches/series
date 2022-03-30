@@ -37,3 +37,4 @@ CVE-2019-6111-2.patch
 regress-2020.patch
 lp-1863930-unbreak-clients-that-advertise-protocol.patch
 lp-1863930-Fix-logic-bug-in-sshd_exchange_identification.patch
+lp1966591-upstream-preserve-group-world-read-permission-on-kno.patch
