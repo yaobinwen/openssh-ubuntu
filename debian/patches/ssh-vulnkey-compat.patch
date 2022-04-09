@@ -1,4 +1,4 @@
-From b298c6364e0f53fa3115b0d9a0cc6644c758eee9 Mon Sep 17 00:00:00 2001
+From 3ebfc5798a5a93199615513a83133232493736f7 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@ubuntu.com>
 Date: Sun, 9 Feb 2014 16:09:50 +0000
 Subject: Accept obsolete ssh-vulnkey configuration options
@@ -29,7 +29,7 @@ index 9e846a50c..0c268700a 100644
  	{ "useroaming", oDeprecated },
  	{ "usersh", oDeprecated },
 diff --git a/servconf.c b/servconf.c
-index 8b6e78ba7..27c648b02 100644
+index 4d7af389f..7d3367268 100644
 --- a/servconf.c
 +++ b/servconf.c
 @@ -635,6 +635,7 @@ static struct {

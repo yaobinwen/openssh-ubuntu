@@ -1,3 +1,48 @@
+openssh (1:9.0p1-1) unstable; urgency=medium
+
+  * New upstream release (https://www.openssh.com/releasenotes.html#9.0p1):
+    - scp(1): Use the SFTP protocol by default (closes: #144579, #204546,
+      #327019). This changes scp's quoting semantics by no longer performing
+      wildcard expansion using the remote shell, and (with some server
+      versions) no longer expanding ~user paths. The -O option is available
+      to use the old protocol. See NEWS.Debian for more details.
+    - ssh(1), sshd(8): use the hybrid Streamlined NTRU Prime + x25519 key
+      exchange method by default ("sntrup761x25519-sha512@openssh.com").
+      The NTRU algorithm is believed to resist attacks enabled by future
+      quantum computers and is paired with the X25519 ECDH key exchange (the
+      previous default) as a backstop against any weaknesses in NTRU Prime
+      that may be discovered in the future. The combination ensures that the
+      hybrid exchange offers at least as good security as the status quo.
+    - sftp-server(8): support the "copy-data" extension to allow server-
+      side copying of files/data, following the design in
+      draft-ietf-secsh-filexfer-extensions-00.
+    - sftp(1): add a "cp" command to allow the sftp client to perform
+      server-side file copies.
+    - ssh(1), sshd(8): upstream: fix poll(2) spin when a channel's output fd
+      closes without data in the channel buffer (closes: #1007822).
+    - sshd(8): pack pollfd array in server listen/accept loop. Could cause
+      the server to hang/spin when MaxStartups > RLIMIT_NOFILE.
+    - ssh-keygen(1): avoid NULL deref via the find-principals and
+      check-novalidate operations. bz3409 and GHPR307 respectively.
+    - scp(1): fix a memory leak in argument processing.
+    - sshd(8): don't try to resolve ListenAddress directives in the sshd
+      re-exec path. They are unused after re-exec and parsing errors
+      (possible for example if the host's network configuration changed)
+      could prevent connections from being accepted.
+    - sshd(8): when refusing a public key authentication request from a
+      client for using an unapproved or unsupported signature algorithm
+      include the algorithm name in the log message to make debugging
+      easier.
+    - ssh(1), sshd(8): Fix possible integer underflow in scan_scaled(3)
+      parsing of K/M/G/etc quantities.
+    - sshd(8): default to not using sandbox when cross compiling. On most
+      systems poll(2) does not work when the number of FDs is reduced with
+      setrlimit, so assume it doesn't when cross compiling and we can't run
+      the test.
+  * Remove obsolete FAQ, removed from openssh.com in 2016.
+
+ -- Colin Watson <cjwatson@debian.org>  Sat, 09 Apr 2022 14:14:10 +0100
+
 openssh (1:8.9p1-3) unstable; urgency=medium
 
   * Allow ppoll_time64 in seccomp filter (closes: #1006445).

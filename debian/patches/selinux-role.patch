@@ -1,4 +1,4 @@
-From f59d6298c911ef3f4ae5a0de820323d221438e20 Mon Sep 17 00:00:00 2001
+From 04fd524306d6ccf03b737d98fbb370a5eb56aaec Mon Sep 17 00:00:00 2001
 From: Manoj Srivastava <srivasta@debian.org>
 Date: Sun, 9 Feb 2014 16:09:49 +0000
 Subject: Handle SELinux authorisation roles
@@ -81,7 +81,7 @@ index 44bd49177..d66d73876 100644
  		if (auth2_setup_methods_lists(authctxt) != 0)
  			ssh_packet_disconnect(ssh,
 diff --git a/monitor.c b/monitor.c
-index ded3a7a3c..667e95623 100644
+index cd9f95504..ccab23e04 100644
 --- a/monitor.c
 +++ b/monitor.c
 @@ -117,6 +117,7 @@ int mm_answer_sign(struct ssh *, int, struct sshbuf *);
@@ -100,7 +100,7 @@ index ded3a7a3c..667e95623 100644
      {MONITOR_REQ_AUTH2_READ_BANNER, MON_ONCE, mm_answer_auth2_read_banner},
      {MONITOR_REQ_AUTHPASSWORD, MON_AUTH, mm_answer_authpassword},
  #ifdef USE_PAM
-@@ -818,6 +820,7 @@ mm_answer_pwnamallow(struct ssh *ssh, int sock, struct sshbuf *m)
+@@ -815,6 +817,7 @@ mm_answer_pwnamallow(struct ssh *ssh, int sock, struct sshbuf *m)
  
  	/* Allow service/style information on the auth context */
  	monitor_permit(mon_dispatch, MONITOR_REQ_AUTHSERV, 1);
@@ -108,7 +108,7 @@ index ded3a7a3c..667e95623 100644
  	monitor_permit(mon_dispatch, MONITOR_REQ_AUTH2_READ_BANNER, 1);
  
  #ifdef USE_PAM
-@@ -851,15 +854,42 @@ mm_answer_authserv(struct ssh *ssh, int sock, struct sshbuf *m)
+@@ -848,15 +851,42 @@ mm_answer_authserv(struct ssh *ssh, int sock, struct sshbuf *m)
  	monitor_permit_authentications(1);
  
  	if ((r = sshbuf_get_cstring(m, &authctxt->service, NULL)) != 0 ||
@@ -153,7 +153,7 @@ index ded3a7a3c..667e95623 100644
  	return (0);
  }
  
-@@ -1581,7 +1611,7 @@ mm_answer_pty(struct ssh *ssh, int sock, struct sshbuf *m)
+@@ -1578,7 +1608,7 @@ mm_answer_pty(struct ssh *ssh, int sock, struct sshbuf *m)
  	res = pty_allocate(&s->ptyfd, &s->ttyfd, s->tty, sizeof(s->tty));
  	if (res == 0)
  		goto error;
@@ -327,10 +327,10 @@ index 3c22a854d..c88129428 100644
  void ssh_selinux_setfscreatecon(const char *);
  #endif
 diff --git a/platform.c b/platform.c
-index 44ba71dc5..2defe9425 100644
+index 4fe8744ee..70c3a9b58 100644
 --- a/platform.c
 +++ b/platform.c
-@@ -143,7 +143,7 @@ platform_setusercontext(struct passwd *pw)
+@@ -144,7 +144,7 @@ platform_setusercontext(struct passwd *pw)
   * called if sshd is running as root.
   */
  void
@@ -339,7 +339,7 @@ index 44ba71dc5..2defe9425 100644
  {
  #if !defined(HAVE_LOGIN_CAP) && defined(USE_PAM)
  	/*
-@@ -184,7 +184,7 @@ platform_setusercontext_post_groups(struct passwd *pw)
+@@ -185,7 +185,7 @@ platform_setusercontext_post_groups(struct passwd *pw)
  	}
  #endif /* HAVE_SETPCRED */
  #ifdef WITH_SELINUX
@@ -349,7 +349,7 @@ index 44ba71dc5..2defe9425 100644
  }
  
 diff --git a/platform.h b/platform.h
-index ea4f9c584..60d72ffe7 100644
+index 7fef8c983..027fdfb51 100644
 --- a/platform.h
 +++ b/platform.h
 @@ -25,7 +25,7 @@ void platform_post_fork_parent(pid_t child_pid);
@@ -360,7 +360,7 @@ index ea4f9c584..60d72ffe7 100644
 +void platform_setusercontext_post_groups(struct passwd *, const char *);
  char *platform_get_krb5_client(const char *);
  char *platform_krb5_get_principal_name(const char *);
- int platform_sys_dir_uid(uid_t);
+ int platform_locked_account(struct passwd *);
 diff --git a/session.c b/session.c
 index f7d028d40..a638ceef1 100644
 --- a/session.c
@@ -424,7 +424,7 @@ index ce59dabd9..675c91146 100644
  const char	*session_get_remote_name_or_ip(struct ssh *, u_int, int);
  
 diff --git a/sshd.c b/sshd.c
-index 1279014c7..d920c16c2 100644
+index 0c1bb2454..91e30825a 100644
 --- a/sshd.c
 +++ b/sshd.c
 @@ -584,7 +584,7 @@ privsep_postauth(struct ssh *ssh, Authctxt *authctxt)

@@ -1,4 +1,4 @@
-From 8b1a39129b4cadf4c83806b8dc2872eea264db9a Mon Sep 17 00:00:00 2001
+From 10547745d1329e7f9712b8a4a4532a72db1a620e Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:09 +0000
 Subject: Adjust various OpenBSD-specific references in manual pages
@@ -89,7 +89,7 @@ index 59b7f23a1..6a8e59f88 100644
  The file format is described in
  .Xr moduli 5 .
 diff --git a/ssh.1 b/ssh.1
-index a41a1c0c9..de2dbb0f4 100644
+index 1d8b3baf2..10f6d7c93 100644
 --- a/ssh.1
 +++ b/ssh.1
 @@ -920,6 +920,10 @@ implements public key authentication protocol automatically,
@@ -104,7 +104,7 @@ index a41a1c0c9..de2dbb0f4 100644
  .Pp
  The file
 diff --git a/sshd.8 b/sshd.8
-index 9c5c01e9d..e31b339dd 100644
+index 35524fcc9..8fd0bf4b8 100644
 --- a/sshd.8
 +++ b/sshd.8
 @@ -64,7 +64,7 @@ over an insecure network.
@@ -134,7 +134,7 @@ index 9c5c01e9d..e31b339dd 100644
  .Xr sshd_config 5 ,
  .Xr inetd 8 ,
 diff --git a/sshd_config.5 b/sshd_config.5
-index 513468369..6ea1ca624 100644
+index 2dca1fc8f..a881575c6 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -912,9 +912,6 @@ for interactive sessions and

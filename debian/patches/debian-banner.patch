@@ -1,4 +1,4 @@
-From eb7320592ee00436b07eb53584e3aa56fcf99383 Mon Sep 17 00:00:00 2001
+From 6106ce237a806e9ce088ae5cf730e5ba2ca36760 Mon Sep 17 00:00:00 2001
 From: Kees Cook <kees@debian.org>
 Date: Sun, 9 Feb 2014 16:10:06 +0000
 Subject: Add DebianBanner server configuration option
@@ -58,7 +58,7 @@ index 240dca89d..e356f5ed0 100644
  struct kex *kex_new(void);
  int	 kex_ready(struct ssh *, char *[PROPOSAL_MAX]);
 diff --git a/servconf.c b/servconf.c
-index 27c648b02..823155248 100644
+index 7d3367268..dac06fed5 100644
 --- a/servconf.c
 +++ b/servconf.c
 @@ -199,6 +199,7 @@ initialize_server_options(ServerOptions *options)
@@ -106,7 +106,7 @@ index 27c648b02..823155248 100644
  	case sIgnore:
  	case sUnsupported:
 diff --git a/servconf.h b/servconf.h
-index 413413e94..f2d9b46fc 100644
+index 197c35bbf..5ae73460b 100644
 --- a/servconf.h
 +++ b/servconf.h
 @@ -232,6 +232,8 @@ typedef struct {
@@ -132,10 +132,10 @@ index 60cff2d87..6d5cea60b 100644
  
  	/* Put the connection into non-blocking mode. */
 diff --git a/sshd.c b/sshd.c
-index d920c16c2..f7f9e27dd 100644
+index 91e30825a..f8e3ecc0a 100644
 --- a/sshd.c
 +++ b/sshd.c
-@@ -2218,7 +2218,7 @@ main(int ac, char **av)
+@@ -2227,7 +2227,7 @@ main(int ac, char **av)
  	if (!debug_flag)
  		alarm(options.login_grace_time);
  
@@ -145,7 +145,7 @@ index d920c16c2..f7f9e27dd 100644
  		sshpkt_fatal(ssh, r, "banner exchange");
  
 diff --git a/sshd_config.5 b/sshd_config.5
-index 8f262365d..513468369 100644
+index 83615a5d0..2dca1fc8f 100644
 --- a/sshd_config.5
 +++ b/sshd_config.5
 @@ -546,6 +546,11 @@ or
