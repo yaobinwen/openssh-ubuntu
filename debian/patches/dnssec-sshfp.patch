@@ -1,4 +1,4 @@
-From e4ace3eb5c11da66a0449a7bdfe50d0416f1ae74 Mon Sep 17 00:00:00 2001
+From 93816f474bc7154dcc27a1a142d412058d1da908 Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Sun, 9 Feb 2014 16:10:01 +0000
 Subject: Force use of DNSSEC even if "options edns0" isn't in resolv.conf
@@ -51,10 +51,10 @@ index f2310bec2..9021d1785 100644
  		verbose("DNS lookup error: %s", dns_result_totext(result));
  		return -1;
 diff --git a/openbsd-compat/getrrsetbyname.c b/openbsd-compat/getrrsetbyname.c
-index dc6fe0533..e061a290a 100644
+index cc1f8ae51..920cfe1cd 100644
 --- a/openbsd-compat/getrrsetbyname.c
 +++ b/openbsd-compat/getrrsetbyname.c
-@@ -209,8 +209,8 @@ getrrsetbyname(const char *hostname, unsigned int rdclass,
+@@ -208,8 +208,8 @@ getrrsetbyname(const char *hostname, unsigned int rdclass,
  		goto fail;
  	}
  
@@ -65,7 +65,7 @@ index dc6fe0533..e061a290a 100644
  		result = ERRSET_INVAL;
  		goto fail;
  	}
-@@ -226,9 +226,9 @@ getrrsetbyname(const char *hostname, unsigned int rdclass,
+@@ -225,9 +225,9 @@ getrrsetbyname(const char *hostname, unsigned int rdclass,
  #endif /* DEBUG */
  
  #ifdef RES_USE_DNSSEC
