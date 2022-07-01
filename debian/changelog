@@ -1,3 +1,11 @@
+openssh (1:8.4p1-5+deb11u1) bullseye; urgency=medium
+
+  * Backport from upstream:
+    - Add new pselect6_time64 syscall on 32-bit architectures (closes:
+      #1004427).
+
+ -- Colin Watson <cjwatson@ubuntu.com>  Fri, 01 Jul 2022 23:37:41 +0100
+
 openssh (1:8.4p1-5) unstable; urgency=high
 
   * CVE-2021-28041: Fix double free in ssh-agent(1) (closes: #984940).
