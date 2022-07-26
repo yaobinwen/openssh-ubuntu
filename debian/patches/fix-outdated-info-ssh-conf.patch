@@ -1,0 +1,43 @@
+Description: Fix outdated information in ssh_config.5
+ The release of OpenSSH 8.2 has removed 'ssh-rsa' from
+ the default list of CACertificateAlgorithms. Manpage is
+ being updated to reflect the change which was done to
+ the code.
+
+Author: djm@openbsd.org <djm@openbsd.org>
+Origin: upstream, https://github.com/openssh/openssh-portable/commit/53ea05e09b04fd7b6dea66b42b34d65fe61b9636
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/openssh/+bug/1871465
+Last-Update: 2022-07-26
+
+--- openssh-8.2p1.orig/ssh_config.5
++++ openssh-8.2p1/ssh_config.5
+@@ -390,8 +390,11 @@ Specifies which algorithms are allowed f
+ by certificate authorities (CAs).
+ The default is:
+ .Bd -literal -offset indent
+-ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,
+-ssh-ed25519,rsa-sha2-512,rsa-sha2-256,ssh-rsa
++ssh-ed25519,ecdsa-sha2-nistp256,
++ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,
++sk-ssh-ed25519@openssh.com,
++sk-ecdsa-sha2-nistp256@openssh.com,
++rsa-sha2-512,rsa-sha2-256
+ .Ed
+ .Pp
+ .Xr ssh 1
+--- openssh-8.2p1.orig/sshd_config.5
++++ openssh-8.2p1/sshd_config.5
+@@ -408,8 +408,11 @@ Specifies which algorithms are allowed f
+ by certificate authorities (CAs).
+ The default is:
+ .Bd -literal -offset indent
+-ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,
+-ssh-ed25519,rsa-sha2-512,rsa-sha2-256,ssh-rsa
++ssh-ed25519,ecdsa-sha2-nistp256,
++ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,
++sk-ssh-ed25519@openssh.com,
++sk-ecdsa-sha2-nistp256@openssh.com,
++rsa-sha2-512,rsa-sha2-256
+ .Ed
+ .Pp
+ Certificates signed using other algorithms will not be accepted for
