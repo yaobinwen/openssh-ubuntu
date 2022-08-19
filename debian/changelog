@@ -1,3 +1,26 @@
+openssh (1:9.0p1-1ubuntu1) kinetic; urgency=medium
+
+  * debian/patches/systemd-socket-activation.patch: support systemd
+    socket activation.
+  * debian/systemd/ssh.socket, debian/systemd/ssh.service: use socket
+    activation by default.
+  * debian/rules: rejigger dh_installsystemd invocations so ssh.service and
+    ssh.socket don't fight.
+  * debian/openssh-server.postinst: handle migration of sshd_config options
+    to systemd socket options on upgrade.
+  * debian/README.Debian: document systemd socket activation.
+  * debian/patches/socket-activation-documentation.patch: Document in
+    sshd_config(5) that ListenAddress and Port no longer work.
+  * debian/openssh-server.templates, debian/openssh-server.postinst: include
+    debconf warning about possible service failure with multiple
+    ListenAddress settings.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Fri, 19 Aug 2022 20:43:16 +0000
+
+openssh (1:9.0p1-1ubuntu1~ppa2) kinetic; urgency=medium
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Mon, 08 Aug 2022 21:42:47 +0000
+
 openssh (1:9.0p1-1) unstable; urgency=medium
 
   * New upstream release (https://www.openssh.com/releasenotes.html#9.0p1):
