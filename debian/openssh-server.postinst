@@ -21,6 +21,51 @@ get_config_option() {
 	   /etc/ssh/sshd_config
 }
 
+get_config_option_all() {
+	option="$1"
+	file="$2"
+
+	if [ -z "$file" ]; then
+		file=/etc/ssh/sshd_config
+	fi
+
+	[ -f "$file" ] || return 0
+	# ListenAddress and Port only take a single word argument so anything
+	# after this must be a comment
+	while read option2 value junk; do
+		case $option2 in
+			$option)
+				echo $value
+				;;
+			Include)
+				# globs
+				for f in $value; do
+					get_config_option_all "$option" "$f"
+				done
+				;;
+		esac
+	done < $file
+}
+
+hostnames_to_addresses() {
+	addresses="$1"
+	for address in $addresses; do
+		if echo $address | grep -q '^[0-9.]\+$'; then
+			numeric_addresses="$numeric_addresses $address"
+		elif echo $address | grep -q '^[0-9:]\+$'; then
+			numeric_addresses="$numeric_addresses [$address]"
+		else
+			new_addresses=$( (getent ahostsv4 $address;
+			                  getent ahostsv6 $address) \
+			   | awk '$1 ~ /^::ffff:/ || $2 != "STREAM" { next; }
+			          $1 ~ /:/ { print "[" $1 "]"; next; }
+			          { print $1 }' \
+			   | sort -u)
+			numeric_addresses="$numeric_addresses $new_addresses"
+		fi
+	done
+	echo "$numeric_addresses"
+}
 
 host_keys_required() {
 	hostkeys="$(get_config_option HostKey)"
@@ -127,6 +172,48 @@ if [ "$action" = configure ]; then
 	    # maintainer scripts will have saved the old file as .dpkg-bak,
 	    # which we now move back into place.
 	    mv /etc/ssh/moduli.dpkg-bak /etc/ssh/moduli
+	fi
+	if dpkg --compare-versions "$2" lt-nl 1:9.0p1-1ubuntu1~
+	then
+		# migrate to systemd socket activation.
+		addresses=$(get_config_option_all ListenAddress)
+		addresses=$(hostnames_to_addresses "$addresses")
+		ports=$(get_config_option_all Port)
+		if [ -n "$addresses$ports" ]
+		then
+			override_dir=/etc/systemd/system/ssh.socket.d
+			mkdir -p "$override_dir"
+			echo '[Socket]' > "$override_dir"/addresses.conf
+			echo 'ListenStream=' >> "$override_dir"/addresses.conf
+		fi
+		if [ -n "$addresses" ]; then
+			[ -n "$ports" ] || ports=22
+			count=0
+			for address in $addresses; do
+				count=$((count+1))
+				for port in $ports; do
+					echo "ListenStream=$address:$port" \
+					     >> "$override_dir"/addresses.conf
+				done
+			done
+			if [ $count -gt 1 ]; then
+				db_input critical openssh-server/listenstream-may-fail || true
+				db_go || true
+			fi
+		elif [ -n "$ports" ]; then
+			for port in $ports; do
+				echo "ListenStream=$port" \
+				     >> "$override_dir"/addresses.conf
+			done
+		fi
+		# deb-systemd-helper is inadequate for the task of changing
+		# policy for the units on upgrade
+		if [ -d /run/systemd/system ]; then
+			systemctl disable ssh.service
+			systemctl unmask ssh.service
+			systemctl stop ssh.service
+			systemctl enable ssh.socket
+		fi
 	fi
 fi
 
