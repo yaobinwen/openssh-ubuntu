@@ -1,3 +1,10 @@
+openssh (1:9.0p1-1ubuntu3) kinetic; urgency=medium
+
+  * Document in the default sshd_config file the changes in behavior 
+    triggered by use of socket-based activation.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Fri, 26 Aug 2022 00:40:11 +0000
+
 openssh (1:9.0p1-1ubuntu2) kinetic; urgency=medium
 
   * Fix manpage to not claim socket-based activation is the default on
