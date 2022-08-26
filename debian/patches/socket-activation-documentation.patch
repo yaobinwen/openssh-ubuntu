@@ -8,7 +8,7 @@ Index: openssh/sshd_config.5
  options are permitted.
 +.Pp
 +.Cm Note:
-+On Debian, the openssh-server package is configured to use systemd
++On Ubuntu, the openssh-server package is configured to use systemd
 +socket-based activation by default.  Therefore if you are using systemd with
 +the default configuration,
 +.Cm ListenAddress
@@ -24,7 +24,7 @@ Index: openssh/sshd_config.5
  .Cm ListenAddress .
 +.Pp
 +.Cm Note:
-+On Debian, the openssh-server package is configured to use systemd
++On Ubuntu, the openssh-server package is configured to use systemd
 +socket-based activation by default.  Therefore if you are using systemd with
 +the default configuration,
 +.Cm Port

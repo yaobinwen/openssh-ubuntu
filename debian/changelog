@@ -1,3 +1,10 @@
+openssh (1:9.0p1-1ubuntu2) kinetic; urgency=medium
+
+  * Fix manpage to not claim socket-based activation is the default on
+    Debian!
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Fri, 26 Aug 2022 00:21:42 +0000
+
 openssh (1:9.0p1-1ubuntu1) kinetic; urgency=medium
 
   * debian/patches/systemd-socket-activation.patch: support systemd
