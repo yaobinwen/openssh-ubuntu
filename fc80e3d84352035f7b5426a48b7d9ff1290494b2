@@ -1,0 +1,2 @@
+  * Fix manpage to not claim socket-based activation is the default on
+    Debian!
