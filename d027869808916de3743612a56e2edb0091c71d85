@@ -1,0 +1,2 @@
+  * Document in the default sshd_config file the changes in behavior 
+    triggered by use of socket-based activation.
