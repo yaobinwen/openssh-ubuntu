@@ -1,3 +1,11 @@
+openssh (1:9.0p1-1ubuntu4) kinetic; urgency=medium
+
+  * Don't migrate users to socket activation if multiple ListenAddresses
+    might make sshd unreliable on boot.
+  * Fix regexp bug that prevented proper migration of IPv6 address settings.
+
+ -- Steve Langasek <vorlon@debian.org>  Fri, 23 Sep 2022 19:35:37 +0000
+
 openssh (1:9.0p1-1ubuntu3) kinetic; urgency=medium
 
   * Document in the default sshd_config file the changes in behavior 
@@ -30,10 +38,6 @@ openssh (1:9.0p1-1ubuntu1) kinetic; urgency=medium
     ListenAddress settings.
 
  -- Steve Langasek <steve.langasek@ubuntu.com>  Fri, 19 Aug 2022 20:43:16 +0000
-
-openssh (1:9.0p1-1ubuntu1~ppa2) kinetic; urgency=medium
-
- -- Steve Langasek <steve.langasek@ubuntu.com>  Mon, 08 Aug 2022 21:42:47 +0000
 
 openssh (1:9.0p1-1) unstable; urgency=medium
 
