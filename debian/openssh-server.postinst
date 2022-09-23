@@ -213,7 +213,7 @@ if [ "$action" = configure ]; then
 			done
 		fi
 	fi
-	if dpkg --compare-versions "$2" lt 1:9.0p1-1ubuntu5~
+	if dpkg --compare-versions "$2" lt 1:9.0p1-1ubuntu5~; then
 		if [ -z "$NO_SOCKET_MIGRATION" ]; then
 			override_dir=/etc/systemd/system/ssh.service.d
 			mkdir -p "$override_dir"

@@ -1,3 +1,9 @@
+openssh (1:9.0p1-1ubuntu6) kinetic; urgency=medium
+
+  * Fix syntax error in postinst :/
+
+ -- Steve Langasek <vorlon@debian.org>  Fri, 23 Sep 2022 19:51:32 +0000
+
 openssh (1:9.0p1-1ubuntu5) kinetic; urgency=medium
 
   * Correctly handle the case of new installs, and correctly apply systemd
