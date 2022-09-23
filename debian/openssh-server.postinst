@@ -52,7 +52,7 @@ hostnames_to_addresses() {
 	for address in $addresses; do
 		if echo $address | grep -q '^[0-9.]\+$'; then
 			numeric_addresses="$numeric_addresses $address"
-		elif echo $address | grep -q '^[0-9:]\+$'; then
+		elif echo $address | grep -q '^[0-9a-f:]\+$'; then
 			numeric_addresses="$numeric_addresses [$address]"
 		else
 			new_addresses=$( (getent ahostsv4 $address;
@@ -183,8 +183,8 @@ if [ "$action" = configure ]; then
 		then
 			override_dir=/etc/systemd/system/ssh.socket.d
 			mkdir -p "$override_dir"
-			echo '[Socket]' > "$override_dir"/addresses.conf
-			echo 'ListenStream=' >> "$override_dir"/addresses.conf
+			echo '[Socket]' > "$override_dir"/addresses.conf.new
+			echo 'ListenStream=' >> "$override_dir"/addresses.conf.new
 		fi
 		if [ -n "$addresses" ]; then
 			[ -n "$ports" ] || ports=22
@@ -193,12 +193,18 @@ if [ "$action" = configure ]; then
 				count=$((count+1))
 				for port in $ports; do
 					echo "ListenStream=$address:$port" \
-					     >> "$override_dir"/addresses.conf
+					     >> "$override_dir"/addresses.conf.new
 				done
 			done
 			if [ $count -gt 1 ]; then
 				db_input critical openssh-server/listenstream-may-fail || true
 				db_go || true
+				rm -f "$override_dir"/addresses.conf.new
+				rmdir "$override_dir"
+				NO_SOCKET_MIGRATION=1
+			else
+				mv "$override_dir"/addresses.conf.new \
+				   "$override_dir"/addresses.conf
 			fi
 		elif [ -n "$ports" ]; then
 			for port in $ports; do
@@ -208,7 +214,15 @@ if [ "$action" = configure ]; then
 		fi
 		# deb-systemd-helper is inadequate for the task of changing
 		# policy for the units on upgrade
-		if [ -d /run/systemd/system ]; then
+		if [ -d /run/systemd/system ] && [ -z "$NO_SOCKET_MIGRATION" ]
+		then
+			override_dir=/etc/systemd/system/ssh.service.d
+			mkdir -p "$override_dir"
+			echo '[Unit]' > "$override_dir"/00-socket.conf
+			echo 'After=ssh.socket' >> "$override_dir"/00-socket.conf
+			echo 'Requires=ssh.socket' >> "$override_dir"/00-socket.conf
+
+			systemctl daemon-reload
 			systemctl disable ssh.service
 			systemctl unmask ssh.service
 			systemctl stop ssh.service
@@ -218,6 +232,14 @@ if [ "$action" = configure ]; then
 fi
 
 #DEBHELPER#
+
+if [ -d /run/systemd/system ]; then
+	if deb-systemd-helper --quiet was-enabled ssh.socket; then
+		deb-systemd-invoke restart ssh.socket
+	elif deb-systemd-helper --quiet was-enabled ssh.service; then
+		deb-systemd-invoke restart ssh.service
+	fi
+fi
 
 db_stop
 
