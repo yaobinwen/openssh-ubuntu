@@ -1,3 +1,10 @@
+openssh (1:9.0p1-1ubuntu5) kinetic; urgency=medium
+
+  * Correctly handle the case of new installs, and correctly apply systemd
+    unit overrides on upgrade from existing kinetic systems.
+
+ -- Steve Langasek <vorlon@debian.org>  Fri, 23 Sep 2022 19:45:18 +0000
+
 openssh (1:9.0p1-1ubuntu4) kinetic; urgency=medium
 
   * Don't migrate users to socket activation if multiple ListenAddresses
