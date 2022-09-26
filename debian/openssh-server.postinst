@@ -117,15 +117,20 @@ create_keys() {
 
 
 new_config=
+workaround=
 
 cleanup() {
 	if [ "$new_config" ]; then
 		rm -f "$new_config"
 	fi
+	if [ "$workaround" ]; then
+		rm -f "$workaround"
+	fi
 }
 
 
 create_sshdconfig() {
+	prev_ver="$1"
 	# XXX cjwatson 2016-12-24: This debconf template is very confusingly
 	# named; its description is "Disable SSH password authentication for
 	# root?", so true -> prohibit-password (the upstream default),
@@ -147,6 +152,21 @@ create_sshdconfig() {
 			"$new_config"
 	fi
 	mkdir -p /etc/ssh
+
+	# Workaround for LP: #1968873: if we have an sshd_config with a known
+	# checksum, confirm it via ucf before applying the changes from
+	# the new version.
+	if dpkg --compare-versions "$prev_ver" lt-nl 1:9.0p1-1ubuntu7 \
+	   && grep -q "^$(md5sum /etc/ssh/sshd_config | awk '{ print $1 }')" \
+	              /usr/share/openssh/sshd_config.md5sum
+	then
+		workaround="$(mktemp)"
+		sed -e'14,16d' "$new_config" > "$workaround"
+		ucf --three-way --debconf-ok \
+			--sum-file /usr/share/openssh/sshd_config.md5sum \
+			"$workaround" /etc/ssh/sshd_config
+	fi
+
 	ucf --three-way --debconf-ok \
 		--sum-file /usr/share/openssh/sshd_config.md5sum \
 		"$new_config" /etc/ssh/sshd_config
@@ -160,7 +180,7 @@ setup_sshd_user() {
 }
 
 if [ "$action" = configure ]; then
-	create_sshdconfig
+	create_sshdconfig "$2"
 	create_keys
 	setup_sshd_user
 	if dpkg --compare-versions "$2" lt-nl 1:7.9p1-5 && \
@@ -173,7 +193,7 @@ if [ "$action" = configure ]; then
 	    # which we now move back into place.
 	    mv /etc/ssh/moduli.dpkg-bak /etc/ssh/moduli
 	fi
-	if dpkg --compare-versions "$2" lt-nl 1:9.0p1-1ubuntu1~
+	if dpkg --compare-versions "$2" lt-nl 1:9.0p1-1ubuntu7~
 	then
 		# migrate to systemd socket activation.
 		addresses=$(get_config_option_all ListenAddress)
@@ -202,15 +222,18 @@ if [ "$action" = configure ]; then
 				rm -f "$override_dir"/addresses.conf.new
 				rmdir "$override_dir"
 				NO_SOCKET_MIGRATION=1
-			else
-				mv "$override_dir"/addresses.conf.new \
-				   "$override_dir"/addresses.conf
 			fi
 		elif [ -n "$ports" ]; then
 			for port in $ports; do
 				echo "ListenStream=$port" \
-				     >> "$override_dir"/addresses.conf
+				     >> "$override_dir"/addresses.conf.new
 			done
+		fi
+
+		if [ -z "$NO_SOCKET_MIGRATION" ] && [ -n "$addresses$ports" ]
+		then
+                    mv "$override_dir"/addresses.conf.new \
+                       "$override_dir"/addresses.conf
 		fi
 	fi
 	if dpkg --compare-versions "$2" lt 1:9.0p1-1ubuntu5~; then
