@@ -1,3 +1,17 @@
+openssh (1:9.0p1-1ubuntu7.1) kinetic; urgency=medium
+
+  * debian/openssh-server.postinst: Fix handling of ListenAddress when a port
+    is specified (LP: #1993478):
+    - Strip port before converting hostnames to numerical addresses.
+    - Only append ports when the ListenAddress does not already specify a
+      port.
+    - Revert socket migration on upgrade if a previous version did the
+      migration when it should not have.
+  * debian/openssh-server.postinst: Ignore empty directory failure from rmdir
+    when skipping socket migration (LP: #1995294).
+
+ -- Nick Rosbrook <nick.rosbrook@canonical.com>  Tue, 25 Oct 2022 11:57:43 -0400
+
 openssh (1:9.0p1-1ubuntu7) kinetic; urgency=medium
 
   * Update list of stock sshd_config checksums to include those from
