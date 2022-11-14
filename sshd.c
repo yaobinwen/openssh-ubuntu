@@ -1,4 +1,4 @@
-/* $OpenBSD: sshd.c,v 1.585 2022/03/18 04:04:11 djm Exp $ */
+/* $OpenBSD: sshd.c,v 1.591 2022/09/17 10:34:29 djm Exp $ */
 /*
  * Author: Tatu Ylonen <ylo@cs.hut.fi>
  * Copyright (c) 1995 Tatu Ylonen <ylo@cs.hut.fi>, Espoo, Finland
@@ -141,10 +141,16 @@ int deny_severity;
 #endif /* LIBWRAP */
 
 /* Re-exec fds */
-#define REEXEC_DEVCRYPTO_RESERVED_FD	(STDERR_FILENO + 1)
-#define REEXEC_STARTUP_PIPE_FD		(STDERR_FILENO + 2)
-#define REEXEC_CONFIG_PASS_FD		(STDERR_FILENO + 3)
-#define REEXEC_MIN_FREE_FD		(STDERR_FILENO + 4)
+#ifdef HAVE_SYSTEMD
+#define SYSTEMD_OFFSET sd_listen_fds(0)
+#else
+#define SYSTEMD_OFFSET 0
+#endif
+
+#define REEXEC_DEVCRYPTO_RESERVED_FD	(STDERR_FILENO + 1 + SYSTEMD_OFFSET)
+#define REEXEC_STARTUP_PIPE_FD		(STDERR_FILENO + 2 + SYSTEMD_OFFSET)
+#define REEXEC_CONFIG_PASS_FD		(STDERR_FILENO + 3 + SYSTEMD_OFFSET)
+#define REEXEC_MIN_FREE_FD		(STDERR_FILENO + 4 + SYSTEMD_OFFSET)
 
 extern char *__progname;
 
@@ -1033,6 +1039,48 @@ server_accept_inetd(int *sock_in, int *sock_out)
 	debug("inetd sockets after dupping: %d, %d", *sock_in, *sock_out);
 }
 
+#ifdef HAVE_SYSTEMD
+/*
+ * Configure our socket fds that were passed from systemd
+ */
+static void
+setup_systemd_socket(int listen_sock)
+{
+	int ret;
+	struct sockaddr_storage addr;
+	socklen_t len = sizeof(addr);
+	char ntop[NI_MAXHOST], strport[NI_MAXSERV];
+
+	if (getsockname(listen_sock, (struct sockaddr *)&addr, &len) != 0)
+		return;
+
+	if (((struct sockaddr *)&addr)->sa_family != AF_INET
+	    && ((struct sockaddr *)&addr)->sa_family != AF_INET6)
+		return;
+	if (num_listen_socks >= MAX_LISTEN_SOCKS)
+		fatal("Too many listen sockets. "
+		    "Enlarge MAX_LISTEN_SOCKS");
+	if ((ret = getnameinfo((struct sockaddr *)&addr, len, ntop,
+	                       sizeof(ntop), strport, sizeof(strport),
+	                       NI_NUMERICHOST|NI_NUMERICSERV)) != 0) {
+		error("getnameinfo failed: %.100s",
+		    ssh_gai_strerror(ret));
+		return;
+	}
+	if (set_nonblock(listen_sock) == -1) {
+		close(listen_sock);
+		return;
+	}
+	/* Socket options */
+	set_reuseaddr(listen_sock);
+
+	listen_socks[num_listen_socks] = listen_sock;
+	num_listen_socks++;
+
+	logit("Server listening on %s port %s.", ntop, strport);
+}
+#endif
+
 /*
  * Listen for TCP connections
  */
@@ -1112,22 +1160,35 @@ static void
 server_listen(void)
 {
 	u_int i;
+#ifdef HAVE_SYSTEMD
+	int systemd_socket_count;
+#endif
 
 	/* Initialise per-source limit tracking. */
 	srclimit_init(options.max_startups, options.per_source_max_startups,
 	    options.per_source_masklen_ipv4, options.per_source_masklen_ipv6);
 
-	for (i = 0; i < options.num_listen_addrs; i++) {
-		listen_on_addrs(&options.listen_addrs[i]);
-		freeaddrinfo(options.listen_addrs[i].addrs);
-		free(options.listen_addrs[i].rdomain);
-		memset(&options.listen_addrs[i], 0,
-		    sizeof(options.listen_addrs[i]));
+#ifdef HAVE_SYSTEMD
+	systemd_socket_count = sd_listen_fds(0);
+	if (systemd_socket_count > 0)
+	{
+		int i;
+		for (i = 0; i < systemd_socket_count; i++)
+			setup_systemd_socket(SD_LISTEN_FDS_START + i);
+	} else
+#endif
+	{
+		for (i = 0; i < options.num_listen_addrs; i++) {
+			listen_on_addrs(&options.listen_addrs[i]);
+			freeaddrinfo(options.listen_addrs[i].addrs);
+			free(options.listen_addrs[i].rdomain);
+			memset(&options.listen_addrs[i], 0,
+			    sizeof(options.listen_addrs[i]));
+		}
+		free(options.listen_addrs);
+		options.listen_addrs = NULL;
+		options.num_listen_addrs = 0;
 	}
-	free(options.listen_addrs);
-	options.listen_addrs = NULL;
-	options.num_listen_addrs = 0;
-
 	if (!num_listen_socks)
 		fatal("Cannot bind any address.");
 }
@@ -1278,8 +1339,12 @@ server_accept_loop(int *sock_in, int *sock_out, int *newsock, int *config_s)
 					usleep(100 * 1000);
 				continue;
 			}
-			if (unset_nonblock(*newsock) == -1 ||
-			    pipe(startup_p) == -1) {
+			if (unset_nonblock(*newsock) == -1) {
+				close(*newsock);
+				continue;
+			}
+			if (pipe(startup_p) == -1) {
+				error_f("pipe(startup_p): %s", strerror(errno));
 				close(*newsock);
 				continue;
 			}
@@ -1877,6 +1942,13 @@ main(int ac, char **av)
 				fatal_r(r, "Could not demote key: \"%s\"",
 				    options.host_key_files[i]);
 		}
+		if (pubkey != NULL && (r = sshkey_check_rsa_length(pubkey,
+		    options.required_rsa_size)) != 0) {
+			error_fr(r, "Host key %s", options.host_key_files[i]);
+			sshkey_free(pubkey);
+			sshkey_free(key);
+			continue;
+		}
 		sensitive_data.host_keys[i] = key;
 		sensitive_data.host_pubkeys[i] = pubkey;
 
@@ -2399,14 +2471,14 @@ do_ssh2_kex(struct ssh *ssh)
 {
 	char *myproposal[PROPOSAL_MAX] = { KEX_SERVER };
 	struct kex *kex;
+	char *prop_kex = NULL, *prop_enc = NULL, *prop_hostkey = NULL;
 	int r;
 
-	myproposal[PROPOSAL_KEX_ALGS] = compat_kex_proposal(ssh,
+	myproposal[PROPOSAL_KEX_ALGS] = prop_kex = compat_kex_proposal(ssh,
 	    options.kex_algorithms);
-	myproposal[PROPOSAL_ENC_ALGS_CTOS] = compat_cipher_proposal(ssh,
-	    options.ciphers);
-	myproposal[PROPOSAL_ENC_ALGS_STOC] = compat_cipher_proposal(ssh,
-	    options.ciphers);
+	myproposal[PROPOSAL_ENC_ALGS_CTOS] =
+	    myproposal[PROPOSAL_ENC_ALGS_STOC] = prop_enc =
+	    compat_cipher_proposal(ssh, options.ciphers);
 	myproposal[PROPOSAL_MAC_ALGS_CTOS] =
 	    myproposal[PROPOSAL_MAC_ALGS_STOC] = options.macs;
 
@@ -2419,8 +2491,8 @@ do_ssh2_kex(struct ssh *ssh)
 		ssh_packet_set_rekey_limits(ssh, options.rekey_limit,
 		    options.rekey_interval);
 
-	myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS] = compat_pkalg_proposal(
-	    ssh, list_hostkey_types());
+	myproposal[PROPOSAL_SERVER_HOST_KEY_ALGS] = prop_hostkey =
+	   compat_pkalg_proposal(ssh, list_hostkey_types());
 
 #if defined(GSSAPI) && defined(WITH_OPENSSL)
 	{
@@ -2508,6 +2580,9 @@ do_ssh2_kex(struct ssh *ssh)
 	    (r = ssh_packet_write_wait(ssh)) != 0)
 		fatal_fr(r, "send test");
 #endif
+	free(prop_kex);
+	free(prop_enc);
+	free(prop_hostkey);
 	debug("KEX done");
 }
 
