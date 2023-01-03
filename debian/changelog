@@ -1,3 +1,23 @@
+openssh (1:9.1p1-2) unstable; urgency=medium
+
+  [ Christian Göttsche ]
+  * Do not copy SELinux security context in postinst.
+
+  [ Colin Watson ]
+  * Add missing ${misc:Depends} to Depends for openssh-client-udeb,
+    openssh-server-udeb.
+  * Use secure URI in Homepage field.
+  * Remove 2 obsolete maintscript entries in 2 files.
+  * Fix day-of-week for changelog entries 1:3.0.2p1-9, 1:3.0.2p1-2,
+    1:3.0.1p1-1.
+  * Remove deprecated Encoding key from desktop file
+    debian/ssh-askpass-gnome.desktop.
+  * Update standards version to 4.6.2, no changes needed.
+  * debian/tests/regress: Adjust to cope with changes in adduser 3.130 (see
+    #625758).
+
+ -- Colin Watson <cjwatson@debian.org>  Tue, 03 Jan 2023 11:57:19 +0000
+
 openssh (1:9.1p1-1) unstable; urgency=medium
 
   [ Markus Teich ]
@@ -5848,7 +5868,7 @@ openssh (1:3.0.2p1-9) unstable; urgency=high
     to use crypto in France, so I've edited that comment slightly
   * Correct a path in README.Debian too (Closes: #138634)
 
- -- Matthew Vernon <matthew@debian.org>  Sun,  4 Apr 2002 09:52:59 +0100
+ -- Matthew Vernon <matthew@debian.org>  Thu, 04 Apr 2002 09:52:59 +0100
 
 openssh (1:3.0.2p1-8.3) unstable; urgency=medium
 
@@ -5926,7 +5946,7 @@ openssh (1:3.0.2p1-2) unstable; urgency=high
     (Closes: #127842, #127867)
   * Add section in README.Debian about the PermitRootLogin setting
 
- -- Matthew Vernon <matthew@debian.org>  Sat,  5 Jan 2003 05:26:30 +0000
+ -- Matthew Vernon <matthew@debian.org>  Sun, 05 Jan 2003 05:26:30 +0000
 
 openssh (1:3.0.2p1-1) unstable; urgency=high
 
@@ -5979,7 +5999,7 @@ openssh (1:3.0.1p1-1) unstable; urgency=high
   * Experimental smartcard support not enabled, since I have no way of
     testing it.
 
- -- Matthew Vernon <matthew@debian.org>  Thu, 28 Nov 2001 17:43:01 +0000
+ -- Matthew Vernon <matthew@debian.org>  Wed, 28 Nov 2001 17:43:01 +0000
 
 openssh (1:2.9p2-6) unstable; urgency=low
 
