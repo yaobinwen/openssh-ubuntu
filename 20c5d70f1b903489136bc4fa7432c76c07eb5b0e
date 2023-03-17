@@ -1,0 +1,10 @@
+  * Update list of stock sshd_config checksums to include those from
+    jammy and kinetic.
+  * Add a workaround for LP: #1990863 (now fixed in livecd-rootfs) to
+    avoid spurious ucf prompts on upgrade.
+  * Move /run/sshd creation out of the systemd unit to a tmpfile config
+    so that sshd can be run manually if necessary without having to create
+    this directory by hand.  LP: #1991283.
+  [ Nick Rosbrook ]
+  * debian/openssh-server.postinst: Fix addresses.conf generation when only
+    non-default Port is used in /etc/ssh/sshd_config (LP: #1991199).
