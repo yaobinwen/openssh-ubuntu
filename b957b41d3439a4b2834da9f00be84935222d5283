@@ -1,0 +1,3 @@
+  * Don't migrate users to socket activation if multiple ListenAddresses
+    might make sshd unreliable on boot.
+  * Fix regexp bug that prevented proper migration of IPv6 address settings.
