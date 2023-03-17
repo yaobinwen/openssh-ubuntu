@@ -1,0 +1,2 @@
+  * Correctly handle the case of new installs, and correctly apply systemd
+    unit overrides on upgrade from existing kinetic systems.
