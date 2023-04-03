@@ -1,3 +1,11 @@
+openssh (1:8.2p1-4ubuntu0.7) focal; urgency=medium
+
+  * d/p/lp2012298-upstream-fix-match-in-d-config.patch: Allow ssh_config.d/
+    configuration files to correctly update the PasswordAuthentication setting
+    (LP: #2012298)
+
+ -- Lena Voytek <lena.voytek@canonical.com>  Mon, 03 Apr 2023 15:47:13 -0700
+
 openssh (1:8.2p1-4ubuntu0.6) focal; urgency=medium
 
   * d/p/fix-outdated-info-ssh-conf.patch: Fix outdated information
