@@ -8,3 +8,9 @@ Depends: devscripts,
          python3-twisted,
          sudo,
          sysvinit-utils,
+
+Tests: systemd-socket-activation
+Restrictions: needs-root allow-stderr
+Depends: openssh-client,
+         openssh-server,
+         systemd,
