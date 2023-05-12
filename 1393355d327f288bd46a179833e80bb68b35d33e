@@ -1,0 +1,10 @@
+  * debian/patches/systemd-socket-activation.patch: Fix re-execution behavior
+    (LP: #2011458):
+    - Remove FD_CLOEXEC on fds passed by systemd to prevent automatic closing
+      when sshd re-executes.
+    - Do not manually close fds passed by systemd when re-executing.
+    - Only call sd_listen_fds() once, and only in the parent process.
+    - Check the LISTEN_FDS environment variable to get the number of fds
+      passed by systemd when re-executing as a child process.
+  * debian/tests/systemd-socket-activation: Add autopkgtest for systemd socket
+    activation functionality.
