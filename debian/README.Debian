@@ -203,6 +203,9 @@ If you do not want to use socket activation for ssh on your system, you
 can disable socket activation by running:
 
   systemctl disable --now ssh.socket
+  rm -f /etc/systemd/system/ssh.service.d/00-socket.conf
+  rm -f /etc/systemd/system/ssh.service.d/addresses.conf
+  systemctl daemon-reload
   systemctl enable --now ssh.service
 
 Terminating SSH sessions cleanly on shutdown/reboot with systemd
