@@ -1,31 +1,34 @@
 openssh (1:9.2p1-2ubuntu1) mantic; urgency=medium
 
-  * Merge with Debian unstable. Remaining changes:
-  * debian/rules: modify dh_installsystemd invocations for
-    socket-activated sshd
-  * debian/openssh-server.postinst: handle migration of sshd_config options
-    to systemd socket options on upgrade.
-  * debian/README.Debian: document systemd socket activation.
-  * debian/patches/socket-activation-documentation.patch: Document in
-    sshd_config(5) that ListenAddress and Port no longer work.
-  * debian/openssh-server.templates: include debconf prompt explaining
-    when migration cannot happen due to multiple ListenAddress values
-  * debian/.gitignore: drop file
-  * debian/openssh-server.postrm: remove systemd drop-ins for
-    socket-activated sshd on purge
-  * debian/openssh-server.ucf-md5sum: Update list of stock sshd_config
-    checksums to include those from jammy and kinetic.
-  * debian/openssh-server.tmpfile,debian/systemd/ssh.service: Move
-    /run/sshd creation out of the systemd unit to a tmpfile config so
-    that sshd can be run manually if necessary without having to create
-    this directory by hand.
-  * debian/patches/systemd-socket-activation.patch: Fix sshd
-    re-execution behavior when socket activation is used
-  * debian/tests/systemd-socket-activation: Add autopkgtest for systemd socket
-    activation functionality.
-  * debian/README.Debian: mention drop-in configurations in instructions
-    for disabling sshd socket activation (LP: #2017434).
-  * debian/openssh-server.ucf-md5sum: update for Ubuntu delta
+  * Merge with Debian unstable (LP: #2018094). Remaining changes:
+    - debian/rules: modify dh_installsystemd invocations for
+      socket-activated sshd
+    - debian/openssh-server.postinst: handle migration of sshd_config options
+      to systemd socket options on upgrade.
+    - debian/README.Debian: document systemd socket activation.
+    - debian/patches/socket-activation-documentation.patch: Document in
+      sshd_config(5) that ListenAddress and Port no longer work.
+    - debian/openssh-server.templates: include debconf prompt explaining
+      when migration cannot happen due to multiple ListenAddress values
+    - debian/.gitignore: drop file
+    - debian/openssh-server.postrm: remove systemd drop-ins for
+      socket-activated sshd on purge
+    - debian/openssh-server.ucf-md5sum: Update list of stock sshd_config
+      checksums to include those from jammy and kinetic.
+    - debian/openssh-server.tmpfile,debian/systemd/ssh.service: Move
+      /run/sshd creation out of the systemd unit to a tmpfile config so
+      that sshd can be run manually if necessary without having to create
+      this directory by hand.
+    - debian/patches/systemd-socket-activation.patch: Fix sshd
+      re-execution behavior when socket activation is used
+    - debian/tests/systemd-socket-activation: Add autopkgtest for systemd socket
+      activation functionality.
+  * Dropped changes, included in Debian:
+    - debian/patches/systemd-socket-activation.patch: Initial implementation
+  * New changes:
+    - debian/README.Debian: mention drop-in configurations in instructions
+      for disabling sshd socket activation (LP: #2017434).
+    - debian/openssh-server.ucf-md5sum: update for Ubuntu delta
 
  -- Nick Rosbrook <nick.rosbrook@canonical.com>  Fri, 19 May 2023 15:18:17 -0400
 
