@@ -1,0 +1,52 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Format: 3.0 (quilt)
+Source: openssh
+Binary: openssh-client, openssh-server, openssh-sftp-server, ssh, ssh-krb5, ssh-askpass-gnome, openssh-client-udeb, openssh-server-udeb
+Architecture: any all
+Version: 1:6.7p1-5+deb8u3
+Maintainer: Debian OpenSSH Maintainers <debian-ssh@lists.debian.org>
+Uploaders: Colin Watson <cjwatson@debian.org>, Matthew Vernon <matthew@debian.org>
+Homepage: http://www.openssh.org/
+Standards-Version: 3.9.6
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-ssh/openssh.git
+Vcs-Git: git://anonscm.debian.org/pkg-ssh/openssh.git
+Testsuite: autopkgtest
+Build-Depends: libwrap0-dev | libwrap-dev, zlib1g-dev (>= 1:1.2.3), libssl-dev (>= 0.9.8g), libpam0g-dev | libpam-dev, libgtk2.0-dev, libedit-dev, debhelper (>= 9~), dh-exec, libselinux1-dev [linux-any], libkrb5-dev | heimdal-dev, dpkg-dev (>= 1.16.1~), libck-connector-dev, dh-autoreconf, autotools-dev, dh-systemd (>= 1.4)
+Package-List:
+ openssh-client deb net standard arch=any
+ openssh-client-udeb udeb debian-installer optional arch=any
+ openssh-server deb net optional arch=any
+ openssh-server-udeb udeb debian-installer optional arch=any
+ openssh-sftp-server deb net optional arch=any
+ ssh deb net extra arch=all
+ ssh-askpass-gnome deb gnome optional arch=any
+ ssh-krb5 deb oldlibs extra arch=all
+Checksums-Sha1:
+ 14e5fbed710ade334d65925e080d1aaeb9c85bf6 1351367 openssh_6.7p1.orig.tar.gz
+ 7c31b32b12a8b9aadc9b3e8fbee3b56dc8f0795f 150272 openssh_6.7p1-5+deb8u3.debian.tar.xz
+Checksums-Sha256:
+ b2f8394eae858dabbdef7dac10b99aec00c95462753e80342e530bbb6f725507 1351367 openssh_6.7p1.orig.tar.gz
+ a2f486b45310b86816fbd5b85ad61493d9b07ac3290a7b4f773747e7a47b6759 150272 openssh_6.7p1-5+deb8u3.debian.tar.xz
+Files:
+ 3246aa79317b1d23cae783a3bf8275d6 1351367 openssh_6.7p1.orig.tar.gz
+ c95ae888817d1c3cb77453453846f32e 150272 openssh_6.7p1-5+deb8u3.debian.tar.xz
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iQIcBAEBCAAGBQJXklxJAAoJENzjEOeGTMi/rhAQAKSJ+FAefOJc2lIiMXJz3HDc
+llnoGnvF/GosMQ9gtxCKjbhIegvMr+UZAXJZM1IR7v0JiyxtHQOYhP9m3TYhcN2O
+Kw6Erl7fEpBuMBPw14NN0IHkssoKiIxRaBdFPu4mtb6oBVkSeTOkqK9PpKd/e8Hm
+rq6s15PzTmREMtQWY+DJLP6xSC7e9Qrdfp7Rgav19RlwcpRuz25OEnBrN+5DyVSp
+nZXYJFl5Lp6VC9aCUdJNZ6QwmQg8sYmnfdySVyyB5v0enEMVQ/knJpgPxXzBwOai
+x0js5Y0yChiswnlyyTVfDdfHxMN/07Q4LFsrfnvD6IFyn1PsJ/0mF2AkCYbX8JdU
+ZuX6Co7KVDMnpC2Kn0eMG2xWYOaC45RKBluwyS68ocUuKro4eGVj8axsCtYZMr1w
+lQkOeD4nd6VNg3CrjLvTLKOzJFrqb8Nmi4gtQ6QRcAN6Se1bQcs0UXL6bs/x6vVj
+W+FrLba3G9dPbGZMQuWyKroiAVH/5JOvaJzjItbJyujMLiE/FP8XMqyjvSWT3UJW
+l/QM/NWU+lH7GgBnUBn05t1dOq86oyxw2v25Tw60rrrkXuLitj7LKdHbzAxWogXN
+yNjFhf4/5WhWpjI4kLFRE+uHgjILwsDwVjRlEF3D6BaPLq81JI50eq2LKMjoSKWG
+lAGrDqlyAvmyLlRxiklZ
+=VbEQ
+-----END PGP SIGNATURE-----
