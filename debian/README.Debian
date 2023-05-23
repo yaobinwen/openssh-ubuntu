@@ -204,7 +204,7 @@ can disable socket activation by running:
 
   systemctl disable --now ssh.socket
   rm -f /etc/systemd/system/ssh.service.d/00-socket.conf
-  rm -f /etc/systemd/system/ssh.service.d/addresses.conf
+  rm -f /etc/systemd/system/ssh.socket.d/addresses.conf
   systemctl daemon-reload
   systemctl enable --now ssh.service
 
