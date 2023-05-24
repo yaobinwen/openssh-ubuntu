@@ -1,3 +1,21 @@
+openssh (1:9.2p1-2ubuntu3) mantic; urgency=medium
+
+  * Fix upgrade of openssh-server with active ssh session (LP: #2020474)
+    - debian/patches/systemd-socket-activation.patch:
+      + Do force closing of listen sockets in child process
+      + Set rexec_flag = 0 when sshd is socket-activated so that child process
+        does not re-exec
+    - debian/openssh-server.postint:
+      + When upgrading from affected versions of openssh, do not try to
+        restart systemd units, and instead indicate that a reboot is required
+    - debian/tests/systemd-socket-activation:
+      + Reboot the testbed before starting the test
+    - debian/rules:
+      + Do not stop ssh.socket on upgrade
+  * d/p/test-set-UsePAM-no-on-some-tests.patch: set UsePAM=no for some tests
+
+ -- Nick Rosbrook <nick.rosbrook@canonical.com>  Wed, 24 May 2023 18:02:11 -0400
+
 openssh (1:9.2p1-2ubuntu2) mantic; urgency=medium
 
   * debian/README.Debian: Fix path of addresses.conf drop-in

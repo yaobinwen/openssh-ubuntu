@@ -14,6 +14,8 @@ if [ "x$oldver" = "xyes" ]; then
 	echo "PubkeyAcceptedKeyTypes +ssh-rsa" >> ${OBJ}/sshd_proxy
 fi
 
+sed -i "s/UsePAM.*/UsePAM no/" ${OBJ}/sshd_proxy
+
 for c in aes 3des aes128-ctr aes192-ctr aes256-ctr chacha20 ; do
 	verbose "$tid: cipher $c"
 	cp ${OBJ}/.putty/sessions/localhost_proxy \
