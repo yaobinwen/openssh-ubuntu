@@ -27,3 +27,4 @@ conch-ssh-rsa.patch
 systemd-socket-activation.patch
 remove-spurious-ssh-agent-options.patch
 socket-activation-documentation.patch
+test-set-UsePAM-no-on-some-tests.patch

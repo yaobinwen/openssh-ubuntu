@@ -318,11 +318,23 @@ fi
 #DEBHELPER#
 
 if [ -d /run/systemd/system ]; then
-	if deb-systemd-helper --quiet was-enabled ssh.socket; then
-		deb-systemd-invoke restart ssh.socket
-	elif deb-systemd-helper --quiet was-enabled ssh.service; then
-		deb-systemd-invoke restart ssh.service
-	fi
+       # If the running sshd contains the patch from LP: #2011458, without
+       # the patch from LP: #2020474, then we cannot restart ssh.socket while
+       # an ssh session is active. Rather than trying to restart these units,
+       # indicate that a reboot is required to finish configuring the new version.
+       if dpkg --compare-versions "$2" eq "1:9.0p1-1ubuntu8.1" \
+           || dpkg --compare-versions "$2" ge "1:9.2p1-2ubuntu1" \
+           && dpkg --compare-versions "$2" lt "1:9.2p1-2ubuntu3"; then
+               if ! grep -Fqsx openssh-server /run/reboot-required.pkgs; then
+                       echo openssh-server >> /run/reboot-required.pkgs || true
+               fi
+       else
+               if deb-systemd-helper --quiet was-enabled ssh.socket; then
+                       deb-systemd-invoke restart ssh.socket
+               elif deb-systemd-helper --quiet was-enabled ssh.service; then
+                       deb-systemd-invoke restart ssh.service
+               fi
+       fi
 fi
 
 db_stop
