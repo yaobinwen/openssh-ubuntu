@@ -1429,7 +1429,7 @@ server_accept_loop(int *sock_in, int *sock_out, int *newsock, int *config_s)
 				platform_post_fork_child();
 				startup_pipe = startup_p[1];
 				close_startup_pipes();
-				close_listen_socks(/* force = */ 0);
+				close_listen_socks(/* force = */ 1);
 				*sock_in = *newsock;
 				*sock_out = *newsock;
 				log_init(__progname,
@@ -1779,34 +1779,17 @@ main(int ac, char **av)
 	}
 
 #ifdef HAVE_SYSTEMD
-        /* We should call sd_listen_fds() exactly once, and only in the parent
-         * process.
-         *
-         * If the parent calls sd_listen_fds() more than once, then FD_CLOEXEC
-         * will be re-configured for the passed fds, which will cause problems
-         * during re-execution. The FD_CLOEXEC flag will be cleared by
-         * setup_systemd_socket().
-         *
-         * If the child calls sd_listen_fds(), it will return 0 because it will
-         * compare our pid to the LISTEN_PID environment variable, and only
-         * return LISTEN_FDS if they match. Thus, when we are a child process,
-         * check the LISTEN_FDS ourselves. */
-        if (rexeced_flag) {
-                const char* s = getenv("LISTEN_FDS");
-                if (s && s[0] != '\0') {
-                        errno = 0;
-                        r = (int)strtonum(s, 0, MAX_LISTEN_SOCKS, NULL);
-                        if (errno > 0)
-                                fatal("Failed to parse LISTEN_FDS: %s", strerror(errno));
-                } else
-                        r = 0;
-        } else {
-                r = sd_listen_fds(0);
-                if (r < 0)
-                        fatal("Failed to get systemd socket fds: %s", strerror(-r));
-        }
+        /* We should call sd_listen_fds() exactly once. If we call
+         * sd_listen_fds() more than once, then FD_CLOEXEC will be
+         * re-configured for the passed fds, which will cause problems during
+         * re-execution. The FD_CLOEXEC flag will be cleared by
+         * setup_systemd_socket(). */
+        r = sd_listen_fds(0);
+        if (r < 0)
+                fatal("Failed to get systemd socket fds: %s", strerror(-r));
 
         systemd_num_listen_fds = r;
+        rexec_flag = 0;
 #endif
 
 	if (rexeced_flag || inetd_flag)
