@@ -1,3 +1,10 @@
+openssh (1:9.0p1-1ubuntu7.3) kinetic; urgency=medium
+
+  * debian/patches/systemd-socket-activation.patch: do not leak sockets in
+    child process. Follow-up fix for LP: #2011458.
+
+ -- Nick Rosbrook <nick.rosbrook@canonical.com>  Tue, 30 May 2023 16:58:06 -0400
+
 openssh (1:9.0p1-1ubuntu7.2) kinetic; urgency=medium
 
   * debian/patches/systemd-socket-activation.patch: Fix re-execution behavior
