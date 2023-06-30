@@ -27,3 +27,4 @@ conch-ssh-rsa.patch
 systemd-socket-activation.patch
 broken-zero-call-used-regs.patch
 socket-activation-documentation.patch
+test-set-UsePAM-no-on-some-tests.patch
