@@ -10,7 +10,7 @@ Depends: devscripts,
          sysvinit-utils,
 
 Tests: systemd-socket-activation
-Restrictions: needs-root allow-stderr
+Restrictions: needs-root allow-stderr needs-reboot
 Depends: openssh-client,
          openssh-server,
          systemd,

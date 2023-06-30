@@ -2,6 +2,11 @@
 
 set -euo pipefail
 
+# LP: #2020474 - we may need to reboot the testbed to finish the openssh-server package upgrade.
+if grep -Fqsx openssh-server /run/reboot-required.pkgs && [[ -z "${AUTOPKGTEST_REBOOT_MARK:-""}" ]]; then
+    /tmp/autopkgtest-reboot 1
+fi
+
 assert_unit_property() {
     local property="$(echo "$2" | awk -F'=' '{print $1}')"
 
