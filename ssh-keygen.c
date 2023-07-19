@@ -1305,6 +1305,7 @@ do_known_hosts(struct passwd *pw, const char *name, int find_host,
 	int r, fd, oerrno, inplace = 0;
 	struct known_hosts_ctx ctx;
 	u_int foreach_options;
+	struct stat sb;
 
 	if (!have_identity) {
 		cp = tilde_expand_filename(_PATH_SSH_USER_HOSTFILE, pw->pw_uid);
@@ -1314,6 +1315,8 @@ do_known_hosts(struct passwd *pw, const char *name, int find_host,
 		free(cp);
 		have_identity = 1;
 	}
+	if (stat(identity_file, &sb) != 0)
+		fatal("Cannot stat %s: %s", identity_file, strerror(errno));
 
 	memset(&ctx, 0, sizeof(ctx));
 	ctx.out = stdout;
@@ -1340,6 +1343,7 @@ do_known_hosts(struct passwd *pw, const char *name, int find_host,
 			unlink(tmp);
 			fatal("fdopen: %s", strerror(oerrno));
 		}
+		fchmod(fd, sb.st_mode & 0644);
 		inplace = 1;
 	}
 	/* XXX support identity_file == "-" for stdin */
