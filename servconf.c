@@ -75,8 +75,8 @@ static void add_listen_addr(ServerOptions *, const char *,
     const char *, int);
 static void add_one_listen_addr(ServerOptions *, const char *,
     const char *, int);
-void parse_server_config_depth(ServerOptions *options, const char *filename,
-    struct sshbuf *conf, struct include_list *includes,
+static void parse_server_config_depth(ServerOptions *options,
+    const char *filename, struct sshbuf *conf, struct include_list *includes,
     struct connection_info *connectinfo, int flags, int *activep, int depth);
 
 /* Use of privilege separation or not */
@@ -2611,7 +2611,7 @@ copy_set_server_options(ServerOptions *dst, ServerOptions *src, int preauth)
 #undef M_CP_STRARRAYOPT
 
 #define SERVCONF_MAX_DEPTH	16
-void
+static void
 parse_server_config_depth(ServerOptions *options, const char *filename,
     struct sshbuf *conf, struct include_list *includes,
     struct connection_info *connectinfo, int flags, int *activep, int depth)
@@ -2637,7 +2637,6 @@ parse_server_config_depth(ServerOptions *options, const char *filename,
 	if (bad_options > 0)
 		fatal("%s: terminating, %d bad configuration options",
 		    filename, bad_options);
-	process_queued_listen_addrs(options);
 }
 
 void
@@ -2648,6 +2647,7 @@ parse_server_config(ServerOptions *options, const char *filename,
 	int active = connectinfo ? 0 : 1;
 	parse_server_config_depth(options, filename, conf, includes,
 	    connectinfo, 0, &active, 0);
+	process_queued_listen_addrs(options);
 }
 
 static const char *
