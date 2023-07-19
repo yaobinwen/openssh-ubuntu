@@ -1896,7 +1896,7 @@ main(int ac, char **av)
 		/* Find matching private key */
 		for (j = 0; j < options.num_host_key_files; j++) {
 			if (sshkey_equal_public(key,
-			    sensitive_data.host_keys[j])) {
+			    sensitive_data.host_pubkeys[j])) {
 				sensitive_data.host_certificates[j] = key;
 				break;
 			}
