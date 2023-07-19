@@ -30,3 +30,5 @@ lp1966591-upstream-preserve-group-world-read-permission-on-kno.patch
 fix-connect-timeout-overflow.patch
 fix-outdated-info-ssh-conf.patch
 lp2012298-upstream-fix-match-in-d-config.patch
+CVE-2023-38408-1.patch
+CVE-2023-38408-3.patch
