@@ -1,3 +1,15 @@
+openssh (1:8.2p1-4ubuntu0.8) focal-security; urgency=medium
+
+  * SECURITY UPDATE: remote code execution relating to PKCS#11 providers
+    - debian/patches/CVE-2023-38408-1.patch: terminate process if requested
+      to load a PKCS#11 provider that isn't a PKCS#11 provider in
+      ssh-pkcs11.c.
+    - debian/patches/CVE-2023-38408-3.patch: ensure FIDO/PKCS11 libraries
+      contain expected symbols in misc.c, misc.h, ssh-pkcs11.c, ssh-sk.c.
+    - CVE-2023-38408
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Wed, 19 Jul 2023 15:56:59 -0400
+
 openssh (1:8.2p1-4ubuntu0.7) focal; urgency=medium
 
   * d/p/lp2012298-upstream-fix-match-in-d-config.patch: Allow ssh_config.d/
