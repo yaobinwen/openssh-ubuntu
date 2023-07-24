@@ -1,3 +1,17 @@
+openssh (1:9.3p1-1ubuntu2) mantic; urgency=medium
+
+  * SECURITY UPDATE: remote code execution relating to PKCS#11 providers
+    - debian/patches/CVE-2023-38408-1.patch: terminate process if requested
+      to load a PKCS#11 provider that isn't a PKCS#11 provider in
+      ssh-pkcs11.c.
+    - debian/patches/CVE-2023-38408-2.patch: disallow remote addition of
+      FIDO/PKCS11 provider in ssh-agent.1, ssh-agent.c.
+    - debian/patches/CVE-2023-38408-3.patch: ensure FIDO/PKCS11 libraries
+      contain expected symbols in misc.c, misc.h, ssh-pkcs11.c, ssh-sk.c.
+    - CVE-2023-38408
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Mon, 24 Jul 2023 15:01:06 -0400
+
 openssh (1:9.3p1-1ubuntu1) mantic; urgency=medium
 
   * Merge with Debian unstable (LP: #2025664). Remaining changes:
