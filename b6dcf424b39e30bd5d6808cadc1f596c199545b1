@@ -1,0 +1,7 @@
+  * SECURITY UPDATE: remote code execution relating to PKCS#11 providers
+    - debian/patches/CVE-2023-38408-1.patch: terminate process if requested
+      to load a PKCS#11 provider that isn't a PKCS#11 provider in
+      ssh-pkcs11.c.
+    - debian/patches/CVE-2023-38408-3.patch: ensure FIDO/PKCS11 libraries
+      contain expected symbols in misc.c, misc.h, ssh-pkcs11.c, ssh-sk.c.
+    - CVE-2023-38408
