@@ -1,3 +1,14 @@
+openssh (1:8.2p1-4ubuntu0.9) focal-security; urgency=medium
+
+  * SECURITY UPDATE: information leak in algorithm negotiation (LP: #2030275)
+    - debian/patches/CVE-2020-14145-mitigation.patch: tweak the client
+      hostkey preference ordering algorithm in sshconnect2.c.
+    - Note: This update does not solve CVE-2020-14145, but does mitigate
+      the issue in the specific scenario where the user has a key that
+      matches the best-preference default algorithm.
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Fri, 04 Aug 2023 18:02:08 -0400
+
 openssh (1:8.2p1-4ubuntu0.8) focal-security; urgency=medium
 
   * SECURITY UPDATE: remote code execution relating to PKCS#11 providers
