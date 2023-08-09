@@ -1,0 +1,6 @@
+  * SECURITY UPDATE: information leak in algorithm negotiation (LP: #2030275)
+    - debian/patches/CVE-2020-14145-mitigation.patch: tweak the client
+      hostkey preference ordering algorithm in sshconnect2.c.
+    - Note: This update does not solve CVE-2020-14145, but does mitigate
+      the issue in the specific scenario where the user has a key that
+      matches the best-preference default algorithm.
