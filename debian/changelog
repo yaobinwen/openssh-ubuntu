@@ -1,28 +1,46 @@
 openssh (1:9.4p1-1ubuntu1) noble; urgency=medium
 
   * Merge with Debian unstable. Remaining changes:
-  * debian/rules: modify dh_installsystemd invocations for
-    socket-activated sshd
-  * debian/openssh-server.postinst: handle migration of sshd_config options
-    to systemd socket options on upgrade.
-  * debian/README.Debian: document systemd socket activation.
-  * debian/patches/socket-activation-documentation.patch: Document in
-    sshd_config(5) that ListenAddress and Port no longer work.
-  * debian/openssh-server.templates: include debconf prompt explaining
-    when migration cannot happen due to multiple ListenAddress values
-  * debian/.gitignore: drop file
-  * debian/openssh-server.postrm: remove systemd drop-ins for
-    socket-activated sshd on purge
-  * debian/openssh-server.ucf-md5sum: update for Ubuntu delta
-  * debian/openssh-server.tmpfile,debian/systemd/ssh.service: Move
-    /run/sshd creation out of the systemd unit to a tmpfile config so
-    that sshd can be run manually if necessary without having to create
-    this directory by hand.
-  * debian/patches/systemd-socket-activation.patch: Fix sshd
-    re-execution behavior when socket activation is used
-  * debian/tests/systemd-socket-activation: Add autopkgtest for systemd socket
-    activation functionality.
-  * d/p/test-set-UsePAM-no-on-some-tests.patch: set UsePAM=no for some tests
+    - debian/rules: modify dh_installsystemd invocations for
+      socket-activated sshd
+    - debian/openssh-server.postinst: handle migration of sshd_config options
+      to systemd socket options on upgrade.
+    - debian/README.Debian: document systemd socket activation.
+    - debian/patches/socket-activation-documentation.patch: Document in
+      sshd_config(5) that ListenAddress and Port no longer work.
+    - debian/openssh-server.templates: include debconf prompt explaining
+      when migration cannot happen due to multiple ListenAddress values
+    - debian/.gitignore: drop file
+    - debian/openssh-server.postrm: remove systemd drop-ins for
+      socket-activated sshd on purge
+    - debian/openssh-server.ucf-md5sum: update for Ubuntu delta
+    - debian/openssh-server.tmpfile,debian/systemd/ssh.service: Move
+      /run/sshd creation out of the systemd unit to a tmpfile config so
+      that sshd can be run manually if necessary without having to create
+      this directory by hand.
+    - debian/patches/systemd-socket-activation.patch: Fix sshd
+      re-execution behavior when socket activation is used
+    - debian/tests/systemd-socket-activation: Add autopkgtest for systemd socket
+      activation functionality.
+    - d/p/test-set-UsePAM-no-on-some-tests.patch: set UsePAM=no for some tests
+  * Dropped changes, fixed upstream:
+    - d/p/fix-authorized-principals-command.patch: Fix the situation where
+      sshd ignores AuthorizedPrincipalsCommand if AuthorizedKeysCommand
+      is also set by checking if the value pointed to by the pointer
+      'charptr' is NULL.
+    - debian/patches/CVE-2023-38408-1.patch: terminate process if requested
+      to load a PKCS#11 provider that isn't a PKCS#11 provider in
+      ssh-pkcs11.c.
+    - debian/patches/CVE-2023-38408-2.patch: disallow remote addition of
+      FIDO/PKCS11 provider in ssh-agent.1, ssh-agent.c.
+    - debian/patches/CVE-2023-38408-3.patch: ensure FIDO/PKCS11 libraries
+      contain expected symbols in misc.c, misc.h, ssh-pkcs11.c, ssh-sk.c.
+  * Dropped changes, affected package versions not published in supported
+    releases:
+    - debian/openssh-server.postint: do not try to restart systemd units,
+      and instead indicate that a reboot is required
+    - debian/tests/systemd-socket-activation: Reboot the testbed before starting the test
+    - debian/rules: Do not stop ssh.socket on upgrade
 
  -- Nick Rosbrook <enr0n@ubuntu.com>  Mon, 13 Nov 2023 12:47:29 -0500
 
