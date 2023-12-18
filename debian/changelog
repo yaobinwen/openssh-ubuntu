@@ -1,3 +1,12 @@
+openssh (1:9.3p1-1ubuntu3.1) mantic-security; urgency=medium
+
+  * SECURITY UPDATE: Prefix truncation attack on BPP
+    - debian/patches/CVE-2023-48795.patch: implement "strict key exchange"
+      in PROTOCOL, kex.c, kex.h, packet.c, sshconnect2.c.
+    - CVE-2023-48795
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Mon, 18 Dec 2023 10:39:17 -0500
+
 openssh (1:9.3p1-1ubuntu3) mantic; urgency=medium
 
   * d/p/fix-authorized-principals-command.patch: Fix the situation where
