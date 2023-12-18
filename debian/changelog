@@ -1,3 +1,12 @@
+openssh (1:8.2p1-4ubuntu0.10) focal-security; urgency=medium
+
+  * SECURITY UPDATE: Prefix truncation attack on BPP
+    - debian/patches/CVE-2023-48795.patch: implement "strict key exchange"
+      in PROTOCOL, kex.c, kex.h, packet.c, sshconnect2.c, sshd.c.
+    - CVE-2023-48795
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Mon, 18 Dec 2023 11:35:39 -0500
+
 openssh (1:8.2p1-4ubuntu0.9) focal-security; urgency=medium
 
   * SECURITY UPDATE: information leak in algorithm negotiation (LP: #2030275)

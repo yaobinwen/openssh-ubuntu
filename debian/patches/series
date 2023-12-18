@@ -33,3 +33,4 @@ lp2012298-upstream-fix-match-in-d-config.patch
 CVE-2023-38408-1.patch
 CVE-2023-38408-3.patch
 CVE-2020-14145-mitigation.patch
+CVE-2023-48795.patch
