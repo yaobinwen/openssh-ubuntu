@@ -1,0 +1,4 @@
+  * SECURITY UPDATE: Prefix truncation attack on BPP
+    - debian/patches/CVE-2023-48795.patch: implement "strict key exchange"
+      in PROTOCOL, kex.c, kex.h, packet.c, sshconnect2.c.
+    - CVE-2023-48795
