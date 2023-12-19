@@ -1,0 +1,8 @@
+  * SECURITY UPDATE: Prefix truncation attack on BPP
+    - debian/patches/CVE-2023-48795.patch: implement "strict key exchange"
+      in PROTOCOL, kex.c, kex.h, packet.c, sshconnect2.c, sshd.c.
+    - CVE-2023-48795
+  * SECURITY UPDATE: smartcard constraints not added to agent
+    - debian/patches/CVE-2023-28531.patch: include destination constraints
+      for smartcard keys too in authfd.c.
+    - CVE-2023-28531
