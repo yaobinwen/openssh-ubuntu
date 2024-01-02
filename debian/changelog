@@ -1,3 +1,17 @@
+openssh (1:8.2p1-4ubuntu0.11) focal-security; urgency=medium
+
+  * SECURITY UPDATE: Supplemental groups not initialized
+    - debian/patches/CVE-2021-41617-1.patch: add initgroups()
+      before setresgid() in auth.c.
+    - debian/patches/CVE-2021-41617-2.patch: add grp.h in auth.c.
+    - CVE-2021-41617
+  * SECURITY UPDATE: command injection via shell metacharacters
+    - debian/patches/CVE-2023-51385.patch: ban user/hostnames with most
+      shell metacharacters in ssh.c.
+    - CVE-2023-51385
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Tue, 02 Jan 2024 12:13:02 -0500
+
 openssh (1:8.2p1-4ubuntu0.10) focal-security; urgency=medium
 
   * SECURITY UPDATE: Prefix truncation attack on BPP
