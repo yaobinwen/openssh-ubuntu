@@ -1,0 +1,9 @@
+  * SECURITY UPDATE: Supplemental groups not initialized
+    - debian/patches/CVE-2021-41617-1.patch: add initgroups()
+      before setresgid() in auth.c.
+    - debian/patches/CVE-2021-41617-2.patch: add grp.h in auth.c.
+    - CVE-2021-41617
+  * SECURITY UPDATE: command injection via shell metacharacters
+    - debian/patches/CVE-2023-51385.patch: ban user/hostnames with most
+      shell metacharacters in ssh.c.
+    - CVE-2023-51385
