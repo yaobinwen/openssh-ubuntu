@@ -1,3 +1,13 @@
+openssh (1:9.6p1-3) unstable; urgency=medium
+
+  * Allow passing extra ssh-agent arguments via
+    "/usr/lib/openssh/agent-launch start", making it possible to override
+    things like identity lifetime using a systemd drop-in unit (closes:
+    #1059639).
+  * Don't try to start rescue-ssh.target in postinst (LP: #2047082).
+
+ -- Colin Watson <cjwatson@debian.org>  Wed, 17 Jan 2024 22:50:07 +0000
+
 openssh (1:9.6p1-2) unstable; urgency=medium
 
   * Improve detection of broken -fzero-call-used-regs=used (see
