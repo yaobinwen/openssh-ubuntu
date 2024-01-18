@@ -1,0 +1,5 @@
+  * Allow passing extra ssh-agent arguments via
+    "/usr/lib/openssh/agent-launch start", making it possible to override
+    things like identity lifetime using a systemd drop-in unit (closes:
+    #1059639).
+  * Don't try to start rescue-ssh.target in postinst (LP: #2047082).
