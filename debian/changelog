@@ -1,3 +1,36 @@
+openssh (1:9.6p1-3ubuntu1) noble; urgency=medium
+
+  * Merge with Debian unstable (LP: #2040406). Remaining changes:
+    - debian/rules: modify dh_installsystemd invocations for
+      socket-activated sshd.
+    - debian/openssh-server.postinst: handle migration of sshd_config
+      options to systemd socket options on upgrade.
+    - debian/README.Debian: document systemd socket activation.
+    - debian/patches/socket-activation-documentation.patch: Document
+      in sshd_config(5) that ListenAddress and Port no longer work.
+    - debian/openssh-server.templates: include debconf prompt
+      explaining when migration cannot happen due to multiple
+      ListenAddress values.
+    - debian/.gitignore: drop file.
+    - debian/openssh-server.postrm: remove systemd drop-ins for
+      socket-activated sshd on purge.
+    - debian/openssh-server.ucf-md5sum: update for Ubuntu delta
+    - debian/openssh-server.tmpfile,debian/systemd/ssh.service: Move
+      /run/sshd creation out of the systemd unit to a tmpfile config
+      so that sshd can be run manually if necessary without having to
+      create this directory by hand.
+    - debian/patches/systemd-socket-activation.patch: Fix sshd
+      re-execution behavior when socket activation is used.
+    - debian/tests/systemd-socket-activation: Add autopkgtest
+      for systemd socket activation functionality.
+    - d/p/test-set-UsePAM-no-on-some-tests.patch: set UsePAM=no
+      for some tests.
+  * Dropped changes, fixed upstream:
+    - d/p/fix-ftbfs-with-zlib13.patch: fix ftbfs when using zlib 1.3
+      (LP #2049552)
+
+ -- Miriam España Acebal <miriam.espana@canonical.com>  Mon, 29 Jan 2024 11:16:31 +0100
+
 openssh (1:9.6p1-3) unstable; urgency=medium
 
   * Allow passing extra ssh-agent arguments via
@@ -148,6 +181,59 @@ openssh (1:9.5p1-1) experimental; urgency=medium
 
  -- Colin Watson <cjwatson@debian.org>  Thu, 23 Nov 2023 17:38:07 +0000
 
+openssh (1:9.4p1-1ubuntu2) noble; urgency=medium
+
+  * d/p/fix-ftbfs-with-zlib13.patch: fix ftbfs when using
+    zlib 1.3 (LP: #2049552).
+
+ -- Miriam España Acebal <miriam.espana@canonical.com>  Wed, 17 Jan 2024 20:00:55 +0100
+
+openssh (1:9.4p1-1ubuntu1) noble; urgency=medium
+
+  * Merge with Debian unstable. Remaining changes:
+    - debian/rules: modify dh_installsystemd invocations for
+      socket-activated sshd
+    - debian/openssh-server.postinst: handle migration of sshd_config options
+      to systemd socket options on upgrade.
+    - debian/README.Debian: document systemd socket activation.
+    - debian/patches/socket-activation-documentation.patch: Document in
+      sshd_config(5) that ListenAddress and Port no longer work.
+    - debian/openssh-server.templates: include debconf prompt explaining
+      when migration cannot happen due to multiple ListenAddress values
+    - debian/.gitignore: drop file
+    - debian/openssh-server.postrm: remove systemd drop-ins for
+      socket-activated sshd on purge
+    - debian/openssh-server.ucf-md5sum: update for Ubuntu delta
+    - debian/openssh-server.tmpfile,debian/systemd/ssh.service: Move
+      /run/sshd creation out of the systemd unit to a tmpfile config so
+      that sshd can be run manually if necessary without having to create
+      this directory by hand.
+    - debian/patches/systemd-socket-activation.patch: Fix sshd
+      re-execution behavior when socket activation is used
+    - debian/tests/systemd-socket-activation: Add autopkgtest for systemd socket
+      activation functionality.
+    - d/p/test-set-UsePAM-no-on-some-tests.patch: set UsePAM=no for some tests
+  * Dropped changes, fixed upstream:
+    - d/p/fix-authorized-principals-command.patch: Fix the situation where
+      sshd ignores AuthorizedPrincipalsCommand if AuthorizedKeysCommand
+      is also set by checking if the value pointed to by the pointer
+      'charptr' is NULL.
+    - debian/patches/CVE-2023-38408-1.patch: terminate process if requested
+      to load a PKCS#11 provider that isn't a PKCS#11 provider in
+      ssh-pkcs11.c.
+    - debian/patches/CVE-2023-38408-2.patch: disallow remote addition of
+      FIDO/PKCS11 provider in ssh-agent.1, ssh-agent.c.
+    - debian/patches/CVE-2023-38408-3.patch: ensure FIDO/PKCS11 libraries
+      contain expected symbols in misc.c, misc.h, ssh-pkcs11.c, ssh-sk.c.
+  * Dropped changes, affected package versions not published in supported
+    releases:
+    - debian/openssh-server.postint: do not try to restart systemd units,
+      and instead indicate that a reboot is required
+    - debian/tests/systemd-socket-activation: Reboot the testbed before starting the test
+    - debian/rules: Do not stop ssh.socket on upgrade
+
+ -- Nick Rosbrook <enr0n@ubuntu.com>  Mon, 13 Nov 2023 12:47:29 -0500
+
 openssh (1:9.4p1-1) unstable; urgency=medium
 
   * New upstream release (https://www.openssh.com/releasenotes.html#9.4p1):
@@ -236,6 +322,62 @@ openssh (1:9.3p2-1) unstable; urgency=high
 
  -- Colin Watson <cjwatson@debian.org>  Wed, 19 Jul 2023 22:49:14 +0100
 
+openssh (1:9.3p1-1ubuntu3) mantic; urgency=medium
+
+  * d/p/fix-authorized-principals-command.patch: Fix the situation where
+    sshd ignores AuthorizedPrincipalsCommand if AuthorizedKeysCommand
+    is also set by checking if the value pointed to by the pointer
+    'charptr' is NULL. (LP: #2031942)
+
+ -- Michal Maloszewski <michal.maloszewski@canonical.com>  Thu, 24 Aug 2023 15:20:27 +0200
+
+openssh (1:9.3p1-1ubuntu2) mantic; urgency=medium
+
+  * SECURITY UPDATE: remote code execution relating to PKCS#11 providers
+    - debian/patches/CVE-2023-38408-1.patch: terminate process if requested
+      to load a PKCS#11 provider that isn't a PKCS#11 provider in
+      ssh-pkcs11.c.
+    - debian/patches/CVE-2023-38408-2.patch: disallow remote addition of
+      FIDO/PKCS11 provider in ssh-agent.1, ssh-agent.c.
+    - debian/patches/CVE-2023-38408-3.patch: ensure FIDO/PKCS11 libraries
+      contain expected symbols in misc.c, misc.h, ssh-pkcs11.c, ssh-sk.c.
+    - CVE-2023-38408
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Mon, 24 Jul 2023 15:01:06 -0400
+
+openssh (1:9.3p1-1ubuntu1) mantic; urgency=medium
+
+  * Merge with Debian unstable (LP: #2025664). Remaining changes:
+    - debian/rules: modify dh_installsystemd invocations for
+      socket-activated sshd
+    - debian/openssh-server.postinst: handle migration of sshd_config options
+      to systemd socket options on upgrade.
+    - debian/README.Debian: document systemd socket activation.
+    - debian/patches/socket-activation-documentation.patch: Document in
+      sshd_config(5) that ListenAddress and Port no longer work.
+    - debian/openssh-server.templates: include debconf prompt explaining
+      when migration cannot happen due to multiple ListenAddress values
+    - debian/.gitignore: drop file
+    - debian/openssh-server.postrm: remove systemd drop-ins for
+      socket-activated sshd on purge
+    - debian/openssh-server.ucf-md5sum: update for Ubuntu delta
+    - debian/openssh-server.tmpfile,debian/systemd/ssh.service: Move
+      /run/sshd creation out of the systemd unit to a tmpfile config so
+      that sshd can be run manually if necessary without having to create
+      this directory by hand.
+    - debian/patches/systemd-socket-activation.patch: Fix sshd
+      re-execution behavior when socket activation is used
+    - debian/tests/systemd-socket-activation: Add autopkgtest for systemd socket
+      activation functionality.
+    - d/p/test-set-UsePAM-no-on-some-tests.patch: set UsePAM=no for some tests
+    - Ensure smooth upgrade path from versions affected by LP: #2020474:
+      + debian/openssh-server.postint: do not try to restart systemd units,
+        and instead indicate that a reboot is required
+      + debian/tests/systemd-socket-activation: Reboot the testbed before starting the test
+      + debian/rules: Do not stop ssh.socket on upgrade
+
+ -- Nick Rosbrook <nick.rosbrook@canonical.com>  Mon, 03 Jul 2023 11:34:47 -0400
+
 openssh (1:9.3p1-1) unstable; urgency=medium
 
   * Debconf translations:
@@ -292,6 +434,64 @@ openssh (1:9.3p1-1) unstable; urgency=medium
     #1001186).
 
  -- Colin Watson <cjwatson@debian.org>  Tue, 20 Jun 2023 01:01:48 +0100
+
+openssh (1:9.2p1-2ubuntu3) mantic; urgency=medium
+
+  * Fix upgrade of openssh-server with active ssh session (LP: #2020474)
+    - debian/patches/systemd-socket-activation.patch:
+      + Do force closing of listen sockets in child process
+      + Set rexec_flag = 0 when sshd is socket-activated so that child process
+        does not re-exec
+    - debian/openssh-server.postint:
+      + When upgrading from affected versions of openssh, do not try to
+        restart systemd units, and instead indicate that a reboot is required
+    - debian/tests/systemd-socket-activation:
+      + Reboot the testbed before starting the test
+    - debian/rules:
+      + Do not stop ssh.socket on upgrade
+  * d/p/test-set-UsePAM-no-on-some-tests.patch: set UsePAM=no for some tests
+
+ -- Nick Rosbrook <nick.rosbrook@canonical.com>  Wed, 24 May 2023 18:02:11 -0400
+
+openssh (1:9.2p1-2ubuntu2) mantic; urgency=medium
+
+  * debian/README.Debian: Fix path of addresses.conf drop-in
+
+ -- Nick Rosbrook <nick.rosbrook@canonical.com>  Tue, 23 May 2023 10:50:35 -0400
+
+openssh (1:9.2p1-2ubuntu1) mantic; urgency=medium
+
+  * Merge with Debian unstable (LP: #2018094). Remaining changes:
+    - debian/rules: modify dh_installsystemd invocations for
+      socket-activated sshd
+    - debian/openssh-server.postinst: handle migration of sshd_config options
+      to systemd socket options on upgrade.
+    - debian/README.Debian: document systemd socket activation.
+    - debian/patches/socket-activation-documentation.patch: Document in
+      sshd_config(5) that ListenAddress and Port no longer work.
+    - debian/openssh-server.templates: include debconf prompt explaining
+      when migration cannot happen due to multiple ListenAddress values
+    - debian/.gitignore: drop file
+    - debian/openssh-server.postrm: remove systemd drop-ins for
+      socket-activated sshd on purge
+    - debian/openssh-server.ucf-md5sum: Update list of stock sshd_config
+      checksums to include those from jammy and kinetic.
+    - debian/openssh-server.tmpfile,debian/systemd/ssh.service: Move
+      /run/sshd creation out of the systemd unit to a tmpfile config so
+      that sshd can be run manually if necessary without having to create
+      this directory by hand.
+    - debian/patches/systemd-socket-activation.patch: Fix sshd
+      re-execution behavior when socket activation is used
+    - debian/tests/systemd-socket-activation: Add autopkgtest for systemd socket
+      activation functionality.
+  * Dropped changes, included in Debian:
+    - debian/patches/systemd-socket-activation.patch: Initial implementation
+  * New changes:
+    - debian/README.Debian: mention drop-in configurations in instructions
+      for disabling sshd socket activation (LP: #2017434).
+    - debian/openssh-server.ucf-md5sum: update for Ubuntu delta
+
+ -- Nick Rosbrook <nick.rosbrook@canonical.com>  Fri, 19 May 2023 15:18:17 -0400
 
 openssh (1:9.2p1-2) unstable; urgency=medium
 
@@ -543,6 +743,105 @@ openssh (1:9.1p1-1) unstable; urgency=medium
     sed.
 
  -- Colin Watson <cjwatson@debian.org>  Mon, 14 Nov 2022 16:25:45 +0000
+
+openssh (1:9.0p1-1ubuntu8.1) lunar; urgency=medium
+
+  * debian/patches/systemd-socket-activation.patch: Fix re-execution behavior
+    (LP: #2011458):
+    - Remove FD_CLOEXEC on fds passed by systemd to prevent automatic closing
+      when sshd re-executes.
+    - Do not manually close fds passed by systemd when re-executing.
+    - Only call sd_listen_fds() once, and only in the parent process.
+    - Check the LISTEN_FDS environment variable to get the number of fds
+      passed by systemd when re-executing as a child process.
+  * debian/tests/systemd-socket-activation: Add autopkgtest for systemd socket
+    activation functionality.
+
+ -- Nick Rosbrook <nick.rosbrook@canonical.com>  Fri, 31 Mar 2023 12:44:32 -0400
+
+openssh (1:9.0p1-1ubuntu8) lunar; urgency=medium
+
+  * debian/openssh-server.postinst: Fix handling of ListenAddress when a port
+    is specified (LP: #1993478):
+    - Strip port before converting hostnames to numerical addresses.
+    - Only append ports when the ListenAddress does not already specify a
+      port.
+    - Revert socket migration on upgrade if a previous version did the
+      migration when it should not have.
+  * debian/openssh-server.postinst: Ignore empty directory failure from rmdir
+    when skipping socket migration (LP: #1995294).
+
+ -- Nick Rosbrook <nick.rosbrook@canonical.com>  Tue, 25 Oct 2022 11:57:43 -0400
+
+openssh (1:9.0p1-1ubuntu7) kinetic; urgency=medium
+
+  * Update list of stock sshd_config checksums to include those from
+    jammy and kinetic.
+  * Add a workaround for LP: #1990863 (now fixed in livecd-rootfs) to
+    avoid spurious ucf prompts on upgrade.
+  * Move /run/sshd creation out of the systemd unit to a tmpfile config
+    so that sshd can be run manually if necessary without having to create
+    this directory by hand.  LP: #1991283.
+
+  [ Nick Rosbrook ]
+  * debian/openssh-server.postinst: Fix addresses.conf generation when only
+    non-default Port is used in /etc/ssh/sshd_config (LP: #1991199).
+
+ -- Steve Langasek <vorlon@debian.org>  Mon, 26 Sep 2022 21:55:14 +0000
+
+openssh (1:9.0p1-1ubuntu6) kinetic; urgency=medium
+
+  * Fix syntax error in postinst :/
+
+ -- Steve Langasek <vorlon@debian.org>  Fri, 23 Sep 2022 19:51:32 +0000
+
+openssh (1:9.0p1-1ubuntu5) kinetic; urgency=medium
+
+  * Correctly handle the case of new installs, and correctly apply systemd
+    unit overrides on upgrade from existing kinetic systems.
+
+ -- Steve Langasek <vorlon@debian.org>  Fri, 23 Sep 2022 19:45:18 +0000
+
+openssh (1:9.0p1-1ubuntu4) kinetic; urgency=medium
+
+  * Don't migrate users to socket activation if multiple ListenAddresses
+    might make sshd unreliable on boot.
+  * Fix regexp bug that prevented proper migration of IPv6 address settings.
+
+ -- Steve Langasek <vorlon@debian.org>  Fri, 23 Sep 2022 19:35:37 +0000
+
+openssh (1:9.0p1-1ubuntu3) kinetic; urgency=medium
+
+  * Document in the default sshd_config file the changes in behavior 
+    triggered by use of socket-based activation.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Fri, 26 Aug 2022 00:40:11 +0000
+
+openssh (1:9.0p1-1ubuntu2) kinetic; urgency=medium
+
+  * Fix manpage to not claim socket-based activation is the default on
+    Debian!
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Fri, 26 Aug 2022 00:21:42 +0000
+
+openssh (1:9.0p1-1ubuntu1) kinetic; urgency=medium
+
+  * debian/patches/systemd-socket-activation.patch: support systemd
+    socket activation.
+  * debian/systemd/ssh.socket, debian/systemd/ssh.service: use socket
+    activation by default.
+  * debian/rules: rejigger dh_installsystemd invocations so ssh.service and
+    ssh.socket don't fight.
+  * debian/openssh-server.postinst: handle migration of sshd_config options
+    to systemd socket options on upgrade.
+  * debian/README.Debian: document systemd socket activation.
+  * debian/patches/socket-activation-documentation.patch: Document in
+    sshd_config(5) that ListenAddress and Port no longer work.
+  * debian/openssh-server.templates, debian/openssh-server.postinst: include
+    debconf warning about possible service failure with multiple
+    ListenAddress settings.
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Fri, 19 Aug 2022 20:43:16 +0000
 
 openssh (1:9.0p1-1) unstable; urgency=medium
 
