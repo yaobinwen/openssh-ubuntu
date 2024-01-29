@@ -1,3 +1,31 @@
+openssh (1:9.6p1-3ubuntu1) noble; urgency=medium
+
+  * Merge with Debian unstable. Remaining changes:
+  * debian/rules: modify dh_installsystemd invocations for
+    socket-activated sshd
+  * debian/openssh-server.postinst: handle migration of sshd_config options
+    to systemd socket options on upgrade.
+  * debian/README.Debian: document systemd socket activation.
+  * debian/patches/socket-activation-documentation.patch: Document in
+    sshd_config(5) that ListenAddress and Port no longer work.
+  * debian/openssh-server.templates: include debconf prompt explaining
+    when migration cannot happen due to multiple ListenAddress values
+  * debian/.gitignore: drop file
+  * debian/openssh-server.postrm: remove systemd drop-ins for
+    socket-activated sshd on purge
+  * debian/openssh-server.ucf-md5sum: update for Ubuntu delta
+  * debian/openssh-server.tmpfile,debian/systemd/ssh.service: Move
+    /run/sshd creation out of the systemd unit to a tmpfile config so
+    that sshd can be run manually if necessary without having to create
+    this directory by hand.
+  * debian/patches/systemd-socket-activation.patch: Fix sshd
+    re-execution behavior when socket activation is used
+  * debian/tests/systemd-socket-activation: Add autopkgtest for systemd socket
+    activation functionality.
+  * d/p/test-set-UsePAM-no-on-some-tests.patch: set UsePAM=no for some tests
+
+ -- Miriam España Acebal <miriam.espana@canonical.com>  Mon, 29 Jan 2024 18:16:31 +0100
+
 openssh (1:9.6p1-3) unstable; urgency=medium
 
   * Allow passing extra ssh-agent arguments via
