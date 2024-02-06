@@ -1440,10 +1440,12 @@ again:
     timeout_ms = options.connection_timeout * 1000;
 
     /* Open a connection to the remote host. */
+    verbose("[ywen] marker 1443: ssh_connect: %s", host);
     if (ssh_connect(ssh, host, addrs, &hostaddr, options.port,
                     options.address_family, options.connection_attempts,
                     &timeout_ms, options.tcp_keep_alive) != 0)
         exit(255);
+    verbose("[ywen] marker 1448: ssh_connect: %s (done)", host);
 
     if (addrs != NULL)
         freeaddrinfo(addrs);
@@ -1518,7 +1520,9 @@ again:
         }
     }
     /* load options.identity_files */
+    verbose("[ywen] marker 1523: load_public_identity_files");
     load_public_identity_files(pw);
+    verbose("[ywen] marker 1525: load_public_identity_files (done)");
 
     /* optionally set the SSH_AUTHSOCKET_ENV_NAME variable */
     if (options.identity_agent &&
@@ -1578,8 +1582,10 @@ again:
     signal(SIGCHLD, main_sigchld_handler);
 
     /* Log into the remote system.  Never returns if the login fails. */
+    verbose("[ywen] marker 1585: ssh_login");
     ssh_login(ssh, &sensitive_data, host, (struct sockaddr *)&hostaddr,
               options.port, pw, timeout_ms);
+    verbose("[ywen] marker 1588: ssh_login (done)");
 
     if (ssh_packet_connection_is_on_socket(ssh))
     {
