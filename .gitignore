@@ -27,3 +27,6 @@ ssh-pkcs11-helper
 sshd
 !regress/misc/fuzz-harness/Makefile
 tags
+
+# build folder
+build
