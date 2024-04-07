@@ -847,7 +847,7 @@ again:
             }
             break;
         case 'V':
-            fprintf(stderr, "%s, %s\n",
+            fprintf(stderr, "%s, %s (built by ywen)\n",
                     SSH_RELEASE,
 #ifdef WITH_OPENSSL
                     OpenSSL_version(OPENSSL_VERSION)
