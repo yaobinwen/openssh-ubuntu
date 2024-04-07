@@ -1400,9 +1400,11 @@ void ssh_login(struct ssh *ssh, Sensitive *sensitive, const char *orighost,
     host = xstrdup(orighost);
     lowercase(host);
 
+    verbose("[ywen][ssh_login][kex_exchange_identification >>>] Start exchanging protocol version identification strings...");
     /* Exchange protocol version identification strings with the server. */
     if (kex_exchange_identification(ssh, timeout_ms, 1, NULL) != 0)
         cleanup_exit(255); /* error already logged */
+    verbose("[ywen][ssh_login][kex_exchange_identification <<<] Finish exchanging protocol version identification strings.");
 
     /* Put the connection into non-blocking mode. */
     ssh_packet_set_nonblocking(ssh);
@@ -1410,8 +1412,15 @@ void ssh_login(struct ssh *ssh, Sensitive *sensitive, const char *orighost,
     /* key exchange */
     /* authenticate user */
     debug("Authenticating to %s:%d as '%s'", host, port, server_user);
+
+    verbose("[ywen][ssh_login][ssh_kex2 >>>]");
     ssh_kex2(ssh, host, hostaddr, port);
+    verbose("[ywen][ssh_login][ssh_kex2 <<<]");
+
+    verbose("[ywen][ssh_login][ssh_userauth2 >>>] Start authenticating the user...");
     ssh_userauth2(ssh, local_user, server_user, host, sensitive);
+    verbose("[ywen][ssh_login][ssh_userauth2 <<<] Finish authenticating the user...");
+
     free(local_user);
 }
 

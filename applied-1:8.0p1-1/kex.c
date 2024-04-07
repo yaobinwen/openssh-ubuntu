@@ -1399,6 +1399,9 @@ int kex_exchange_identification(struct ssh *ssh, int timeout_ms,
     }
     debug("Remote protocol version %d.%d, remote software version %.100s",
           remote_major, remote_minor, remote_version);
+
+    // NOTE(ywen): Print the "match" log message:
+    // Example: "match: OpenSSH_7.6p1 Ubuntu-4ubuntu0.7 pat OpenSSH_7.0*,OpenSSH_7.1*,OpenSSH_7.2*,OpenSSH_7.3*,OpenSSH_7.4*,OpenSSH_7.5*,OpenSSH_7.6*,OpenSSH_7.7* compat 0x04000002"
     ssh->compat = compat_datafellows(remote_version);
 
     mismatch = 0;

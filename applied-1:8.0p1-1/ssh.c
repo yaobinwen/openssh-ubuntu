@@ -1140,6 +1140,8 @@ again:
              options.log_facility == SYSLOG_FACILITY_NOT_SET ? SYSLOG_FACILITY_USER : options.log_facility,
              !use_syslog);
 
+    // NOTE(ywen): Log the version info during debugging (e.g., "OpenSSH_8.0p1, OpenSSL 1.1.1  11 Sep 2018").
+    // This is the first log message of the entire session.
     if (debug_flag)
         logit("%s, %s", SSH_RELEASE,
 #ifdef WITH_OPENSSL
@@ -1576,6 +1578,8 @@ again:
 
     signal(SIGPIPE, SIG_IGN); /* ignore SIGPIPE early */
     signal(SIGCHLD, main_sigchld_handler);
+
+    verbose("[ywen][main] Start to log into the remote system (never returns if the login fails)...");
 
     /* Log into the remote system.  Never returns if the login fails. */
     ssh_login(ssh, &sensitive_data, host, (struct sockaddr *)&hostaddr,
