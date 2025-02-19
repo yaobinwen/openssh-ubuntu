@@ -1,0 +1,31 @@
+From c9c1bba06ad1c7cad8548549a68c071bd807af60 Mon Sep 17 00:00:00 2001
+From: "stsp@openbsd.org" <stsp@openbsd.org>
+Date: Tue, 23 Jan 2018 20:00:58 +0000
+Subject: [PATCH] upstream commit
+
+Fix a logic bug in sshd_exchange_identification which
+prevented clients using major protocol version 2 from connecting to the
+server. ok millert@
+
+OpenBSD-Commit-ID: 8668dec04586e27f1c0eb039ef1feb93d80a5ee9
+
+Backport-Note: dropped the no-op file header change
+Origin: backport, https://anongit.mindrot.org/openssh.git/commit/?id=c9c1bba06
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/1863930
+Last-Update: 2020-03-03
+
+---
+ sshd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- a/sshd.c
++++ b/sshd.c
+@@ -465,7 +465,7 @@ sshd_exchange_identification(struct ssh
+ 	chop(server_version_string);
+ 	debug("Local version string %.200s", server_version_string);
+
+-	if (remote_major != 2 ||
++	if (remote_major != 2 &&
+ 	    !(remote_major == 1 && remote_minor == 99)) {
+ 		s = "Protocol major versions differ.\n";
+ 		(void) atomicio(vwrite, sock_out, s, strlen(s));
