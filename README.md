@@ -20,6 +20,7 @@ See [Wikipedia: Secure Shell](https://en.wikipedia.org/wiki/Secure_Shell#Standar
 
 ## OpenSSH versions
 
+- `applied-1:7.6p1-4ubuntu0.7` was created using the tag `applied/1%7.6p1-4ubuntu0.7`.
 - `applied-1:8.0p1-1` was created off the tag `applied/1%8.0p1-1`.
   - Note that this version doesn't have the [GSS API patch](./debian/patches/gssapi.patch) applied so it will report `Unsupported option "gssapiauthentication"` if `ssh_config` has `GSSAPIAuthentication` enabled.
 
