@@ -24,6 +24,7 @@ See [Wikipedia: Secure Shell](https://en.wikipedia.org/wiki/Secure_Shell#Standar
   - This version cannot be built with `openssl >= 1.1.0` and still requires `openssl1.0` and `libssl1.0-dev`. It's better to build this version of SSH inside a virtual machine.
 - `applied-1:8.0p1-1` was created off the tag `applied/1%8.0p1-1`.
   - Note that this version doesn't have the [GSS API patch](./debian/patches/gssapi.patch) applied so it will report `Unsupported option "gssapiauthentication"` if `ssh_config` has `GSSAPIAuthentication` enabled.
+- `applied-1:9.6p1-3ubuntu13.9` was created off the tag `applied-1%9.6p1-3ubuntu13.9`, used on Ubuntu 24.04.
 
 ## How to build
 
